@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fdfe13805dea6e42bdd965dab954d19, type: 3}
+  m_Name: DefaultProfile
+  m_EditorClassIdentifier: 
+  profileData:
+    CurrencyData: []
+    Settings:
+      Vibration: 1
+      SoundGlobal: 1
+      SoundValue: 1
+      MusicValue: 1
+    IternalData:
+      AdsDisabled: 0
+      SessionNum: 0
+    ItemsData: []
+    levelManagerAddressablesData:
+      CurrentLevelCount: 0
+      LastLevelIndex: 0
+      RandomLevels: 
