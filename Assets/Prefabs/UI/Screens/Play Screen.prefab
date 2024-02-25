@@ -449,19 +449,7 @@ MonoBehaviour:
         m_CallState: 2
   JoystickNormalizedValue:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2184216401881570581}
-        m_TargetAssemblyTypeName: MoreMountains.TopDownEngine.InputManager, MoreMountains.TopDownEngine
-        m_MethodName: SetMovement
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   JoystickMagnitudeValue:
     m_PersistentCalls:
       m_Calls: []
@@ -485,7 +473,7 @@ MonoBehaviour:
   DrawGizmos: 1
   KnobCanvasGroup: {fileID: 6318178502541137824}
   BackgroundCanvasGroup: {fileID: 422220897862349583}
-  ResetPositionToInitialOnRelease: 0
+  ResetPositionToInitialOnRelease: 1
   InterpolateFollowMovement: 1
   InterpolateFollowMovementSpeed: 1
   SpringFollowInterpolation: 1
