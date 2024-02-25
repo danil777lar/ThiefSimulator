@@ -22,7 +22,7 @@ public class MenuScreen : UIScreen
 
     private void OnPointerDown(PointerEventData data)
     {
-        _levelManagerService.TryStartCurrentLevel(null);
+        _levelManagerService.TryStartCurrentLevel(new LevelProcessor.StartData(LevelStartType.Start));
     }
 
     public class Args : ScreenOpenProperties
