@@ -189,7 +189,7 @@ namespace MoreMountains.Tools
 			SetNeutralPosition(BackgroundCanvasGroup.transform.position);
 			_knobTransform.position = _newPosition;
 			
-			ComputeJoystickValue();
+			//ComputeJoystickValue();
 		}
 
 		/// <summary>
