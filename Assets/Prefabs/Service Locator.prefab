@@ -432,7 +432,12 @@ MonoBehaviour:
   _screenProcessorOptions:
     _startSortOrder: -300
     _screenHolder: {fileID: 5681367889521598255}
-    _screens: []
+    _screens:
+    - {fileID: 3269232561248338450, guid: 0c2be6f060eedf6469ec42ff2e4756f1, type: 3}
+    - {fileID: 3269232561248338450, guid: 65db6a99523f92640ade78f652bc57a1, type: 3}
+    - {fileID: 3269232561248338450, guid: 2b350078becb28842a3e9673e41652f9, type: 3}
+    - {fileID: 3269232561248338450, guid: d735eadf265b01040a14fbaec7b7262a, type: 3}
+    - {fileID: 3269232561248338450, guid: 44d8fc5e330781a4a9f993b4e9dfeb2f, type: 3}
   _popupProcessorOptions:
     _startSortOrder: -200
     _popupHolder: {fileID: 5221880043890516413}
