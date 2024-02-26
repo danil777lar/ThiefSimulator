@@ -220,7 +220,7 @@ MonoBehaviour:
   InputAuthorized: 1
   AnalogInput: 1
   ScriptDrivenInput: 0
-  WalkSpeed: 3
+  WalkSpeed: 6
   ShouldSetMovement: 1
   IdleThreshold: 0.05
   Acceleration: 10
@@ -253,9 +253,9 @@ MonoBehaviour:
   RotationMode: 1
   CharacterRotationAuthorized: 1
   ShouldRotateToFaceMovementDirection: 1
-  MovementRotationSpeed: 0
+  MovementRotationSpeed: 1
   MovementRotatingModel: {fileID: 5445676164548388878}
-  RotateToFaceMovementDirectionSpeed: 100
+  RotateToFaceMovementDirectionSpeed: 10
   AbsoluteThresholdMovement: 0.5
   ModelDirection: {x: 0, y: 0, z: 0}
   ModelAngles: {x: 0, y: 0, z: 0}
