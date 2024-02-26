@@ -21,6 +21,12 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
+  - m_Name: ActualSpeed
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   - m_Name: MoveBlend
     m_Type: 1
     m_DefaultFloat: 0
@@ -83,7 +89,7 @@ AnimatorState:
   m_TimeParameterActive: 0
   m_Motion: {fileID: 6150954099131296405}
   m_Tag: 
-  m_SpeedParameter: Speed
+  m_SpeedParameter: ActualSpeed
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 

@@ -5,28 +5,37 @@ using MoreMountains.TopDownEngine;
 using UnityEngine;
 
 public class BlendedCharacterMovement : CharacterMovement
-{ 
+{
+    private Vector3 _lastPosition;
+    
     protected const string _blendAnimationParameterName = "MoveBlend";
+    protected const string _actualSpeedAnimationParameterName = "ActualSpeed";
     protected int _blendAnimationParameter;
+    protected int _actualSpeedAnimationParameter;
 
-    public float CurrentSpeedPercent { get; private set; }
+    public float ActualSpeed { get; private set; }
+    public float ActualSpeedPercent { get; private set; }
 
     protected override void InitializeAnimatorParameters()
     {
         base.InitializeAnimatorParameters();
         RegisterAnimatorParameter (_blendAnimationParameterName, AnimatorControllerParameterType.Float, out _blendAnimationParameter);
-    }
-
-    public override void ProcessAbility()
-    {
-        base.ProcessAbility();
-        CurrentSpeedPercent = Mathf.Abs(_controller.CurrentMovement.magnitude) / MovementSpeed;
+        RegisterAnimatorParameter (_actualSpeedAnimationParameterName, AnimatorControllerParameterType.Float, out _actualSpeedAnimationParameter);
     }
 
     public override void UpdateAnimator()
     {
         base.UpdateAnimator();
-        MMAnimatorExtensions.UpdateAnimatorFloat(_animator, _blendAnimationParameter, CurrentSpeedPercent,
+        MMAnimatorExtensions.UpdateAnimatorFloat(_animator, _blendAnimationParameter, ActualSpeedPercent,
             _character._animatorParameters, _character.RunAnimatorSanityChecks);
+        MMAnimatorExtensions.UpdateAnimatorFloat(_animator, _actualSpeedAnimationParameter, ActualSpeed,
+            _character._animatorParameters, _character.RunAnimatorSanityChecks);
+    }
+
+    protected void FixedUpdate()
+    {
+        ActualSpeed = Vector3.Distance(transform.position, _lastPosition) / Time.fixedDeltaTime;
+        _lastPosition = transform.position;
+        ActualSpeedPercent = ActualSpeed / MovementSpeed;   
     }
 }

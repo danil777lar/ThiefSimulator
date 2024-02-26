@@ -238,7 +238,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1356067717985629786}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f2dd01ffdd1cc045a614bd354672723, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f30bd092b5ca764889a38a37d7b211d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   AbilityStartSfx: {fileID: 0}
@@ -250,25 +250,9 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
-  RotationMode: 1
-  CharacterRotationAuthorized: 1
-  ShouldRotateToFaceMovementDirection: 1
-  MovementRotationSpeed: 1
-  MovementRotatingModel: {fileID: 5445676164548388878}
-  RotateToFaceMovementDirectionSpeed: 10
-  AbsoluteThresholdMovement: 0.5
-  ModelDirection: {x: 0, y: 0, z: 0}
-  ModelAngles: {x: 0, y: 0, z: 0}
-  ShouldRotateToFaceWeaponDirection: 1
-  WeaponRotationSpeed: 0
-  WeaponRotatingModel: {fileID: 0}
-  RotateToFaceWeaponDirectionSpeed: 10
-  AbsoluteThresholdWeapon: 0.5
-  LockVerticalRotation: 1
-  RotationSpeedResetSpeed: 2
-  RotationOffsetSmoothSpeed: 1
-  ForcedRotation: 0
-  ForcedRotationDirection: {x: 0, y: 0, z: 0}
+  minRotationSpeed: 0
+  maxRotationSpeed: 50
+  model: {fileID: 6282012969164897799}
 --- !u!114 &2314369418861545768
 MonoBehaviour:
   m_ObjectHideFlags: 0
