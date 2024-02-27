@@ -306,10 +306,12 @@ MonoBehaviour:
   BlockingWeaponStates: 
   maxMass: 10
   speedMultiplier: 0.5
+  findDistance: 1
+  attachDistance: 0.75
+  detachDistance: 0.35
   cargosMask:
     serializedVersion: 2
     m_Bits: 524288
-  findDistance: 1
   cargoPullPoint: {fileID: 9162709330136404148}
   drawGizmos: 1
   gizmosColor: {r: 1, g: 0, b: 0, a: 0.5019608}
@@ -638,7 +640,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6746961695542568277}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5069553, y: 0.00000002673773, z: -0.000000015725371, w: 0.86197233}
+  m_LocalRotation: {x: 0.5069553, y: -0.00000001821508, z: 0.000000010712907, w: 0.86197233}
   m_LocalPosition: {x: 0, y: 16.4, z: -6.790001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

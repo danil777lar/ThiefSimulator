@@ -9,12 +9,15 @@ using UnityEngine;
 
 public class CharacterPull3D : CharacterAbility
 {
+    [Header("Speed")]
     [SerializeField] private float maxMass;
     [SerializeField] private float speedMultiplier;
     [Space]
-    [SerializeField] private LayerMask cargosMask;
     [SerializeField] private float findDistance;
-    [SerializeField] private Transform cargoPullPoint; 
+    [SerializeField] private float attachDistance;
+    [SerializeField] private float detachDistance;
+    [SerializeField] private LayerMask cargosMask;
+    [SerializeField] private Transform cargoPullPoint;
     [Header("Gizmos")]
     [SerializeField] private bool drawGizmos;
     [SerializeField] private Color gizmosColor;
@@ -49,9 +52,14 @@ public class CharacterPull3D : CharacterAbility
         {
             cargoPullPoint.transform.localPosition = Vector3.zero;
             cargoPullPoint.transform.LookAt(_cargo.AttachPoint.position);
-            cargoPullPoint.transform.position += cargoPullPoint.transform.forward * findDistance;
+            cargoPullPoint.transform.position += cargoPullPoint.transform.forward * attachDistance;
             
             _movement.SetLimit(cargoPullPoint.transform.forward, 270f);
+
+            if (Vector3.Distance(_cargo.AttachPoint.position, cargoPullPoint.position) > detachDistance)
+            {
+                ForceDetachCargo();
+            }
         }
     }
     
@@ -121,12 +129,17 @@ public class CharacterPull3D : CharacterAbility
         _movement.MovementSpeedMultiplier = totalSpeedMultiplier;
         _orientation.forceTarget = cargoPullPoint.transform;
 
-        _cargo.EventForceDetach += DetachCargo;
+        _cargo.EventForceDetach += ForceDetachCargo;
+    }
+    
+    private void ForceDetachCargo()
+    {
+        DetachCargo();
     }
     
     private void DetachCargo()
     {
-        _cargo.EventForceDetach -= DetachCargo;
+        _cargo.EventForceDetach -= ForceDetachCargo;
         
         _cargo.Detach();
         _cargo = null;
