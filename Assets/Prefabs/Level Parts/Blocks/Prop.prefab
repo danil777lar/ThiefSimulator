@@ -161,6 +161,7 @@ GameObject:
   - component: {fileID: 6122328514945344533}
   - component: {fileID: 3362466171714313510}
   - component: {fileID: 7981734112346932418}
+  - component: {fileID: 5677548786229543024}
   m_Layer: 19
   m_Name: Prop
   m_TagString: Untagged
@@ -194,8 +195,8 @@ Rigidbody:
   m_GameObject: {fileID: 4934965169981573987}
   serializedVersion: 4
   m_Mass: 5
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 10
+  m_AngularDrag: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -250,6 +251,19 @@ MonoBehaviour:
   - {fileID: 2853122086319431913}
   - {fileID: 2385695918547414638}
   - {fileID: 1282280761962050182}
+--- !u!114 &5677548786229543024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4934965169981573987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3892fbda97369ba4faf039a4568c469d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 50
 --- !u!1 &4935697955784149558
 GameObject:
   m_ObjectHideFlags: 0

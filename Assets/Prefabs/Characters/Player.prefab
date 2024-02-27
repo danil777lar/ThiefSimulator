@@ -282,7 +282,7 @@ MonoBehaviour:
   AllowPhysicsInteractions: 1
   PhysicsInteractionsRaycastLength: 0.05
   PhysicsInteractionsRaycastOffset: {x: 0, y: -0.95, z: 0}
-  PushPower: 7000
+  PushPower: 500
 --- !u!114 &5273731019370073304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,7 +310,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 524288
   findDistance: 1
-  cargoPullPoint: {fileID: 7648032491867792730}
+  cargoPullPoint: {fileID: 9162709330136404148}
   drawGizmos: 1
   gizmosColor: {r: 1, g: 0, b: 0, a: 0.5019608}
 --- !u!114 &2314369418861545768

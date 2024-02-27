@@ -14,7 +14,7 @@ public class CharacterPull3D : CharacterAbility
     [Space]
     [SerializeField] private LayerMask cargosMask;
     [SerializeField] private float findDistance;
-    [SerializeField] private Joint cargoPullPoint; 
+    [SerializeField] private Transform cargoPullPoint; 
     [Header("Gizmos")]
     [SerializeField] private bool drawGizmos;
     [SerializeField] private Color gizmosColor;
@@ -114,23 +114,22 @@ public class CharacterPull3D : CharacterAbility
         _cargo = cargo;
         
         Transform attachPoint = _cargo.NearestAttachToPoint(transform.position);
-        
-        cargoPullPoint.connectedBody = _cargo.Rigidbody;
-        cargoPullPoint.autoConfigureConnectedAnchor = false;
-        cargoPullPoint.connectedAnchor = _cargo.transform.InverseTransformPoint(attachPoint.position);
-        _cargo.Attach(attachPoint);
+        _cargo.Attach(cargoPullPoint, attachPoint);
 
         float totalSpeedMultiplier = speedMultiplier;
         totalSpeedMultiplier *= 1f - Mathf.Clamp01(_cargo.Rigidbody.mass / maxMass);
         _movement.MovementSpeedMultiplier = totalSpeedMultiplier;
         _orientation.forceTarget = cargoPullPoint.transform;
+
+        _cargo.EventForceDetach += DetachCargo;
     }
     
     private void DetachCargo()
     {
+        _cargo.EventForceDetach -= DetachCargo;
+        
         _cargo.Detach();
         _cargo = null;
-        cargoPullPoint.connectedBody = null;
 
         if (_orientation.forceTarget == cargoPullPoint.transform)
         {
