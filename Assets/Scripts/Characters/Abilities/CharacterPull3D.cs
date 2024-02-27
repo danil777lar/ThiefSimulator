@@ -24,8 +24,8 @@ public class CharacterPull3D : CharacterAbility
 
     private ActualSpeedCharacterMovement _movement;
     private MoveBasedCharacterOrientation3D _orientation;
-    private Pullable _nearestCargo;
-    private Pullable _cargo;
+    private Pullable _nearestPullable;
+    private Pullable _currentPullable;
     
     protected const string _pullingAnimationParameterName = "Pulling";
     protected int _pullingAnimationParameter;
@@ -40,7 +40,7 @@ public class CharacterPull3D : CharacterAbility
     public override void ProcessAbility()
     {
         base.ProcessAbility();
-        if (_cargo == null)
+        if (_currentPullable == null)
         {
             TryFindCargo();
         }
@@ -48,17 +48,17 @@ public class CharacterPull3D : CharacterAbility
 
     private void FixedUpdate()
     {
-        if (_cargo)
+        if (_currentPullable)
         {
             cargoPullPoint.transform.localPosition = Vector3.zero;
-            cargoPullPoint.transform.LookAt(_cargo.AttachPoint.position);
+            cargoPullPoint.transform.LookAt(_currentPullable.AttachPoint.position);
             cargoPullPoint.transform.position += cargoPullPoint.transform.forward * attachDistance;
             
             _movement.SetLimit(cargoPullPoint.transform.forward, 270f);
 
-            if (Vector3.Distance(_cargo.AttachPoint.position, cargoPullPoint.position) > detachDistance)
+            if (Vector3.Distance(_currentPullable.AttachPoint.position, cargoPullPoint.position) > detachDistance)
             {
-                ForceDetachCargo();
+                ForceDetachCurrentPullable();
             }
         }
     }
@@ -67,13 +67,13 @@ public class CharacterPull3D : CharacterAbility
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (_nearestCargo != null && _cargo == null)
+            if (_nearestPullable != null && _currentPullable == null)
             {
-                AttachCargo(_nearestCargo);   
+                AttachPullable(_nearestPullable);   
             }
-            else if (_cargo != null)
+            else if (_currentPullable != null)
             {
-                DetachCargo();
+                DetachPullable();
             }
         }
     }
@@ -85,9 +85,9 @@ public class CharacterPull3D : CharacterAbility
             Gizmos.color = gizmosColor;
             Gizmos.DrawWireSphere(transform.position, findDistance);
 
-            if (_nearestCargo != null)
+            if (_nearestPullable != null)
             {
-                Gizmos.DrawSphere(_nearestCargo.NearestAttachToPoint(transform.position).position, 0.2f);
+                Gizmos.DrawSphere(_nearestPullable.NearestAttachToPoint(transform.position).position, 0.2f);
             }
         }   
     }
@@ -107,42 +107,42 @@ public class CharacterPull3D : CharacterAbility
 
         if (cargos.Count > 0)
         {
-            _nearestCargo = cargos.OrderBy(x => 
+            _nearestPullable = cargos.OrderBy(x => 
                 Vector3.Distance(transform.position, x.NearestAttachToPoint(transform.position).position))
                 .First();
         }
         else
         {
-            _nearestCargo = null;
+            _nearestPullable = null;
         }
     }
 
-    private void AttachCargo(Pullable cargo)
+    private void AttachPullable(Pullable pullable)
     {
-        _cargo = cargo;
+        _currentPullable = pullable;
         
-        Transform attachPoint = _cargo.NearestAttachToPoint(transform.position);
-        _cargo.Attach(cargoPullPoint, attachPoint);
+        Transform attachPoint = _currentPullable.NearestAttachToPoint(transform.position);
+        _currentPullable.Attach(cargoPullPoint, attachPoint);
 
         float totalSpeedMultiplier = speedMultiplier;
-        totalSpeedMultiplier *= 1f - Mathf.Clamp01(_cargo.Rigidbody.mass / maxMass);
+        totalSpeedMultiplier *= 1f - Mathf.Clamp01(_currentPullable.Rigidbody.mass / maxMass);
         _movement.MovementSpeedMultiplier = totalSpeedMultiplier;
         _orientation.forceTarget = cargoPullPoint.transform;
 
-        _cargo.EventForceDetach += ForceDetachCargo;
+        _currentPullable.EventForceDetach += ForceDetachCurrentPullable;
     }
     
-    private void ForceDetachCargo()
+    private void ForceDetachCurrentPullable()
     {
-        DetachCargo();
+        DetachPullable();
     }
     
-    private void DetachCargo()
+    private void DetachPullable()
     {
-        _cargo.EventForceDetach -= ForceDetachCargo;
+        _currentPullable.EventForceDetach -= ForceDetachCurrentPullable;
         
-        _cargo.Detach();
-        _cargo = null;
+        _currentPullable.Detach();
+        _currentPullable = null;
 
         if (_orientation.forceTarget == cargoPullPoint.transform)
         {
@@ -163,7 +163,7 @@ public class CharacterPull3D : CharacterAbility
     public override void UpdateAnimator()
     {
         base.UpdateAnimator();
-        MMAnimatorExtensions.UpdateAnimatorBool(_animator, _pullingAnimationParameter, _cargo != null,
+        MMAnimatorExtensions.UpdateAnimatorBool(_animator, _pullingAnimationParameter, _currentPullable != null,
             _character._animatorParameters, _character.RunAnimatorSanityChecks);
     }
 }
