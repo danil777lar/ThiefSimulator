@@ -10,6 +10,9 @@ using UnityEngine;
 
 public class CharacterCarry3D : CharacterAbility
 {
+    [SerializeField] private float maxMass;
+    [SerializeField] private float speedMultiplier;
+    [Space]
     [SerializeField] private LayerMask cargosMask;
     [SerializeField] private float findDistance;
     [SerializeField] private Joint cargoPullPoint; 
@@ -18,6 +21,7 @@ public class CharacterCarry3D : CharacterAbility
     [SerializeField] private Color gizmosColor;
 
     private ActualSpeedCharacterMovement _movement;
+    private MoveBasedCharacterOrientation3D _orientation;
     private Cargo _nearestCargo;
     private Cargo _cargo;
 
@@ -25,6 +29,7 @@ public class CharacterCarry3D : CharacterAbility
     {
         base.Initialization();
         _movement = _character.FindAbility<ActualSpeedCharacterMovement>();
+        _orientation = _character.FindAbility<MoveBasedCharacterOrientation3D>();
     }
 
     public override void ProcessAbility()
@@ -111,8 +116,12 @@ public class CharacterCarry3D : CharacterAbility
         cargoPullPoint.connectedBody = _cargo.Rigidbody;
         cargoPullPoint.autoConfigureConnectedAnchor = false;
         cargoPullPoint.connectedAnchor = _cargo.transform.InverseTransformPoint(attachPoint.position);
-        
         _cargo.Attach(attachPoint);
+
+        float totalSpeedMultiplier = speedMultiplier;
+        totalSpeedMultiplier *= 1f - Mathf.Clamp01(_cargo.Rigidbody.mass / maxMass);
+        _movement.MovementSpeedMultiplier = totalSpeedMultiplier;
+        _orientation.forceTarget = cargoPullPoint.transform;
     }
     
     private void DetachCargo()
@@ -120,7 +129,13 @@ public class CharacterCarry3D : CharacterAbility
         _cargo.Detach();
         _cargo = null;
         cargoPullPoint.connectedBody = null;
-        
+
+        if (_orientation.forceTarget == cargoPullPoint.transform)
+        {
+            _orientation.forceTarget = null;   
+        }
+
+        _movement.MovementSpeedMultiplier = 1f;
         _movement.RemoveLimit();
     }
 }

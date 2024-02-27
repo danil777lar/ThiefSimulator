@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1984777243962410201}
   - component: {fileID: 2724311554232135388}
   - component: {fileID: 1230887134683089601}
+  - component: {fileID: 6377374948936315951}
   - component: {fileID: 5273731019370073304}
   - component: {fileID: 2314369418861545768}
   m_Layer: 10
@@ -231,6 +232,7 @@ MonoBehaviour:
   WalkParticles: []
   TouchTheGroundParticles: []
   TouchTheGroundSfx: []
+  drawLimitsGizmo: 1
 --- !u!114 &1230887134683089601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,9 +254,35 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  forceTarget: {fileID: 0}
   minRotationSpeed: 0
   maxRotationSpeed: 50
   model: {fileID: 6282012969164897799}
+--- !u!114 &6377374948936315951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356067717985629786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e348c4f06a38d348be86f2f28cd124d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AbilityStartSfx: {fileID: 0}
+  AbilityInProgressSfx: {fileID: 0}
+  AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
+  AbilityPermitted: 1
+  BlockingMovementStates: 
+  BlockingConditionStates: 
+  BlockingWeaponStates: 
+  AllowPhysicsInteractions: 1
+  PhysicsInteractionsRaycastLength: 0.05
+  PhysicsInteractionsRaycastOffset: {x: 0, y: -0.95, z: 0}
+  PushPower: 7000
 --- !u!114 &5273731019370073304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,6 +304,8 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  maxMass: 10
+  speedMultiplier: 0.5
   cargosMask:
     serializedVersion: 2
     m_Bits: 524288

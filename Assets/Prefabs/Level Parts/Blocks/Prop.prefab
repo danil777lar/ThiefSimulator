@@ -193,7 +193,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4934965169981573987}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -250,7 +250,6 @@ MonoBehaviour:
   - {fileID: 2853122086319431913}
   - {fileID: 2385695918547414638}
   - {fileID: 1282280761962050182}
-  rotationSpeed: 10
 --- !u!1 &4935697955784149558
 GameObject:
   m_ObjectHideFlags: 0

@@ -20,19 +20,19 @@ public class Cargo : MonoBehaviour
 
     public void Attach(Transform attachPoint)
     {
-        _rb.isKinematic = false;
+        //_rb.isKinematic = false;
         _attachPoint = attachPoint;
     }
     
     public void Detach()
     {
-        _rb.isKinematic = true;
+        //_rb.isKinematic = true;
         _attachPoint = null;
     }
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _rb.isKinematic = true;
+        //_rb.isKinematic = true;
     }
 }
