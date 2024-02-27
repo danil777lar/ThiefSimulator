@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class CharacterCarry3D : CharacterAbility
 {
     [SerializeField] private LayerMask cargosMask;
     [SerializeField] private float findDistance;
+    [SerializeField] private Joint cargoPullPoint; 
     [Header("Gizmos")]
     [SerializeField] private bool drawGizmos;
     [SerializeField] private Color gizmosColor;
@@ -31,6 +33,16 @@ public class CharacterCarry3D : CharacterAbility
         }
     }
 
+    private void FixedUpdate()
+    {
+        if (_cargo)
+        {
+            cargoPullPoint.transform.localPosition = Vector3.zero;
+            cargoPullPoint.transform.LookAt(_cargo.AttachPoint.position);
+            cargoPullPoint.transform.position += cargoPullPoint.transform.forward * findDistance;
+        }
+    }
+    
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -88,13 +100,21 @@ public class CharacterCarry3D : CharacterAbility
     private void AttachCargo(Cargo cargo)
     {
         _cargo = cargo;
-        _cargo.Attach(transform, _cargo.NearestAttachToPoint(transform.position), findDistance);
+        
+        Transform attachPoint = _cargo.NearestAttachToPoint(transform.position);
+        
+        cargoPullPoint.connectedBody = _cargo.Rigidbody;
+        cargoPullPoint.autoConfigureConnectedAnchor = false;
+        cargoPullPoint.connectedAnchor = _cargo.transform.InverseTransformPoint(attachPoint.position);
+        
+        _cargo.Attach(attachPoint);
     }
     
     private void DetachCargo()
     {
         _cargo.Detach();
         _cargo = null;
+        cargoPullPoint.connectedBody = null;
     }
 }
 
