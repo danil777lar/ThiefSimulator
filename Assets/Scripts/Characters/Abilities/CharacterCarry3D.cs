@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using Larje.Core.Tools.TopDownEngine;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
@@ -15,13 +16,15 @@ public class CharacterCarry3D : CharacterAbility
     [Header("Gizmos")]
     [SerializeField] private bool drawGizmos;
     [SerializeField] private Color gizmosColor;
-    
+
+    private ActualSpeedCharacterMovement _movement;
     private Cargo _nearestCargo;
     private Cargo _cargo;
-    
+
     protected override void Initialization()
     {
         base.Initialization();
+        _movement = _character.FindAbility<ActualSpeedCharacterMovement>();
     }
 
     public override void ProcessAbility()
@@ -40,6 +43,8 @@ public class CharacterCarry3D : CharacterAbility
             cargoPullPoint.transform.localPosition = Vector3.zero;
             cargoPullPoint.transform.LookAt(_cargo.AttachPoint.position);
             cargoPullPoint.transform.position += cargoPullPoint.transform.forward * findDistance;
+            
+            _movement.SetLimit(cargoPullPoint.transform.forward, 270f);
         }
     }
     
@@ -115,6 +120,8 @@ public class CharacterCarry3D : CharacterAbility
         _cargo.Detach();
         _cargo = null;
         cargoPullPoint.connectedBody = null;
+        
+        _movement.RemoveLimit();
     }
 }
 

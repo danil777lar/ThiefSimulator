@@ -35,13 +35,4 @@ public class Cargo : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         _rb.isKinematic = true;
     }
-
-    private void OnDrawGizmos()
-    {
-        if (_rb != null)
-        {
-            Gizmos.color = Color.blue;
-            Gizmos.DrawSphere(_rb.worldCenterOfMass, 0.4f);
-        }
-    }
 }
