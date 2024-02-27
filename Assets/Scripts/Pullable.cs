@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Cargo : MonoBehaviour
+public class Pullable : MonoBehaviour
 {
     [SerializeField] private List<Transform> attachPoints;
     
@@ -20,19 +20,16 @@ public class Cargo : MonoBehaviour
 
     public void Attach(Transform attachPoint)
     {
-        //_rb.isKinematic = false;
         _attachPoint = attachPoint;
     }
     
     public void Detach()
     {
-        //_rb.isKinematic = true;
         _attachPoint = null;
     }
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        //_rb.isKinematic = true;
     }
 }

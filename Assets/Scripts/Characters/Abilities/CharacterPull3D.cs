@@ -2,13 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using Larje.Core.Tools.TopDownEngine;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
-public class CharacterCarry3D : CharacterAbility
+public class CharacterPull3D : CharacterAbility
 {
     [SerializeField] private float maxMass;
     [SerializeField] private float speedMultiplier;
@@ -22,8 +21,11 @@ public class CharacterCarry3D : CharacterAbility
 
     private ActualSpeedCharacterMovement _movement;
     private MoveBasedCharacterOrientation3D _orientation;
-    private Cargo _nearestCargo;
-    private Cargo _cargo;
+    private Pullable _nearestCargo;
+    private Pullable _cargo;
+    
+    protected const string _pullingAnimationParameterName = "Pulling";
+    protected int _pullingAnimationParameter;
 
     protected override void Initialization()
     {
@@ -84,12 +86,12 @@ public class CharacterCarry3D : CharacterAbility
 
     private void TryFindCargo()
     {
-        List<Cargo> cargos = new List<Cargo>();
+        List<Pullable> cargos = new List<Pullable>();
         
         Collider[] colliders = Physics.OverlapSphere(transform.position, findDistance,cargosMask);
         foreach (Collider cargoCollider in  colliders)
         {
-            if (cargoCollider.attachedRigidbody != null && cargoCollider.attachedRigidbody.TryGetComponent(out Cargo cargo))
+            if (cargoCollider.attachedRigidbody != null && cargoCollider.attachedRigidbody.TryGetComponent(out Pullable cargo))
             {
                 cargos.Add(cargo);
             }
@@ -107,7 +109,7 @@ public class CharacterCarry3D : CharacterAbility
         }
     }
 
-    private void AttachCargo(Cargo cargo)
+    private void AttachCargo(Pullable cargo)
     {
         _cargo = cargo;
         
@@ -137,6 +139,20 @@ public class CharacterCarry3D : CharacterAbility
 
         _movement.MovementSpeedMultiplier = 1f;
         _movement.RemoveLimit();
+    }
+    
+    protected override void InitializeAnimatorParameters()
+    {
+        base.InitializeAnimatorParameters();
+        RegisterAnimatorParameter(_pullingAnimationParameterName, AnimatorControllerParameterType.Bool,
+            out _pullingAnimationParameter);
+    }
+
+    public override void UpdateAnimator()
+    {
+        base.UpdateAnimator();
+        MMAnimatorExtensions.UpdateAnimatorBool(_animator, _pullingAnimationParameter, _cargo != null,
+            _character._animatorParameters, _character.RunAnimatorSanityChecks);
     }
 }
 
