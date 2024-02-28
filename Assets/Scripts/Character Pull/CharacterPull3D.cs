@@ -21,6 +21,9 @@ public class CharacterPull3D : CharacterAbility, IPlayerActionSource
     [Header("Gizmos")]
     [SerializeField] private bool drawGizmos;
     [SerializeField] private Color gizmosColor;
+    [Header("Action Icons")] 
+    [SerializeField] private Sprite attachIcon;
+    [SerializeField] private Sprite detachIcon;
 
     private ActualSpeedCharacterMovement _movement;
     private MoveBasedCharacterOrientation3D _orientation;
@@ -99,8 +102,8 @@ public class CharacterPull3D : CharacterAbility, IPlayerActionSource
     private void BuildActions()
     {
         List<PlayerAction> actions = new List<PlayerAction>();
-        actions.Add(new PlayerAction(TryAttachPullable, CanAttachPullable, () => 0.2f, null));
-        actions.Add(new PlayerAction(TryDetachPullable, CanDetachPullable, () => 0.2f, null));
+        actions.Add(new PlayerAction(TryAttachPullable, CanAttachPullable, () => 0.2f, attachIcon));
+        actions.Add(new PlayerAction(TryDetachPullable, CanDetachPullable, () => 0.2f, detachIcon));
         Actions = actions.ToArray();
     }
 

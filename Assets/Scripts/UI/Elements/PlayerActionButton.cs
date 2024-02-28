@@ -14,8 +14,11 @@ public class PlayerActionButton : MonoBehaviour
 
     private bool _pointerDown;
     private float _time;
-    private RectTransformEvents _events;
+    
     private PlayerAction _action;
+    private RectTransformEvents _events;
+    private LayoutElement _layoutElement;
+    private CanvasGroup _canvasGroup;
     
     public PlayerActionButton Build(PlayerAction action)
     {
@@ -24,14 +27,20 @@ public class PlayerActionButton : MonoBehaviour
         icon.sprite = _action.Icon;
 
         _events = GetComponent<RectTransformEvents>();
+        _layoutElement = GetComponent<LayoutElement>();
+        _canvasGroup = GetComponent<CanvasGroup>();
+        
         _events.EventPointerDown += OnPointerDown; 
         _events.EventPointerUp += OnPointerUp; 
+        
+        UpdateUI();
         
         return this;
     }
 
     private void Update()
     {
+        UpdateUI();
         if (_pointerDown && _action.Enabled())
         {
             _time += Time.deltaTime;
@@ -67,5 +76,12 @@ public class PlayerActionButton : MonoBehaviour
         transform.DOScale(1f, 0.25f)
             .SetEase(Ease.OutBack)
             .SetTarget(this);
+    }
+
+    private void UpdateUI()
+    {
+        _layoutElement.ignoreLayout = !_action.Enabled();
+        _canvasGroup.alpha = _action.Enabled() ? 1f : 0f;
+        _canvasGroup.blocksRaycasts = _action.Enabled();
     }
 }
