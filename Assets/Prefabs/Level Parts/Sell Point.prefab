@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2064726940241522035}
   - component: {fileID: 5837001807446362638}
+  - component: {fileID: 9014336980488743272}
   - component: {fileID: 3860112071615303845}
   - component: {fileID: 3402270606274350932}
   m_Layer: 0
@@ -48,6 +49,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sellDelay: 2
+--- !u!114 &9014336980488743272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2651837950077742368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c694ee8495ee889479a9fc504e09d77f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mask:
+    serializedVersion: 2
+    m_Bits: 1024
+  dropDelay: 0.1
 --- !u!65 &3860112071615303845
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -67,8 +84,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Size: {x: 1, y: 5, z: 1}
+  m_Center: {x: 0, y: 2.5, z: 0}
 --- !u!54 &3402270606274350932
 Rigidbody:
   m_ObjectHideFlags: 0

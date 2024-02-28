@@ -9,6 +9,7 @@ public class Carryable : MonoBehaviour
 
     private float _anchoringValue;
     private Rigidbody _rb;
+    private Collider _collider;
     private Transform _attachPoint;
 
     public bool CanBeTaken => _attachPoint == null;
@@ -17,15 +18,17 @@ public class Carryable : MonoBehaviour
 
     public void Take(Transform attachPoint, float anchoringValue)
     {
-        _anchoringValue = anchoringValue; 
-        _rb.isKinematic = true;
+        _anchoringValue = anchoringValue;
         _attachPoint = attachPoint;
+        _rb.isKinematic = true;
+        _collider.enabled = false;
     }
     
     public void Drop()
     {
         _attachPoint = null;
         _rb.isKinematic = false;
+        _collider.enabled = true;
 
         Vector3 force = Quaternion.Euler(Vector3.up * Random.Range(0f, 360f)) * Vector3.forward;
         force.y = 1f;
@@ -36,6 +39,7 @@ public class Carryable : MonoBehaviour
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _collider = GetComponent<Collider>();
     }
 
     private void FixedUpdate()

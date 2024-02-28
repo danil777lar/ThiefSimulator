@@ -36,6 +36,30 @@ public class CharacterCarry3D : CharacterAbility
         TryFindCarryable();
     }
 
+    public Carryable TryDrop()
+    {
+        if (_currentCarryables.Count > 0)
+        {
+            Carryable carryToDrop = _currentCarryables.Last();
+            carryToDrop.Drop();
+            _currentCarryables.Remove(carryToDrop);
+
+            return carryToDrop;
+        }
+
+        return null;
+    }
+    
+    public List<Carryable> DropAll()
+    {
+        List<Carryable> carryables = new List<Carryable>();
+        while (_currentCarryables.Count > 0)
+        {
+            carryables.Add(TryDrop());
+        }
+        return carryables;
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
@@ -97,15 +121,6 @@ public class CharacterCarry3D : CharacterAbility
         }
     }
 
-    private void TryDrop()
-    {
-        if (_currentCarryables.Count > 0)
-        {
-            _currentCarryables.Last().Drop();
-            _currentCarryables.Remove(_currentCarryables.Last());
-        }
-    }
-    
     protected override void InitializeAnimatorParameters()
     {
         base.InitializeAnimatorParameters();
