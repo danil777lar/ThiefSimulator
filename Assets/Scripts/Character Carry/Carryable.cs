@@ -4,6 +4,7 @@ public class Carryable : MonoBehaviour
 {
     [SerializeField] private Transform topPoint;
     [SerializeField] private float moveSpeed;
+    [SerializeField] private float dropForce;
 
     private Rigidbody _rb;
     private Transform _attachPoint;
@@ -14,12 +15,19 @@ public class Carryable : MonoBehaviour
 
     public void Take(Transform attachPoint)
     {
+        _rb.isKinematic = true;
         _attachPoint = attachPoint;
     }
     
     public void Drop()
     {
         _attachPoint = null;
+        _rb.isKinematic = false;
+
+        Vector3 force = Quaternion.Euler(Vector3.up * Random.Range(0f, 360f)) * Vector3.forward;
+        force.y = 1f;
+        force *= dropForce;
+        _rb.AddForce(force, ForceMode.VelocityChange);
     }
     
     private void Start()
@@ -31,6 +39,8 @@ public class Carryable : MonoBehaviour
     {
         if (_attachPoint != null)
         {
+            transform.rotation = Quaternion.Lerp(transform.rotation, 
+                Quaternion.Euler(transform.rotation.eulerAngles.Y()), moveSpeed * Time.fixedDeltaTime);
             transform.position = Vector3.Lerp(transform.position, _attachPoint.position, 
                 moveSpeed * Time.fixedDeltaTime);
         }
