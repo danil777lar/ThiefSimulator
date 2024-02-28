@@ -7,7 +7,7 @@ using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
-public class CharacterPull3D : CharacterAbility
+public class CharacterPull3D : CharacterAbility, IPlayerActionSource
 {
     [Header("Speed")]
     [SerializeField] private float maxMass;
@@ -29,12 +29,16 @@ public class CharacterPull3D : CharacterAbility
     
     protected const string _pullingAnimationParameterName = "Pulling";
     protected int _pullingAnimationParameter;
+    
+    public PlayerAction[] Actions { get; private set; }
 
     protected override void Initialization()
     {
         base.Initialization();
         _movement = _character.FindAbility<ActualSpeedCharacterMovement>();
         _orientation = _character.FindAbility<MoveBasedCharacterOrientation3D>();
+
+        BuildActions();
     }
 
     public override void ProcessAbility()
@@ -67,13 +71,13 @@ public class CharacterPull3D : CharacterAbility
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (_nearestPullable != null && _currentPullable == null)
+            if (CanAttachPullable())
             {
-                AttachPullable(_nearestPullable);   
+                TryAttachPullable();   
             }
-            else if (_currentPullable != null)
+            else if (CanDetachPullable())
             {
-                DetachPullable();
+                TryDetachPullable();
             }
         }
     }
@@ -90,6 +94,14 @@ public class CharacterPull3D : CharacterAbility
                 Gizmos.DrawSphere(_nearestPullable.NearestAttachToPoint(transform.position).position, 0.2f);
             }
         }   
+    }
+
+    private void BuildActions()
+    {
+        List<PlayerAction> actions = new List<PlayerAction>();
+        actions.Add(new PlayerAction(TryAttachPullable, CanAttachPullable, () => 0.2f, null));
+        actions.Add(new PlayerAction(TryDetachPullable, CanDetachPullable, () => 0.2f, null));
+        Actions = actions.ToArray();
     }
 
     private void TryFindCargo()
@@ -117,40 +129,56 @@ public class CharacterPull3D : CharacterAbility
         }
     }
 
-    private void AttachPullable(Pullable pullable)
+    private bool CanAttachPullable()
     {
-        _currentPullable = pullable;
-        
-        Transform attachPoint = _currentPullable.NearestAttachToPoint(transform.position);
-        _currentPullable.Attach(cargoPullPoint, attachPoint);
+        return (_nearestPullable != null && _currentPullable == null);
+    }
+    
+    private bool CanDetachPullable()
+    {
+        return _currentPullable != null;
+    }
 
-        float totalSpeedMultiplier = speedMultiplier;
-        totalSpeedMultiplier *= 1f - Mathf.Clamp01(_currentPullable.Rigidbody.mass / maxMass);
-        _movement.MovementSpeedMultiplier = totalSpeedMultiplier;
-        _orientation.forceTarget = cargoPullPoint.transform;
+    private void TryAttachPullable()
+    {
+        if (CanAttachPullable())
+        {
+            _currentPullable = _nearestPullable;
 
-        _currentPullable.EventForceDetach += ForceDetachCurrentPullable;
+            Transform attachPoint = _currentPullable.NearestAttachToPoint(transform.position);
+            _currentPullable.Attach(cargoPullPoint, attachPoint);
+
+            float totalSpeedMultiplier = speedMultiplier;
+            totalSpeedMultiplier *= 1f - Mathf.Clamp01(_currentPullable.Rigidbody.mass / maxMass);
+            _movement.MovementSpeedMultiplier = totalSpeedMultiplier;
+            _orientation.forceTarget = cargoPullPoint.transform;
+
+            _currentPullable.EventForceDetach += ForceDetachCurrentPullable;
+        }
     }
     
     private void ForceDetachCurrentPullable()
     {
-        DetachPullable();
+        TryDetachPullable();
     }
     
-    private void DetachPullable()
+    private void TryDetachPullable()
     {
-        _currentPullable.EventForceDetach -= ForceDetachCurrentPullable;
-        
-        _currentPullable.Detach();
-        _currentPullable = null;
-
-        if (_orientation.forceTarget == cargoPullPoint.transform)
+        if (CanDetachPullable())
         {
-            _orientation.forceTarget = null;   
-        }
+            _currentPullable.EventForceDetach -= ForceDetachCurrentPullable;
 
-        _movement.MovementSpeedMultiplier = 1f;
-        _movement.RemoveLimit();
+            _currentPullable.Detach();
+            _currentPullable = null;
+
+            if (_orientation.forceTarget == cargoPullPoint.transform)
+            {
+                _orientation.forceTarget = null;
+            }
+
+            _movement.MovementSpeedMultiplier = 1f;
+            _movement.RemoveLimit();
+        }
     }
     
     protected override void InitializeAnimatorParameters()

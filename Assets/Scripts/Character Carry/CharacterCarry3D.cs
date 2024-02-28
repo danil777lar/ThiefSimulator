@@ -4,9 +4,10 @@ using System.Linq;
 using Larje.Core.Tools.TopDownEngine;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
+using UnityEditor;
 using UnityEngine;
 
-public class CharacterCarry3D : CharacterAbility
+public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
 {
     [SerializeField] private float findDistance;
     [SerializeField] private float anchoringValuePerObject;
@@ -23,11 +24,15 @@ public class CharacterCarry3D : CharacterAbility
     protected const string _carryAnimationParameterName = "Carry";
     protected int _carryAnimationParameter;
 
+    public PlayerAction[] Actions { get; private set; }
+
     protected override void Initialization()
     {
         base.Initialization();
         _movement = _character.FindAbility<ActualSpeedCharacterMovement>();
         _currentCarryables = new List<Carryable>();
+        
+        BuildActions();
     }
 
     public override void ProcessAbility()
@@ -38,7 +43,7 @@ public class CharacterCarry3D : CharacterAbility
 
     public Carryable TryDrop(bool blockTaking = false)
     {
-        if (_currentCarryables.Count > 0)
+        if (CanDrop())
         {
             Carryable carryToDrop = _currentCarryables.Last();
             carryToDrop.Drop(blockTaking);
@@ -87,6 +92,14 @@ public class CharacterCarry3D : CharacterAbility
         }   
     }
 
+    private void BuildActions()
+    {
+        List<PlayerAction> actions = new List<PlayerAction>();
+        actions.Add(new PlayerAction(TryTake, CanTake, () => 0.2f, null));
+        actions.Add(new PlayerAction(() => TryDrop(), CanDrop, () => 0.2f, null));
+        Actions = actions.ToArray();
+    }
+
     private void TryFindCarryable()
     {
         _nearestCarryable = null;
@@ -110,9 +123,19 @@ public class CharacterCarry3D : CharacterAbility
         }
     }
 
+    private bool CanTake()
+    {
+        return _nearestCarryable != null;
+    }
+    
+    private bool CanDrop()
+    {
+        return _currentCarryables.Count > 0;
+    }
+
     private void TryTake()
     {
-        if (_nearestCarryable != null)
+        if (CanTake())
         {
             Transform attachPoint = _currentCarryables.Count > 0 ? 
                 _currentCarryables.Last().TopPoint : carryableAttachPoint;
