@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Carryable : MonoBehaviour
 {
@@ -6,6 +7,7 @@ public class Carryable : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float dropForce;
 
+    private float _anchoringValue;
     private Rigidbody _rb;
     private Transform _attachPoint;
 
@@ -13,8 +15,9 @@ public class Carryable : MonoBehaviour
     public Rigidbody Rigidbody => _rb;
     public Transform TopPoint => topPoint;
 
-    public void Take(Transform attachPoint)
+    public void Take(Transform attachPoint, float anchoringValue)
     {
+        _anchoringValue = anchoringValue; 
         _rb.isKinematic = true;
         _attachPoint = attachPoint;
     }
@@ -41,7 +44,10 @@ public class Carryable : MonoBehaviour
         {
             transform.rotation = Quaternion.Lerp(transform.rotation, 
                 Quaternion.Euler(transform.rotation.eulerAngles.Y()), moveSpeed * Time.fixedDeltaTime);
-            transform.position = Vector3.Lerp(transform.position, _attachPoint.position, 
+            transform.forward = Vector3.Lerp(transform.forward, _attachPoint.forward, moveSpeed * Time.fixedDeltaTime);
+
+            Vector3 startPosition = Vector3.Lerp(_attachPoint.position, transform.position, _anchoringValue);
+            transform.position = Vector3.Lerp(startPosition, _attachPoint.position, 
                 moveSpeed * Time.fixedDeltaTime);
         }
     }

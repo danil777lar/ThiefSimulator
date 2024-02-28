@@ -9,6 +9,7 @@ using UnityEngine;
 public class CharacterCarry3D : CharacterAbility
 {
     [SerializeField] private float findDistance;
+    [SerializeField] private float anchoringValuePerObject;
     [SerializeField] private LayerMask carryableMask;
     [SerializeField] private Transform carryableAttachPoint;
     [Header("Gizmos")]
@@ -91,7 +92,7 @@ public class CharacterCarry3D : CharacterAbility
         {
             Transform attachPoint = _currentCarryables.Count > 0 ? 
                 _currentCarryables.Last().TopPoint : carryableAttachPoint;
-            _nearestCarryable.Take(attachPoint);
+            _nearestCarryable.Take(attachPoint, Mathf.Clamp01(_currentCarryables.Count * anchoringValuePerObject));
             _currentCarryables.Add(_nearestCarryable);
         }
     }
