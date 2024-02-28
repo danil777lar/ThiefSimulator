@@ -36,12 +36,12 @@ public class CharacterCarry3D : CharacterAbility
         TryFindCarryable();
     }
 
-    public Carryable TryDrop()
+    public Carryable TryDrop(bool blockTaking = false)
     {
         if (_currentCarryables.Count > 0)
         {
             Carryable carryToDrop = _currentCarryables.Last();
-            carryToDrop.Drop();
+            carryToDrop.Drop(blockTaking);
             _currentCarryables.Remove(carryToDrop);
 
             return carryToDrop;

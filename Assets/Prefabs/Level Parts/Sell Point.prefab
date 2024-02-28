@@ -61,10 +61,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c694ee8495ee889479a9fc504e09d77f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dropDelay: 0.1
+  pullForce: 30
   mask:
     serializedVersion: 2
     m_Bits: 1024
-  dropDelay: 0.1
 --- !u!65 &3860112071615303845
 BoxCollider:
   m_ObjectHideFlags: 0

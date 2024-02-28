@@ -1,20 +1,25 @@
+using System;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 public class Carryable : MonoBehaviour
 {
     [SerializeField] private Transform topPoint;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float dropForce;
-
+    
+    private bool _blockTaking;
     private float _anchoringValue;
     private Rigidbody _rb;
     private Collider _collider;
     private Transform _attachPoint;
 
-    public bool CanBeTaken => _attachPoint == null;
+    public bool CanBeTaken => _attachPoint == null && !_blockTaking;
     public Rigidbody Rigidbody => _rb;
     public Transform TopPoint => topPoint;
+
+    public event Action<Carryable> EventDisabled;
 
     public void Take(Transform attachPoint, float anchoringValue)
     {
@@ -24,8 +29,9 @@ public class Carryable : MonoBehaviour
         _collider.enabled = false;
     }
     
-    public void Drop()
+    public void Drop(bool blockTaking = false)
     {
+        _blockTaking = blockTaking;
         _attachPoint = null;
         _rb.isKinematic = false;
         _collider.enabled = true;
@@ -54,5 +60,15 @@ public class Carryable : MonoBehaviour
             transform.position = Vector3.Lerp(startPosition, _attachPoint.position, 
                 moveSpeed * Time.fixedDeltaTime);
         }
+    }
+
+    private void OnDisable()
+    {
+        EventDisabled?.Invoke(this);
+    }
+    
+    private void OnDestroy()
+    {
+        EventDisabled?.Invoke(this);
     }
 }
