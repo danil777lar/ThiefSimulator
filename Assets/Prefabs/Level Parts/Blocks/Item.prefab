@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8684485077826325191}
   - component: {fileID: 1570248330051044254}
   - component: {fileID: 3668338729067817163}
-  m_Layer: 19
+  m_Layer: 20
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,6 +83,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &3327400989898655261
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6618715670549982085}
+  m_Layer: 20
+  m_Name: Top Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6618715670549982085
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3327400989898655261}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4870077981990981829}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4934965169981573987
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,7 +126,8 @@ GameObject:
   - component: {fileID: 6122328514945344533}
   - component: {fileID: 3362466171714313510}
   - component: {fileID: 5677548786229543024}
-  m_Layer: 19
+  - component: {fileID: 8039771920647799393}
+  m_Layer: 20
   m_Name: Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,6 +148,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8684485077826325191}
+  - {fileID: 6618715670549982085}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &6122328514945344533
@@ -141,7 +174,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
@@ -179,3 +212,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: 50
+--- !u!114 &8039771920647799393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4934965169981573987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b20d50bedcfe56844a9e89772d334993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  topPoint: {fileID: 6618715670549982085}
+  moveSpeed: 20
