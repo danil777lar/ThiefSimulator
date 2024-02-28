@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using Larje.Core.Services;
 using Larje.Core.Services.UI;
+using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using ProjectConstants;
 using UnityEngine;
 
 public class PlayScreen : UIScreen
 {
+    [SerializeField] private PlayerActionButton actionButtonPrefab; 
+    [SerializeField] private RectTransform actionButtonsRoot; 
+    
     [InjectService] private ILevelManagerService _levelService;
+
+    private List<PlayerActionButton> _actionButtons;
 
     protected override void OnOpen(ScreenOpenProperties screenOpenProperties)
     {
@@ -17,11 +23,22 @@ public class PlayScreen : UIScreen
         ServiceLocator.Default.InjectServicesInComponent(this);
 
         InputManager input = GetComponent<InputManager>();
-        foreach (Character character in FindObjectsByType<Character>(FindObjectsInactive.Exclude, FindObjectsSortMode.None))
+        Character player = FindObjectsByType<Character>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).ToList()
+            .Find(x => x.PlayerID == input.PlayerID);
+
+        if (player != null)
         {
-            if (character.PlayerID == input.PlayerID)
+            player.SetInputManager(input);
+            
+            actionButtonsRoot.MMDestroyAllChildren();
+            _actionButtons = new List<PlayerActionButton>();
+            IPlayerActionSource[] actionSources = player.GetComponents<IPlayerActionSource>();
+            foreach (IPlayerActionSource source in actionSources)
             {
-                character.SetInputManager(input);       
+                foreach (PlayerAction playerAction in source.Actions)
+                {
+                    _actionButtons.Add(Instantiate(actionButtonPrefab, actionButtonsRoot).Build(playerAction));
+                }   
             }
         }
     }
