@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class PlayerActionButton : MonoBehaviour
 {
+    [HideInInspector] public bool blockUpdateUI;
+    
     [SerializeField] private Image progress; 
     [SerializeField] private Image icon;
     [SerializeField] private float scaleOnTouch;
@@ -19,7 +21,9 @@ public class PlayerActionButton : MonoBehaviour
     private RectTransformEvents _events;
     private LayoutElement _layoutElement;
     private CanvasGroup _canvasGroup;
-    
+
+    public bool PointerDown => _pointerDown;
+
     public PlayerActionButton Build(PlayerAction action)
     {
         _action = action;
@@ -80,8 +84,11 @@ public class PlayerActionButton : MonoBehaviour
 
     private void UpdateUI()
     {
-        _layoutElement.ignoreLayout = !_action.Enabled();
-        _canvasGroup.alpha = _action.Enabled() ? 1f : 0f;
-        _canvasGroup.blocksRaycasts = _action.Enabled();
+        if (!blockUpdateUI)
+        {
+            _layoutElement.ignoreLayout = !_action.Enabled();
+            _canvasGroup.alpha = _action.Enabled() ? 1f : 0f;
+            _canvasGroup.blocksRaycasts = _action.Enabled();
+        }
     }
 }

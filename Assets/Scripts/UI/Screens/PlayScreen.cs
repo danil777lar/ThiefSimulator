@@ -43,6 +43,13 @@ public class PlayScreen : UIScreen
         }
     }
 
+    private void Update()
+    {
+        bool blockUpdate = false;
+        _actionButtons.ForEach(x => blockUpdate |= x.PointerDown);
+        _actionButtons.ForEach(x => x.blockUpdateUI = blockUpdate);
+    }
+
     public class Args : ScreenOpenProperties
     {
         public Args() : base(UIScreenType.Play)
