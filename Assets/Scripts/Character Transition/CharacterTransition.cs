@@ -6,6 +6,7 @@ using Larje.Core.Tools.TopDownEngine;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterTransition : CharacterAbility, IPlayerActionSource
 {
@@ -20,6 +21,7 @@ public class CharacterTransition : CharacterAbility, IPlayerActionSource
     private bool _inTransition;
     private ActualSpeedCharacterMovement _movement;
     private TransitionPoint _nearestTransition;
+    private Transform _nearestTransitionPoint;
 
     public PlayerAction[] Actions { get; private set; }
 
@@ -55,22 +57,23 @@ public class CharacterTransition : CharacterAbility, IPlayerActionSource
     private void TryFindTransition()
     {
         _nearestTransition = null;
-        List<TransitionPoint> transitions = new List<TransitionPoint>();
+        Dictionary<TransitionPoint, Transform> transitions = new Dictionary<TransitionPoint, Transform>();
         
         Collider[] colliders = Physics.OverlapSphere(transform.position, findDistance, transitionMask);
-        foreach (Collider cargoCollider in  colliders)
+        foreach (Collider transCollider in  colliders)
         {
-            if (cargoCollider.attachedRigidbody != null 
-                && cargoCollider.attachedRigidbody.TryGetComponent(out TransitionPoint cargo))
+            if (transCollider.attachedRigidbody != null 
+                && transCollider.attachedRigidbody.TryGetComponent(out TransitionPoint trans))
             {
-                transitions.Add(cargo);
+                transitions.Add(trans, transCollider.transform);
             }
         }
 
         if (transitions.Count > 0)
         {
-            _nearestTransition = transitions.OrderBy(x => 
+            _nearestTransition = transitions.Keys.OrderBy(x => 
                 Vector3.Distance(transform.position, x.transform.position)).First();
+            _nearestTransitionPoint = transitions[_nearestTransition];
         }
     }
 
@@ -83,18 +86,29 @@ public class CharacterTransition : CharacterAbility, IPlayerActionSource
     {
         if (CanTransit())
         {
-            _inTransition = true;
-            this.DOKill();
-            _character.CharacterModel.transform
-                .DOMove(_nearestTransition.TransitTo.position, 0.5f)
-                .SetTarget(this)
-                .OnComplete(() =>
-                {
-                    transform.position = _character.CharacterModel.transform.position;
-                    _character.CharacterModel.transform.localPosition = Vector3.zero;
-                    _inTransition = false;
-                });
+            TransitionPoint transit = _nearestTransition;
+            Transform point = _nearestTransitionPoint;
             
+            if (transit.TryGetStartAndEndPercent(point, out float start, out float end))
+            {
+                _inTransition = true;
+                this.DOKill();
+                DOTween.To(() => start,
+                        (v) =>
+                        {
+                            _character.CharacterModel.transform.position = transit.EvaluatePosition(v);
+                        }, 
+                        end, transit.Duration)
+                    .SetTarget(this)
+                    .SetUpdate(UpdateType.Fixed)
+                    .SetEase(Ease.Linear)
+                    .OnComplete(() =>
+                    {
+                        transform.position = _character.CharacterModel.transform.position;
+                        _character.CharacterModel.transform.localPosition = Vector3.zero;
+                        _inTransition = false;
+                    });   ;
+            }
         }
     }
 }
