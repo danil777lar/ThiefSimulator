@@ -96,20 +96,13 @@ public class CharacterPull3D : CharacterAbility, IPlayerActionSource
             return;
         }
 
-        List<Pullable> cargos = new List<Pullable>();
+        List<Pullable> pullables = PhysicsUtility.FindObjectsInRange<Pullable>
+                (transform.position, findDistance, cargosMask, _controller3D.ObstaclesLayerMask)
+            .Keys.ToList();
         
-        Collider[] colliders = Physics.OverlapSphere(transform.position, findDistance,cargosMask);
-        foreach (Collider cargoCollider in  colliders)
+        if (pullables.Count > 0)
         {
-            if (cargoCollider.attachedRigidbody != null && cargoCollider.attachedRigidbody.TryGetComponent(out Pullable cargo))
-            {
-                cargos.Add(cargo);
-            }
-        }
-
-        if (cargos.Count > 0)
-        {
-            _nearestPullable = cargos.OrderBy(x => 
+            _nearestPullable = pullables.OrderBy(x => 
                 Vector3.Distance(transform.position, x.NearestAttachToPoint(transform.position).position))
                 .First();
         }

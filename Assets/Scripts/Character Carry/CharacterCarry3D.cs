@@ -105,22 +105,14 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
     private void TryFindCarryable()
     {
         _nearestCarryable = null;
-        List<Carryable> cargos = new List<Carryable>();
-        
-        Collider[] colliders = Physics.OverlapSphere(transform.position, findDistance, carryableMask);
-        foreach (Collider cargoCollider in  colliders)
-        {
-            if (cargoCollider.attachedRigidbody != null 
-                && cargoCollider.attachedRigidbody.TryGetComponent(out Carryable cargo)
-                && cargo.CanBeTaken)
-            {
-                cargos.Add(cargo);
-            }
-        }
+        List<Carryable> carryables = PhysicsUtility.FindObjectsInRange<Carryable>
+            (transform.position, findDistance, carryableMask, _controller3D.ObstaclesLayerMask)
+            .Keys.ToList()
+            .FindAll(x => x.CanBeTaken);
 
-        if (cargos.Count > 0)
+        if (carryables.Count > 0)
         {
-            _nearestCarryable = cargos.OrderBy(x => 
+            _nearestCarryable = carryables.OrderBy(x => 
                 Vector3.Distance(transform.position, x.transform.position)).First();
         }
     }

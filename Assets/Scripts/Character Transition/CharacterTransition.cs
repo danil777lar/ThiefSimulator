@@ -56,23 +56,14 @@ public class CharacterTransition : CharacterAbility, IPlayerActionSource
     private void TryFindTransition()
     {
         _nearestTransition = null;
-        Dictionary<TransitionPoint, Transform> transitions = new Dictionary<TransitionPoint, Transform>();
-        
-        Collider[] colliders = Physics.OverlapSphere(transform.position, findDistance, transitionMask);
-        foreach (Collider transCollider in  colliders)
-        {
-            if (transCollider.attachedRigidbody != null 
-                && transCollider.attachedRigidbody.TryGetComponent(out TransitionPoint trans))
-            {
-                transitions.Add(trans, transCollider.transform);
-            }
-        }
+        Dictionary<TransitionPoint, Collider> transitions = PhysicsUtility.FindObjectsInRange<TransitionPoint>
+            (transform.position, findDistance, transitionMask, _controller3D.ObstaclesLayerMask);
 
         if (transitions.Count > 0)
         {
             _nearestTransition = transitions.Keys.OrderBy(x => 
                 Vector3.Distance(transform.position, x.transform.position)).First();
-            _nearestTransitionPoint = transitions[_nearestTransition];
+            _nearestTransitionPoint = transitions[_nearestTransition].transform;
         }
     }
 
