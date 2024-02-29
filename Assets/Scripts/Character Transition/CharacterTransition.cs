@@ -34,7 +34,6 @@ public class CharacterTransition : CharacterAbility, IPlayerActionSource
 
     public override void ProcessAbility()
     {
-        base.ProcessAbility();
         TryFindTransition();
     }
 
@@ -91,6 +90,7 @@ public class CharacterTransition : CharacterAbility, IPlayerActionSource
             
             if (transit.TryGetStartAndEndPercent(point, out float start, out float end))
             {
+                _character.MovementState.ChangeState(CharacterStates.MovementStates.Transition);
                 _inTransition = true;
                 this.DOKill();
                 DOTween.To(() => start,
@@ -107,7 +107,8 @@ public class CharacterTransition : CharacterAbility, IPlayerActionSource
                         transform.position = _character.CharacterModel.transform.position;
                         _character.CharacterModel.transform.localPosition = Vector3.zero;
                         _inTransition = false;
-                    });   ;
+                        _character.MovementState.ChangeState(CharacterStates.MovementStates.Idle);
+                    });
             }
         }
     }

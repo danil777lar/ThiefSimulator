@@ -47,42 +47,24 @@ public class CharacterPull3D : CharacterAbility, IPlayerActionSource
     public override void ProcessAbility()
     {
         base.ProcessAbility();
-        if (_currentPullable == null)
+        
+        if (!AbilityAuthorized)
         {
-            TryFindCargo();
+            TryDetachPullable();
+            return;
         }
+
+        TryFindPullable();
     }
 
     private void FixedUpdate()
     {
-        if (_currentPullable)
+        if (!AbilityAuthorized)
         {
-            cargoPullPoint.transform.localPosition = Vector3.zero;
-            cargoPullPoint.transform.LookAt(_currentPullable.AttachPoint.position);
-            cargoPullPoint.transform.position += cargoPullPoint.transform.forward * attachDistance;
-            
-            _movement.SetLimit(cargoPullPoint.transform.forward, 270f);
-
-            if (Vector3.Distance(_currentPullable.AttachPoint.position, cargoPullPoint.position) > detachDistance)
-            {
-                ForceDetachCurrentPullable();
-            }
+            return;
         }
-    }
-    
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (CanAttachPullable())
-            {
-                TryAttachPullable();   
-            }
-            else if (CanDetachPullable())
-            {
-                TryDetachPullable();
-            }
-        }
+        
+        TryProcessPullable();
     }
 
     private void OnDrawGizmos()
@@ -107,8 +89,13 @@ public class CharacterPull3D : CharacterAbility, IPlayerActionSource
         Actions = actions.ToArray();
     }
 
-    private void TryFindCargo()
+    private void TryFindPullable()
     {
+        if (_currentPullable != null)
+        {
+            return;
+        }
+
         List<Pullable> cargos = new List<Pullable>();
         
         Collider[] colliders = Physics.OverlapSphere(transform.position, findDistance,cargosMask);
@@ -131,10 +118,30 @@ public class CharacterPull3D : CharacterAbility, IPlayerActionSource
             _nearestPullable = null;
         }
     }
+    
+    private void TryProcessPullable()
+    {
+        if (_currentPullable)
+        {
+            cargoPullPoint.transform.localPosition = Vector3.zero;
+            cargoPullPoint.transform.LookAt(_currentPullable.AttachPoint.position);
+
+            Vector3 pullPointPosition = cargoPullPoint.transform.position;
+            pullPointPosition += cargoPullPoint.transform.forward * attachDistance;
+            pullPointPosition.y = transform.position.y;
+            cargoPullPoint.transform.position = pullPointPosition;   
+            
+            _movement.SetLimit(cargoPullPoint.transform.forward, 270f);
+            if (Vector3.Distance(_currentPullable.AttachPoint.position, cargoPullPoint.position) > detachDistance)
+            {
+                ForceDetachCurrentPullable();
+            }
+        }
+    }
 
     private bool CanAttachPullable()
     {
-        return (_nearestPullable != null && _currentPullable == null);
+        return (AbilityAuthorized && _nearestPullable != null && _currentPullable == null);
     }
     
     private bool CanDetachPullable()
@@ -146,6 +153,8 @@ public class CharacterPull3D : CharacterAbility, IPlayerActionSource
     {
         if (CanAttachPullable())
         {
+            _character.MovementState.ChangeState(CharacterStates.MovementStates.Pulling);
+            
             _currentPullable = _nearestPullable;
 
             Transform attachPoint = _currentPullable.NearestAttachToPoint(transform.position);
@@ -155,7 +164,9 @@ public class CharacterPull3D : CharacterAbility, IPlayerActionSource
             totalSpeedMultiplier *= 1f - Mathf.Clamp01(_currentPullable.Rigidbody.mass / maxMass);
             _movement.MovementSpeedMultiplier = totalSpeedMultiplier;
             _orientation.forceTarget = cargoPullPoint.transform;
-
+            
+            TryProcessPullable();
+            
             _currentPullable.EventForceDetach += ForceDetachCurrentPullable;
         }
     }
@@ -169,6 +180,8 @@ public class CharacterPull3D : CharacterAbility, IPlayerActionSource
     {
         if (CanDetachPullable())
         {
+            _character.MovementState.ChangeState(CharacterStates.MovementStates.Idle);
+
             _currentPullable.EventForceDetach -= ForceDetachCurrentPullable;
 
             _currentPullable.Detach();

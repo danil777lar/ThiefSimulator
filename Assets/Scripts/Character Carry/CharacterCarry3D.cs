@@ -41,6 +41,13 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
     public override void ProcessAbility()
     {
         base.ProcessAbility();
+
+        if (!AbilityAuthorized)
+        {
+            DropAll();
+            return;
+        }
+        
         TryFindCarryable();
     }
 
@@ -51,6 +58,11 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
             Carryable carryToDrop = _currentCarryables.Last();
             carryToDrop.Drop(blockTaking);
             _currentCarryables.Remove(carryToDrop);
+
+            if (_currentCarryables.Count <= 0)
+            {
+                _character.MovementState.ChangeState(CharacterStates.MovementStates.Idle);
+            }
 
             return carryToDrop;
         }
@@ -66,19 +78,6 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
             carryables.Add(TryDrop());
         }
         return carryables;
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            TryTake();
-        }
-        
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            TryDrop();
-        }
     }
 
     private void OnDrawGizmos()
@@ -128,7 +127,7 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
 
     private bool CanTake()
     {
-        return _nearestCarryable != null;
+        return _nearestCarryable != null && AbilityAuthorized;
     }
     
     private bool CanDrop()
@@ -140,6 +139,8 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
     {
         if (CanTake())
         {
+            _character.MovementState.ChangeState(CharacterStates.MovementStates.Carry);
+            
             Transform attachPoint = _currentCarryables.Count > 0 ? 
                 _currentCarryables.Last().TopPoint : carryableAttachPoint;
             _nearestCarryable.Take(attachPoint, Mathf.Clamp01(_currentCarryables.Count * anchoringValuePerObject));
