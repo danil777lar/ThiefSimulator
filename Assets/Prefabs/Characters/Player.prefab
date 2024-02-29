@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 6377374948936315951}
   - component: {fileID: 5273731019370073304}
   - component: {fileID: 8051372575558603605}
+  - component: {fileID: 6234999558004962175}
   - component: {fileID: 2314369418861545768}
   m_Layer: 10
   m_Name: Player
@@ -349,6 +350,34 @@ MonoBehaviour:
   gizmosColor: {r: 1, g: 0.41726166, b: 0.058823526, a: 0.5019608}
   takeIcon: {fileID: 21300000, guid: 784af5bb575a044b0896d79c615a32a5, type: 3}
   dropIcon: {fileID: 21300000, guid: 8af7f7da9209c45598c2034865aea01c, type: 3}
+--- !u!114 &6234999558004962175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356067717985629786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e902497d337f418448504ce80e90768e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AbilityStartSfx: {fileID: 0}
+  AbilityInProgressSfx: {fileID: 0}
+  AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
+  AbilityPermitted: 1
+  BlockingMovementStates: 
+  BlockingConditionStates: 
+  BlockingWeaponStates: 
+  findDistance: 1
+  transitionMask:
+    serializedVersion: 2
+    m_Bits: 2097152
+  drawGizmos: 0
+  gizmosColor: {r: 1, g: 0.3679244, b: 0.66161, a: 0.5019608}
+  transitIcon: {fileID: 21300000, guid: 77c5e810d73684d60aea09a11021167d, type: 3}
 --- !u!114 &2314369418861545768
 MonoBehaviour:
   m_ObjectHideFlags: 0
