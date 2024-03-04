@@ -8,19 +8,18 @@ using UnityEngine.EventSystems;
 
 public class MenuScreen : UIScreen
 {
-    [SerializeField] private RectTransformEvents rect;
-
     [InjectService] private ILevelManagerService _levelManagerService;
     [InjectService] private UIService _uiService;
+    [InjectService] private PlayerInputService _inputService;
 
     protected override void OnOpen(ScreenOpenProperties screenOpenProperties)
     {
         base.OnOpen(screenOpenProperties);
         ServiceLocator.Default.InjectServicesInComponent(this);
-        rect.EventPointerDown += OnPointerDown;
+        _inputService.EventPointerDown += OnPointerDown;
     }
 
-    private void OnPointerDown(PointerEventData data)
+    private void OnPointerDown()
     {
         _levelManagerService.TryStartCurrentLevel(new LevelProcessor.StartData(LevelStartType.Start));
     }

@@ -15,6 +15,7 @@ public class PlayScreen : UIScreen
     [SerializeField] private RectTransform actionButtonsRoot; 
     
     [InjectService] private ILevelManagerService _levelService;
+    [InjectService] private PlayerInputService _inputService;
 
     private List<PlayerActionButton> _actionButtons;
 
@@ -22,15 +23,12 @@ public class PlayScreen : UIScreen
     {
         base.OnOpen(screenOpenProperties);
         ServiceLocator.Default.InjectServicesInComponent(this);
-
-        InputManager input = GetComponent<InputManager>();
+        
+        _inputService.ConnectPlayer();
         Character player = FindObjectsByType<Character>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).ToList()
-            .Find(x => x.PlayerID == input.PlayerID);
-
+            .Find(x => x.CharacterType == Character.CharacterTypes.Player);
         if (player != null)
         {
-            player.SetInputManager(input);
-            
             actionButtonsRoot.MMDestroyAllChildren();
             _actionButtons = new List<PlayerActionButton>();
             IPlayerActionSource[] actionSources = player.GetComponents<IPlayerActionSource>();
@@ -42,10 +40,6 @@ public class PlayScreen : UIScreen
                 }   
             }
         }
-
-        PointerEventData pointerData = new PointerEventData(EventSystem.current);
-        pointerData.position = Input.mousePosition;
-        GetComponentInChildren<MMTouchFollowerJoystick>().OnPointerDown(pointerData);
     }
 
     private void Update()

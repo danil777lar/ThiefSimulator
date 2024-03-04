@@ -58,6 +58,16 @@ namespace ProjectConstants
 		Fail = 16,
 	}
 
+	[Flags]
+	public enum UIScreenTypes
+	{
+		Loading = 1,
+		Menu = 2,
+		Play = 4,
+		Win = 8,
+		Fail = 16,
+	}
+
 	public enum UIPopupType
 	{
 		TestMiniGame = 1,
