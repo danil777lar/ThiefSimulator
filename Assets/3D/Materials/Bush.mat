@@ -21,19 +21,12 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Bush
-  m_Shader: {fileID: -6465566751694194690, guid: edd7abf643fa4bc4e8561d4c280c97cf,
+  m_Shader: {fileID: -6465566751694194690, guid: 940bbe88f57318e43b90dacbeb47c1f9,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - TCP2_REFLECTIONS_FRESNEL
-  - TCP2_RIM_LIGHTING
-  - TCP2_RIM_LIGHTING_LIGHTMASK
-  - TCP2_SHADOW_LIGHT_COLOR
-  - TCP2_SPECULAR
-  - TCP2_SPECULAR_STYLIZED
-  m_InvalidKeywords:
-  - TCP2_UV_NORMALS_FULL
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -138,8 +131,12 @@ Material:
     - _DstBlendAlpha: 0
     - _EmissionChannel: 4
     - _EnvironmentReflections: 1
+    - _FresnelColorValue: 0
+    - _FresnelMainValue: 1
     - _FresnelMax: 1.5
     - _FresnelMin: 0
+    - _FresnelPower: 1
+    - _FresnelTreshold: 0.6
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -148,7 +145,11 @@ Material:
     - _MatCapMaskChannel: 0
     - _MatCapType: 0
     - _Metallic: 0
+    - _MidtoneSize: 0.892
+    - _MidtoneValue: 0.486
     - _Mode: 0
+    - _NoiseScale: 100
+    - _NoiseSize: 0.1
     - _NormalsSource: 0
     - _NormalsUVType: 0
     - _OcclusionChannel: 0
@@ -162,6 +163,7 @@ Material:
     - _OutlineTextureType: 0
     - _OutlineWidth: 1
     - _Parallax: 0.02
+    - _QueueControl: 0
     - _QueueOffset: 0
     - _RampBands: 4
     - _RampBandsSmoothing: 0.1
@@ -178,6 +180,8 @@ Material:
     - _RimMax: 0.85
     - _RimMin: 0.21
     - _ShadowColorLightAtten: 1
+    - _ShadowSize: 0.814
+    - _ShadowValue: 0
     - _SingleIndirectColor: 0
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
@@ -205,18 +209,21 @@ Material:
     - _UseRimLightMask: 1
     - _UseShadowTexture: 0
     - _UseSpecular: 1
+    - _VertexColorValue: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.5189689, g: 0.7660377, b: 0.3916909, a: 1}
+    - _BaseColor: {r: 0.63047683, g: 0.8867924, b: 0.5002848, a: 1}
     - _Color: {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _FresnelColor: {r: 0, g: 0, b: 0, a: 0}
     - _HColor: {r: 1, g: 1, b: 1, a: 1}
     - _MatCapColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectionColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor: {r: 0.24974513, g: 1, b: 0, a: 0.5}
     - _SColor: {r: 0.62352943, g: 0.69803923, b: 0.58431375, a: 1}
+    - _ShadowColor: {r: 0.4413171, g: 0.8037735, b: 0.5996757, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _SpecularColor: {r: 0.06698585, g: 0.06698585, b: 0.06698585, a: 1}
   m_BuildTextureStacks: []
