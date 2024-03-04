@@ -55,8 +55,13 @@ MonoBehaviour:
     - Fail
   - Name: UIPopupType
     UseFlags: 0
-    Values: []
+    Values:
+    - TestMiniGame
   - Name: UIToastType
     UseFlags: 0
     Values:
     - Info
+  - Name: MiniGameType
+    UseFlags: 0
+    Values:
+    - TestMiniGame

@@ -22,7 +22,10 @@ public static class PhysicsUtility
                 if (!Physics.Raycast(from, direction, out RaycastHit hit,
                         direction.magnitude, obstaclesMask) || hit.collider == collider)
                 {
-                    result.Add(target, collider);   
+                    if (!result.ContainsKey(target))
+                    {
+                        result.Add(target, collider);   
+                    }
                 }
             }
         }

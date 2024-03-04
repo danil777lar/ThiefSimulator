@@ -1,20 +1,34 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Larje.Core.Services;
+using Larje.Core.Services.UI;
 using MoreMountains.Feedbacks;
+using ProjectConstants;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SimplePlayerInteractionPoint : MonoBehaviour
 {
     [SerializeField] private LayerMask mask;
     [SerializeField] private float duration;
-    [Space] 
-    [SerializeField] private MMF_Player feedbackOnComplete;
-    [SerializeField] private MMF_Player feedbackOnFail;
+    [Space]
+    [SerializeField] private bool playMiniGame;
+    [SerializeField] private UIPopupType miniGamePopupType;
+    [Space]
+    [SerializeField] private UnityEvent eventOnComplete;
+    [SerializeField] private UnityEvent eventOnFail;
+
+    [InjectService] private UIService _uiService;
 
     private float _timer;
     private Collider _other;
 
+    private void Start()
+    {
+        ServiceLocator.Default.InjectServicesInComponent(this);
+    }
+    
     private void Update()
     {
         if (_other != null)
@@ -53,6 +67,16 @@ public class SimplePlayerInteractionPoint : MonoBehaviour
 
     private void Interact()
     {
-        feedbackOnComplete?.PlayFeedbacks();
+        if (playMiniGame)
+        {
+            _uiService.Popups.OpenPopup(
+                new MiniGamePopup.MiniGameArgs(miniGamePopupType, 
+                    () => eventOnComplete.Invoke(), 
+                    () => eventOnFail.Invoke()));
+        }
+        else
+        {
+            eventOnComplete?.Invoke();   
+        }
     }
 }

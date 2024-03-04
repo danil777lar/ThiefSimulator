@@ -60,11 +60,17 @@ namespace ProjectConstants
 
 	public enum UIPopupType
 	{
+		TestMiniGame = 1,
 	}
 
 	public enum UIToastType
 	{
 		Info = 1,
+	}
+
+	public enum MiniGameType
+	{
+		TestMiniGame = 1,
 	}
 
 }
