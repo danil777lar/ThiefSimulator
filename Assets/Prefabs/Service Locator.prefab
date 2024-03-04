@@ -91,7 +91,13 @@ MonoBehaviour:
   editorMode: 1
   spawnLevelOnInit: 1
   levelHolder: {fileID: 0}
-  levels: []
+  levels:
+  - addToRandomList: 0
+    levelPrefab:
+      m_AssetGUID: 174c8576a98aaef49be4a9ae72acd889
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
 --- !u!1 &5417024905918732191
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,6 +259,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3924575942675980841}
   - component: {fileID: 5063390825098686320}
+  - component: {fileID: 5384317343638614654}
   m_Layer: 0
   m_Name: Service Locator
   m_TagString: Untagged
@@ -294,6 +301,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
+--- !u!114 &5384317343638614654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6726923616184662240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d35c1850fb0253f4db8825720f670c3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetFrameRate: 120
+  logEnabled: 1
+  logSystemInfo: 0
 --- !u!1 &7036092376627061003
 GameObject:
   m_ObjectHideFlags: 0

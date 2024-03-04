@@ -35,8 +35,6 @@ public class LoadingScreen : UIScreen
                 ? firstStartLoadingDuration
                 : usualLoadingDuration;
             Action onLoadComplete = OnLoadingCompleteDefault;
-
-            _levelService.SpawnCurrentLevel();
             
             if (screenOpenProperties is Args loadingArgs)
             {
