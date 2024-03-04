@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -78,6 +79,11 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
             carryables.Add(TryDrop());
         }
         return carryables;
+    }
+
+    private void FixedUpdate()
+    {
+        _currentCarryables?.ForEach(x => x.UpdatePosition(_movement.ActualSpeedPercent));
     }
 
     private void OnDrawGizmos()

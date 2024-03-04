@@ -1,4 +1,5 @@
 using System;
+using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
@@ -6,7 +7,8 @@ using Random = UnityEngine.Random;
 public class Carryable : MonoBehaviour
 {
     [SerializeField] private Transform topPoint;
-    [SerializeField] private float moveSpeed;
+    [Space] 
+    [SerializeField] private float maxRotate = 5f;
     [SerializeField] private float dropForce;
     
     private bool _blockTaking;
@@ -41,25 +43,24 @@ public class Carryable : MonoBehaviour
         force *= dropForce;
         _rb.AddForce(force, ForceMode.VelocityChange);
     }
+
+    public void UpdatePosition(float movementSpeed)
+    {
+        if (_attachPoint != null)
+        {
+            float rotate = maxRotate * movementSpeed;
+            
+            transform.position = _attachPoint.position;
+            transform.rotation = _attachPoint.rotation;
+
+            transform.rotation *= Quaternion.Euler(Vector3.right * -rotate);
+        }
+    }
     
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
-    }
-
-    private void FixedUpdate()
-    {
-        if (_attachPoint != null)
-        {
-            transform.rotation = Quaternion.Lerp(transform.rotation, 
-                Quaternion.Euler(transform.rotation.eulerAngles.Y()), moveSpeed * Time.fixedDeltaTime);
-            transform.forward = Vector3.Lerp(transform.forward, _attachPoint.forward, moveSpeed * Time.fixedDeltaTime);
-
-            Vector3 startPosition = Vector3.Lerp(_attachPoint.position, transform.position, _anchoringValue);
-            transform.position = Vector3.Lerp(startPosition, _attachPoint.position, 
-                moveSpeed * Time.fixedDeltaTime);
-        }
     }
 
     private void OnDisable()
