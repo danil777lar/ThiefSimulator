@@ -7,6 +7,7 @@ using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using ProjectConstants;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayScreen : UIScreen
 {
@@ -41,6 +42,10 @@ public class PlayScreen : UIScreen
                 }   
             }
         }
+
+        PointerEventData pointerData = new PointerEventData(EventSystem.current);
+        pointerData.position = Input.mousePosition;
+        GetComponentInChildren<MMTouchFollowerJoystick>().OnPointerDown(pointerData);
     }
 
     private void Update()
