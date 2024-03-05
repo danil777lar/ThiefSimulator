@@ -34,12 +34,7 @@ public class Pullable : MonoBehaviour
         _attachPoint = null;
     }
 
-    private void Start()
-    {
-        _rb = GetComponent<Rigidbody>();
-    }
-
-    private void FixedUpdate()
+    public void UpdatePosition()
     {
         if (_attachTarget != null)
         {
@@ -50,6 +45,11 @@ public class Pullable : MonoBehaviour
             _rb.angularVelocity = Vector3.zero;
             _rb.AddForceAtPosition(direction.normalized * speed, _attachPoint.position, ForceMode.VelocityChange);
         }
+    }
+
+    private void Start()
+    {
+        _rb = GetComponent<Rigidbody>();
     }
 
     private void OnDisable()

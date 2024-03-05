@@ -122,12 +122,16 @@ public class CharacterPull3D : CharacterAbility, IPlayerActionSource
             Vector3 pullPointPosition = cargoPullPoint.transform.position;
             pullPointPosition += cargoPullPoint.transform.forward * attachDistance;
             pullPointPosition.y = transform.position.y;
-            cargoPullPoint.transform.position = pullPointPosition;   
+            cargoPullPoint.transform.position = pullPointPosition;
             
             _movement.SetLimit(cargoPullPoint.transform.forward, 270f);
             if (Vector3.Distance(_currentPullable.AttachPoint.position, cargoPullPoint.position) > detachDistance)
             {
                 ForceDetachCurrentPullable();
+            }
+            else
+            {
+                _currentPullable.UpdatePosition();
             }
         }
     }
@@ -159,8 +163,11 @@ public class CharacterPull3D : CharacterAbility, IPlayerActionSource
             _orientation.forceTarget = cargoPullPoint.transform;
             
             TryProcessPullable();
-            
-            _currentPullable.EventForceDetach += ForceDetachCurrentPullable;
+
+            if (_currentPullable != null)
+            {
+                _currentPullable.EventForceDetach += ForceDetachCurrentPullable;
+            }
         }
     }
     
