@@ -5,10 +5,12 @@ using System.Linq;
 using Larje.Core.Services;
 using ProjectConstants;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SellPoint : MonoBehaviour
 {
     [SerializeField] private float sellDelay;
+    [SerializeField] private Image sellProgressUi; 
 
     [InjectService] private ICurrencyService _currencyService;
         
@@ -29,6 +31,7 @@ public class SellPoint : MonoBehaviour
             _currentTime += Time.deltaTime;
             if (_currentTime >= sellDelay)
             {
+                _currentTime = 0f;
                 Sell(_objectsToSell.First());
             }
         }
@@ -36,6 +39,8 @@ public class SellPoint : MonoBehaviour
         {
             _currentTime = 0f;
         }
+
+        sellProgressUi.fillAmount = _currentTime / sellDelay;
     }
     
     private void OnTriggerEnter(Collider other)
