@@ -92,13 +92,13 @@ public class SellPoint : MonoBehaviour
             Vector3 startPoint = sellable.transform.position;
             _objectsToSell.Remove(sellable);
             sellable.PrepareToSell();
-            DOTween.To(() => 0f,
+            _currencyService.AddCurrency(CurrencyType.Coins, CurrencyPlacementType.Level, sellable.Cost);
+            DOTween.To(() => 0f, 
                     x => sellable.transform.position =
-                        EvaluateTrajectory(startPoint, middlePoint.position, finishPoint.position, x),
+                        EvaluateTrajectory(startPoint, middlePoint.position, finishPoint.position, x), 
                     1f, sellAnimDuration)
                 .OnComplete(() =>
                 {
-                    _currencyService.AddCurrency(CurrencyType.Coins, CurrencyPlacementType.Level, sellable.Cost);
                     Destroy(sellable.gameObject);
                 });
         }
