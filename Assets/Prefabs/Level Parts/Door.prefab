@@ -482,7 +482,12 @@ MonoBehaviour:
     m_Bits: 1024
   trigger: {fileID: 4736827104974350710}
   doorRoots:
-  - {fileID: 6624436406292258375}
+  - <Root>k__BackingField: {fileID: 6624436406292258375}
+    <AngleMultiplier>k__BackingField: 1
+  openDuration: 0.5
+  openEase: 27
+  closeDuration: 5
+  closeEase: 24
 --- !u!1 &2735077515510694253
 GameObject:
   m_ObjectHideFlags: 0

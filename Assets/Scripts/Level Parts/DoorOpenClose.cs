@@ -12,7 +12,7 @@ public class DoorOpenClose : MonoBehaviour
     [SerializeField] private LayerMask interactionMask;
     [Space]
     [SerializeField] private GameObject trigger;
-    [SerializeField] private Transform[] doorRoots;
+    [SerializeField] private DoorRoot[] doorRoots;
     [Space]
     [SerializeField] private float openDuration = 0.5f;
     [SerializeField] private Ease openEase = Ease.OutBack;
@@ -82,9 +82,9 @@ public class DoorOpenClose : MonoBehaviour
         {
             this.DOKill();
             float direction = transform.InverseTransformPoint(position).x < 0f ? 1f : -1f;
-            foreach (Transform door in doorRoots)
+            foreach (DoorRoot door in doorRoots)
             {
-                door.DOLocalRotate(Vector3.up * 90f * direction, openDuration)
+                door.Root.DOLocalRotate(Vector3.up * 90f * direction * door.AngleMultiplier, openDuration)
                     .SetTarget(this)
                     .SetEase(openEase);
             }
@@ -96,12 +96,19 @@ public class DoorOpenClose : MonoBehaviour
         if (_isActive)
         {
             this.DOKill();
-            foreach (Transform door in doorRoots)
+            foreach (DoorRoot door in doorRoots)
             {
-                door.DOLocalRotate(Vector3.zero, closeDuration)
+                door.Root.DOLocalRotate(Vector3.zero, closeDuration)
                     .SetTarget(this)
                     .SetEase(closeEase);
             }
         }
+    }
+
+    [Serializable]
+    private class DoorRoot
+    {
+        [field: SerializeField] public Transform Root { get; private set; }
+        [field: SerializeField] public float AngleMultiplier { get; private set; }
     }
 }
