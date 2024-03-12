@@ -71,6 +71,7 @@ namespace ProjectConstants
 	public enum UIPopupType
 	{
 		TestMiniGame = 1,
+		LockMiniGame = 2,
 	}
 
 	public enum UIToastType
@@ -81,6 +82,7 @@ namespace ProjectConstants
 	public enum MiniGameType
 	{
 		TestMiniGame = 1,
+		LockMiniGame = 2,
 	}
 
 }
