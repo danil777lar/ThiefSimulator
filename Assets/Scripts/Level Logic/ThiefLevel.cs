@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Larje.Core.Services;
+using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 

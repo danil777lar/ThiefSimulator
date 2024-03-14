@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2794346118928681340}
   - component: {fileID: 5826580191696817393}
   - component: {fileID: 5737652771524701162}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4359345397768262478}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 1813782766924064555}
   - component: {fileID: 7997598877544954962}
   - component: {fileID: 2270803595799313842}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -216,7 +216,7 @@ GameObject:
   - component: {fileID: 5475510135916990155}
   - component: {fileID: 3760783415677740073}
   - component: {fileID: 793645103235117918}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -499,7 +499,7 @@ GameObject:
   - component: {fileID: 972605583396219136}
   - component: {fileID: 181880646558426472}
   - component: {fileID: 8590093608109948880}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -580,7 +580,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6624436406292258375}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Door Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -613,7 +613,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6171700538194213288}
   - component: {fileID: 7798058553455808578}
-  m_Layer: 9
+  - component: {fileID: 7074758318247710426}
+  m_Layer: 11
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -656,6 +657,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.23, y: 3, z: 1.84}
   m_Center: {x: 0, y: 1.5, z: 0}
+--- !u!208 &7074758318247710426
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3493797265928262422}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.115, y: 1.5, z: 0.92}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 1.5, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &3580770117645404914
 GameObject:
   m_ObjectHideFlags: 0
@@ -665,7 +682,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8642709722326181832}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Mini Game Triggers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -699,8 +716,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8666583637205438437}
   - component: {fileID: 2519611810520744742}
-  - component: {fileID: 317782865522699186}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Door Unlock Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -743,26 +759,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.5, y: 1, z: 1.95}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &317782865522699186
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4736827104974350710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6eeb5dc026fdf4b488bc7ae0138ab719, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AgentTypeID: 0
-  m_StartPoint: {x: -2, y: 0, z: 0}
-  m_EndPoint: {x: 2, y: 0, z: 0}
-  m_Width: 1
-  m_CostModifier: -1
-  m_Bidirectional: 1
-  m_AutoUpdatePosition: 0
-  m_Area: 0
 --- !u!1 &8561284071447682332
 GameObject:
   m_ObjectHideFlags: 0
@@ -774,7 +770,7 @@ GameObject:
   - component: {fileID: 8779565376036577389}
   - component: {fileID: 642292052944055428}
   - component: {fileID: 6493127761604903850}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -857,7 +853,7 @@ GameObject:
   - component: {fileID: 5852543179681847167}
   - component: {fileID: 3271371350959559649}
   - component: {fileID: 5680919208604326295}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -937,10 +933,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8642709722326181832}
     m_Modifications:
+    - target: {fileID: 4923957582449242742, guid: f97f4e2b928b0bd4fa0b031b028f3898,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5536555189193584472, guid: f97f4e2b928b0bd4fa0b031b028f3898,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 6101054385493832661, guid: f97f4e2b928b0bd4fa0b031b028f3898,
         type: 3}
       propertyPath: m_Name
       value: Interaction Trigger (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6101054385493832661, guid: f97f4e2b928b0bd4fa0b031b028f3898,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6593665081330850464, guid: f97f4e2b928b0bd4fa0b031b028f3898,
         type: 3}
@@ -1011,10 +1022,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8642709722326181832}
     m_Modifications:
+    - target: {fileID: 4923957582449242742, guid: f97f4e2b928b0bd4fa0b031b028f3898,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5536555189193584472, guid: f97f4e2b928b0bd4fa0b031b028f3898,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 6101054385493832661, guid: f97f4e2b928b0bd4fa0b031b028f3898,
         type: 3}
       propertyPath: m_Name
       value: Interaction Trigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 6101054385493832661, guid: f97f4e2b928b0bd4fa0b031b028f3898,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6593665081330850464, guid: f97f4e2b928b0bd4fa0b031b028f3898,
         type: 3}
