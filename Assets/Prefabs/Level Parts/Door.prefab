@@ -376,7 +376,7 @@ MonoBehaviour:
   _targetObject: {fileID: 2092014536794258412}
   _offset: {x: 0, y: 0}
   _rotationOffset: {x: 0, y: 0, z: 0}
-  lastPosition: {x: -1.4210855e-14, y: 0, z: -1}
+  lastPosition: {x: -0.000009536743, y: 0, z: -10}
 --- !u!114 &5475510135916990155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -479,7 +479,7 @@ MonoBehaviour:
   doorOpenAngle: 90
   interactionMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 9216
   trigger: {fileID: 4736827104974350710}
   doorRoots:
   - <Root>k__BackingField: {fileID: 6624436406292258375}
@@ -699,6 +699,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8666583637205438437}
   - component: {fileID: 2519611810520744742}
+  - component: {fileID: 317782865522699186}
   m_Layer: 9
   m_Name: Door Unlock Trigger
   m_TagString: Untagged
@@ -742,6 +743,26 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.5, y: 1, z: 1.95}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &317782865522699186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4736827104974350710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eeb5dc026fdf4b488bc7ae0138ab719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_StartPoint: {x: -2, y: 0, z: 0}
+  m_EndPoint: {x: 2, y: 0, z: 0}
+  m_Width: 1
+  m_CostModifier: -1
+  m_Bidirectional: 1
+  m_AutoUpdatePosition: 0
+  m_Area: 0
 --- !u!1 &8561284071447682332
 GameObject:
   m_ObjectHideFlags: 0
