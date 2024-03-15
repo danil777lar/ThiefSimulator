@@ -1,26 +1,27 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Dreamteck.Splines;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AIActionAimToPlayer : AIAction
-{ 
+public class AIActionPatroll : AIAction
+{
+    [SerializeField] private float distanceOnSpline;
+
     private Transform _target;
-    private Character _player;
+    private SplineComputer _spline;
 
     public override void Initialization()
     {
         base.Initialization();
-        
-        _player = FindObjectsByType<Character>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
-            .ToList().Find(x => x.CharacterType == Character.CharacterTypes.Player);
-        
+
+        _spline = GetComponentInParent<SplineComputer>();
+
         _target = new GameObject().transform;
-        _target.gameObject.name = "Aim To Player Target";
+        _target.gameObject.name = "Patroll Target";
         _target.SetParent(transform);
     }
 
@@ -32,9 +33,12 @@ public class AIActionAimToPlayer : AIAction
 
     public override void PerformAction()
     {
-        if (_player)
+        if (_spline)
         {
-            _target.position = _player.transform.position;
+            Vector3 from = _brain.Owner.transform.position;
+            _target.position = _spline.EvaluatePosition(
+                _spline.Travel(
+                    _spline.Project(from).percent, distanceOnSpline));
         }
     }
 }
