@@ -5,52 +5,47 @@ using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class CharacterFOV : MonoBehaviour
+public class CharacterFOV : CharacterAbility
 {
-    [HideInInspector] public float visionDistanceModifier = 1f;
-
     [SerializeField] private bool drawGizmo;
     [SerializeField] private bool buildMesh = true;
     [SerializeField] private LayerMask mask;
     [SerializeField] private MeshFilter meshFilter;
     [SerializeField] private Options options;
-    
-    private List<Character> _charactersInVision = new List<Character>();
-    private List<Character> _charactersInShoot = new List<Character>();
 
-    public Character[] CharactersInVision => _charactersInVision.ToArray();
-    public Character[] CharactersInShoot => _charactersInShoot.ToArray();
+    private ThiefLevel _level;
+    private List<Character> _charactersInVision = new List<Character>();
+
+    public IReadOnlyCollection<Character> CharactersInVision => _charactersInVision.AsReadOnly();
 
     public void Build(Options options)
     {
         this.options = options;
     }
 
-    public float GetDistance()
+    public override void ProcessAbility()
     {
-        return options.DistanceVision * visionDistanceModifier;
+        if (AbilityAuthorized && AbilityPermitted)
+        {
+            UpdateVision();
+        }
+    }
+    
+    protected override void Initialization()
+    {
+        base.Initialization();
+        _level = GetComponentInParent<ThiefLevel>();
     }
 
-    private void Awake()
-    {
-        visionDistanceModifier = 1f;
-    }
-
-    private void OnEnable()
+    protected override void OnEnable()
     {
         meshFilter.gameObject.SetActive(true);
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
         _charactersInVision.Clear();
-        _charactersInShoot.Clear();
         meshFilter.gameObject.SetActive(false);
-    }
-
-    private void Update()
-    {
-        UpdateVision();
     }
 
     private void UpdateVision()
@@ -61,7 +56,6 @@ public class CharacterFOV : MonoBehaviour
         }
 
         _charactersInVision.Clear();
-        _charactersInShoot.Clear();
 
         Vector3 scale = Vector3.one * meshFilter.transform.parent.InverseTransformVector(Vector3.right).magnitude;
         meshFilter.transform.localScale = scale;
@@ -87,13 +81,19 @@ public class CharacterFOV : MonoBehaviour
             Vector3 localDirection = meshFilter.transform.TransformDirection(direction);
             Vector3 vertex = Vector3.zero;
 
-            if (Physics.Raycast(meshFilter.transform.position, localDirection, out RaycastHit hit, GetDistance(), mask))
+            if (Physics.Raycast(meshFilter.transform.position, localDirection, out RaycastHit hit, options.DistanceVision, mask))
             {
                 vertex = meshFilter.transform.InverseTransformPoint(hit.point);
+                Character character = _level.Characters.ToList()
+                    .Find(x => x.gameObject == hit.collider.gameObject); 
+                if (character != null)
+                {
+                    _charactersInVision.Add(character);
+                }
             }
             else
             {
-                vertex = direction * GetDistance();
+                vertex = direction * options.DistanceVision;
             }
 
             if (drawGizmo)

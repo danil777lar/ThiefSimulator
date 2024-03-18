@@ -9,6 +9,8 @@ public class AIActionMoveTowardsTargetNavMesh : AIAction
 {
 	[SerializeField] private float minimumDistance = 1f;
 	[SerializeField] private float minimumDistanceToCorner = 1f;
+	[Header("Smooth Rotation")]
+	[SerializeField] private bool useSmoothRotation;
 	[SerializeField] private float rotationSpeed = 180f;
 
 	private float _lastPerformTime;
@@ -69,8 +71,15 @@ public class AIActionMoveTowardsTargetNavMesh : AIAction
 		}
 		
 		Vector3 direction = targetPosition - from;
-		_currentDirection = Vector3.RotateTowards(_currentDirection, direction,
-			Mathf.Deg2Rad * rotationSpeed * deltaTime, 0f).normalized; 
+		if (useSmoothRotation)
+		{
+			_currentDirection = Vector3.RotateTowards(_currentDirection, direction,
+				Mathf.Deg2Rad * rotationSpeed * deltaTime, 0f).normalized;
+		}
+		else
+		{
+			_currentDirection = direction;
+		}
 		targetPosition = from + (_currentDirection * direction.magnitude);
 
 		_directionToTarget = targetPosition - from;
