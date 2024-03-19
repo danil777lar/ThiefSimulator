@@ -584,6 +584,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a4dc51527545b44b8edb5479adb950e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seekDistance: 10
 --- !u!114 &6163404771080707589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -707,6 +708,7 @@ GameObject:
   - component: {fileID: 1730875330577463486}
   - component: {fileID: 7616936883048396170}
   - component: {fileID: 7795153215663240695}
+  - component: {fileID: 1065937145691162619}
   - component: {fileID: 3724746444136496149}
   - component: {fileID: 2620718387335372296}
   m_Layer: 0
@@ -787,9 +789,16 @@ MonoBehaviour:
   - StateName: Seek
     Actions:
       array:
-      - {fileID: 1730875330577463486}
+      - {fileID: 1065937145691162619}
+      - {fileID: 2620718387335372296}
     Transitions:
-      array: []
+      array:
+      - Decision: {fileID: 3308132333060778032}
+        TrueState: 
+        FalseState: Patroll
+      - Decision: {fileID: 3573202617795419196}
+        TrueState: Attack
+        FalseState: 
   TimeInThisState: 0
   Target: {fileID: 0}
   _lastKnownTargetPosition: {x: 0, y: 0, z: 0}
@@ -883,6 +892,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InitializationMode: 0
   Label: Aim To Seek Point
+--- !u!114 &1065937145691162619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7078308226853584667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 439bb263eb8cbc449a32f39abad6cba6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitializationMode: 0
+  Label: Aim To Nearest Seek Point
 --- !u!114 &3724746444136496149
 MonoBehaviour:
   m_ObjectHideFlags: 0

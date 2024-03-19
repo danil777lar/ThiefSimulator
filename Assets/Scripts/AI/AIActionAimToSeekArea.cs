@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using MoreMountains.Tools;
 using UnityEngine;
 
-public class AIActionAimToSeekPoint : AIAction
+public class AIActionAimToSeekArea : AIAction
 {
     private Transform _target;
     private CharacterSeek _seek;
@@ -14,7 +14,7 @@ public class AIActionAimToSeekPoint : AIAction
         _seek = _brain.Owner.GetComponent<CharacterSeek>();
 
         _target = new GameObject().transform;
-        _target.gameObject.name = "Run To Seek Point Target";
+        _target.gameObject.name = "Run To Seek Area Target";
         _target.SetParent(transform);
     }
 
