@@ -14,8 +14,10 @@ public class CharacterFOV : CharacterAbility
     [SerializeField] private Options options;
 
     private ThiefLevel _level;
+    private List<Vector3> _pointsInVision = new List<Vector3>();
     private List<Character> _charactersInVision = new List<Character>();
 
+    public IReadOnlyCollection<Vector3> PointsInVision => _pointsInVision.AsReadOnly();
     public IReadOnlyCollection<Character> CharactersInVision => _charactersInVision.AsReadOnly();
 
     public void Build(Options options)
@@ -55,6 +57,7 @@ public class CharacterFOV : CharacterAbility
             return;
         }
 
+        List<Vector3> rays = new List<Vector3>(); 
         _charactersInVision.Clear();
 
         Vector3 scale = Vector3.one * meshFilter.transform.parent.InverseTransformVector(Vector3.right).magnitude;
@@ -84,6 +87,7 @@ public class CharacterFOV : CharacterAbility
             if (Physics.Raycast(meshFilter.transform.position, localDirection, out RaycastHit hit, options.DistanceVision, mask))
             {
                 vertex = meshFilter.transform.InverseTransformPoint(hit.point);
+
                 Character character = _level.Characters.ToList()
                     .Find(x => x.gameObject == hit.collider.gameObject); 
                 if (character != null)
@@ -95,6 +99,8 @@ public class CharacterFOV : CharacterAbility
             {
                 vertex = direction * options.DistanceVision;
             }
+            
+            rays.Add(vertex);
 
             if (drawGizmo)
             {
@@ -128,6 +134,23 @@ public class CharacterFOV : CharacterAbility
             meshFilter.mesh.vertices = verticles;
             meshFilter.mesh.uv = uv;
             meshFilter.mesh.triangles = triangles;
+        }
+        
+        FindPointsInVision(rays, angleIncrease);
+    }
+
+    private void FindPointsInVision(List<Vector3> rays, float angle)
+    {
+        _pointsInVision.Clear();
+        foreach (Vector3 point in _level.Points)
+        {
+            Vector3 pointDirection = meshFilter.transform.InverseTransformPoint(point);
+            List<Vector3> nearestRays = rays.FindAll(x => 
+                Vector3.Angle(x.normalized.XZ(), pointDirection.normalized.XZ()) <= angle);
+            if (nearestRays.Count > 0 && pointDirection.magnitude < nearestRays.First().magnitude)
+            {
+                _pointsInVision.Add(point);
+            }
         }
     }
 
