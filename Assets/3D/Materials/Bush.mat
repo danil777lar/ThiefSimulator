@@ -41,6 +41,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _BaseTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -117,6 +121,8 @@ Material:
     m_Floats:
     - _AlphaClip: 0
     - _AlphaToMask: 0
+    - _BOOLEAN: 0
+    - _BaseTextureValue: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
@@ -140,6 +146,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _HighlightSize: 0.14
     - _IndirectIntensity: 1
     - _IndirectIntensityOutline: 0
     - _MatCapMaskChannel: 0
@@ -148,6 +155,7 @@ Material:
     - _MidtoneSize: 0.892
     - _MidtoneValue: 0.486
     - _Mode: 0
+    - _NOISE: 0
     - _NoiseScale: 100
     - _NoiseSize: 0.1
     - _NormalsSource: 0
@@ -180,7 +188,7 @@ Material:
     - _RimMax: 0.85
     - _RimMin: 0.21
     - _ShadowColorLightAtten: 1
-    - _ShadowSize: 0.814
+    - _ShadowSize: 0.6
     - _ShadowValue: 0
     - _SingleIndirectColor: 0
     - _Smoothness: 0.5
@@ -213,17 +221,18 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.63047683, g: 0.8867924, b: 0.5002848, a: 1}
+    - _BaseColor: {r: 0.47873974, g: 0.90943396, b: 0.54946613, a: 1}
     - _Color: {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FresnelColor: {r: 0, g: 0, b: 0, a: 0}
     - _HColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HighlightColor: {r: 0.55121946, g: 1, b: 0.7463415, a: 0.50980395}
     - _MatCapColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectionColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor: {r: 0.24974513, g: 1, b: 0, a: 0.5}
     - _SColor: {r: 0.62352943, g: 0.69803923, b: 0.58431375, a: 1}
-    - _ShadowColor: {r: 0.4413171, g: 0.8037735, b: 0.5996757, a: 1}
+    - _ShadowColor: {r: 0.38860977, g: 0.705, b: 0.5973898, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _SpecularColor: {r: 0.06698585, g: 0.06698585, b: 0.06698585, a: 1}
   m_BuildTextureStacks: []
