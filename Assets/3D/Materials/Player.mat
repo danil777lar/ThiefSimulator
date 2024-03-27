@@ -132,9 +132,10 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _HighlightSize: 0.109
+    - _HighlightSize: 0.269
     - _Highlight_Hue_Shift: 0
     - _Highlight_Saturation_Shift: 0
+    - _Highlight_Sharpness: 0.8
     - _Highlight_Value_Shift: 0.25
     - _IndirectIntensity: 1
     - _IndirectIntensityOutline: 0
@@ -178,9 +179,10 @@ Material:
     - _ShadowColorLightAtten: 1
     - _ShadowSize: 0.403
     - _ShadowValue: 0
-    - _Shadow_Hue_Shift: -0.02
-    - _Shadow_Saturation_Shift: 0.24
-    - _Shadow_Value_Shift: 0
+    - _Shadow_Hue_Shift: -0.05
+    - _Shadow_Saturation_Shift: -0.14
+    - _Shadow_Sharpness: 0.8
+    - _Shadow_Value_Shift: -0.23
     - _SingleIndirectColor: 0
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
