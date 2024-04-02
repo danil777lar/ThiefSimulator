@@ -8,7 +8,7 @@ using UnityEngine.AI;
 
 public class CharacterSeek : MonoBehaviour
 {
-    [SerializeField] private float seekDistance;
+    [SerializeField] private CharacterSeekConfig config;
 
     private CharacterFOV _fov;
     private ThiefLevel _level;
@@ -101,7 +101,7 @@ public class CharacterSeek : MonoBehaviour
             NavMeshPath path = new NavMeshPath();
             if (NavMesh.CalculatePath(SeekPoint, x, NavMesh.AllAreas, path))
             {
-                return path.IsAvailable(x) && path.GetLength() <= seekDistance;
+                return path.IsAvailable(x) && path.GetLength() <= config.SeekDistance;
             }
             return false;
         });
