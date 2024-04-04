@@ -675,6 +675,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 913d3097b10788d40aab70105a2abb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useDeviceBackButton: 1
+  blockNextDeviceBackButtonInvokes: 0
   toastType: 1
   closeDelay: 2
   maxToastWidth: 800

@@ -623,8 +623,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6de3a1e5a445c744899e5dac60b42ae1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useDeviceBackButton: 1
+  blockNextDeviceBackButtonInvokes: 1
   _popupType: 2
-  _closeByBackDeviceKey: 1
   _closeByBackgroundClick: 0
   _background: {fileID: 1869326397655645973}
   cylinderRotateSpeed: 2

@@ -794,8 +794,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b17d8d7f1dc262d429b534b92d5b6649, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useDeviceBackButton: 1
+  blockNextDeviceBackButtonInvokes: 1
   _popupType: 1
-  _closeByBackDeviceKey: 1
   _closeByBackgroundClick: 1
   _background: {fileID: 1869326397655645973}
   completeButton: {fileID: 5889018633392733104}

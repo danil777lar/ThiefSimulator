@@ -1130,7 +1130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useDeviceBackButton: 1
-  minSortOrder: -1000
+  maxSortOrder: -100
 --- !u!114 &6136238443249351041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1143,7 +1143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36f7e5b83afc29444a81a7190bb7f877, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  priority: 0
+  <Priority>k__BackingField: 0
   startScreen: 1
   screens:
   - {fileID: 3269232561248338450, guid: 44d8fc5e330781a4a9f993b4e9dfeb2f, type: 3}
@@ -1163,7 +1163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 458f8220099409148bc3b05b621e3865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  priority: 1
+  <Priority>k__BackingField: 1
   popups:
   - {fileID: 1196915836644682806, guid: 4bfbbe99652dfdf4bb0b18a99818d800, type: 3}
   - {fileID: 1196915836644682806, guid: 296f9ce72539c734fb7edc9618b7724c, type: 3}
@@ -1179,6 +1179,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e30310845442d7d49a18d0fde8a73882, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  priority: 2
+  <Priority>k__BackingField: 2
   toasts:
   - {fileID: 4931277155878816164, guid: 12fb9b92bf2209d409915486603dd376, type: 3}

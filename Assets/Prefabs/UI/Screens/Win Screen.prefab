@@ -53,8 +53,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f49f8d4fbb492a045bdb222775bb0fd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useDeviceBackButton: 1
+  blockNextDeviceBackButtonInvokes: 1
+  <ClearHistoryOnOpen>k__BackingField: 1
   <ScreenType>k__BackingField: 8
-  <RewriteDeviceBackButton>k__BackingField: 0
   skipButton: {fileID: 0}
 --- !u!223 &937985035763752740
 Canvas:

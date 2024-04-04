@@ -25,7 +25,7 @@ public class PlayerInputService : Service
     {
         _inputManager = GetComponent<InputManager>();
         _joystick = GetComponentInChildren<MMTouchJoystick>(true);
-        _uiService.GetProcessor<UIScreenProcessor>().ScreenChanged += OnScreenChanged;
+        _uiService.GetProcessor<UIScreenProcessor>().EventScreenOpened += OnScreenChanged;
     }
 
     public void PointerDown()
@@ -46,7 +46,7 @@ public class PlayerInputService : Service
             });
     }
 
-    private void OnScreenChanged(UIScreenType oldScreen, UIScreenType newScreen)
+    private void OnScreenChanged(UIScreenType newScreen)
     {
         bool isActive = screensMask.HasFlag((UIScreenTypes)(int)newScreen);
         _joystick.gameObject.SetActive(isActive);
