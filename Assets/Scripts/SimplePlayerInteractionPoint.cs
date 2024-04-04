@@ -69,7 +69,7 @@ public class SimplePlayerInteractionPoint : MonoBehaviour
     {
         if (playMiniGame)
         {
-            _uiService.Popups.OpenPopup(
+            _uiService.GetProcessor<UIPopupProcessor>().OpenPopup(
                 new MiniGamePopup.MiniGameArgs(miniGamePopupType, 
                     () => eventOnComplete.Invoke(), 
                     () => eventOnFail.Invoke()));

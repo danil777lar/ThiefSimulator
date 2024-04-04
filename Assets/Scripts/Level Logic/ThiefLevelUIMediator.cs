@@ -16,18 +16,18 @@ public class ThiefLevelUIMediator : MonoBehaviour, ILevelStartHandler, ILevelEnd
     
     public void OnLevelStarted(LevelProcessor.StartData data)
     { 
-        _uiService.Screens.OpenScreen(new PlayScreen.Args());
+        _uiService.GetProcessor<UIScreenProcessor>().OpenScreen(new PlayScreen.Args());
     }
 
     public void OnLevelEnded(LevelProcessor.StopData data)
     {
         if (data.StopType == LevelStopType.Fail)
         {
-            _uiService.Screens.OpenScreen(new FailScreen.Args());
+            _uiService.GetProcessor<UIScreenProcessor>().OpenScreen(new FailScreen.Args());
         }
         else
         {
-            _uiService.Screens.OpenScreen(new WinScreen.Args());
+            _uiService.GetProcessor<UIScreenProcessor>().OpenScreen(new WinScreen.Args());
         }
     }
 }

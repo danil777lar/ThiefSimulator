@@ -13,9 +13,8 @@ public class FailScreen : UIScreen
     [InjectService] private ILevelManagerService _levelService;
     [InjectService] private UIService _uiService;
 
-    protected override void OnOpen(ScreenOpenProperties screenOpenProperties)
+    protected override void OnBeforeOpen(UIObject.Args args)
     {
-        base.OnOpen(screenOpenProperties);
         ServiceLocator.Default.InjectServicesInComponent(this);
 
         retryButton.onClick.AddListener(OnRetryButtonClicked);
@@ -23,10 +22,11 @@ public class FailScreen : UIScreen
 
     private void OnRetryButtonClicked()
     {
-        _uiService.Screens.OpenScreen(new LoadingScreen.Args(false, null));
+        _uiService.GetProcessor<UIScreenProcessor>()
+            .OpenScreen(new LoadingScreen.Args(false, null));
     }
     
-    public class Args : ScreenOpenProperties
+    public class Args : UIScreen.Args
     {
         public Args() : base(UIScreenType.Fail)
         {

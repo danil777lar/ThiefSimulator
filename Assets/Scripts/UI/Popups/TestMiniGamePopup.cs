@@ -14,10 +14,8 @@ public class TestMiniGamePopup : MiniGamePopup
 
     private MiniGameArgs _args;
     
-    protected override void OnOpened(PopupOpenProperties args)
+    protected override void OnBeforeOpen(UIObject.Args args)
     {
-        base.OnOpened(args);
-
         if (args is MiniGameArgs miniGameArgs)
         {
             _args = miniGameArgs;

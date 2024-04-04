@@ -12,9 +12,8 @@ public class MenuScreen : UIScreen
     [InjectService] private UIService _uiService;
     [InjectService] private PlayerInputService _inputService;
 
-    protected override void OnOpen(ScreenOpenProperties screenOpenProperties)
+    protected override void OnBeforeOpen(UIObject.Args screenOpenProperties)
     {
-        base.OnOpen(screenOpenProperties);
         ServiceLocator.Default.InjectServicesInComponent(this);
         _inputService.EventPointerDown += OnPointerDown;
     }
@@ -24,7 +23,7 @@ public class MenuScreen : UIScreen
         _levelManagerService.TryStartCurrentLevel(new LevelProcessor.StartData(LevelStartType.Start));
     }
 
-    public class Args : ScreenOpenProperties
+    public class Args : UIScreen.Args
     {
         public Args() : base(UIScreenType.Menu)
         {

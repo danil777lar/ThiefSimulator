@@ -27,16 +27,15 @@ public class LoadingScreen : UIScreen
             ServiceLocator.Default.InjectServicesInComponent(this);
         }
 
-        protected override void OnOpen(ScreenOpenProperties screenOpenProperties)
+        protected override void OnBeforeOpen(UIObject.Args args)
         {
-            base.OnOpen(screenOpenProperties);
             bool showInter = _dataService.Data.IternalData.SessionNum != 1;
             float loadingDuration = _dataService.Data.IternalData.SessionNum == 1
                 ? firstStartLoadingDuration
                 : usualLoadingDuration;
             Action onLoadComplete = OnLoadingCompleteDefault;
             
-            if (screenOpenProperties is Args loadingArgs)
+            if (args is Args loadingArgs)
             {
                 showInter = loadingArgs.ShowInter;
                 if (loadingArgs.OnLoadComplete != null)
@@ -62,10 +61,11 @@ public class LoadingScreen : UIScreen
 
         private void OnLoadingCompleteDefault()
         {
-            _uiService.Screens.OpenScreen(new MenuScreen.Args());
+            _uiService.GetProcessor<UIScreenProcessor>()
+                .OpenScreen(new MenuScreen.Args());
         }
 
-        public class Args : ScreenOpenProperties
+        public class Args : UIScreen.Args
         {
             public readonly bool ShowInter;
             public readonly Action OnLoadComplete;

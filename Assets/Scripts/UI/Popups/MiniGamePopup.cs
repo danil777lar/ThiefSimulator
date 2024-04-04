@@ -7,7 +7,7 @@ using UnityEngine;
 
 public abstract class MiniGamePopup : UIPopup
 {
-    public class MiniGameArgs : PopupOpenProperties
+    public class MiniGameArgs : UIPopup.Args
     {
         public readonly Action OnComplete;
         public readonly Action OnFail;

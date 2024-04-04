@@ -19,9 +19,8 @@ public class PlayScreen : UIScreen
 
     private List<PlayerActionButton> _actionButtons;
 
-    protected override void OnOpen(ScreenOpenProperties screenOpenProperties)
+    protected override void OnBeforeOpen(UIObject.Args args)
     {
-        base.OnOpen(screenOpenProperties);
         ServiceLocator.Default.InjectServicesInComponent(this);
         
         _inputService.ConnectPlayer();
@@ -49,7 +48,7 @@ public class PlayScreen : UIScreen
         _actionButtons.ForEach(x => x.blockUpdateUI = blockUpdate);
     }
 
-    public class Args : ScreenOpenProperties
+    public class Args : UIScreen.Args
     {
         public Args() : base(UIScreenType.Play)
         {

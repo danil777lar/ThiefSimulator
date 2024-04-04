@@ -36,10 +36,8 @@ public class LockMiniGamePopup : MiniGamePopup
     private MiniGameArgs _args;
     private RenderTexture _texture;
 
-    protected override void OnOpened(PopupOpenProperties args)
+    protected override void OnBeforeOpen(UIObject.Args args)
     {
-        base.OnOpened(args);
-
         if (args is MiniGameArgs miniGameArgs)
         {
             _args = miniGameArgs;

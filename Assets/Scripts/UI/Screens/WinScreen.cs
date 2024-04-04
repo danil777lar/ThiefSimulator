@@ -13,20 +13,19 @@ public class WinScreen : UIScreen
     [InjectService] private ILevelManagerService _levelService;
     [InjectService] private UIService _uiService;
 
-    protected override void OnOpen(ScreenOpenProperties screenOpenProperties)
+    protected override void OnBeforeOpen(UIObject.Args args)
     {
-        base.OnOpen(screenOpenProperties);
         ServiceLocator.Default.InjectServicesInComponent(this);
-
         skipButton.onClick.AddListener(OnSkipButtonClicked);
     }
 
     private void OnSkipButtonClicked()
     {
-        _uiService.Screens.OpenScreen(new LoadingScreen.Args(false,null));
+        _uiService.GetProcessor<UIScreenProcessor>()
+            .OpenScreen(new LoadingScreen.Args(false,null));
     }
 
-    public class Args : ScreenOpenProperties
+    public class Args : UIScreen.Args
     {
         public Args() : base(UIScreenType.Win)
         {

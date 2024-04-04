@@ -694,68 +694,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72b427cc75916524e9edf6a17c20f3bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &6368938645680591601
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5221880043890516413}
-  m_Layer: 0
-  m_Name: Popup Holder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5221880043890516413
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6368938645680591601}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8249840861307512933}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &6476613019303209440
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5681367889521598255}
-  m_Layer: 0
-  m_Name: Screen Holder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5681367889521598255
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6476613019303209440}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8249840861307512933}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6606078851897121911
 GameObject:
   m_ObjectHideFlags: 0
@@ -1153,6 +1091,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8249840861307512933}
   - component: {fileID: 2055113243458819772}
+  - component: {fileID: 6136238443249351041}
+  - component: {fileID: 924612352217803968}
+  - component: {fileID: 1133984730129808477}
   m_Layer: 0
   m_Name: UI Service
   m_TagString: Untagged
@@ -1173,9 +1114,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5681367889521598255}
-  - {fileID: 5221880043890516413}
-  - {fileID: 7858452693038367266}
   - {fileID: 2705637893747294225}
   m_Father: {fileID: 3924575942675980841}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1191,56 +1129,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f60fc5f04aa955246a9b124d0a1e5f6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _useDeviceBackButton: 1
-  _saveFirstScreen: 0
-  _defaultScreenType: 1
-  _screenProcessorOptions:
-    _startSortOrder: -300
-    _screenHolder: {fileID: 5681367889521598255}
-    _screens:
-    - {fileID: 3269232561248338450, guid: 0c2be6f060eedf6469ec42ff2e4756f1, type: 3}
-    - {fileID: 3269232561248338450, guid: 65db6a99523f92640ade78f652bc57a1, type: 3}
-    - {fileID: 3269232561248338450, guid: 2b350078becb28842a3e9673e41652f9, type: 3}
-    - {fileID: 3269232561248338450, guid: d735eadf265b01040a14fbaec7b7262a, type: 3}
-    - {fileID: 3269232561248338450, guid: 44d8fc5e330781a4a9f993b4e9dfeb2f, type: 3}
-  _popupProcessorOptions:
-    _startSortOrder: -200
-    _popupHolder: {fileID: 5221880043890516413}
-    _popups:
-    - {fileID: 1196915836644682806, guid: 296f9ce72539c734fb7edc9618b7724c, type: 3}
-    - {fileID: 1196915836644682806, guid: 4bfbbe99652dfdf4bb0b18a99818d800, type: 3}
-  _toastProcessorOptions:
-    startSortOrder: -100
-    toastsHolder: {fileID: 0}
-    toasts: []
---- !u!1 &8835447570094749186
-GameObject:
+  useDeviceBackButton: 1
+  minSortOrder: -1000
+--- !u!114 &6136238443249351041
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7858452693038367266}
-  m_Layer: 0
-  m_Name: Toasts Holder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7858452693038367266
-Transform:
+  m_GameObject: {fileID: 8387357139503462144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36f7e5b83afc29444a81a7190bb7f877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  priority: 0
+  startScreen: 1
+  screens:
+  - {fileID: 3269232561248338450, guid: 44d8fc5e330781a4a9f993b4e9dfeb2f, type: 3}
+  - {fileID: 3269232561248338450, guid: 0c2be6f060eedf6469ec42ff2e4756f1, type: 3}
+  - {fileID: 3269232561248338450, guid: 65db6a99523f92640ade78f652bc57a1, type: 3}
+  - {fileID: 3269232561248338450, guid: 2b350078becb28842a3e9673e41652f9, type: 3}
+  - {fileID: 3269232561248338450, guid: d735eadf265b01040a14fbaec7b7262a, type: 3}
+--- !u!114 &924612352217803968
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8835447570094749186}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8249840861307512933}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 8387357139503462144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 458f8220099409148bc3b05b621e3865, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  priority: 1
+  popups:
+  - {fileID: 1196915836644682806, guid: 4bfbbe99652dfdf4bb0b18a99818d800, type: 3}
+  - {fileID: 1196915836644682806, guid: 296f9ce72539c734fb7edc9618b7724c, type: 3}
+--- !u!114 &1133984730129808477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8387357139503462144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e30310845442d7d49a18d0fde8a73882, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  priority: 2
+  toasts:
+  - {fileID: 4931277155878816164, guid: 12fb9b92bf2209d409915486603dd376, type: 3}

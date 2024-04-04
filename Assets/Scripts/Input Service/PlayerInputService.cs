@@ -25,7 +25,7 @@ public class PlayerInputService : Service
     {
         _inputManager = GetComponent<InputManager>();
         _joystick = GetComponentInChildren<MMTouchJoystick>(true);
-        _uiService.Screens.ScreenChanged += OnScreenChanged;
+        _uiService.GetProcessor<UIScreenProcessor>().ScreenChanged += OnScreenChanged;
     }
 
     public void PointerDown()
