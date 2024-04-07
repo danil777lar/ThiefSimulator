@@ -22,6 +22,7 @@ public class FailScreen : UIScreen
 
     private void OnRetryButtonClicked()
     {
+        _levelService.SpawnCurrentLevel();
         _uiService.GetProcessor<UIScreenProcessor>()
             .OpenScreen(new LoadingScreen.Args(false, null));
     }

@@ -15,9 +15,11 @@ public class PlayerInputService : Service
     [SerializeField] private UIScreenTypes screensMask; 
     
     [InjectService] private UIService _uiService;
-    
+
+    private bool _isActive = true;
     private InputManager _inputManager;
     private MMTouchJoystick _joystick;
+    private CanvasGroup _group;
 
     public event Action EventPointerDown; 
     
@@ -26,6 +28,7 @@ public class PlayerInputService : Service
         _inputManager = GetComponent<InputManager>();
         _joystick = GetComponentInChildren<MMTouchJoystick>(true);
         _uiService.GetProcessor<UIScreenProcessor>().EventScreenOpened += OnScreenChanged;
+        _group = _joystick.GetComponent<CanvasGroup>();
     }
 
     public void PointerDown()
@@ -34,7 +37,7 @@ public class PlayerInputService : Service
     }
 
     public void ConnectPlayer()
-    {
+    { 
         FindObjectsByType<Character>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
             .ToList()
             .ForEach(x =>
@@ -48,7 +51,22 @@ public class PlayerInputService : Service
 
     private void OnScreenChanged(UIScreenType newScreen)
     {
-        bool isActive = screensMask.HasFlag((UIScreenTypes)(int)newScreen);
-        _joystick.gameObject.SetActive(isActive);
+        _isActive = screensMask.HasFlag((UIScreenTypes)(int)newScreen);
+        if (_isActive)
+        {
+            _joystick.gameObject.SetActive(true);
+        }
+        else
+        {
+            _group.alpha = 0;
+        }
+    }
+    
+    private void OnJoystickPointerUp()
+    {
+        if (!_isActive)
+        {
+            _joystick.gameObject.SetActive(false);
+        }
     }
 }

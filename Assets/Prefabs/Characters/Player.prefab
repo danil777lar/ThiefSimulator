@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 6234999558004962175}
   - component: {fileID: 2314369418861545768}
   - component: {fileID: 4752456712207448934}
+  - component: {fileID: 8185414384554245734}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -436,12 +437,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f01dee999a6fa1d4f8d37b86d7685f3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Ragdoller: {fileID: 8317563514320469373}
+  Ragdoller: {fileID: 8489277164874707880}
   ObjectsToDisableOnDeath: []
   MonosToDisableOnDeath: []
   ForceMultiplier: 10000
   RagdollButton: 0
   ResetRagdollButton: 0
+--- !u!114 &8185414384554245734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356067717985629786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48fec4870cb4164498ea36fc7f37e75c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4076705601693549881
 GameObject:
   m_ObjectHideFlags: 0
@@ -913,9 +926,9 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 300766177946544531}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8317563514320469373 stripped
+--- !u!114 &8489277164874707880 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8593258194043049198, guid: 061c640b6b1375a49975c03ea9ee4355,
+  m_CorrespondingSourceObject: {fileID: 8206527898287708731, guid: 061c640b6b1375a49975c03ea9ee4355,
     type: 3}
   m_PrefabInstance: {fileID: 300766177946544531}
   m_PrefabAsset: {fileID: 0}

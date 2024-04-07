@@ -106,7 +106,7 @@ namespace MoreMountains.TopDownEngine
 				mono.enabled = false;
 			}
 			Ragdoller.Ragdolling = true;
-			Ragdoller.transform.SetParent(null);
+			//Ragdoller.transform.SetParent(null);
 			Ragdoller.MainRigidbody.AddForce(_controller.AppliedImpact.normalized * ForceMultiplier, ForceMode.Acceleration);
 		}
 
