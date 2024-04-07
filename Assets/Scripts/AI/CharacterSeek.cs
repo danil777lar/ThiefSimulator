@@ -17,6 +17,7 @@ public class CharacterSeek : CharacterAbility
     private Character _player;
     private List<Vector3> _seekPoints;
     private CharacterController _characterController;
+    private SoundReceiver _soundReceiver;
 
     public bool PlayerInVision { get; private set; }
     public bool IsAttack { get; private set; }
@@ -29,6 +30,9 @@ public class CharacterSeek : CharacterAbility
         _fov = GetComponent<CharacterFOV>();
         _level = GetComponentInParent<ThiefLevel>();
         _characterController = GetComponent<CharacterController>();
+        _soundReceiver = GetComponent<SoundReceiver>();
+        
+        _soundReceiver.EventSoundReceived += SoundReceived;
     }
 
     private void Update()
@@ -57,6 +61,11 @@ public class CharacterSeek : CharacterAbility
                 Gizmos.DrawSphere(point, 0.4f);
             }
         }
+    }
+    
+    private void SoundReceived(float amplitude, Vector3 position)
+    {
+        StartSeek(position);
     }
 
     private void TrySeePlayer()

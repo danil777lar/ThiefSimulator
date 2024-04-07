@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CharacterStepSound : MonoBehaviour
 {
-    [SerializeField] private SoundSource soundPrefab;
+    [SerializeField] private SoundTransmitter soundPrefab;
 
     private ActualSpeedCharacterMovement _movement;
     
@@ -23,7 +23,7 @@ public class CharacterStepSound : MonoBehaviour
     {
         if (eventName == "Step")
         {
-            SoundSource sound = Instantiate(soundPrefab, transform);
+            SoundTransmitter sound = Instantiate(soundPrefab, transform);
             sound.transform.localPosition = Vector3.zero;
             sound.Init(5f, 5f * _movement.ActualSpeedPercent);
         }

@@ -4,7 +4,7 @@ using DG.Tweening;
 using MoreMountains.Tools;
 using UnityEngine;
 
-public class SoundSource : MonoBehaviour
+public class SoundTransmitter : MonoBehaviour
 {
     private float _speed;
     private float _maxDistance;
