@@ -25,7 +25,7 @@ public class CharacterStepSound : MonoBehaviour
         {
             SoundTransmitter sound = Instantiate(soundPrefab, transform);
             sound.transform.localPosition = Vector3.zero;
-            sound.Init(5f, 5f * _movement.ActualSpeedPercent);
+            sound.Init(5f * _movement.ActualSpeedPercent);
         }
     }
 }

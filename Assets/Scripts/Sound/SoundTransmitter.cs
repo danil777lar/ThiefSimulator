@@ -6,34 +6,39 @@ using UnityEngine;
 
 public class SoundTransmitter : MonoBehaviour
 {
-    private float _speed;
-    private float _maxDistance;
+    [SerializeField] private float _soundSpeed;
+
+    private float _initialAmplitude;
     private Color _baseColor;
     private MeshRenderer _renderer;
 
-    public float Value { get; private set; }
+    public float CurrentAmplitude { get; private set; }
 
-    public void Init(float speed, float maxDistance)
+    public void Init(float amplitude)
     {
-        _speed = speed;
-        _maxDistance = maxDistance;
-        
         _renderer = GetComponentInChildren<MeshRenderer>();
         _baseColor = _renderer.material.GetColor("_BaseColor");
-        
-        float duration = _maxDistance / _speed; 
+
+        _initialAmplitude = amplitude;
+        CurrentAmplitude = amplitude;
+
         transform.localScale = Vector3.zero;
-        transform.DOScale(_maxDistance, duration)
-            .SetEase(Ease.OutQuad)
-            .OnComplete(OnComplete);
     }
 
     private void Update()
     {
-        Value = transform.localScale.x / _maxDistance;
+        float delta = _soundSpeed * Time.deltaTime;
+        CurrentAmplitude -= delta;
+        transform.localScale += Vector3.one * delta;
+        if (CurrentAmplitude <= 0f)
+        {
+            OnComplete();
+        }
+        
         if (_renderer)
         {
-            _renderer.material.SetColor("_BaseColor", _baseColor.SetAlpha((1f - Value) * _baseColor.a));
+            float alpha = CurrentAmplitude / _initialAmplitude;
+            _renderer.material.SetColor("_BaseColor", _baseColor.SetAlpha(alpha * _baseColor.a));
         }   
     }
 

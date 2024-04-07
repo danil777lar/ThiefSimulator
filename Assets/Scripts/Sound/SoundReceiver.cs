@@ -13,7 +13,11 @@ public class SoundReceiver : MonoBehaviour
     {
         if (soundMask.HasLayer(other.gameObject.layer))
         {
-            EventSoundReceived?.Invoke(1f, other.transform.position);
+            SoundTransmitter sound = other.GetComponentInParent<SoundTransmitter>();
+            if (sound != null)
+            {
+                EventSoundReceived?.Invoke(sound.CurrentAmplitude, other.transform.position);
+            }
         }
     }
 }

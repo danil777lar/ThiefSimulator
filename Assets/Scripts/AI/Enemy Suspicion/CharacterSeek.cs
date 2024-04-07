@@ -10,7 +10,9 @@ using UnityEngine.AI;
 public class CharacterSeek : CharacterAbility
 {
     [SerializeField] private CharacterSeekConfig config;
-
+    
+    private float _suspicionDecreaseDelay;
+    private float _aggressionDecreaseDelay;
     private CharacterFOV _fov;
     private ThiefLevel _level;
     private Vector3 _lastPlayerPoint;
@@ -22,6 +24,9 @@ public class CharacterSeek : CharacterAbility
     public bool PlayerInVision { get; private set; }
     public bool IsAttack { get; private set; }
     public bool IsSeek { get; private set; }
+    public float Suspicion { get; private set; }
+    public float Aggression => PlayerInVision ? 1f : 0f;//{ get; private set; }
+    public float MaxSuspicion => config.MaxSuspicionValue;
     public Vector3 SeekPoint { get; private set; }
     public IReadOnlyCollection<Vector3> SeekPoints => _seekPoints;
 
@@ -37,6 +42,7 @@ public class CharacterSeek : CharacterAbility
 
     private void Update()
     {
+        UpdateSuspicion();
         TrySeePlayer();
         LookToPoints();
         TrySendDamage();
@@ -62,10 +68,29 @@ public class CharacterSeek : CharacterAbility
             }
         }
     }
+
+    private void AddSuspicion(float suspicion)
+    {
+        Suspicion = Mathf.Clamp(Suspicion + suspicion, 0f, MaxSuspicion);
+        _suspicionDecreaseDelay = config.SuspicionDecreaseDelay;
+    }
     
     private void SoundReceived(float amplitude, Vector3 position)
     {
-        StartSeek(position);
+        AddSuspicion(amplitude * config.HearingSensitivity);
+        SeekPoint = position;
+    }
+    
+    private void UpdateSuspicion()
+    {
+        if (_suspicionDecreaseDelay > 0f)
+        {
+            _suspicionDecreaseDelay -= Time.deltaTime;
+        }
+        else if (Suspicion > 0f)
+        {
+            Suspicion -= Time.deltaTime * config.SuspicionDecreaseSpeed;
+        }
     }
 
     private void TrySeePlayer()
@@ -146,7 +171,7 @@ public class CharacterSeek : CharacterAbility
             NavMeshPath path = new NavMeshPath();
             if (NavMesh.CalculatePath(SeekPoint, x, NavMesh.AllAreas, path))
             {
-                return path.IsAvailable(x) && path.GetLength() <= config.SeekDistance;
+                return path.IsAvailable(x) && path.GetLength() <= config.VisionDistance;
             }
             return false;
         });
