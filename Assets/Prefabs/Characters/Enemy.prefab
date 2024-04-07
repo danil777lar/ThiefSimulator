@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 4998138172637667605}
   - component: {fileID: 3178478637245337250}
   - component: {fileID: 5868860348769814934}
+  - component: {fileID: 4858142340476954955}
   - component: {fileID: 5320694670510368794}
   - component: {fileID: 1859254266569726625}
   m_Layer: 0
@@ -125,6 +126,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Label: Is Seek
+--- !u!114 &4858142340476954955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422614662470100103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9f5afb4315621440928d6c6729d8d20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Label: Is Attack
 --- !u!114 &5320694670510368794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,6 +312,68 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8046448870544889819}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2924236621242589761
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5541414786045421201}
+  - component: {fileID: 7819297906663392703}
+  - component: {fileID: 8342951568813285369}
+  m_Layer: 0
+  m_Name: Actions Attack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5541414786045421201
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2924236621242589761}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5216626348423989535}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7819297906663392703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2924236621242589761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a600f2e2a25ee7d44a5d26dcfb92ddd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitializationMode: 0
+  Label: Set Speed Attack
+  multiplier: 1
+--- !u!114 &8342951568813285369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2924236621242589761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f518c38b6b1a6f48b4d24beea0a9a8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitializationMode: 0
+  Label: AimToPlayer
 --- !u!1 &3003156368822952357
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,7 +514,7 @@ GameObject:
   - component: {fileID: 8855235295822359332}
   - component: {fileID: 2971542755123784539}
   - component: {fileID: 638205180007735566}
-  - component: {fileID: 1802493481660042509}
+  - component: {fileID: 8080387857570407381}
   - component: {fileID: 6207485525666743401}
   - component: {fileID: 7911609091137745820}
   - component: {fileID: 8828661335715199488}
@@ -686,7 +762,7 @@ MonoBehaviour:
   minRotationSpeed: 0
   maxRotationSpeed: 720
   model: {fileID: 8046448870544889819}
---- !u!114 &1802493481660042509
+--- !u!114 &8080387857570407381
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -695,7 +771,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5551267721517475913}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e348c4f06a38d348be86f2f28cd124d, type: 3}
+  m_Script: {fileID: 11500000, guid: b4c7af9c824f88447bc010a670b4a036, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   AbilityStartSfx: {fileID: 0}
@@ -709,8 +785,8 @@ MonoBehaviour:
   BlockingWeaponStates: 
   AllowPhysicsInteractions: 1
   PhysicsInteractionsRaycastLength: 0.05
-  PhysicsInteractionsRaycastOffset: {x: 0, y: -0.95, z: 0}
-  PushPower: 500
+  PhysicsInteractionsRaycastOffset: {x: 0, y: 0, z: 0}
+  PushPower: 1850
 --- !u!114 &6207485525666743401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -913,7 +989,7 @@ GameObject:
   - component: {fileID: 5793960289970944921}
   - component: {fileID: 4421103902804447047}
   m_Layer: 0
-  m_Name: Actions Attack
+  m_Name: Actions Chase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1060,6 +1136,7 @@ Transform:
   - {fileID: 4567546708905154355}
   - {fileID: 925632958234275516}
   - {fileID: 7350670581131908616}
+  - {fileID: 5541414786045421201}
   - {fileID: 3621059374768164328}
   - {fileID: 7229478721372269846}
   m_Father: {fileID: 2032415910758741344}
@@ -1096,12 +1173,12 @@ MonoBehaviour:
     Transitions:
       array:
       - Decision: {fileID: 3178478637245337250}
-        TrueState: Attack
+        TrueState: Chase
         FalseState: 
       - Decision: {fileID: 5868860348769814934}
         TrueState: Seek
         FalseState: 
-  - StateName: Attack
+  - StateName: Chase
     Actions:
       array:
       - {fileID: 5793960289970944921}
@@ -1112,6 +1189,17 @@ MonoBehaviour:
       - Decision: {fileID: 3178478637245337250}
         TrueState: 
         FalseState: Run To Seek Point
+      - Decision: {fileID: 4858142340476954955}
+        TrueState: Attack
+        FalseState: 
+  - StateName: Attack
+    Actions:
+      array: []
+    Transitions:
+      array:
+      - Decision: {fileID: 4858142340476954955}
+        TrueState: 
+        FalseState: Idle
   - StateName: Run To Seek Point
     Actions:
       array:
@@ -1121,7 +1209,7 @@ MonoBehaviour:
     Transitions:
       array:
       - Decision: {fileID: 3178478637245337250}
-        TrueState: Attack
+        TrueState: Chase
         FalseState: 
       - Decision: {fileID: 5868860348769814934}
         TrueState: 
@@ -1141,7 +1229,7 @@ MonoBehaviour:
         TrueState: 
         FalseState: Patroll
       - Decision: {fileID: 3178478637245337250}
-        TrueState: Attack
+        TrueState: Chase
         FalseState: 
   TimeInThisState: 0
   Target: {fileID: 0}

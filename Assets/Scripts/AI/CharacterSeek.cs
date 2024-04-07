@@ -19,6 +19,7 @@ public class CharacterSeek : CharacterAbility
     private CharacterController _characterController;
 
     public bool PlayerInVision { get; private set; }
+    public bool IsAttack { get; private set; }
     public bool IsSeek { get; private set; }
     public Vector3 SeekPoint { get; private set; }
     public IReadOnlyCollection<Vector3> SeekPoints => _seekPoints;
@@ -90,11 +91,21 @@ public class CharacterSeek : CharacterAbility
                 LayerMask mask = LayerMask.GetMask(LayerMask.LayerToName(_player.gameObject.layer));
                 if (Physics.SphereCast(ray, radius, config.AttackDistance, mask))
                 {
+                    _character.CharacterAnimator.SetTrigger("Ram");
                     _player.CharacterHealth.Damage(1, gameObject, 0f, 0f, 
-                        directionToPlayer.normalized);    
+                        directionToPlayer.normalized);
+                    
+                    StartCoroutine(AttackCooldown());
                 }
             }      
         }
+    }
+    
+    private IEnumerator AttackCooldown()
+    {
+        IsAttack = true;
+        yield return new WaitForSeconds(config.AttackCooldown);
+        IsAttack = false;
     }
 
     private void LookToPoints()
