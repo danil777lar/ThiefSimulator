@@ -3,17 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using MoreMountains.TopDownEngine;
+using ToonyColorsPro.Legacy;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class CharacterSeek : MonoBehaviour
+public class CharacterSeek : CharacterAbility
 {
     [SerializeField] private CharacterSeekConfig config;
 
     private CharacterFOV _fov;
     private ThiefLevel _level;
     private Vector3 _lastPlayerPoint;
+    private Character _player;
     private List<Vector3> _seekPoints;
+    private CharacterController _characterController;
 
     public bool PlayerInVision { get; private set; }
     public bool IsSeek { get; private set; }
@@ -24,12 +27,14 @@ public class CharacterSeek : MonoBehaviour
     {
         _fov = GetComponent<CharacterFOV>();
         _level = GetComponentInParent<ThiefLevel>();
+        _characterController = GetComponent<CharacterController>();
     }
 
     private void Update()
     {
         TrySeePlayer();
         LookToPoints();
+        TrySendDamage();
     }
 
     private void OnDrawGizmos()
@@ -55,13 +60,13 @@ public class CharacterSeek : MonoBehaviour
 
     private void TrySeePlayer()
     {
-        Character player = _fov.CharactersInVision.ToList()
+        _player = _fov.CharactersInVision.ToList()
             .Find(x => x.CharacterType == Character.CharacterTypes.Player);
 
-        bool playerInVision = player != null;
+        bool playerInVision = _player != null;
         if (playerInVision)
         {
-            _lastPlayerPoint = player.transform.position;
+            _lastPlayerPoint = _player.transform.position;
             StopSeek();
         }
         else if (PlayerInVision)
@@ -70,6 +75,26 @@ public class CharacterSeek : MonoBehaviour
         }
 
         PlayerInVision = playerInVision;
+    }
+
+    private void TrySendDamage()
+    {
+        if (PlayerInVision && _player != null)
+        {
+            Vector3 directionToPlayer = _player.transform.position - transform.position;
+            if (directionToPlayer.magnitude <= config.AttackDistance)
+            {
+                Ray ray = new Ray(_characterController.transform.position + (Vector3.up * (_characterController.height * 0.5f)), 
+                    _character.CharacterModel.transform.forward);
+                float radius = _characterController.radius;
+                LayerMask mask = LayerMask.GetMask(LayerMask.LayerToName(_player.gameObject.layer));
+                if (Physics.SphereCast(ray, radius, config.AttackDistance, mask))
+                {
+                    _player.CharacterHealth.Damage(1, gameObject, 0f, 0f, 
+                        directionToPlayer.normalized);    
+                }
+            }      
+        }
     }
 
     private void LookToPoints()
