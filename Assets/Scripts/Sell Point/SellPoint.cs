@@ -27,7 +27,7 @@ public class SellPoint : MonoBehaviour
 
     private void Start()
     {
-        ServiceLocator.Default.InjectServicesInComponent(this);
+        ServiceLocator.Instance.InjectServicesInComponent(this);
         
         _objectsToSell = new List<Sellable>();
     }

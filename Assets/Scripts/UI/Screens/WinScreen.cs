@@ -15,12 +15,14 @@ public class WinScreen : UIScreen
 
     protected override void OnBeforeOpen(UIObject.Args args)
     {
-        ServiceLocator.Default.InjectServicesInComponent(this);
+        ServiceLocator.Instance.InjectServicesInComponent(this);
         skipButton.onClick.AddListener(OnSkipButtonClicked);
     }
 
     private void OnSkipButtonClicked()
     {
+        _levelService.IncrementLevelId();
+        _levelService.SpawnCurrentLevel();
         _uiService.GetProcessor<UIScreenProcessor>()
             .OpenScreen(new LoadingScreen.Args(false,null));
     }

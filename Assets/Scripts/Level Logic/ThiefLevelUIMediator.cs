@@ -11,7 +11,7 @@ public class ThiefLevelUIMediator : MonoBehaviour, ILevelStartHandler, ILevelEnd
     
     private void Start()
     {
-        ServiceLocator.Default.InjectServicesInComponent(this);
+        ServiceLocator.Instance.InjectServicesInComponent(this);
     }
     
     public void OnLevelStarted(LevelProcessor.StartData data)

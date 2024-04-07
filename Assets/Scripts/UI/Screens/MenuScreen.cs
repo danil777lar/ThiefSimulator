@@ -14,7 +14,7 @@ public class MenuScreen : UIScreen
 
     protected override void OnBeforeOpen(UIObject.Args screenOpenProperties)
     {
-        ServiceLocator.Default.InjectServicesInComponent(this);
+        ServiceLocator.Instance.InjectServicesInComponent(this);
         _inputService.EventPointerDown += OnPointerDown;
     }
 

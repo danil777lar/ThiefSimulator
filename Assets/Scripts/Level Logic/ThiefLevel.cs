@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Larje.Core.Services;
 using MoreMountains.TopDownEngine;
+using ProjectConstants;
 using Unity.AI.Navigation;
 using UnityEditorInternal;
 using UnityEngine;
@@ -10,15 +11,19 @@ using UnityEngine.AI;
 
 public class ThiefLevel : LevelProcessor
 {
+    [SerializeField] private int moneyForWin = 100;
     [Header("Grid")]
     [SerializeField, Min(1f)] private float gridSize = 2f;
     [SerializeField, Min(1f)] private float maxPointDistance = 1f;
     [Header("Gizmos")] 
     [SerializeField] private Color gizmoColor;
     [SerializeField] private float gizmoSize;
+    
+    [InjectService] private ICurrencyService _currencyService;
 
-    public IReadOnlyList<Vector3> Points;
-    public IReadOnlyList<Character> Characters;
+    public float Progress { get; private set; }
+    public IReadOnlyList<Vector3> Points { get; private set; }
+    public IReadOnlyList<Character> Characters { get; private set; }
     
     public override void TryStartLevel(StartData data)
     {
@@ -37,6 +42,9 @@ public class ThiefLevel : LevelProcessor
     
     private void Start()
     {
+        ServiceLocator.Instance.InjectServicesInComponent(this);
+        
+        GrabCurrencyService();
         BuildNavmesh();
         GrabCharacters();
     }
@@ -51,6 +59,13 @@ public class ThiefLevel : LevelProcessor
                 Gizmos.DrawSphere(point, gizmoSize);   
             }
         }
+    }
+
+    private void GrabCurrencyService()
+    {
+        _currencyService.SetCurrency(CurrencyType.Coins, CurrencyPlacementType.Level, 0);
+        _currencyService.EventCurrencyChanged += OnCurrencyChanged;
+        OnCurrencyChanged();        
     }
 
     [ContextMenu("Build Navmesh")]
@@ -78,5 +93,16 @@ public class ThiefLevel : LevelProcessor
     private void GrabCharacters()
     {
         Characters = GetComponentsInChildren<Character>();
+    }
+    
+    private void OnCurrencyChanged()
+    {
+        float oldProgress = Progress;
+        Progress = (float)_currencyService.GetCurrency(CurrencyType.Coins, CurrencyPlacementType.Level) / 
+                   (float)moneyForWin;
+        if (oldProgress < 1f && Progress >= 1f)
+        {
+            SendEvent(new LevelEventProgressComplete());
+        }
     }
 }

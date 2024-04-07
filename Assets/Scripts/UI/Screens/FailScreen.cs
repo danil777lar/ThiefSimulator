@@ -15,7 +15,7 @@ public class FailScreen : UIScreen
 
     protected override void OnBeforeOpen(UIObject.Args args)
     {
-        ServiceLocator.Default.InjectServicesInComponent(this);
+        ServiceLocator.Instance.InjectServicesInComponent(this);
 
         retryButton.onClick.AddListener(OnRetryButtonClicked);
     }

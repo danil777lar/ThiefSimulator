@@ -26,7 +26,7 @@ public class SimplePlayerInteractionPoint : MonoBehaviour
 
     private void Start()
     {
-        ServiceLocator.Default.InjectServicesInComponent(this);
+        ServiceLocator.Instance.InjectServicesInComponent(this);
     }
     
     private void Update()

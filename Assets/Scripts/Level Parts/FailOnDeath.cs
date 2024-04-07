@@ -14,7 +14,7 @@ public class FailOnDeath : MonoBehaviour
 
     private void Start()
     {
-        ServiceLocator.Default.InjectServicesInComponent(this);
+        ServiceLocator.Instance.InjectServicesInComponent(this);
         
         _health = GetComponent<Health>();
         _health.OnDeath += Fail;

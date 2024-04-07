@@ -21,7 +21,7 @@ public class PlayScreen : UIScreen
 
     protected override void OnBeforeOpen(UIObject.Args args)
     {
-        ServiceLocator.Default.InjectServicesInComponent(this);
+        ServiceLocator.Instance.InjectServicesInComponent(this);
         
         _inputService.ConnectPlayer();
         Character player = FindObjectsByType<Character>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).ToList()

@@ -24,7 +24,7 @@ public class LoadingScreen : UIScreen
 
         private void Awake()
         {
-            ServiceLocator.Default.InjectServicesInComponent(this);
+            ServiceLocator.Instance.InjectServicesInComponent(this);
         }
 
         protected override void OnBeforeOpen(UIObject.Args args)
