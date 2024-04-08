@@ -33,8 +33,7 @@ public class EnemySuspicionMarkers : MonoBehaviour
 
     private void TryUpdateSuspicion()
     {
-        bool suspicionActive = _characterAttention.Suspicion > 0f;
-        suspicionActive &= _characterAttention.Aggression <= 0f;
+        bool suspicionActive = _characterAttention.CurrentState == CharacterAttention.AttentionState.Suspicious;
         suspicionRoot.gameObject.SetActive(suspicionActive);
         if (suspicionActive)
         {
@@ -45,7 +44,7 @@ public class EnemySuspicionMarkers : MonoBehaviour
     
     private void TryUpdateAggression()
     {
-        bool aggressionActive = _characterAttention.Aggression > 0f;
+        bool aggressionActive = _characterAttention.CurrentState == CharacterAttention.AttentionState.Aggressive;
         aggressionRoot.gameObject.SetActive(aggressionActive);
         if (aggressionActive)
         {

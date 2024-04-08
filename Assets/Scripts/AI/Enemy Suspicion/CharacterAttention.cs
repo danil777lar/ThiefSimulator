@@ -28,7 +28,7 @@ public class CharacterAttention : CharacterAbility
     public bool IsSeek { get; private set; }
     public bool PlayerInVision { get; private set; }
     public float Suspicion { get; private set; }
-    public float Aggression => 0f;
+    public float Aggression { get; private set; }
     public float MaxSuspicion => config.MaxSuspicionValue;
     public Vector3 SeekPoint { get; private set; }
     public AttentionState CurrentState { get; private set; }
@@ -41,7 +41,7 @@ public class CharacterAttention : CharacterAbility
         _characterController = GetComponent<CharacterController>();
         _soundReceiver = GetComponent<SoundReceiver>();
         
-        _soundReceiver.EventSoundReceived += SoundReceived;
+        _soundReceiver.EventSoundReceived += OnSoundReceived;
         SetState(AttentionState.Idle, true);
     }
 
@@ -49,6 +49,7 @@ public class CharacterAttention : CharacterAbility
     {
         TrySeePlayer();
         UpdateSuspicion();
+        UpdateAggression();
         
         LookToPoints();
         TrySendDamage();
@@ -75,52 +76,87 @@ public class CharacterAttention : CharacterAbility
         }
     }
 
-    private void AddSuspicion(float suspicion)
+    private void TrySeePlayer()
     {
-        if (suspicion > 0f)
+        CharacterVisionTarget player = _fov.CharactersInVision.ToList()
+            .Find(x => x.Character.CharacterType == Character.CharacterTypes.Player);
+
+        PlayerInVision = player != null;
+        
+        if (player)
         {
-            Suspicion = Mathf.Clamp(Suspicion + suspicion, 0f, MaxSuspicion);
-            _suspicionDecreaseDelay = config.SuspicionDecreaseDelay;
+            _player = player;
+            float distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
+            float playerVisibility = Mathf.Clamp01(1f - (distanceToPlayer / config.VisionDistance)) * _player.Visibility;
+            AddSuspicion(playerVisibility * config.VisionSensitivity * Time.deltaTime);
+            AddAggression();
         }
-    }
-    
-    private void SoundReceived(float amplitude, Vector3 position)
-    {
-        AddSuspicion(amplitude * config.HearingSensitivity);
-        SeekPoint = position;
     }
 
     private void UpdateSuspicion()
     {
-        if (_suspicionDecreaseDelay > 0f)
+        if (CurrentState == AttentionState.Idle || CurrentState == AttentionState.Suspicious)
         {
-            _suspicionDecreaseDelay -= Time.deltaTime;
-        }
-        else if (Suspicion > 0f)
-        {
-            Suspicion -= Time.deltaTime * config.SuspicionDecreaseSpeed;
-        }
+            if (_suspicionDecreaseDelay > 0f)
+            {
+                _suspicionDecreaseDelay -= Time.deltaTime;
+            }
+            else if (Suspicion > 0f)
+            {
+                Suspicion -= Time.deltaTime * config.SuspicionDecreaseSpeed;
+            }
 
-        if (Suspicion > 0f)
-        {
-            SetState(AttentionState.Suspicious);
-        }
-        else
-        {
-            SetState(AttentionState.Idle);
+            if (Suspicion >= config.MaxSuspicionValue)
+            {
+                SetState(AttentionState.Aggressive);
+            }
+            else if (Suspicion > 0f)
+            {
+                SetState(AttentionState.Suspicious);
+            }
+            else
+            {
+                SetState(AttentionState.Idle);
+            }
         }
     }
 
-    private void TrySeePlayer()
+    private void UpdateAggression()
     {
-        _player = _fov.CharactersInVision.ToList()
-            .Find(x => x.Character.CharacterType == Character.CharacterTypes.Player);
-        
-        if (_player)
+        if (CurrentState == AttentionState.Aggressive)
         {
-            float distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
-            float playerVisibility = Mathf.Clamp01(1f - (distanceToPlayer / config.VisionDistance)) * _player.Visibility;
-            AddSuspicion(playerVisibility * config.VisionSensitivity * Time.deltaTime);
+            if (_aggressionDecreaseDelay > 0f)
+            {
+                _aggressionDecreaseDelay -= Time.deltaTime;
+            }
+            else
+            {
+                Aggression -= config.AggressionDecreaseSpeed * Time.deltaTime;
+            }
+
+            if (Aggression <= 0f)
+            {
+                SetState(AttentionState.Suspicious);
+            }
+        }
+    }
+
+    private void LookToPoints()
+    {
+        if (IsSeek && _seekPoints != null)
+        {
+            foreach (Vector3 point in _seekPoints.ToArray())
+            {
+                if (_fov.PointsInVision.Contains(point))
+                {
+                    _seekPoints.Remove(point);
+                }
+            }
+
+            if (_seekPoints.Count == 0)
+            {
+                StopSeek();
+            }
         }
     }
 
@@ -145,6 +181,28 @@ public class CharacterAttention : CharacterAbility
                 }
             }      
         }
+    }
+    
+    private void AddSuspicion(float suspicion)
+    {
+        if (suspicion > 0f)
+        {
+            Suspicion = Mathf.Clamp(Suspicion + suspicion, 0f, MaxSuspicion);
+            _suspicionDecreaseDelay = config.SuspicionDecreaseDelay;
+        }
+    }
+    
+    private void AddAggression()
+    {
+        Aggression = 1f;
+        _aggressionDecreaseDelay = config.AggressionDecreaseDelay;
+    }
+    
+    private void OnSoundReceived(float amplitude, Vector3 position)
+    {
+        AddSuspicion(amplitude * config.HearingSensitivity);
+        AddAggression();
+        SeekPoint = position;
     }
 
     private void SetState(AttentionState state, bool forceSwap = false)
@@ -171,31 +229,12 @@ public class CharacterAttention : CharacterAbility
 
         CurrentState = state;
     }
-    
+
     private IEnumerator AttackCooldown()
     {
         IsAttack = true;
         yield return new WaitForSeconds(config.AttackCooldown);
         IsAttack = false;
-    }
-
-    private void LookToPoints()
-    {
-        if (IsSeek && _seekPoints != null)
-        {
-            foreach (Vector3 point in _seekPoints.ToArray())
-            {
-                if (_fov.PointsInVision.Contains(point))
-                {
-                    _seekPoints.Remove(point);
-                }
-            }
-
-            if (_seekPoints.Count == 0)
-            {
-                StopSeek();
-            }
-        }
     }
 
     private void StartSeek(Vector3 position)

@@ -1,129 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &710559607037381058
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3189099815701999481}
-  - component: {fileID: 3335197223007299174}
-  - component: {fileID: 464202016098602838}
-  m_Layer: 0
-  m_Name: Actions Chase
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3189099815701999481
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 710559607037381058}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2667707755055766469}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3335197223007299174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 710559607037381058}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a600f2e2a25ee7d44a5d26dcfb92ddd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitializationMode: 0
-  Label: Set Speed Attack
-  multiplier: 1
---- !u!114 &464202016098602838
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 710559607037381058}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f518c38b6b1a6f48b4d24beea0a9a8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitializationMode: 0
-  Label: AimToPlayer
---- !u!1 &953611083741130826
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3367751306002312125}
-  - component: {fileID: 7784593431002219024}
-  - component: {fileID: 6121207151062958488}
-  m_Layer: 0
-  m_Name: Actions Seek
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3367751306002312125
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 953611083741130826}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3746387725314226853}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7784593431002219024
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 953611083741130826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a600f2e2a25ee7d44a5d26dcfb92ddd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitializationMode: 0
-  Label: Set Speed Seek
-  multiplier: 0.5
---- !u!114 &6121207151062958488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 953611083741130826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 439bb263eb8cbc449a32f39abad6cba6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitializationMode: 0
-  Label: Aim To Nearest Seek Point
 --- !u!1 &1202050424103530887
 GameObject:
   m_ObjectHideFlags: 0
@@ -609,68 +485,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InitializationMode: 0
   Label: Stay
---- !u!1 &2625354907110693143
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2830555107111103815}
-  - component: {fileID: 2388944739012159559}
-  - component: {fileID: 6540088526092942743}
-  m_Layer: 0
-  m_Name: Actions Run To Seek Point
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2830555107111103815
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2625354907110693143}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3746387725314226853}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2388944739012159559
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2625354907110693143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a600f2e2a25ee7d44a5d26dcfb92ddd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitializationMode: 0
-  Label: Set Speed Run To Seek Point
-  multiplier: 1
---- !u!114 &6540088526092942743
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2625354907110693143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f4412ed5a0fcb34eb3450abae1c62ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitializationMode: 0
-  Label: Aim To Seek Point
 --- !u!1 &2648605633733875176
 GameObject:
   m_ObjectHideFlags: 0
@@ -1117,70 +931,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InitializationMode: 0
   Label: Aim To Nearest Seek Point
---- !u!1 &4043290689508582592
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6066438362190096373}
-  - component: {fileID: 6043441797251717972}
-  - component: {fileID: 6882986585461446878}
-  m_Layer: 0
-  m_Name: Actions Patrol
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6066438362190096373
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4043290689508582592}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3746387725314226853}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6043441797251717972
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4043290689508582592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a600f2e2a25ee7d44a5d26dcfb92ddd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitializationMode: 0
-  Label: Set Speed Patrol
-  multiplier: 0.5
---- !u!114 &6882986585461446878
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4043290689508582592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b02e65e72a314dc45805ab07a644902c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitializationMode: 0
-  Label: Patroll
-  directionForward: 1
-  distanceOnSpline: 2
 --- !u!1 &5377404992093905838
 GameObject:
   m_ObjectHideFlags: 0
@@ -1916,68 +1666,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3225730755012224061}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &6322246769582421623
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4343200973053798375}
-  - component: {fileID: 3246170464079301774}
-  - component: {fileID: 159525011380444953}
-  m_Layer: 0
-  m_Name: Actions Attack
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4343200973053798375
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6322246769582421623}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2667707755055766469}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3246170464079301774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6322246769582421623}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a600f2e2a25ee7d44a5d26dcfb92ddd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitializationMode: 0
-  Label: Set Speed Attack
-  multiplier: 1
---- !u!114 &159525011380444953
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6322246769582421623}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f518c38b6b1a6f48b4d24beea0a9a8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitializationMode: 0
-  Label: AimToPlayer
 --- !u!1 &6660156763909107189
 GameObject:
   m_ObjectHideFlags: 0
@@ -2073,11 +1761,8 @@ Transform:
   m_Children:
   - {fileID: 4443792477134262147}
   - {fileID: 2213469059260431084}
-  - {fileID: 6066438362190096373}
   - {fileID: 5886943797641732465}
   - {fileID: 438915707023173162}
-  - {fileID: 2830555107111103815}
-  - {fileID: 3367751306002312125}
   m_Father: {fileID: 2032415910758741344}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6541783960998323210
@@ -2100,23 +1785,9 @@ MonoBehaviour:
       - {fileID: 5112919594311899853}
     Transitions:
       array:
-      - Decision: {fileID: 7421562802026360262}
-        TrueState: Patroll
-        FalseState: 
-  - StateName: Patroll
-    Actions:
-      array:
-      - {fileID: 6043441797251717972}
-      - {fileID: 6882986585461446878}
-      - {fileID: 1529518840080357528}
-    Transitions:
-      array:
-      - Decision: {fileID: 177187855491748640}
-        TrueState: Chase
-        FalseState: 
-      - Decision: {fileID: 1188649585324700443}
-        TrueState: Seek
-        FalseState: 
+      - Decision: {fileID: 3320862290498929689}
+        TrueState: Attack
+        FalseState: Chase
   - StateName: Chase
     Actions:
       array:
@@ -2125,9 +1796,6 @@ MonoBehaviour:
       - {fileID: 1529518840080357528}
     Transitions:
       array:
-      - Decision: {fileID: 177187855491748640}
-        TrueState: 
-        FalseState: Run To Seek Point
       - Decision: {fileID: 3320862290498929689}
         TrueState: Attack
         FalseState: 
@@ -2138,38 +1806,7 @@ MonoBehaviour:
       array:
       - Decision: {fileID: 3320862290498929689}
         TrueState: 
-        FalseState: Idle
-  - StateName: Run To Seek Point
-    Actions:
-      array:
-      - {fileID: 2388944739012159559}
-      - {fileID: 6540088526092942743}
-      - {fileID: 1529518840080357528}
-    Transitions:
-      array:
-      - Decision: {fileID: 177187855491748640}
-        TrueState: Chase
-        FalseState: 
-      - Decision: {fileID: 1188649585324700443}
-        TrueState: 
-        FalseState: Patroll
-      - Decision: {fileID: 8232635998385958634}
-        TrueState: Seek
-        FalseState: 
-  - StateName: Seek
-    Actions:
-      array:
-      - {fileID: 7784593431002219024}
-      - {fileID: 6121207151062958488}
-      - {fileID: 1529518840080357528}
-    Transitions:
-      array:
-      - Decision: {fileID: 1188649585324700443}
-        TrueState: 
-        FalseState: Patroll
-      - Decision: {fileID: 177187855491748640}
-        TrueState: Chase
-        FalseState: 
+        FalseState: Chase
   TimeInThisState: 0
   Target: {fileID: 0}
   _lastKnownTargetPosition: {x: 0, y: 0, z: 0}
@@ -2329,70 +1966,6 @@ Transform:
   - {fileID: 3940866064082954041}
   m_Father: {fileID: 3225730755012224061}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7352367147016222591
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4750112777471641819}
-  - component: {fileID: 5242885172405035681}
-  - component: {fileID: 6087214539634855963}
-  m_Layer: 0
-  m_Name: Actions Patrol
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4750112777471641819
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7352367147016222591}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2667707755055766469}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5242885172405035681
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7352367147016222591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a600f2e2a25ee7d44a5d26dcfb92ddd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitializationMode: 0
-  Label: Set Speed Patrol
-  multiplier: 0.5
---- !u!114 &6087214539634855963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7352367147016222591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b02e65e72a314dc45805ab07a644902c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitializationMode: 0
-  Label: Patroll
-  directionForward: 1
-  distanceOnSpline: 2
 --- !u!1 &7405199604562130541
 GameObject:
   m_ObjectHideFlags: 0
@@ -2529,9 +2102,6 @@ Transform:
   m_Children:
   - {fileID: 8293093229806842806}
   - {fileID: 2083548107545843865}
-  - {fileID: 4750112777471641819}
-  - {fileID: 3189099815701999481}
-  - {fileID: 4343200973053798375}
   - {fileID: 1895981304412160884}
   - {fileID: 4257431790525779848}
   m_Father: {fileID: 2032415910758741344}
@@ -2556,45 +2126,9 @@ MonoBehaviour:
       - {fileID: 3569410100522141156}
     Transitions:
       array:
-      - Decision: {fileID: 8531822478119307619}
-        TrueState: Patroll
-        FalseState: 
-  - StateName: Patroll
-    Actions:
-      array:
-      - {fileID: 5242885172405035681}
-      - {fileID: 6087214539634855963}
-      - {fileID: 6684981849513972412}
-    Transitions:
-      array:
-      - Decision: {fileID: 5429632572449614175}
-        TrueState: Chase
-        FalseState: 
-      - Decision: {fileID: 6993850110513754826}
+      - Decision: {fileID: 2253496520039665637}
         TrueState: Seek
-        FalseState: 
-  - StateName: Chase
-    Actions:
-      array:
-      - {fileID: 3335197223007299174}
-      - {fileID: 464202016098602838}
-      - {fileID: 6684981849513972412}
-    Transitions:
-      array:
-      - Decision: {fileID: 5429632572449614175}
-        TrueState: 
         FalseState: Run To Seek Point
-      - Decision: {fileID: 6724470683759141265}
-        TrueState: Attack
-        FalseState: 
-  - StateName: Attack
-    Actions:
-      array: []
-    Transitions:
-      array:
-      - Decision: {fileID: 6724470683759141265}
-        TrueState: 
-        FalseState: Idle
   - StateName: Run To Seek Point
     Actions:
       array:
@@ -2603,12 +2137,6 @@ MonoBehaviour:
       - {fileID: 6684981849513972412}
     Transitions:
       array:
-      - Decision: {fileID: 5429632572449614175}
-        TrueState: Chase
-        FalseState: 
-      - Decision: {fileID: 6993850110513754826}
-        TrueState: 
-        FalseState: Patroll
       - Decision: {fileID: 2253496520039665637}
         TrueState: Seek
         FalseState: 
@@ -2620,12 +2148,9 @@ MonoBehaviour:
       - {fileID: 6684981849513972412}
     Transitions:
       array:
-      - Decision: {fileID: 6993850110513754826}
+      - Decision: {fileID: 2253496520039665637}
         TrueState: 
-        FalseState: Patroll
-      - Decision: {fileID: 5429632572449614175}
-        TrueState: Chase
-        FalseState: 
+        FalseState: Run To Seek Point
   TimeInThisState: 0
   Target: {fileID: 0}
   _lastKnownTargetPosition: {x: 0, y: 0, z: 0}
