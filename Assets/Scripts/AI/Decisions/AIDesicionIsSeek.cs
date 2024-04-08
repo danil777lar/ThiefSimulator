@@ -15,6 +15,6 @@ public class AIDesicionIsSeek : AIDecision
 
     public override bool Decide()
     {
-        return _attention.IsSeek;
+        return _attention.CurrentState == CharacterAttention.AttentionState.Suspicious;
     }
 }

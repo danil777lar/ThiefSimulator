@@ -26,6 +26,6 @@ public class AIActionAimToSeekArea : AIAction
 
     public override void PerformAction()
     {
-        _target.position = _attention.SeekPoint;
+        _target.position = _attention.LastAttentionPoint;
     }
 }

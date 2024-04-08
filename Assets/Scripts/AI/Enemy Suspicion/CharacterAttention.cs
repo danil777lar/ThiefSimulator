@@ -17,26 +17,22 @@ public class CharacterAttention : CharacterAbility
     private Vector3 _lastPlayerPoint;
     private List<Vector3> _seekPoints;
     
-    private ThiefLevel _level;
     private CharacterFOV _fov;
     private SoundReceiver _soundReceiver;
     private CharacterVisionTarget _player;
     private CharacterController _characterController;
 
     public bool IsAttack { get; private set; }
-    public bool IsSeek { get; private set; }
-    public bool PlayerInVision { get; private set; }
     public float AttentionLevel { get; private set; }
     public float MaxSuspicion => config.MaxSuspicion;
     public float MaxAggression => config.MaxAggression;
-    public Vector3 SeekPoint { get; private set; }
+    public Vector3 LastAttentionPoint { get; private set; }
     public AttentionState CurrentState { get; private set; }
     public IReadOnlyCollection<Vector3> SeekPoints => _seekPoints;
 
     private void Start()
     {
         _fov = GetComponent<CharacterFOV>();
-        _level = GetComponentInParent<ThiefLevel>();
         _characterController = GetComponent<CharacterController>();
         _soundReceiver = GetComponent<SoundReceiver>();
         
@@ -78,23 +74,22 @@ public class CharacterAttention : CharacterAbility
     {
         CharacterVisionTarget player = _fov.CharactersInVision.ToList()
             .Find(x => x.Character.CharacterType == Character.CharacterTypes.Player);
-
-        PlayerInVision = player != null;
         
         if (player)
         {
             _player = player;
             float distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
             float playerVisibility = Mathf.Clamp01(1f - (distanceToPlayer / config.VisionDistance)) * _player.Visibility;
-            AddAttention(playerVisibility * config.VisionSensitivity * Time.deltaTime); 
+            AddAttention(playerVisibility * config.VisionSensitivity * Time.deltaTime, player.transform.position); 
         }
     }
     
-    private void AddAttention(float attention)
+    private void AddAttention(float attention, Vector3 position)
     {
         if (attention > 0f)
         {
             AttentionLevel = Mathf.Clamp(AttentionLevel + attention, 0f, MaxSuspicion + MaxAggression);
+            LastAttentionPoint = position;
             
             if (AttentionLevel >= MaxAggression + MaxSuspicion)
             {
@@ -136,7 +131,7 @@ public class CharacterAttention : CharacterAbility
 
     private void LookToPoints()
     {
-        if (IsSeek && _seekPoints != null)
+        if (_seekPoints != null)
         {
             foreach (Vector3 point in _seekPoints.ToArray())
             {
@@ -144,11 +139,6 @@ public class CharacterAttention : CharacterAbility
                 {
                     _seekPoints.Remove(point);
                 }
-            }
-
-            if (_seekPoints.Count == 0)
-            {
-                StopSeek();
             }
         }
     }
@@ -178,8 +168,7 @@ public class CharacterAttention : CharacterAbility
     
     private void OnSoundReceived(float amplitude, Vector3 position)
     {
-        AddAttention(amplitude * config.HearingSensitivity);
-        SeekPoint = position;
+        AddAttention(amplitude * config.HearingSensitivity, position);
     }
 
     private void SetState(AttentionState state, bool forceSwap = false)
@@ -212,28 +201,6 @@ public class CharacterAttention : CharacterAbility
         IsAttack = true;
         yield return new WaitForSeconds(config.AttackCooldown);
         IsAttack = false;
-    }
-
-    private void StartSeek(Vector3 position)
-    {
-        IsSeek = true;
-        SeekPoint = position;
-
-        /*_seekPoints = _level.Points.ToList().FindAll(x =>
-        {
-            NavMeshPath path = new NavMeshPath();
-            if (NavMesh.CalculatePath(SeekPoint, x, NavMesh.AllAreas, path))
-            {
-                return path.IsAvailable(x) && path.GetLength() <= config.VisionDistance;
-            }
-            return false;
-        });*/
-    }
-    
-    private void StopSeek()
-    {
-        IsSeek = false;
-        _seekPoints = null;
     }
     
     public enum AttentionState

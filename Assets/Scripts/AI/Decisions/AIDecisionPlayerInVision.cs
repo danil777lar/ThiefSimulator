@@ -15,6 +15,6 @@ public class AIDecisionPlayerInVision : AIDecision
 
     public override bool Decide()
     {
-        return _attention.PlayerInVision;
+        return true;
     }
 }

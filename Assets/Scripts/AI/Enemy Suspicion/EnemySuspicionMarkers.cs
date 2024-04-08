@@ -27,7 +27,7 @@ public class EnemySuspicionMarkers : MonoBehaviour
         _characterController = GetComponentInParent<CharacterController>();
     }
     
-    private void LateUpdate()
+    private void FixedUpdate()
     {
         TryUpdateSuspicion();
         TryUpdateAggression();

@@ -17,6 +17,6 @@ public class AIDecisionIsInSeekArea : AIDecision
 
     public override bool Decide()
     {
-        return Vector3.Distance(_brain.Owner.transform.position, _attention.SeekPoint) <= distance;
+        return Vector3.Distance(_brain.Owner.transform.position, _attention.LastAttentionPoint) <= distance;
     }
 }
