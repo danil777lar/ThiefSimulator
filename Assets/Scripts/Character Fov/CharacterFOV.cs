@@ -15,10 +15,10 @@ public class CharacterFOV : CharacterAbility
 
     private ThiefLevel _level;
     private List<Vector3> _pointsInVision = new List<Vector3>();
-    private List<Character> _charactersInVision = new List<Character>();
+    private List<CharacterVisionTarget> _charactersInVision = new List<CharacterVisionTarget>();
 
     public IReadOnlyCollection<Vector3> PointsInVision => _pointsInVision.AsReadOnly();
-    public IReadOnlyCollection<Character> CharactersInVision => _charactersInVision.AsReadOnly();
+    public IReadOnlyCollection<CharacterVisionTarget> CharactersInVision => _charactersInVision.AsReadOnly();
 
     public void Build(Options options)
     {
@@ -88,7 +88,7 @@ public class CharacterFOV : CharacterAbility
             {
                 vertex = meshFilter.transform.InverseTransformPoint(hit.point);
 
-                Character character = _level.Characters.ToList()
+                CharacterVisionTarget character = CharacterVisionTarget.Targets.ToList()
                     .Find(x => x.gameObject == hit.collider.gameObject); 
                 if (character != null)
                 {

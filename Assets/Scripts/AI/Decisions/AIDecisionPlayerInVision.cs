@@ -5,16 +5,16 @@ using UnityEngine;
 
 public class AIDecisionPlayerInVision : AIDecision
 {
-    private CharacterSeek _seek;
+    private CharacterAttention _attention;
     
     public override void Initialization()
     {
         base.Initialization();
-        _seek = _brain.Owner.GetComponent<CharacterSeek>();
+        _attention = _brain.Owner.GetComponent<CharacterAttention>();
     }
 
     public override bool Decide()
     {
-        return _seek.PlayerInVision;
+        return _attention.PlayerInVision;
     }
 }

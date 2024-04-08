@@ -7,16 +7,16 @@ public class AIDecisionIsInSeekArea : AIDecision
 {
     [SerializeField] private float distance = 2f;
     
-    private CharacterSeek _seek;
+    private CharacterAttention _attention;
     
     public override void Initialization()
     {
         base.Initialization();
-        _seek = _brain.Owner.GetComponent<CharacterSeek>();
+        _attention = _brain.Owner.GetComponent<CharacterAttention>();
     }
 
     public override bool Decide()
     {
-        return Vector3.Distance(_brain.Owner.transform.position, _seek.SeekPoint) <= distance;
+        return Vector3.Distance(_brain.Owner.transform.position, _attention.SeekPoint) <= distance;
     }
 }

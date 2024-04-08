@@ -2,32 +2,36 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using ToonyColorsPro.Legacy;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class CharacterSeek : CharacterAbility
+public class CharacterAttention : CharacterAbility
 {
     [SerializeField] private CharacterSeekConfig config;
+    [SerializeField] private List<StateBrain> brains;
     
     private float _suspicionDecreaseDelay;
     private float _aggressionDecreaseDelay;
-    private CharacterFOV _fov;
-    private ThiefLevel _level;
     private Vector3 _lastPlayerPoint;
-    private Character _player;
     private List<Vector3> _seekPoints;
-    private CharacterController _characterController;
+    
+    private ThiefLevel _level;
+    private CharacterFOV _fov;
     private SoundReceiver _soundReceiver;
+    private CharacterVisionTarget _player;
+    private CharacterController _characterController;
 
-    public bool PlayerInVision { get; private set; }
     public bool IsAttack { get; private set; }
     public bool IsSeek { get; private set; }
+    public bool PlayerInVision { get; private set; }
     public float Suspicion { get; private set; }
-    public float Aggression => PlayerInVision ? 1f : 0f;//{ get; private set; }
+    public float Aggression => 0f;
     public float MaxSuspicion => config.MaxSuspicionValue;
     public Vector3 SeekPoint { get; private set; }
+    public AttentionState CurrentState { get; private set; }
     public IReadOnlyCollection<Vector3> SeekPoints => _seekPoints;
 
     private void Start()
@@ -38,12 +42,14 @@ public class CharacterSeek : CharacterAbility
         _soundReceiver = GetComponent<SoundReceiver>();
         
         _soundReceiver.EventSoundReceived += SoundReceived;
+        SetState(AttentionState.Idle, true);
     }
 
     private void Update()
     {
-        UpdateSuspicion();
         TrySeePlayer();
+        UpdateSuspicion();
+        
         LookToPoints();
         TrySendDamage();
     }
@@ -71,8 +77,11 @@ public class CharacterSeek : CharacterAbility
 
     private void AddSuspicion(float suspicion)
     {
-        Suspicion = Mathf.Clamp(Suspicion + suspicion, 0f, MaxSuspicion);
-        _suspicionDecreaseDelay = config.SuspicionDecreaseDelay;
+        if (suspicion > 0f)
+        {
+            Suspicion = Mathf.Clamp(Suspicion + suspicion, 0f, MaxSuspicion);
+            _suspicionDecreaseDelay = config.SuspicionDecreaseDelay;
+        }
     }
     
     private void SoundReceived(float amplitude, Vector3 position)
@@ -80,7 +89,7 @@ public class CharacterSeek : CharacterAbility
         AddSuspicion(amplitude * config.HearingSensitivity);
         SeekPoint = position;
     }
-    
+
     private void UpdateSuspicion()
     {
         if (_suspicionDecreaseDelay > 0f)
@@ -91,30 +100,33 @@ public class CharacterSeek : CharacterAbility
         {
             Suspicion -= Time.deltaTime * config.SuspicionDecreaseSpeed;
         }
+
+        if (Suspicion > 0f)
+        {
+            SetState(AttentionState.Suspicious);
+        }
+        else
+        {
+            SetState(AttentionState.Idle);
+        }
     }
 
     private void TrySeePlayer()
     {
         _player = _fov.CharactersInVision.ToList()
-            .Find(x => x.CharacterType == Character.CharacterTypes.Player);
-
-        bool playerInVision = _player != null;
-        if (playerInVision)
+            .Find(x => x.Character.CharacterType == Character.CharacterTypes.Player);
+        
+        if (_player)
         {
-            _lastPlayerPoint = _player.transform.position;
-            StopSeek();
+            float distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
+            float playerVisibility = Mathf.Clamp01(1f - (distanceToPlayer / config.VisionDistance)) * _player.Visibility;
+            AddSuspicion(playerVisibility * config.VisionSensitivity * Time.deltaTime);
         }
-        else if (PlayerInVision)
-        {
-            StartSeek(_lastPlayerPoint);
-        }
-
-        PlayerInVision = playerInVision;
     }
 
     private void TrySendDamage()
     {
-        if (PlayerInVision && _player != null)
+        if (_player != null)
         {
             Vector3 directionToPlayer = _player.transform.position - transform.position;
             if (directionToPlayer.magnitude <= config.AttackDistance)
@@ -126,13 +138,38 @@ public class CharacterSeek : CharacterAbility
                 if (Physics.SphereCast(ray, radius, config.AttackDistance, mask))
                 {
                     _character.CharacterAnimator.SetTrigger("Ram");
-                    _player.CharacterHealth.Damage(1, gameObject, 0f, 0f, 
+                    _player.Character.CharacterHealth.Damage(1, gameObject, 0f, 0f, 
                         directionToPlayer.normalized);
                     
                     StartCoroutine(AttackCooldown());
                 }
             }      
         }
+    }
+
+    private void SetState(AttentionState state, bool forceSwap = false)
+    {
+        AIBrain brain = brains.Find(x => x.AttentionState == state).Brain;
+
+        if (forceSwap || state != CurrentState)
+        {
+            _character.CharacterBrain = brain;
+            brain.gameObject.SetActive(true);
+            brain.enabled = true;
+            brain.Owner = _character.gameObject;
+            brain.ResetBrain();
+
+            brains.ForEach(x =>
+            {
+                if (x.Brain != brain)
+                {
+                    x.Brain.gameObject.SetActive(false);
+                    x.Brain.enabled = false;
+                }
+            });
+        }
+
+        CurrentState = state;
     }
     
     private IEnumerator AttackCooldown()
@@ -166,7 +203,7 @@ public class CharacterSeek : CharacterAbility
         IsSeek = true;
         SeekPoint = position;
 
-        _seekPoints = _level.Points.ToList().FindAll(x =>
+        /*_seekPoints = _level.Points.ToList().FindAll(x =>
         {
             NavMeshPath path = new NavMeshPath();
             if (NavMesh.CalculatePath(SeekPoint, x, NavMesh.AllAreas, path))
@@ -174,12 +211,26 @@ public class CharacterSeek : CharacterAbility
                 return path.IsAvailable(x) && path.GetLength() <= config.VisionDistance;
             }
             return false;
-        });
+        });*/
     }
     
     private void StopSeek()
     {
         IsSeek = false;
         _seekPoints = null;
+    }
+    
+    public enum AttentionState
+    {
+        Idle,
+        Suspicious,
+        Aggressive
+    }
+
+    [Serializable]
+    private class StateBrain
+    {
+        [field: SerializeField] public AttentionState AttentionState { get; private set; }
+        [field: SerializeField] public AIBrain Brain { get; private set; }
     }
 }

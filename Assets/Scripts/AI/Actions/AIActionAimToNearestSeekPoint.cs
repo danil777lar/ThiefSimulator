@@ -8,13 +8,13 @@ using UnityEngine.AI;
 public class AIActionAimToNearestSeekPoint : AIAction
 {
     private Transform _target;
-    private CharacterSeek _seek;
+    private CharacterAttention _attention;
     
     public override void Initialization()
     {
         base.Initialization();
 
-        _seek = _brain.Owner.GetComponent<CharacterSeek>();
+        _attention = _brain.Owner.GetComponent<CharacterAttention>();
         
         _target = new GameObject().transform;
         _target.gameObject.name = "Run To Nearest Seek Point Target";
@@ -29,9 +29,9 @@ public class AIActionAimToNearestSeekPoint : AIAction
 
     public override void PerformAction()
     {
-        if (_seek.SeekPoints is { Count: > 0 })
+        if (_attention.SeekPoints is { Count: > 0 })
         {
-            Vector3 nearestPoint = _seek.SeekPoints.OrderBy(x =>
+            Vector3 nearestPoint = _attention.SeekPoints.OrderBy(x =>
             {
                 NavMeshPath path = new NavMeshPath();
                 if (NavMesh.CalculatePath(_brain.Owner.transform.position, x, NavMesh.AllAreas, path))

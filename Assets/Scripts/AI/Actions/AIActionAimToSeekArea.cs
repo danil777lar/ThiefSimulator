@@ -6,12 +6,12 @@ using UnityEngine;
 public class AIActionAimToSeekArea : AIAction
 {
     private Transform _target;
-    private CharacterSeek _seek;
+    private CharacterAttention _attention;
     
     public override void Initialization()
     {
         base.Initialization();
-        _seek = _brain.Owner.GetComponent<CharacterSeek>();
+        _attention = _brain.Owner.GetComponent<CharacterAttention>();
 
         _target = new GameObject().transform;
         _target.gameObject.name = "Run To Seek Area Target";
@@ -26,6 +26,6 @@ public class AIActionAimToSeekArea : AIAction
 
     public override void PerformAction()
     {
-        _target.position = _seek.SeekPoint;
+        _target.position = _attention.SeekPoint;
     }
 }

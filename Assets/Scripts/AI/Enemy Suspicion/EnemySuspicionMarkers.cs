@@ -15,13 +15,13 @@ public class EnemySuspicionMarkers : MonoBehaviour
     [SerializeField] private Image aggressionProgress;
 
     private Camera _camera;
-    private CharacterSeek _characterSeek;
+    private CharacterAttention _characterAttention;
     private CharacterController _characterController;
     
     private void Start()
     {
         _camera = Camera.main;
-        _characterSeek = GetComponentInParent<CharacterSeek>();
+        _characterAttention = GetComponentInParent<CharacterAttention>();
         _characterController = GetComponentInParent<CharacterController>();
     }
     
@@ -33,23 +33,23 @@ public class EnemySuspicionMarkers : MonoBehaviour
 
     private void TryUpdateSuspicion()
     {
-        bool suspicionActive = _characterSeek.Suspicion > 0f;
-        suspicionActive &= _characterSeek.Aggression <= 0f;
+        bool suspicionActive = _characterAttention.Suspicion > 0f;
+        suspicionActive &= _characterAttention.Aggression <= 0f;
         suspicionRoot.gameObject.SetActive(suspicionActive);
         if (suspicionActive)
         {
-            suspicionProgress.fillAmount = _characterSeek.Suspicion / _characterSeek.MaxSuspicion;
+            suspicionProgress.fillAmount = _characterAttention.Suspicion / _characterAttention.MaxSuspicion;
             UpdatePosition();
         }
     }
     
     private void TryUpdateAggression()
     {
-        bool aggressionActive = _characterSeek.Aggression > 0f;
+        bool aggressionActive = _characterAttention.Aggression > 0f;
         aggressionRoot.gameObject.SetActive(aggressionActive);
         if (aggressionActive)
         {
-            aggressionProgress.fillAmount = _characterSeek.Aggression / 1f;
+            aggressionProgress.fillAmount = _characterAttention.Aggression / 1f;
             UpdatePosition();
         }
     }

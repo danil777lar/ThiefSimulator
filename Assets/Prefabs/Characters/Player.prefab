@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6615307867351138231}
   - component: {fileID: 1984777243962410201}
   - component: {fileID: 2724311554232135388}
+  - component: {fileID: 2785719632902522901}
   - component: {fileID: 3229345722175605029}
   - component: {fileID: 1230887134683089601}
   - component: {fileID: 6377374948936315951}
@@ -238,6 +239,19 @@ MonoBehaviour:
   TouchTheGroundParticles: []
   TouchTheGroundSfx: []
   drawLimitsGizmo: 1
+--- !u!114 &2785719632902522901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356067717985629786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15662f5317f936441ac8b06163bc55bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Visibility: 1
 --- !u!114 &3229345722175605029
 MonoBehaviour:
   m_ObjectHideFlags: 0
