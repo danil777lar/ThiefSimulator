@@ -13,8 +13,7 @@ public class CharacterAttention : CharacterAbility
     [SerializeField] private CharacterSeekConfig config;
     [SerializeField] private List<StateBrain> brains;
     
-    private float _suspicionDecreaseDelay;
-    private float _aggressionDecreaseDelay;
+    private float _attentionDecreaseDelay;
     private Vector3 _lastPlayerPoint;
     private List<Vector3> _seekPoints;
     
@@ -27,9 +26,9 @@ public class CharacterAttention : CharacterAbility
     public bool IsAttack { get; private set; }
     public bool IsSeek { get; private set; }
     public bool PlayerInVision { get; private set; }
-    public float Suspicion { get; private set; }
-    public float Aggression { get; private set; }
-    public float MaxSuspicion => config.MaxSuspicionValue;
+    public float AttentionLevel { get; private set; }
+    public float MaxSuspicion => config.MaxSuspicion;
+    public float MaxAggression => config.MaxAggression;
     public Vector3 SeekPoint { get; private set; }
     public AttentionState CurrentState { get; private set; }
     public IReadOnlyCollection<Vector3> SeekPoints => _seekPoints;
@@ -48,8 +47,7 @@ public class CharacterAttention : CharacterAbility
     private void Update()
     {
         TrySeePlayer();
-        UpdateSuspicion();
-        UpdateAggression();
+        DecreaseAttention();
         
         LookToPoints();
         TrySendDamage();
@@ -88,56 +86,51 @@ public class CharacterAttention : CharacterAbility
             _player = player;
             float distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
             float playerVisibility = Mathf.Clamp01(1f - (distanceToPlayer / config.VisionDistance)) * _player.Visibility;
-            AddSuspicion(playerVisibility * config.VisionSensitivity * Time.deltaTime);
-            AddAggression();
+            AddAttention(playerVisibility * config.VisionSensitivity * Time.deltaTime); 
         }
     }
-
-    private void UpdateSuspicion()
+    
+    private void AddAttention(float attention)
     {
-        if (CurrentState == AttentionState.Idle || CurrentState == AttentionState.Suspicious)
+        if (attention > 0f)
         {
-            if (_suspicionDecreaseDelay > 0f)
-            {
-                _suspicionDecreaseDelay -= Time.deltaTime;
-            }
-            else if (Suspicion > 0f)
-            {
-                Suspicion -= Time.deltaTime * config.SuspicionDecreaseSpeed;
-            }
-
-            if (Suspicion >= config.MaxSuspicionValue)
+            AttentionLevel = Mathf.Clamp(AttentionLevel + attention, 0f, MaxSuspicion + MaxAggression);
+            
+            if (AttentionLevel >= MaxAggression + MaxSuspicion)
             {
                 SetState(AttentionState.Aggressive);
             }
-            else if (Suspicion > 0f)
+            else if (AttentionLevel >= MaxSuspicion)
             {
                 SetState(AttentionState.Suspicious);
             }
-            else
-            {
-                SetState(AttentionState.Idle);
-            }
+
+            _attentionDecreaseDelay = AttentionLevel < MaxSuspicion
+                ? config.SuspicionDecreaseDelay
+                : config.AggressionDecreaseDelay;
         }
     }
 
-    private void UpdateAggression()
+    private void DecreaseAttention()
     {
-        if (CurrentState == AttentionState.Aggressive)
+        if (_attentionDecreaseDelay > 0f)
         {
-            if (_aggressionDecreaseDelay > 0f)
-            {
-                _aggressionDecreaseDelay -= Time.deltaTime;
-            }
-            else
-            {
-                Aggression -= config.AggressionDecreaseSpeed * Time.deltaTime;
-            }
+            _attentionDecreaseDelay -= Time.deltaTime;
+        }
+        else if (AttentionLevel > 0f)
+        {
+            AttentionLevel -= Time.deltaTime * (CurrentState == AttentionState.Suspicious
+                ? config.SuspicionDecreaseSpeed
+                : config.AggressionDecreaseSpeed);
 
-            if (Aggression <= 0f)
+            if (AttentionLevel <= MaxSuspicion && CurrentState == AttentionState.Aggressive)
             {
                 SetState(AttentionState.Suspicious);
             }
+        }
+        else
+        {
+            SetState(AttentionState.Idle);
         }
     }
 
@@ -183,25 +176,9 @@ public class CharacterAttention : CharacterAbility
         }
     }
     
-    private void AddSuspicion(float suspicion)
-    {
-        if (suspicion > 0f)
-        {
-            Suspicion = Mathf.Clamp(Suspicion + suspicion, 0f, MaxSuspicion);
-            _suspicionDecreaseDelay = config.SuspicionDecreaseDelay;
-        }
-    }
-    
-    private void AddAggression()
-    {
-        Aggression = 1f;
-        _aggressionDecreaseDelay = config.AggressionDecreaseDelay;
-    }
-    
     private void OnSoundReceived(float amplitude, Vector3 position)
     {
-        AddSuspicion(amplitude * config.HearingSensitivity);
-        AddAggression();
+        AddAttention(amplitude * config.HearingSensitivity);
         SeekPoint = position;
     }
 

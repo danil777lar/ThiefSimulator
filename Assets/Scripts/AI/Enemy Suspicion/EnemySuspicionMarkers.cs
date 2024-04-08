@@ -9,9 +9,11 @@ public class EnemySuspicionMarkers : MonoBehaviour
     [SerializeField] private RectTransform markersRoot;
     [Space]
     [SerializeField] private RectTransform suspicionRoot;
+    [SerializeField] private RectTransform suspicionGlow;
     [SerializeField] private Image suspicionProgress;
     [Space]
     [SerializeField] private RectTransform aggressionRoot;
+    [SerializeField] private RectTransform aggressionGlow;
     [SerializeField] private Image aggressionProgress;
 
     private Camera _camera;
@@ -25,7 +27,7 @@ public class EnemySuspicionMarkers : MonoBehaviour
         _characterController = GetComponentInParent<CharacterController>();
     }
     
-    private void FixedUpdate()
+    private void LateUpdate()
     {
         TryUpdateSuspicion();
         TryUpdateAggression();
@@ -33,24 +35,32 @@ public class EnemySuspicionMarkers : MonoBehaviour
 
     private void TryUpdateSuspicion()
     {
-        bool suspicionActive = _characterAttention.CurrentState == CharacterAttention.AttentionState.Suspicious;
+        bool suspicionActive = _characterAttention.AttentionLevel > 0f;
+        suspicionActive &= _characterAttention.AttentionLevel <= _characterAttention.MaxSuspicion;
         suspicionRoot.gameObject.SetActive(suspicionActive);
         if (suspicionActive)
         {
-            suspicionProgress.fillAmount = _characterAttention.Suspicion / _characterAttention.MaxSuspicion;
+            suspicionProgress.fillAmount = _characterAttention.AttentionLevel / _characterAttention.MaxSuspicion;
             UpdatePosition();
         }
+        
+        suspicionGlow.gameObject.SetActive(_characterAttention.CurrentState == 
+                                           CharacterAttention.AttentionState.Suspicious);
     }
     
     private void TryUpdateAggression()
     {
-        bool aggressionActive = _characterAttention.CurrentState == CharacterAttention.AttentionState.Aggressive;
+        bool aggressionActive = _characterAttention.AttentionLevel > _characterAttention.MaxSuspicion;
         aggressionRoot.gameObject.SetActive(aggressionActive);
         if (aggressionActive)
         {
-            aggressionProgress.fillAmount = _characterAttention.Aggression / 1f;
+            aggressionProgress.fillAmount = (_characterAttention.AttentionLevel - _characterAttention.MaxSuspicion) /
+                                            _characterAttention.MaxAggression;
             UpdatePosition();
         }
+        
+        aggressionGlow.gameObject.SetActive(_characterAttention.CurrentState == 
+                                           CharacterAttention.AttentionState.Aggressive);
     }
     
     private void UpdatePosition()
