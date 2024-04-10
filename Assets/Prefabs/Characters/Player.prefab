@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 6615307867351138231}
   - component: {fileID: 1984777243962410201}
   - component: {fileID: 2724311554232135388}
+  - component: {fileID: 1230887134683089601}
   - component: {fileID: 2785719632902522901}
   - component: {fileID: 3229345722175605029}
-  - component: {fileID: 1230887134683089601}
   - component: {fileID: 6377374948936315951}
   - component: {fileID: 5273731019370073304}
   - component: {fileID: 8051372575558603605}
@@ -239,6 +239,33 @@ MonoBehaviour:
   TouchTheGroundParticles: []
   TouchTheGroundSfx: []
   drawLimitsGizmo: 1
+--- !u!114 &1230887134683089601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356067717985629786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f30bd092b5ca764889a38a37d7b211d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AbilityStartSfx: {fileID: 0}
+  AbilityInProgressSfx: {fileID: 0}
+  AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
+  AbilityPermitted: 1
+  BlockingMovementStates: 
+  BlockingConditionStates: 
+  BlockingWeaponStates: 
+  forceTarget: {fileID: 0}
+  forceLookTarget: {fileID: 0}
+  minRotationSpeed: 0
+  maxRotationSpeed: 720
+  model: {fileID: 6282012969164897799}
+  modelLook: {fileID: 0}
 --- !u!114 &2785719632902522901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,31 +293,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundPrefab: {fileID: 9016645145866933233, guid: 8777821e7c72c6b45b087293be70720d,
     type: 3}
---- !u!114 &1230887134683089601
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1356067717985629786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f30bd092b5ca764889a38a37d7b211d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AbilityStartSfx: {fileID: 0}
-  AbilityInProgressSfx: {fileID: 0}
-  AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
-  AbilityPermitted: 1
-  BlockingMovementStates: 
-  BlockingConditionStates: 
-  BlockingWeaponStates: 
-  forceTarget: {fileID: 0}
-  minRotationSpeed: 0
-  maxRotationSpeed: 720
-  model: {fileID: 6282012969164897799}
 --- !u!114 &6377374948936315951
 MonoBehaviour:
   m_ObjectHideFlags: 0

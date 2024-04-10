@@ -7,11 +7,11 @@ public class CharacterStepSound : MonoBehaviour
 {
     [SerializeField] private SoundTransmitter soundPrefab;
 
-    private ActualSpeedCharacterMovement _movement;
+    private CoreCharacterMovement _movement;
     
     private void Start()
     {
-        _movement = GetComponent<ActualSpeedCharacterMovement>();
+        _movement = GetComponent<CoreCharacterMovement>();
         AnimatorEventReceiver receiver = GetComponentInChildren<AnimatorEventReceiver>();
         if (receiver)
         {

@@ -25,8 +25,8 @@ public class CharacterPull3D : CharacterAbility, IPlayerActionSource
     [SerializeField] private Sprite attachIcon;
     [SerializeField] private Sprite detachIcon;
 
-    private ActualSpeedCharacterMovement _movement;
-    private MoveBasedCharacterOrientation3D _orientation;
+    private CoreCharacterMovement _movement;
+    private CoreCharacterOrientation3D _orientation;
     private Pullable _nearestPullable;
     private Pullable _currentPullable;
     
@@ -38,8 +38,8 @@ public class CharacterPull3D : CharacterAbility, IPlayerActionSource
     protected override void Initialization()
     {
         base.Initialization();
-        _movement = _character.FindAbility<ActualSpeedCharacterMovement>();
-        _orientation = _character.FindAbility<MoveBasedCharacterOrientation3D>();
+        _movement = _character.FindAbility<CoreCharacterMovement>();
+        _orientation = _character.FindAbility<CoreCharacterOrientation3D>();
 
         BuildActions();
     }

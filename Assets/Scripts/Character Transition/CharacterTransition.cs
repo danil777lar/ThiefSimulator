@@ -19,7 +19,7 @@ public class CharacterTransition : CharacterAbility, IPlayerActionSource
     [SerializeField] private Sprite transitIcon;
 
     private bool _inTransition;
-    private ActualSpeedCharacterMovement _movement;
+    private CoreCharacterMovement _movement;
     private TransitionPoint _nearestTransition;
     private Transform _nearestTransitionPoint;
 
@@ -28,7 +28,7 @@ public class CharacterTransition : CharacterAbility, IPlayerActionSource
     protected override void Initialization()
     {
         base.Initialization();
-        _movement = _character.FindAbility<ActualSpeedCharacterMovement>();
+        _movement = _character.FindAbility<CoreCharacterMovement>();
         BuildActions();
     }
 

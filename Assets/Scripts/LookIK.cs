@@ -7,12 +7,12 @@ using UnityEngine;
 public class LookIK : MonoBehaviour
 {
     private Animator _animator;
-    private MoveBasedCharacterOrientation3D _orientation;
+    private CoreCharacterOrientation3D _orientation;
     
     private void Start()
     {
         _animator = GetComponent<Animator>();
-        _orientation = GetComponentInParent<MoveBasedCharacterOrientation3D>();
+        _orientation = GetComponentInParent<CoreCharacterOrientation3D>();
     }
     
     private void OnAnimatorIK(int layerIndex)

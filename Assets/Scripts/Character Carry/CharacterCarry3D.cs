@@ -21,7 +21,7 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
     [SerializeField] private Sprite takeIcon;
     [SerializeField] private Sprite dropIcon;
 
-    private ActualSpeedCharacterMovement _movement;
+    private CoreCharacterMovement _movement;
     private Carryable _nearestCarryable;
     private List<Carryable> _currentCarryables;
 
@@ -33,7 +33,7 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
     protected override void Initialization()
     {
         base.Initialization();
-        _movement = _character.FindAbility<ActualSpeedCharacterMovement>();
+        _movement = _character.FindAbility<CoreCharacterMovement>();
         _currentCarryables = new List<Carryable>();
         
         BuildActions();
