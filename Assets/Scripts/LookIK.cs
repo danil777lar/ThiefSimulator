@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class LookIK : MonoBehaviour
 {
+    [SerializeField] private float defaultLookHeight = 1.5f;
+    
     private Animator _animator;
     private CoreCharacterOrientation3D _orientation;
     
@@ -19,15 +21,13 @@ public class LookIK : MonoBehaviour
     {
         if (_animator)
         {
-            if (_orientation.forceLookTarget == null)
-            {
-                _animator.SetLookAtWeight(0f);
-            }
-            else
-            {
-                _animator.SetLookAtWeight(1f);
-                _animator.SetLookAtPosition(_orientation.forceLookTarget.position);   
-            }
+            _animator.SetLookAtWeight(1f);
+            
+            Vector3 lookPosition = _orientation.forceLookTarget != null ? 
+                _orientation.forceLookTarget.position : 
+                transform.position + (Vector3.up * defaultLookHeight) + (_orientation.LookDirection * 10f);
+            
+            _animator.SetLookAtPosition(lookPosition);   
         }   
     }
 }
