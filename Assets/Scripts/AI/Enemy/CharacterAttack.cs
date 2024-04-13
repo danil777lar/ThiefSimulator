@@ -56,12 +56,31 @@ public class CharacterAttack : CharacterAbility
 
     private void TrySendDamage()
     {
-        if (_target != null && !IsAttacking)
+        if (_target != null && !IsAttacking && CheckLimit())
         {
             _character.CharacterAnimator.SetTrigger("Ram");
             _target.CharacterHealth.Damage(1, gameObject, 0f, 0f, Vector3.zero);
             StartCoroutine(AttackCooldown());   
         }
+    }
+
+    private bool CheckLimit()
+    {
+        if (!config.UseLimit) return true;
+        
+        if (_target != null)
+        {
+            Vector3 directionSelf = _character.CharacterModel.transform.forward;
+            Vector3 directionTarget = _target.CharacterModel.transform.TransformDirection(config.LimitDirection);
+            
+            Debug.DrawRay(transform.position, directionSelf * 5f, Color.blue);
+            Debug.DrawRay(_target.transform.position, directionTarget * 5f, Color.red);
+            
+            float angle = Vector3.Angle(directionSelf, directionTarget);
+            return angle <= config.LimitAngle;
+        }
+
+        return false;
     }
 
     private IEnumerator AttackCooldown()
