@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,6 +6,7 @@ using Larje.Core.Tools.TopDownEngine;
 using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class AIActionAimToNearestSeekPoint : AIAction
 {
@@ -81,7 +83,12 @@ public class AIActionAimToNearestSeekPoint : AIAction
 
         _targetLook.position = Vector3.Lerp(_targetLook.position, lookPoint, Time.deltaTime * lookSpeed);
     }
-    
+
+    private void OnDisable()
+    {
+        _orientation.forceLookTarget = null;
+    }
+
     private IEnumerator RecalculatePointDelay()
     {
         yield return new WaitForSeconds(Random.Range(recalculatePointDelayMin, recalculatePointDelayMax));
