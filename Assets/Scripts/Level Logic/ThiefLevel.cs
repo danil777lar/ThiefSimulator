@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Larje.Core.Services;
 using MoreMountains.TopDownEngine;
 using ProjectConstants;
@@ -71,8 +72,8 @@ public class ThiefLevel : LevelProcessor
     [ContextMenu("Build Navmesh")]
     private void BuildNavmesh()
     {
-        NavMeshSurface surface = GetComponent<NavMeshSurface>();
-        surface.BuildNavMesh();
+        List<NavMeshSurface> surfaces = GetComponents<NavMeshSurface>().ToList();
+        surfaces.ForEach(x => x.BuildNavMesh());
 
         List<Vector3> points = new List<Vector3>();
         for (float x = -100f; x <= 100f; x += gridSize)
