@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using DG.Tweening.Plugins.Core.PathCore;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.AI;
@@ -11,7 +12,8 @@ using Color = UnityEngine.Color;
 public class EnemySeek : CharacterAbility
 {
     [SerializeField] private EnemySeekConfig config;
-    
+
+    private float _lastUpdateTime;
     private Vector3 _lastAttentionPoint;
     private CharacterFOV _fov;
     private EnemyAttention _attention;
@@ -19,32 +21,56 @@ public class EnemySeek : CharacterAbility
     
     private List<SeekPoint> _seekPoints;
 
-    public bool TryFindBestPoint(out Vector3 point)
+    public bool TryFindBestPoint(out Vector3 point, out bool isPointVisible)
     {
         if (_seekPoints == null || _seekPoints.Count == 0)
         {
             point = Vector3.zero;
+            isPointVisible = false;
             return false;
         }
+
+        float maxDistance = 0f;
+        Dictionary<SeekPoint, NavMeshPath> paths = new Dictionary<SeekPoint, NavMeshPath>();
+        foreach (SeekPoint seekPoint in _seekPoints)
+        {
+            NavMeshPath path = GetPathToPoint(seekPoint.Position);
+            if (path != null)
+            {
+                paths.Add(seekPoint, path);
+                maxDistance = Mathf.Max(maxDistance, path.GetLength());
+            }
+        }
         
-        SeekPoint bestPoint = _seekPoints.OrderByDescending(p => p.GetPriority()).First();
+        SeekPoint bestPoint = _seekPoints.OrderByDescending(p =>
+        {
+            float currentDistance = 1f - (paths[p].GetLength() / maxDistance);
+            return p.GetPriority() * currentDistance;
+        }).First();
+        
         point = bestPoint.Position;
+        isPointVisible = paths[bestPoint].corners.Length <= 2;
+        
         return true;
     }
     
     public override void ProcessAbility()
     {
         base.ProcessAbility();
+
+        float deltaTime = Time.time - _lastUpdateTime;
         
         TryBuildPoints();
-        LookToPoints();
-        UpdatePoints();
+        ObservePoints(deltaTime);
+        
+        _lastUpdateTime = Time.time;
     }
     
     protected override void Initialization()
     {
         base.Initialization();
-        
+
+        _lastUpdateTime = Time.time;
         _fov = GetComponent<CharacterFOV>();
         _attention = GetComponent<EnemyAttention>();
         _level = GetComponentInParent<ThiefLevel>();
@@ -62,17 +88,6 @@ public class EnemySeek : CharacterAbility
         }
     }
     
-    private void UpdatePoints()
-    {
-        if (_seekPoints != null)
-        {
-            foreach (SeekPoint point in _seekPoints)
-            {
-                point.Update(Time.deltaTime);
-            }
-        }
-    }
-
     private void TryBuildPoints()
     {
         if (_lastAttentionPoint != _attention.LastAttentionPoint)
@@ -96,18 +111,36 @@ public class EnemySeek : CharacterAbility
         }
     }
     
-    private void LookToPoints()
+    private void ObservePoints(float deltaTime)
     {
         if (_seekPoints != null)
         {
             foreach (SeekPoint point in _seekPoints.ToArray())
             {
-                if (_fov.PointsInVision.Contains(point.Position))
+                float distance = Vector3.Distance(transform.position, point.Position);
+                if (_fov.PointsInVision.Contains(point.Position) || distance <= config.ForceObserveDistance)
                 {
-                    point.LookAtPoint();
+                    point.Observe(deltaTime * config.PointObserveSpeed);
+                }
+                else
+                {
+                    point.Recover(deltaTime * config.PointRecoverySpeed);
                 }
             }
         }
+    }
+
+    private NavMeshPath GetPathToPoint(Vector3 targetPosition)
+    {
+        NavMeshPath path = new NavMeshPath();
+        Vector3 sourcePosition = transform.position;
+        if (NavMesh.CalculatePath(sourcePosition, targetPosition, NavMesh.AllAreas, path) 
+            && path.IsAvailable(targetPosition))
+        {
+            return path;
+        }
+        
+        return null;
     }
     
     private class SeekPoint
@@ -125,14 +158,14 @@ public class EnemySeek : CharacterAbility
             _lookPriority = 1f;
         }
 
-        public void Update(float deltaTime)
+        public void Recover(float delta)
         {
-            _lookPriority = Mathf.Clamp01(_lookPriority + deltaTime);
+            _lookPriority = Mathf.Clamp01(_lookPriority + delta);
         }
         
-        public void LookAtPoint()
+        public void Observe(float delta)
         {
-            _lookPriority = 0f;
+            _lookPriority = Mathf.Clamp01(_lookPriority - delta);
         }
 
         public float GetPriority()

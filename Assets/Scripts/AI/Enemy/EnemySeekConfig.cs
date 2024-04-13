@@ -6,4 +6,8 @@ using UnityEngine;
 public class EnemySeekConfig : ScriptableObject
 {
     [field: SerializeField] public float MaxSeekDistance { get; private set; }
+    [field: Header("Points Observe")]
+    [field: SerializeField] public float ForceObserveDistance { get; private set; }
+    [field: SerializeField] public float PointObserveSpeed { get; private set; }
+    [field: SerializeField] public float PointRecoverySpeed { get; private set; }
 }
