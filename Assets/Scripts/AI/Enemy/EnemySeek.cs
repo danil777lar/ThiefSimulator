@@ -23,10 +23,11 @@ public class EnemySeek : CharacterAbility
 
     public bool TryFindBestPoint(out Vector3 point, out bool isPointVisible)
     {
+        point = Vector3.zero;
+        isPointVisible = false;
+        
         if (_seekPoints == null || _seekPoints.Count == 0)
         {
-            point = Vector3.zero;
-            isPointVisible = false;
             return false;
         }
 
@@ -41,18 +42,28 @@ public class EnemySeek : CharacterAbility
                 maxDistance = Mathf.Max(maxDistance, path.GetLength());
             }
         }
-        
-        SeekPoint bestPoint = _seekPoints.OrderByDescending(p =>
+
+        List<SeekPoint> availablePoints = _seekPoints.FindAll(x => paths.ContainsKey(x));
+        if (availablePoints.Count > 0)
         {
-            float currentDistance = 1f - (paths[p].GetLength() / maxDistance);
-            return p.GetPriority() * currentDistance;
-        }).First();
+            SeekPoint bestPoint = availablePoints.OrderByDescending(p =>
+            {
+                float currentDistance = 1f - (paths[p].GetLength() / maxDistance);
+                return p.GetPriority() * currentDistance;
+            }).First();
         
-        point = bestPoint.Position;
-        isPointVisible = paths[bestPoint].corners.Length <= 2 && 
-                         paths[bestPoint].GetLength() <= config.MaxSeekDistance / 2f;
+            point = bestPoint.Position;
+            isPointVisible = paths[bestPoint].corners.Length <= 2 && 
+                             paths[bestPoint].GetLength() <= config.MaxSeekDistance / 2f;
         
-        return true;
+            return true;   
+        }
+        else
+        {
+            Debug.LogWarning("Seek points count is 0");
+        }
+
+        return false;
     }
     
     public override void ProcessAbility()
@@ -142,7 +153,7 @@ public class EnemySeek : CharacterAbility
         NavMeshPath path = new NavMeshPath();
         Vector3 sourcePosition = transform.position;
         if (NavMesh.CalculatePath(sourcePosition, targetPosition, NavMesh.AllAreas, path) 
-            && path.IsAvailable(targetPosition))
+            /*&& path.IsAvailable(targetPosition)*/)
         {
             return path;
         }

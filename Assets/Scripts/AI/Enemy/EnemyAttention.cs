@@ -70,11 +70,11 @@ public class EnemyAttention : CharacterAbility
             attention = Mathf.Min(attention, MaxSuspicion - AttentionLevel);
             attention = Mathf.Max(attention, 0);
         }
-        
+
+        LastAttentionPoint = position;
         if (attention > 0f)
         {
             AttentionLevel = Mathf.Clamp(AttentionLevel + attention, 0f, MaxSuspicion + MaxAggression);
-            LastAttentionPoint = position;
             
             if (AttentionLevel >= MaxAggression + MaxSuspicion)
             {
