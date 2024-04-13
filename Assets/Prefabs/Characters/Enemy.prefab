@@ -1138,6 +1138,8 @@ GameObject:
   - component: {fileID: 8828661335715199488}
   - component: {fileID: 7750138959112494211}
   - component: {fileID: 2961021057833667086}
+  - component: {fileID: 6590796001805033765}
+  - component: {fileID: 6729370905952086660}
   - component: {fileID: 6163404771080707589}
   - component: {fileID: 2707342635613128791}
   m_Layer: 13
@@ -1560,6 +1562,40 @@ MonoBehaviour:
     <Brain>k__BackingField: {fileID: 3372227504123747890}
   - <AttentionState>k__BackingField: 2
     <Brain>k__BackingField: {fileID: 6541783960998323210}
+--- !u!114 &6590796001805033765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5551267721517475913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d5268fef22ffc44181ad75b9fa1d848, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AbilityStartSfx: {fileID: 0}
+  AbilityInProgressSfx: {fileID: 0}
+  AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
+  AbilityPermitted: 1
+  BlockingMovementStates: 
+  BlockingConditionStates: 
+  BlockingWeaponStates: 
+  config: {fileID: 11400000, guid: c2c2979aae8fac148867fe9adf73141f, type: 2}
+--- !u!114 &6729370905952086660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5551267721517475913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9bc17d556d942940b32ef59a54d73b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6163404771080707589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1713,68 +1749,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3225730755012224061}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &6660156763909107189
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1895981304412160884}
-  - component: {fileID: 5157284610381061637}
-  - component: {fileID: 3672444041162133036}
-  m_Layer: 0
-  m_Name: Actions Run To Seek Point
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1895981304412160884
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6660156763909107189}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2667707755055766469}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5157284610381061637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6660156763909107189}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a600f2e2a25ee7d44a5d26dcfb92ddd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitializationMode: 0
-  Label: Set Speed Run To Seek Point
-  multiplier: 1
---- !u!114 &3672444041162133036
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6660156763909107189}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f4412ed5a0fcb34eb3450abae1c62ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitializationMode: 0
-  Label: Aim To Seek Point
 --- !u!1 &7032854607072996959
 GameObject:
   m_ObjectHideFlags: 0
@@ -2192,7 +2166,6 @@ Transform:
   m_Children:
   - {fileID: 8293093229806842806}
   - {fileID: 2083548107545843865}
-  - {fileID: 1895981304412160884}
   - {fileID: 4257431790525779848}
   m_Father: {fileID: 2032415910758741344}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2216,18 +2189,7 @@ MonoBehaviour:
       - {fileID: 3569410100522141156}
     Transitions:
       array:
-      - Decision: {fileID: 2253496520039665637}
-        TrueState: Seek
-        FalseState: Run To Seek Point
-  - StateName: Run To Seek Point
-    Actions:
-      array:
-      - {fileID: 5157284610381061637}
-      - {fileID: 3672444041162133036}
-      - {fileID: 6684981849513972412}
-    Transitions:
-      array:
-      - Decision: {fileID: 2253496520039665637}
+      - Decision: {fileID: 8531822478119307619}
         TrueState: Seek
         FalseState: 
   - StateName: Seek
@@ -2237,10 +2199,7 @@ MonoBehaviour:
       - {fileID: 7121966316545200060}
       - {fileID: 6684981849513972412}
     Transitions:
-      array:
-      - Decision: {fileID: 2253496520039665637}
-        TrueState: 
-        FalseState: Run To Seek Point
+      array: []
   TimeInThisState: 0
   Target: {fileID: 0}
   _lastKnownTargetPosition: {x: 0, y: 0, z: 0}

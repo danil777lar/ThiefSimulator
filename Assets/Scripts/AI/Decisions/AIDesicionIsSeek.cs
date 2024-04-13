@@ -5,16 +5,16 @@ using UnityEngine;
 
 public class AIDesicionIsSeek : AIDecision
 {
-    private CharacterAttention _attention;
+    private EnemyAttention _attention;
     
     public override void Initialization()
     {
         base.Initialization();
-        _attention = _brain.Owner.GetComponent<CharacterAttention>();
+        _attention = _brain.Owner.GetComponent<EnemyAttention>();
     }
 
     public override bool Decide()
     {
-        return _attention.CurrentState == CharacterAttention.AttentionState.Suspicious;
+        return _attention.CurrentState == EnemyAttention.AttentionState.Suspicious;
     }
 }

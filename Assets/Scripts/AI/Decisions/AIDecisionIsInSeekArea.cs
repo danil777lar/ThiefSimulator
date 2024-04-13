@@ -7,12 +7,12 @@ public class AIDecisionIsInSeekArea : AIDecision
 {
     [SerializeField] private float distance = 2f;
     
-    private CharacterAttention _attention;
+    private EnemyAttention _attention;
     
     public override void Initialization()
     {
         base.Initialization();
-        _attention = _brain.Owner.GetComponent<CharacterAttention>();
+        _attention = _brain.Owner.GetComponent<EnemyAttention>();
     }
 
     public override bool Decide()

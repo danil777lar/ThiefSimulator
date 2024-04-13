@@ -4,18 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
-using ToonyColorsPro.Legacy;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class CharacterAttention : CharacterAbility
+public class EnemyAttention : CharacterAbility
 {
-    [SerializeField] private CharacterSeekConfig config;
+    [SerializeField] private EnemyAttentionConfig config;
     [SerializeField] private List<StateBrain> brains;
-    
+
+    private float _lastDecreaseTime;
     private float _attentionDecreaseDelay;
     private Vector3 _lastPlayerPoint;
-    private List<Vector3> _seekPoints;
     
     private CharacterFOV _fov;
     private SoundReceiver _soundReceiver;
@@ -28,46 +26,27 @@ public class CharacterAttention : CharacterAbility
     public float MaxAggression => config.MaxAggression;
     public Vector3 LastAttentionPoint { get; private set; }
     public AttentionState CurrentState { get; private set; }
-    public IReadOnlyCollection<Vector3> SeekPoints => _seekPoints;
 
-    private void Start()
+    public override void ProcessAbility()
     {
+        base.ProcessAbility();
+        
+        TrySeePlayer();
+        DecreaseAttention();
+        TrySendDamage();
+    }
+
+    protected override void Initialization()
+    {
+        base.Initialization();
+
+        _lastDecreaseTime = Time.time;
         _fov = GetComponent<CharacterFOV>();
         _characterController = GetComponent<CharacterController>();
         _soundReceiver = GetComponent<SoundReceiver>();
         
         _soundReceiver.EventSoundReceived += OnSoundReceived;
         SetState(AttentionState.Idle, true);
-    }
-
-    private void Update()
-    {
-        TrySeePlayer();
-        DecreaseAttention();
-        
-        LookToPoints();
-        TrySendDamage();
-    }
-
-    private void OnDrawGizmos()
-    {
-        if (_fov != null && _fov.PointsInVision != null)
-        {
-            Gizmos.color = Color.blue;
-            foreach (Vector3 point in _fov.PointsInVision)
-            {
-                Gizmos.DrawSphere(point, 0.35f);
-            }
-        }
-
-        if (SeekPoints != null)
-        {
-            Gizmos.color = Color.red;
-            foreach (Vector3 point in SeekPoints)
-            {
-                Gizmos.DrawSphere(point, 0.4f);
-            }
-        }
     }
 
     private void TrySeePlayer()
@@ -84,8 +63,14 @@ public class CharacterAttention : CharacterAbility
         }
     }
     
-    private void AddAttention(float attention, Vector3 position)
+    private void AddAttention(float attention, Vector3 position, bool onlySuspicion = false)
     {
+        if (onlySuspicion)
+        {
+            attention = Mathf.Min(attention, MaxSuspicion - AttentionLevel);
+            attention = Mathf.Max(attention, 0);
+        }
+        
         if (attention > 0f)
         {
             AttentionLevel = Mathf.Clamp(AttentionLevel + attention, 0f, MaxSuspicion + MaxAggression);
@@ -108,13 +93,16 @@ public class CharacterAttention : CharacterAbility
 
     private void DecreaseAttention()
     {
+        float deltaTime = Time.time - _lastDecreaseTime;
+        _lastDecreaseTime = Time.time;
+        
         if (_attentionDecreaseDelay > 0f)
         {
-            _attentionDecreaseDelay -= Time.deltaTime;
+            _attentionDecreaseDelay -= deltaTime;
         }
         else if (AttentionLevel > 0f)
         {
-            AttentionLevel -= Time.deltaTime * (CurrentState == AttentionState.Suspicious
+            AttentionLevel -= deltaTime * (CurrentState == AttentionState.Suspicious
                 ? config.SuspicionDecreaseSpeed
                 : config.AggressionDecreaseSpeed);
 
@@ -126,20 +114,6 @@ public class CharacterAttention : CharacterAbility
         else
         {
             SetState(AttentionState.Idle);
-        }
-    }
-
-    private void LookToPoints()
-    {
-        if (_seekPoints != null)
-        {
-            foreach (Vector3 point in _seekPoints.ToArray())
-            {
-                if (_fov.PointsInVision.Contains(point))
-                {
-                    _seekPoints.Remove(point);
-                }
-            }
         }
     }
 
@@ -168,7 +142,7 @@ public class CharacterAttention : CharacterAbility
     
     private void OnSoundReceived(float amplitude, Vector3 position)
     {
-        AddAttention(amplitude * config.HearingSensitivity, position);
+        AddAttention(amplitude * config.HearingSensitivity, position, true);   
     }
 
     private void SetState(AttentionState state, bool forceSwap = false)

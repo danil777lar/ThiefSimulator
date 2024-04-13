@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class AIDecisionPlayerInVision : AIDecision
 {
-    private CharacterAttention _attention;
+    private EnemyAttention _attention;
     
     public override void Initialization()
     {
         base.Initialization();
-        _attention = _brain.Owner.GetComponent<CharacterAttention>();
+        _attention = _brain.Owner.GetComponent<EnemyAttention>();
     }
 
     public override bool Decide()

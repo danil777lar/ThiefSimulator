@@ -6,12 +6,12 @@ using UnityEngine;
 public class AIActionAimToSeekArea : AIAction
 {
     private Transform _target;
-    private CharacterAttention _attention;
+    private EnemyAttention _attention;
     
     public override void Initialization()
     {
         base.Initialization();
-        _attention = _brain.Owner.GetComponent<CharacterAttention>();
+        _attention = _brain.Owner.GetComponent<EnemyAttention>();
 
         _target = new GameObject().transform;
         _target.gameObject.name = "Run To Seek Area Target";
