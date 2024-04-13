@@ -21,6 +21,25 @@ public class EnemySeek : CharacterAbility
     
     private List<SeekPoint> _seekPoints;
 
+    public override void ProcessAbility()
+    {
+        base.ProcessAbility();
+
+        if (!AbilityAuthorized || !AbilityPermitted)
+        {
+            _seekPoints = null;
+            
+            return;
+        }
+        
+        float deltaTime = Time.time - _lastUpdateTime;
+        
+        TryBuildPoints();
+        ObservePoints(deltaTime);
+        
+        _lastUpdateTime = Time.time;
+    }
+
     public bool TryFindBestPoint(out Vector3 point, out bool isPointVisible)
     {
         point = Vector3.zero;
@@ -65,19 +84,7 @@ public class EnemySeek : CharacterAbility
 
         return false;
     }
-    
-    public override void ProcessAbility()
-    {
-        base.ProcessAbility();
 
-        float deltaTime = Time.time - _lastUpdateTime;
-        
-        TryBuildPoints();
-        ObservePoints(deltaTime);
-        
-        _lastUpdateTime = Time.time;
-    }
-    
     protected override void Initialization()
     {
         base.Initialization();

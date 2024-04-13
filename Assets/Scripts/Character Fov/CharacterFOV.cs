@@ -27,15 +27,32 @@ public class CharacterFOV : CharacterAbility
 
     public override void ProcessAbility()
     {
-        if (AbilityAuthorized && AbilityPermitted)
+        base.ProcessAbility();
+        
+        if (!AbilityAuthorized || !AbilityPermitted)
         {
-            UpdateVision();
+            meshFilter.gameObject.SetActive(false);
+            _pointsInVision.Clear();
+            _charactersInVision.Clear();
+
+            return;
         }
+
+        meshFilter.gameObject.SetActive(true);
+        UpdateVision();
     }
-    
+
+    protected override void OnDeath()
+    {
+        base.OnDeath();
+        
+        meshFilter.gameObject.SetActive(false);
+    }
+
     protected override void Initialization()
     {
         base.Initialization();
+        
         _level = GetComponentInParent<ThiefLevel>();
     }
 

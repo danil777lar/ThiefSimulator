@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using MoreMountains.Tools;
@@ -19,8 +18,7 @@ public class EnemyAttention : CharacterAbility
     private SoundReceiver _soundReceiver;
     private CharacterVisionTarget _player;
     private CharacterController _characterController;
-
-    public bool IsAttack { get; private set; }
+    
     public float AttentionLevel { get; private set; }
     public float MaxSuspicion => config.MaxSuspicion;
     public float MaxAggression => config.MaxAggression;
@@ -31,9 +29,16 @@ public class EnemyAttention : CharacterAbility
     {
         base.ProcessAbility();
         
+        if (!AbilityAuthorized || !AbilityPermitted)
+        {
+            AttentionLevel = 0f;
+            SetState(AttentionState.Idle, false);
+            
+            return;
+        }
+        
         TrySeePlayer();
         DecreaseAttention();
-        TrySendDamage();
     }
 
     protected override void Initialization()
@@ -116,29 +121,6 @@ public class EnemyAttention : CharacterAbility
             SetState(AttentionState.Idle);
         }
     }
-
-    private void TrySendDamage()
-    {
-        if (_player != null)
-        {
-            Vector3 directionToPlayer = _player.transform.position - transform.position;
-            if (directionToPlayer.magnitude <= config.AttackDistance)
-            {
-                Ray ray = new Ray(_characterController.transform.position + (Vector3.up * (_characterController.height * 0.5f)), 
-                    _character.CharacterModel.transform.forward);
-                float radius = _characterController.radius;
-                LayerMask mask = LayerMask.GetMask(LayerMask.LayerToName(_player.gameObject.layer));
-                if (Physics.SphereCast(ray, radius, config.AttackDistance, mask))
-                {
-                    _character.CharacterAnimator.SetTrigger("Ram");
-                    _player.Character.CharacterHealth.Damage(1, gameObject, 0f, 0f, 
-                        directionToPlayer.normalized);
-                    
-                    StartCoroutine(AttackCooldown());
-                }
-            }      
-        }
-    }
     
     private void OnSoundReceived(float amplitude, Vector3 position)
     {
@@ -168,13 +150,6 @@ public class EnemyAttention : CharacterAbility
         }
 
         CurrentState = state;
-    }
-
-    private IEnumerator AttackCooldown()
-    {
-        IsAttack = true;
-        yield return new WaitForSeconds(config.AttackCooldown);
-        IsAttack = false;
     }
     
     public enum AttentionState

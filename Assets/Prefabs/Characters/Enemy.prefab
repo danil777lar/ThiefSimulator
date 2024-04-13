@@ -1140,14 +1140,15 @@ GameObject:
   - component: {fileID: 7911609091137745820}
   - component: {fileID: 8828661335715199488}
   - component: {fileID: 7750138959112494211}
+  - component: {fileID: 6729370905952086660}
+  - component: {fileID: 2707342635613128791}
   - component: {fileID: 2961021057833667086}
   - component: {fileID: 6590796001805033765}
-  - component: {fileID: 6729370905952086660}
   - component: {fileID: 6163404771080707589}
-  - component: {fileID: 2707342635613128791}
+  - component: {fileID: 4844851427128691794}
   m_Layer: 13
   m_Name: Enemy
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1528,7 +1529,7 @@ MonoBehaviour:
   AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   BlockingMovementStates: 
-  BlockingConditionStates: 
+  BlockingConditionStates: 0400000005000000
   BlockingWeaponStates: 
   drawGizmo: 0
   buildMesh: 1
@@ -1539,6 +1540,46 @@ MonoBehaviour:
   options:
     DistanceVision: 100
     Angle: 120
+--- !u!114 &6729370905952086660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5551267721517475913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9bc17d556d942940b32ef59a54d73b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AbilityStartSfx: {fileID: 0}
+  AbilityInProgressSfx: {fileID: 0}
+  AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
+  AbilityPermitted: 1
+  BlockingMovementStates: 
+  BlockingConditionStates: 0400000005000000
+  BlockingWeaponStates: 
+  config: {fileID: 11400000, guid: 2035a731f148715479633a7e6dd33174, type: 2}
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 1024
+--- !u!114 &2707342635613128791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5551267721517475913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 127825837c1f7cb47ba19db5732783b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundMask:
+    serializedVersion: 2
+    m_Bits: 16777216
 --- !u!114 &2961021057833667086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1558,7 +1599,7 @@ MonoBehaviour:
   AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   BlockingMovementStates: 
-  BlockingConditionStates: 
+  BlockingConditionStates: 0400000005000000
   BlockingWeaponStates: 
   config: {fileID: 11400000, guid: eca60f40e097fad4b8696adc961c518a, type: 2}
   brains:
@@ -1587,21 +1628,9 @@ MonoBehaviour:
   AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   BlockingMovementStates: 
-  BlockingConditionStates: 
+  BlockingConditionStates: 0400000005000000
   BlockingWeaponStates: 
   config: {fileID: 11400000, guid: c2c2979aae8fac148867fe9adf73141f, type: 2}
---- !u!114 &6729370905952086660
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5551267721517475913}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9bc17d556d942940b32ef59a54d73b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6163404771080707589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1627,13 +1656,13 @@ MonoBehaviour:
   ImmuneToKnockback: 0
   ImmuneToKnockbackIfZeroDamage: 0
   KnockbackForceMultiplier: 1
-  DestroyOnDeath: 1
+  DestroyOnDeath: 0
   DelayBeforeDestruction: 0
   PointsWhenDestroyed: 0
   RespawnAtInitialLocation: 0
   DisableControllerOnDeath: 1
-  DisableModelOnDeath: 1
-  DisableCollisionsOnDeath: 1
+  DisableModelOnDeath: 0
+  DisableCollisionsOnDeath: 0
   DisableChildCollisionsOnDeath: 0
   ChangeLayerOnDeath: 0
   ChangeLayersRecursivelyOnDeath: 0
@@ -1647,7 +1676,7 @@ MonoBehaviour:
   TargetDamageResistanceProcessor: {fileID: 0}
   TargetAnimator: {fileID: 0}
   DisableAnimatorLogs: 1
---- !u!114 &2707342635613128791
+--- !u!114 &4844851427128691794
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1656,12 +1685,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 5551267721517475913}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 127825837c1f7cb47ba19db5732783b3, type: 3}
+  m_Script: {fileID: 11500000, guid: f01dee999a6fa1d4f8d37b86d7685f3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundMask:
-    serializedVersion: 2
-    m_Bits: 16777216
+  Ragdoller: {fileID: 3380627382374707222}
+  ObjectsToDisableOnDeath: []
+  MonosToDisableOnDeath: []
+  ForceMultiplier: 10000
+  RagdollButton: 0
+  ResetRagdollButton: 0
 --- !u!1 &6034450584310704269
 GameObject:
   m_ObjectHideFlags: 0
@@ -2878,3 +2910,15 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 6848030091056949805}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3380627382374707222 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8206527898287708731, guid: 061c640b6b1375a49975c03ea9ee4355,
+    type: 3}
+  m_PrefabInstance: {fileID: 6848030091056949805}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9687a46a55ccbca4f92cdff319b70844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

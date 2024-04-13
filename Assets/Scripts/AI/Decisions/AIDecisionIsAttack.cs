@@ -5,19 +5,19 @@ using UnityEngine;
 
 public class AIDecisionIsAttack : AIDecision
 {
-    private EnemyAttention _enemyAttention;
+    private CharacterAttack _characterAttack;
 
     public override void Initialization()
     {
         base.Initialization();
-        _enemyAttention = _brain.Owner.GetComponent<EnemyAttention>();
+        _characterAttack = _brain.gameObject.GetComponent<CharacterAttack>();
     }
 
     public override bool Decide()
     {
-        if (_enemyAttention != null)
+        if (_characterAttack != null)
         {
-            return _enemyAttention.IsAttack; 
+            return _characterAttack.IsAttacking; 
         }
         return false;
     }

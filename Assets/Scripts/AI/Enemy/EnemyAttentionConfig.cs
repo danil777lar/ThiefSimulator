@@ -21,12 +21,4 @@ public class EnemyAttentionConfig : ScriptableObject
     
     [field: Header("Hearing")]
     [field: SerializeField] public float HearingSensitivity { get; private set; }
-    
-    [field: Header("Attack")]
-    [field: SerializeField] public float AttackDistance { get; private set; }
-    [field: SerializeField] public float AttackCooldown { get; private set; }
-    
-    [field: Header("Seek")]
-    [field: SerializeField] public float SeekPointDistance { get; private set; }
-    
 }

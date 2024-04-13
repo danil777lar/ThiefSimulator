@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 5273731019370073304}
   - component: {fileID: 8051372575558603605}
   - component: {fileID: 6234999558004962175}
+  - component: {fileID: 6147829214748741949}
   - component: {fileID: 2314369418861545768}
   - component: {fileID: 4752456712207448934}
   - component: {fileID: 8185414384554245734}
@@ -414,6 +415,31 @@ MonoBehaviour:
   drawGizmos: 0
   gizmosColor: {r: 1, g: 0.3679244, b: 0.66161, a: 0.5019608}
   transitIcon: {fileID: 21300000, guid: 77c5e810d73684d60aea09a11021167d, type: 3}
+--- !u!114 &6147829214748741949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356067717985629786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9bc17d556d942940b32ef59a54d73b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AbilityStartSfx: {fileID: 0}
+  AbilityInProgressSfx: {fileID: 0}
+  AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
+  AbilityPermitted: 1
+  BlockingMovementStates: 
+  BlockingConditionStates: 
+  BlockingWeaponStates: 
+  config: {fileID: 11400000, guid: 2035a731f148715479633a7e6dd33174, type: 2}
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 8192
 --- !u!114 &2314369418861545768
 MonoBehaviour:
   m_ObjectHideFlags: 0
