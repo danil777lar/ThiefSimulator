@@ -49,7 +49,8 @@ public class EnemySeek : CharacterAbility
         }).First();
         
         point = bestPoint.Position;
-        isPointVisible = paths[bestPoint].corners.Length <= 2;
+        isPointVisible = paths[bestPoint].corners.Length <= 2 && 
+                         paths[bestPoint].GetLength() <= config.MaxSeekDistance / 2f;
         
         return true;
     }
@@ -118,9 +119,15 @@ public class EnemySeek : CharacterAbility
             foreach (SeekPoint point in _seekPoints.ToArray())
             {
                 float distance = Vector3.Distance(transform.position, point.Position);
-                if (_fov.PointsInVision.Contains(point.Position) || distance <= config.ForceObserveDistance)
+                float distanceModifier = Mathf.Clamp01(1f - (distance / config.MaxObserveDistance));
+                
+                bool observable = _fov.PointsInVision.Contains(point.Position);
+                observable |= distance <= config.ForceObserveDistance;
+                observable &= distanceModifier > 0f;
+                
+                if (observable)
                 {
-                    point.Observe(deltaTime * config.PointObserveSpeed);
+                    point.Observe(deltaTime * config.PointObserveSpeed * distanceModifier);
                 }
                 else
                 {

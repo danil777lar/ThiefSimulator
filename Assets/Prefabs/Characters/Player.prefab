@@ -262,9 +262,10 @@ MonoBehaviour:
   BlockingWeaponStates: 
   forceTarget: {fileID: 0}
   forceLookTarget: {fileID: 0}
+  rotationMultiplier: {x: 0, y: 1, z: 0}
+  lookAngle: 180
   minRotationSpeed: 0
   maxRotationSpeed: 720
-  model: {fileID: 6282012969164897799}
   modelLook: {fileID: 0}
 --- !u!114 &2785719632902522901
 MonoBehaviour:
