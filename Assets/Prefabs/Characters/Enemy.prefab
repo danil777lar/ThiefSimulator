@@ -901,7 +901,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InitializationMode: 0
   Label: Aim To Nearest Seek Point
-  lookSpeed: 10
+  lookSpeed: 2
+  recalculatePointDelayMin: 1
+  recalculatePointDelayMax: 5
 --- !u!1 &4179042912413133644
 GameObject:
   m_ObjectHideFlags: 0
@@ -1384,9 +1386,10 @@ MonoBehaviour:
   forceTarget: {fileID: 0}
   forceLookTarget: {fileID: 0}
   rotationMultiplier: {x: 0, y: 1, z: 0}
-  lookAngle: 180
   minRotationSpeed: 360
   maxRotationSpeed: 720
+  lookAngle: 180
+  lookSpeed: 180
   modelLook: {fileID: 1388795784990525418}
 --- !u!114 &8080387857570407381
 MonoBehaviour:

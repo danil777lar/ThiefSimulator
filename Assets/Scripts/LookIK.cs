@@ -23,9 +23,8 @@ public class LookIK : MonoBehaviour
         {
             _animator.SetLookAtWeight(1f);
             
-            Vector3 lookPosition = _orientation.forceLookTarget != null ? 
-                _orientation.forceLookTarget.position : 
-                transform.position + (Vector3.up * defaultLookHeight) + (_orientation.LookDirection * 10f);
+            Vector3 lookPosition = transform.position + 
+                                   (Vector3.up * defaultLookHeight) + (_orientation.LookDirection * 10f);
             
             _animator.SetLookAtPosition(lookPosition);   
         }   
