@@ -12,8 +12,7 @@ using Color = UnityEngine.Color;
 public class EnemySeek : CharacterAbility
 {
     [SerializeField] private EnemySeekConfig config;
-
-    private float _lastUpdateTime;
+    
     private Vector3 _lastAttentionPoint;
     private CharacterFOV _fov;
     private EnemyAttention _attention;
@@ -32,12 +31,8 @@ public class EnemySeek : CharacterAbility
             return;
         }
         
-        float deltaTime = Time.time - _lastUpdateTime;
-        
         TryBuildPoints();
-        ObservePoints(deltaTime);
-        
-        _lastUpdateTime = Time.time;
+        ObservePoints();
     }
 
     public bool TryFindBestPoint(out Vector3 point, out bool isPointVisible)
@@ -88,8 +83,7 @@ public class EnemySeek : CharacterAbility
     protected override void Initialization()
     {
         base.Initialization();
-
-        _lastUpdateTime = Time.time;
+        
         _fov = GetComponent<CharacterFOV>();
         _attention = GetComponent<EnemyAttention>();
         _level = GetComponentInParent<ThiefLevel>();
@@ -130,7 +124,7 @@ public class EnemySeek : CharacterAbility
         }
     }
     
-    private void ObservePoints(float deltaTime)
+    private void ObservePoints()
     {
         if (_seekPoints != null)
         {
@@ -145,11 +139,11 @@ public class EnemySeek : CharacterAbility
                 
                 if (observable)
                 {
-                    point.Observe(deltaTime * config.PointObserveSpeed * distanceModifier);
+                    point.Observe(Time.deltaTime * config.PointObserveSpeed * distanceModifier);
                 }
                 else
                 {
-                    point.Recover(deltaTime * config.PointRecoverySpeed);
+                    point.Recover(Time.deltaTime * config.PointRecoverySpeed);
                 }
             }
         }
