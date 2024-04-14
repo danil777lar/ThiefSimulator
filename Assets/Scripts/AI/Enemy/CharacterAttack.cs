@@ -9,17 +9,11 @@ public class CharacterAttack : CharacterAbility
     [SerializeField] private CharacterAttackConfig config;
     [SerializeField] private LayerMask targetMask;
 
+    private bool _grabbed;
     private CharacterController _characterController;
     private Character _target;
 
     public bool IsAttacking { get; private set; }
-
-    protected override void Initialization()
-    {
-        base.Initialization();
-
-        _characterController = GetComponent<CharacterController>();
-    }
 
     public override void ProcessAbility()
     {
@@ -32,6 +26,19 @@ public class CharacterAttack : CharacterAbility
         
         TryFindTarget();
         TrySendDamage();
+    }
+
+    public void Grab()
+    {
+        _grabbed = true;
+        _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Frozen);
+    }
+
+    protected override void Initialization()
+    {
+        base.Initialization();
+
+        _characterController = GetComponent<CharacterController>();
     }
 
     private void TryFindTarget()
@@ -59,8 +66,8 @@ public class CharacterAttack : CharacterAbility
         if (_target != null && !IsAttacking && CheckLimit())
         {
             _character.CharacterAnimator.SetTrigger("Ram");
-            _target.CharacterHealth.Damage(1, gameObject, 0f, 0f, Vector3.zero);
-            StartCoroutine(AttackCooldown());   
+            _target.GetComponent<CharacterAttack>()?.Grab();
+            StartCoroutine(AttackCoroutine(_target));   
         }
     }
 
@@ -83,10 +90,18 @@ public class CharacterAttack : CharacterAbility
         return false;
     }
 
-    private IEnumerator AttackCooldown()
+    private IEnumerator AttackCoroutine(Character target)
     {
         IsAttacking = true;
+        _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Frozen);
+        
+        yield return new WaitForSeconds(1f);
+        
+        target.CharacterHealth.Damage(1, gameObject, 0f, 0f, Vector3.zero);
+        
         yield return new WaitForSeconds(config.AttackCooldown);
+        
         IsAttacking = false;
+        _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Normal);
     }
 }
