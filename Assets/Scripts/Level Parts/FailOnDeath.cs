@@ -5,7 +5,6 @@ using MoreMountains.TopDownEngine;
 using ProjectConstants;
 using UnityEngine;
 
-[RequireComponent(typeof(Health))]
 public class FailOnDeath : MonoBehaviour
 {
     [InjectService] private ILevelManagerService _levelManagerService;
@@ -16,7 +15,7 @@ public class FailOnDeath : MonoBehaviour
     {
         ServiceLocator.Instance.InjectServicesInComponent(this);
         
-        _health = GetComponent<Health>();
+        _health = GetComponentInParent<Health>();
         _health.OnDeath += Fail;
     }
 

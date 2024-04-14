@@ -26,8 +26,8 @@ public class AIActionAimToNearestSeekPoint : AIAction
     {
         base.Initialization();
 
-        _seek = _brain.Owner.GetComponent<EnemySeek>();
-        _orientation = _brain.Owner.GetComponent<CoreCharacterOrientation3D>();
+        _seek = _brain.Owner.GetComponentInChildren<EnemySeek>();
+        _orientation = _brain.Owner.GetComponentInChildren<CoreCharacterOrientation3D>();
         
         _target = new GameObject().transform;
         _target.gameObject.name = "Seek Point Target";

@@ -106,7 +106,7 @@ public class CharacterFOV : CharacterAbility
                 vertex = meshFilter.transform.InverseTransformPoint(hit.point);
 
                 CharacterVisionTarget character = CharacterVisionTarget.Targets.ToList()
-                    .Find(x => x.gameObject == hit.collider.gameObject); 
+                    .Find(x => x.Character.gameObject == hit.collider.gameObject); 
                 if (character != null)
                 {
                     _charactersInVision.Add(character);

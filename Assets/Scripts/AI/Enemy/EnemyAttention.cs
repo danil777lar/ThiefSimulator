@@ -10,14 +10,12 @@ public class EnemyAttention : CharacterAbility
     [SerializeField] private EnemyAttentionConfig config;
     [SerializeField] private List<StateBrain> brains;
 
-    private float _lastDecreaseTime;
     private float _attentionDecreaseDelay;
     private Vector3 _lastPlayerPoint;
     
     private CharacterFOV _fov;
     private SoundReceiver _soundReceiver;
     private CharacterVisionTarget _player;
-    private CharacterController _characterController;
     
     public float AttentionLevel { get; private set; }
     public float MaxSuspicion => config.MaxSuspicion;
@@ -45,12 +43,10 @@ public class EnemyAttention : CharacterAbility
     {
         base.Initialization();
 
-        _lastDecreaseTime = Time.time;
-        _fov = GetComponent<CharacterFOV>();
-        _characterController = GetComponent<CharacterController>();
-        _soundReceiver = GetComponent<SoundReceiver>();
-        
+        _fov = _character.FindAbility<CharacterFOV>();
+        _soundReceiver = _character.GetComponentInChildren<SoundReceiver>();
         _soundReceiver.EventSoundReceived += OnSoundReceived;
+        
         SetState(AttentionState.Idle, true);
     }
 
@@ -98,16 +94,13 @@ public class EnemyAttention : CharacterAbility
 
     private void DecreaseAttention()
     {
-        float deltaTime = Time.time - _lastDecreaseTime;
-        _lastDecreaseTime = Time.time;
-        
         if (_attentionDecreaseDelay > 0f)
         {
-            _attentionDecreaseDelay -= deltaTime;
+            _attentionDecreaseDelay -= Time.deltaTime;
         }
         else if (AttentionLevel > 0f)
         {
-            AttentionLevel -= deltaTime * (CurrentState == AttentionState.Suspicious
+            AttentionLevel -= Time.deltaTime * (CurrentState == AttentionState.Suspicious
                 ? config.SuspicionDecreaseSpeed
                 : config.AggressionDecreaseSpeed);
 

@@ -6,13 +6,13 @@ using UnityEngine;
 public class CharacterStepSound : MonoBehaviour
 {
     [SerializeField] private SoundTransmitter soundPrefab;
-
+    
     private CoreCharacterMovement _movement;
     
     private void Start()
     {
-        _movement = GetComponent<CoreCharacterMovement>();
-        AnimatorEventReceiver receiver = GetComponentInChildren<AnimatorEventReceiver>();
+        _movement = GetComponentInParent<CoreCharacterMovement>();
+        AnimatorEventReceiver receiver = _movement.GetComponentInChildren<AnimatorEventReceiver>();
         if (receiver)
         {
             receiver.EventAnimation += OnAnimationEvent;

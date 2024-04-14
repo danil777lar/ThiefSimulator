@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
-[RequireComponent(typeof(Character))]
 public class CharacterVisionTarget : MonoBehaviour
 {
     private static List<CharacterVisionTarget> _targets = new List<CharacterVisionTarget>();
@@ -15,7 +14,7 @@ public class CharacterVisionTarget : MonoBehaviour
     
     private void Start()
     {
-        Character = GetComponent<Character>();
+        Character = GetComponentInParent<Character>();
         _targets.Add(this);
     }
 

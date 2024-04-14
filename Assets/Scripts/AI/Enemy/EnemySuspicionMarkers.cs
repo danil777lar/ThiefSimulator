@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,14 +18,16 @@ public class EnemySuspicionMarkers : MonoBehaviour
     [SerializeField] private Image aggressionProgress;
 
     private Camera _camera;
+    private Character _character;
     private EnemyAttention _enemyAttention;
     private CharacterController _characterController;
     
     private void Start()
     {
         _camera = Camera.main;
-        _enemyAttention = GetComponentInParent<EnemyAttention>();
-        _characterController = GetComponentInParent<CharacterController>();
+        _character = GetComponentInParent<Character>();
+        _characterController = _character.GetComponent<CharacterController>();
+        _enemyAttention = _character.GetComponentInChildren<EnemyAttention>();
     }
     
     private void FixedUpdate()

@@ -39,7 +39,7 @@ public class CharacterAttack : CharacterAbility
     {
         base.Initialization();
 
-        _characterController = GetComponent<CharacterController>();
+        _characterController = _character.GetComponent<CharacterController>();
     }
 
     private void TryFindTarget()
@@ -67,7 +67,7 @@ public class CharacterAttack : CharacterAbility
         if (_target != null && !IsAttacking && CheckLimit())
         {
             _character.CharacterAnimator.SetTrigger("Killer");
-            _target.GetComponent<CharacterAttack>()?.Grab();
+            _target.FindAbility<CharacterAttack>()?.Grab();
             StartCoroutine(AttackCoroutine(_target));   
         }
     }

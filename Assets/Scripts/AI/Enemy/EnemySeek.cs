@@ -84,8 +84,8 @@ public class EnemySeek : CharacterAbility
     {
         base.Initialization();
         
-        _fov = GetComponent<CharacterFOV>();
-        _attention = GetComponent<EnemyAttention>();
+        _fov = _character.FindAbility<CharacterFOV>();
+        _attention = _character.FindAbility<EnemyAttention>();
         _level = GetComponentInParent<ThiefLevel>();
     }
     
