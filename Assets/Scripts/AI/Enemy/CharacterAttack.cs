@@ -32,6 +32,7 @@ public class CharacterAttack : CharacterAbility
     {
         _grabbed = true;
         _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Frozen);
+        _character.CharacterAnimator.SetTrigger("Victim");
     }
 
     protected override void Initialization()
@@ -65,7 +66,7 @@ public class CharacterAttack : CharacterAbility
     {
         if (_target != null && !IsAttacking && CheckLimit())
         {
-            _character.CharacterAnimator.SetTrigger("Ram");
+            _character.CharacterAnimator.SetTrigger("Killer");
             _target.GetComponent<CharacterAttack>()?.Grab();
             StartCoroutine(AttackCoroutine(_target));   
         }
@@ -95,11 +96,10 @@ public class CharacterAttack : CharacterAbility
         IsAttacking = true;
         _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Frozen);
         
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(config.AttackCooldown);
         
         target.CharacterHealth.Damage(1, gameObject, 0f, 0f, Vector3.zero);
-        
-        yield return new WaitForSeconds(config.AttackCooldown);
         
         IsAttacking = false;
         _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Normal);
