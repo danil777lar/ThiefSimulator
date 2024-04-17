@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 76b1a7136eecd9c4c85258aee2703bc1, type: 2}
-  segmentsPerUnit: 1
+  segmentsPerUnit: 0
   rebuildOnStart: 1
 --- !u!114 &5086027291953488760
 MonoBehaviour:
@@ -411,6 +411,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Window
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932076876117029817, guid: 53882424c52b2c74bacd28d056bced69,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7863705732359203641, guid: 53882424c52b2c74bacd28d056bced69,
         type: 3}
