@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing.Printing;
+using DG.Tweening;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
@@ -24,17 +26,21 @@ public class CharacterAttack : CharacterAbility
         {
             return;
         }
-        
+
         TryFindTarget();
-        TrySendDamage();
+        TryStartAttack();
     }
 
-    public void Grab(AnimatorOverrideController animations)
+    public void Froze()
     {
         _grabbed = true;
         _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Frozen);
-        ApplyAnimation(animations, "Victim");
     }
+
+    public void ApplyVictimAnimation(AnimatorOverrideController animations)
+    {
+        ApplyAnimation(animations, "Victim");
+    } 
 
     protected override void Initialization()
     {
@@ -42,51 +48,89 @@ public class CharacterAttack : CharacterAbility
 
         _characterController = _character.GetComponent<CharacterController>();
         _defaultAnimatorController = _character.CharacterAnimator.runtimeAnimatorController;
+
+        AnimatorEventReceiver receiver = _character.CharacterAnimator.GetComponent<AnimatorEventReceiver>();
+        receiver.EventSendDamage += SendDamage;
+        receiver.EventAttackComplete += CompleteAttack;
     }
 
     private void TryFindTarget()
     {
-        Vector3 origin = _characterController.transform.position + Vector3.up * (_characterController.height * 0.5f);
-        Vector3 direction = _character.CharacterModel.transform.forward; 
-        Ray ray = new Ray(origin, direction);
-        
-        float radius = _characterController.radius;
-        if (Physics.SphereCast(ray, radius, out RaycastHit hit, config.AttackDistance, targetMask))
+        if (!IsAttacking)
         {
-            if (_target == null || _target.gameObject != hit.collider.gameObject)
+            Vector3 origin = _characterController.transform.position +
+                             Vector3.up * (_characterController.height * 0.5f);
+            Vector3 direction = _character.CharacterModel.transform.forward;
+            Ray ray = new Ray(origin, direction);
+
+            float radius = _characterController.radius;
+            if (Physics.SphereCast(ray, radius, out RaycastHit hit, config.AttackDistance, targetMask))
             {
-                _target = hit.collider.GetComponent<Character>();
+                if (_target == null || _target.gameObject != hit.collider.gameObject)
+                {
+                    _target = hit.collider.GetComponent<Character>();
+                }
             }
-        }
-        else
-        {
-            _target = null;
+            else
+            {
+                _target = null;
+            }
         }
     }
 
-    private void TrySendDamage()
+    private void TryStartAttack()
     {
         if (_target != null && !IsAttacking && CheckLimit())
         {
-            ApplyAnimation(config.Animations, "Killer");
-            _target.FindAbility<CharacterAttack>()?.Grab(config.Animations);
+            CharacterAttack targetAttack = _target.FindAbility<CharacterAttack>();
+            targetAttack.Froze();
+            IsAttacking = true;
+            _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Frozen);
+
+            TryStartTransition(() =>
+            {
+                targetAttack.ApplyVictimAnimation(config.Animations);
+                if (config.Animations != null)
+                {
+                    ApplyAnimation(config.Animations, "Killer");
+                }
+                else
+                {
+                    SendDamage();
+                    CompleteAttack();
+                } 
+            });
+        }
+    }
+
+    private void TryStartTransition(Action onComplete)
+    {
+        if (config.UseFixedPosition)
+        {
+            Vector3 targetPosition = _target.CharacterModel.transform.TransformPoint(config.FixedPosition);
             
-            StartCoroutine(AttackCoroutine(_target));   
+            _character.transform.DOMove(targetPosition, config.TransitionToFixedPositionDuration)
+                .SetUpdate(UpdateType.Fixed)
+                .OnComplete(() => onComplete?.Invoke());
+        }
+        else
+        {
+            onComplete?.Invoke();
         }
     }
 
     private bool CheckLimit()
     {
         if (!config.UseLimit) return true;
-        
+
         if (_target != null)
         {
             Vector3 directionSelf = _character.CharacterModel.transform.forward;
             Vector3 directionTarget = _target.CharacterModel.transform.TransformDirection(config.LimitDirection);
-            
+
             Debug.DrawRay(transform.position, directionSelf * 5f, Color.blue);
             Debug.DrawRay(_target.transform.position, directionTarget * 5f, Color.red);
-            
+
             float angle = Vector3.Angle(directionSelf, directionTarget);
             return angle <= config.LimitAngle;
         }
@@ -99,19 +143,20 @@ public class CharacterAttack : CharacterAbility
         _character.CharacterAnimator.runtimeAnimatorController = controller ? controller : _defaultAnimatorController;
         if (controller != null)
         {
-            _character.CharacterAnimator.SetTrigger(key);   
+            _character.CharacterAnimator.SetTrigger(key);
         }
     }
 
-    private IEnumerator AttackCoroutine(Character target)
+    private void SendDamage()
     {
-        IsAttacking = true;
-        _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Frozen);
-        
-        yield return new WaitForSeconds(4f);
-        
-        target.CharacterHealth.Damage(1, gameObject, 0f, 0f, Vector3.zero);
-        
+        if (_target != null)
+        {
+            _target.CharacterHealth.Damage(1, gameObject, 0f, 0f, Vector3.zero);
+        }
+    }
+
+    private void CompleteAttack()
+    {
         IsAttacking = false;
         _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Normal);
     }

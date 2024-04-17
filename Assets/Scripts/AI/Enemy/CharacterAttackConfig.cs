@@ -15,4 +15,10 @@ public class CharacterAttackConfig : ScriptableObject
     [field: SerializeField] public bool UseLimit { get; private set; }
     [field: SerializeField] public float LimitAngle { get; private set; } = 20f;
     [field: SerializeField] public Vector3 LimitDirection { get; private set; } = Vector3.forward;
+
+    [field: Header("Fixed Position")]
+    [field: SerializeField] public bool UseFixedPosition { get; private set; }
+
+    [field: SerializeField] public float TransitionToFixedPositionDuration { get; private set; }
+    [field: SerializeField] public Vector3 FixedPosition { get; private set; }
 }
