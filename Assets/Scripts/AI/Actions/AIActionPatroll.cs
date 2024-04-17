@@ -11,7 +11,8 @@ public class AIActionPatroll : AIAction
 {
     [SerializeField] private bool directionForward = true;
     [SerializeField] private float distanceOnSpline;
-    
+
+    private Vector3 _defaultPosition;
     private Transform _target;
     private SplineComputer _spline;
 
@@ -20,6 +21,8 @@ public class AIActionPatroll : AIAction
         base.Initialization();
 
         _spline = GetComponentInParent<SplineComputer>();
+
+        _defaultPosition = transform.position;
 
         _target = new GameObject().transform;
         _target.gameObject.name = "Patroll Target";
@@ -34,36 +37,39 @@ public class AIActionPatroll : AIAction
 
     public override void PerformAction()
     {
-        if (_spline)
+        if (!_spline)
         {
-            double percentTravel = _spline.Travel(0f, distanceOnSpline);
-            double targetPercent = _spline.Project(_brain.Owner.transform.position).percent;
-            targetPercent += percentTravel * (directionForward ? 1f : -1f);
-            
-            if (targetPercent > 1f)
-            {
-                if (_spline.isClosed)
-                {
-                    targetPercent -= 1f;
-                }
-                else
-                {
-                    directionForward = !directionForward;
-                }
-            }
-            else if (targetPercent < 0f)
-            {
-                if (_spline.isClosed)
-                {
-                    targetPercent += 1f;
-                }
-                else
-                {
-                    directionForward = !directionForward;
-                }
-            }
-            
-            _target.position = _spline.EvaluatePosition(Mathf.Clamp01((float)targetPercent));
+            _target.position = _defaultPosition;
+            return;
         }
+
+        double percentTravel = _spline.Travel(0f, distanceOnSpline);
+        double targetPercent = _spline.Project(_brain.Owner.transform.position).percent;
+        targetPercent += percentTravel * (directionForward ? 1f : -1f);
+
+        if (targetPercent > 1f)
+        {
+            if (_spline.isClosed)
+            {
+                targetPercent -= 1f;
+            }
+            else
+            {
+                directionForward = !directionForward;
+            }
+        }
+        else if (targetPercent < 0f)
+        {
+            if (_spline.isClosed)
+            {
+                targetPercent += 1f;
+            }
+            else
+            {
+                directionForward = !directionForward;
+            }
+        }
+
+        _target.position = _spline.EvaluatePosition(Mathf.Clamp01((float)targetPercent));
     }
 }
