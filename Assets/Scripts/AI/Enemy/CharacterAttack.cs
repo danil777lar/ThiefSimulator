@@ -12,6 +12,7 @@ public class CharacterAttack : CharacterAbility
     private bool _grabbed;
     private CharacterController _characterController;
     private Character _target;
+    private RuntimeAnimatorController _defaultAnimatorController;
 
     public bool IsAttacking { get; private set; }
 
@@ -28,11 +29,11 @@ public class CharacterAttack : CharacterAbility
         TrySendDamage();
     }
 
-    public void Grab()
+    public void Grab(AnimatorOverrideController animations)
     {
         _grabbed = true;
         _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Frozen);
-        _character.CharacterAnimator.SetTrigger("Victim");
+        ApplyAnimation(animations, "Victim");
     }
 
     protected override void Initialization()
@@ -40,6 +41,7 @@ public class CharacterAttack : CharacterAbility
         base.Initialization();
 
         _characterController = _character.GetComponent<CharacterController>();
+        _defaultAnimatorController = _character.CharacterAnimator.runtimeAnimatorController;
     }
 
     private void TryFindTarget()
@@ -66,8 +68,9 @@ public class CharacterAttack : CharacterAbility
     {
         if (_target != null && !IsAttacking && CheckLimit())
         {
-            _character.CharacterAnimator.SetTrigger("Killer");
-            _target.FindAbility<CharacterAttack>()?.Grab();
+            ApplyAnimation(config.Animations, "Killer");
+            _target.FindAbility<CharacterAttack>()?.Grab(config.Animations);
+            
             StartCoroutine(AttackCoroutine(_target));   
         }
     }
@@ -91,13 +94,21 @@ public class CharacterAttack : CharacterAbility
         return false;
     }
 
+    private void ApplyAnimation(AnimatorOverrideController controller, string key)
+    {
+        _character.CharacterAnimator.runtimeAnimatorController = controller ? controller : _defaultAnimatorController;
+        if (controller != null)
+        {
+            _character.CharacterAnimator.SetTrigger(key);   
+        }
+    }
+
     private IEnumerator AttackCoroutine(Character target)
     {
         IsAttacking = true;
         _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Frozen);
         
-        yield return new WaitForSeconds(2f);
-        yield return new WaitForSeconds(config.AttackCooldown);
+        yield return new WaitForSeconds(4f);
         
         target.CharacterHealth.Damage(1, gameObject, 0f, 0f, Vector3.zero);
         

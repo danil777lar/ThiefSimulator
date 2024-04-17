@@ -6,8 +6,10 @@ using UnityEngine;
 public class CharacterAttackConfig : ScriptableObject
 {
     [field: SerializeField] public float AttackDistance { get; private set; } = 2f;
-    [field: SerializeField] public float AttackCooldown { get; private set; } = 2f;
     [field: SerializeField] public float Damage { get; private set; } = 1f;
+    
+    [field: Space]
+    [field: SerializeField] public AnimatorOverrideController Animations { get; private set; }
 
     [field: Header("Direction Limit")]
     [field: SerializeField] public bool UseLimit { get; private set; }

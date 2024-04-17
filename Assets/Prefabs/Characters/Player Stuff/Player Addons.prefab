@@ -51,7 +51,7 @@ MonoBehaviour:
   AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   BlockingMovementStates: 
-  BlockingConditionStates: 
+  BlockingConditionStates: 0400000005000000
   BlockingWeaponStates: 
   config: {fileID: 11400000, guid: d18f4eae9e2bc1e43a6bbd5fb82b34b0, type: 2}
   targetMask:
@@ -81,7 +81,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5263396957636663709}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
