@@ -83,23 +83,26 @@ public class CharacterAttack : CharacterAbility
         if (_target != null && !IsAttacking && CheckLimit())
         {
             CharacterAttack targetAttack = _target.FindAbility<CharacterAttack>();
-            targetAttack.Froze();
-            IsAttacking = true;
-            _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Frozen);
-
-            TryStartTransition(() =>
+            if (targetAttack != null && !targetAttack.IsAttacking)
             {
-                targetAttack.ApplyVictimAnimation(config.Animations);
-                if (config.Animations != null)
+                targetAttack.Froze();
+                IsAttacking = true;
+                _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Frozen);
+
+                TryStartTransition(() =>
                 {
-                    ApplyAnimation(config.Animations, "Killer");
-                }
-                else
-                {
-                    SendDamage();
-                    CompleteAttack();
-                } 
-            });
+                    targetAttack.ApplyVictimAnimation(config.Animations);
+                    if (config.Animations != null)
+                    {
+                        ApplyAnimation(config.Animations, "Killer");
+                    }
+                    else
+                    {
+                        SendDamage();
+                        CompleteAttack();
+                    }
+                });
+            }
         }
     }
 
@@ -110,6 +113,10 @@ public class CharacterAttack : CharacterAbility
             Vector3 targetPosition = _target.CharacterModel.transform.TransformPoint(config.FixedPosition);
             
             _character.transform.DOMove(targetPosition, config.TransitionToFixedPositionDuration)
+                .OnUpdate(() =>
+                {
+                    _character.CharacterModel.transform.LookAt(_target.CharacterModel.transform.position);
+                })
                 .SetUpdate(UpdateType.Fixed)
                 .OnComplete(() => onComplete?.Invoke());
         }
