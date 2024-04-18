@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bottom Wall
   m_EditorClassIdentifier: 
   height: 100
-  width: 0.25
+  width: 0.35
   wallParts:
   - topWidthMultiplier: 1
     bottomWidthMultiplier: 1
@@ -21,5 +21,5 @@ MonoBehaviour:
     drawBottom: 0
     weight: 0.16
     material: {fileID: 2100000, guid: 6540d60bb0f37cd4f8c6408f966636d7, type: 2}
-    vertexColorTop: {r: 0.5529412, g: 0.49411765, b: 0.68235296, a: 1}
+    vertexColorTop: {r: 0.654902, g: 0.47058824, b: 0.74509805, a: 1}
     vertexColorBottom: {r: 1, g: 1, b: 1, a: 1}

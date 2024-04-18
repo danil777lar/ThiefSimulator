@@ -16,18 +16,26 @@ MonoBehaviour:
   width: 0.25
   wallParts:
   - topWidthMultiplier: 1
+    bottomWidthMultiplier: 1.4
+    drawTop: 1
+    drawBottom: 0
+    weight: 0.1
+    material: {fileID: 2100000, guid: 6540d60bb0f37cd4f8c6408f966636d7, type: 2}
+    vertexColorTop: {r: 0.34901962, g: 0.05490196, b: 0.13333334, a: 1}
+    vertexColorBottom: {r: 0.34901962, g: 0.05490196, b: 0.13333334, a: 1}
+  - topWidthMultiplier: 1
     bottomWidthMultiplier: 1
     drawTop: 1
     drawBottom: 0
     weight: 1
     material: {fileID: 2100000, guid: 6540d60bb0f37cd4f8c6408f966636d7, type: 2}
-    vertexColorTop: {r: 0.5529412, g: 0.49411765, b: 0.68235296, a: 1}
-    vertexColorBottom: {r: 0.5529412, g: 0.49411765, b: 0.68235296, a: 1}
-  - topWidthMultiplier: 1.2
-    bottomWidthMultiplier: 1.2
+    vertexColorTop: {r: 0.3509434, g: 0.05495903, b: 0.13522595, a: 1}
+    vertexColorBottom: {r: 0.34901962, g: 0.05490196, b: 0.13333334, a: 1}
+  - topWidthMultiplier: 1.4
+    bottomWidthMultiplier: 1.4
     drawTop: 1
     drawBottom: 0
-    weight: 0.06
+    weight: 0.1
     material: {fileID: 2100000, guid: 6540d60bb0f37cd4f8c6408f966636d7, type: 2}
-    vertexColorTop: {r: 0.83244324, g: 0.778633, b: 0.98490566, a: 1}
-    vertexColorBottom: {r: 0.83137256, g: 0.78039217, b: 0.9843137, a: 1}
+    vertexColorTop: {r: 0.34901962, g: 0.12878825, b: 0.18751656, a: 1}
+    vertexColorBottom: {r: 0.34901962, g: 0.12941177, b: 0.1882353, a: 1}
