@@ -21043,10 +21043,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 2003790017428483048}
+  minDistance: 0.1
+  maxDistance: 0.75
   offset: {x: 0, y: 4, z: 0}
-  maxDistance: 0.5
   force: 10
-  damping: 10
+  drag: 1
 --- !u!1001 &4253650148174460375
 PrefabInstance:
   m_ObjectHideFlags: 0
