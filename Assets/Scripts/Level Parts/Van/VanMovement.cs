@@ -8,7 +8,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class PlayerVan : MonoBehaviour
+public class VanMovement : MonoBehaviour
 {
     [Header("Speed")]
     [SerializeField] private float speed = 10f;

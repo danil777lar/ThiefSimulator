@@ -60,7 +60,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1190415723461882194}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071069, y: -0, z: -0, w: 0.70710677}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -0.42, z: 0}
   m_LocalScale: {x: 100, y: 99.999985, z: 99.99998}
   m_ConstrainProportionsScale: 0
@@ -68,7 +68,7 @@ Transform:
   - {fileID: 7014600099732190239}
   - {fileID: 5060231060189728139}
   m_Father: {fileID: 5593224302236412243}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &3197907522367480909
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -20983,6 +20983,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9112331673691658739}
   - component: {fileID: 6893681932325125502}
+  - component: {fileID: 1578217906715086254}
   m_Layer: 0
   m_Name: Van
   m_TagString: Untagged
@@ -21029,6 +21030,23 @@ MonoBehaviour:
   angularDragStop: 3
   startMoveDistance: 20
   stopMoveDistance: 5
+--- !u!114 &1578217906715086254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9180164787489312865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db8a104484180ad4baba56b822842cbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  model: {fileID: 2003790017428483048}
+  offset: {x: 0, y: 4, z: 0}
+  maxDistance: 0.5
+  force: 10
+  damping: 10
 --- !u!1001 &4253650148174460375
 PrefabInstance:
   m_ObjectHideFlags: 0
