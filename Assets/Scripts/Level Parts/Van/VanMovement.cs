@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,9 @@ public class VanMovement : MonoBehaviour
     
     private Character _player; 
     private SplineComputer _splineComputer;
+
+    private Vector3 TrajectoryCenter => Vector3.zero;
+    private Vector3 PlayerPoint => _splineComputer.Project(_player.transform.position).position;
     
     private void Start()
     {
@@ -46,11 +50,23 @@ public class VanMovement : MonoBehaviour
         Move();
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(_targetPosition, 0.25f);
+    }
+
     private void FindTargetPosition()
     {
-        _targetPosition = _splineComputer.Project(_player.transform.position).position;
+        Vector3 playerDirection = PlayerPoint - TrajectoryCenter;
+        Vector3 selfDirection = _splineComputer.Project(transform.position).position - TrajectoryCenter;
+        float angle = Vector3.SignedAngle(playerDirection, selfDirection, Vector3.up);
+        float angleDelta = 20f * (angle > 0f ? -1f : 1f);
+        
+        selfDirection = Quaternion.Euler(Vector3.up * angleDelta) * selfDirection;
+        _targetPosition = _splineComputer.Project(TrajectoryCenter + (selfDirection.normalized * 100f)).position;
 
-        float distance = Vector3.Distance(transform.position, _targetPosition); 
+        float distance = Vector3.Distance(transform.position, PlayerPoint); 
         if (_move && distance <= stopMoveDistance)
         {
             _move = false;
