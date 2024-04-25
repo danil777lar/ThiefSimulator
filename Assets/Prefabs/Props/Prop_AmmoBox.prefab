@@ -9,7 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7451366373035938307}
-  m_Layer: 0
+  - component: {fileID: 5551637771335687631}
+  - component: {fileID: 5017030549052120114}
+  m_Layer: 8
   m_Name: Prop_AmmoBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,14 +26,62 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5574193506972592536}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.9764955, z: -0, w: 0.2155379}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.45, y: 0, z: 9.28}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1788909770080952045}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 155.106, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5551637771335687631
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5574193506972592536}
+  m_Material: {fileID: 13400000, guid: 8a81c2a70fe312c44a48120178285e94, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.04, y: 0.47055233, z: 1.29}
+  m_Center: {x: 0, y: 0.23527616, z: 0}
+--- !u!54 &5017030549052120114
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5574193506972592536}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &2259050578721896710
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -110,6 +160,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ammo Box
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b6269961888a4964ea26721395e9083b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1153597850705787065, guid: b6269961888a4964ea26721395e9083b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1153597850705787065, guid: b6269961888a4964ea26721395e9083b,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -119,6 +179,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SelectedEditorRenderState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2759257450066304365, guid: b6269961888a4964ea26721395e9083b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7472641979369205653, guid: b6269961888a4964ea26721395e9083b,
         type: 3}
@@ -137,6 +202,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1741572129987063389}
+    - targetCorrespondingSourceObject: {fileID: 2759257450066304365, guid: b6269961888a4964ea26721395e9083b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2394971759678644663}
   m_SourcePrefab: {fileID: 100100000, guid: b6269961888a4964ea26721395e9083b, type: 3}
 --- !u!1 &1412066884846011479 stripped
 GameObject:
@@ -5408,3 +5477,25 @@ MonoBehaviour:
   m_OriginalMeshObject: {fileID: 7911676169906186787, guid: b6269961888a4964ea26721395e9083b,
     type: 3}
   m_Mode: 0
+--- !u!64 &2394971759678644663
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4112657824118908011}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}

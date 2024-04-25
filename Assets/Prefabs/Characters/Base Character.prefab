@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1984777243962410201}
   - component: {fileID: 2724311554232135388}
   - component: {fileID: 1230887134683089601}
-  - component: {fileID: 6377374948936315951}
+  - component: {fileID: 912274553281462681}
   - component: {fileID: 5273731019370073304}
   - component: {fileID: 8051372575558603605}
   - component: {fileID: 6234999558004962175}
@@ -237,7 +237,7 @@ MonoBehaviour:
   WalkParticles: []
   TouchTheGroundParticles: []
   TouchTheGroundSfx: []
-  drawLimitsGizmo: 1
+  drawLimitsGizmo: 0
   minActualSpeedAnimator: 0.1
 --- !u!114 &1230887134683089601
 MonoBehaviour:
@@ -268,7 +268,7 @@ MonoBehaviour:
   lookAngle: 180
   lookSpeed: 180
   modelLook: {fileID: 5388484344293614955}
---- !u!114 &6377374948936315951
+--- !u!114 &912274553281462681
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -277,7 +277,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1356067717985629786}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e348c4f06a38d348be86f2f28cd124d, type: 3}
+  m_Script: {fileID: 11500000, guid: b4c7af9c824f88447bc010a670b4a036, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   AbilityStartSfx: {fileID: 0}
@@ -291,8 +291,7 @@ MonoBehaviour:
   BlockingWeaponStates: 
   AllowPhysicsInteractions: 1
   PhysicsInteractionsRaycastLength: 0.05
-  PhysicsInteractionsRaycastOffset: {x: 0, y: -0.95, z: 0}
-  PushPower: 500
+  PushPower: 6
 --- !u!114 &5273731019370073304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,7 +322,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 524288
   cargoPullPoint: {fileID: 9162709330136404148}
-  drawGizmos: 1
+  drawGizmos: 0
   gizmosColor: {r: 1, g: 0.12645656, b: 0, a: 0.5019608}
   attachIcon: {fileID: 21300000, guid: ab4fbc9e1c7134bc4bc921a5b3b681e2, type: 3}
   detachIcon: {fileID: 21300000, guid: 8af7f7da9209c45598c2034865aea01c, type: 3}
@@ -354,7 +353,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1048576
   carryableAttachPoint: {fileID: 6619566819241437286}
-  drawGizmos: 1
+  drawGizmos: 0
   gizmosColor: {r: 1, g: 0.41726166, b: 0.058823526, a: 0.5019608}
   takeIcon: {fileID: 21300000, guid: 784af5bb575a044b0896d79c615a32a5, type: 3}
   dropIcon: {fileID: 21300000, guid: 8af7f7da9209c45598c2034865aea01c, type: 3}
