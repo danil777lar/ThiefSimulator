@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5593224302236412243}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 3197907522367480909}
   - component: {fileID: 830290412564615303}
   - component: {fileID: 510694261564695978}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: Van
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12592,7 +12592,7 @@ GameObject:
   - component: {fileID: 1739999514536903734}
   - component: {fileID: 2195802104566716849}
   - component: {fileID: 9029508237249970216}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: Van Wheel.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13992,7 +13992,7 @@ GameObject:
   - component: {fileID: 4486311835446437316}
   - component: {fileID: 8715891313897095150}
   - component: {fileID: 6113929193906887794}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: Van Wheel.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15392,7 +15392,7 @@ GameObject:
   - component: {fileID: 8828055071827111020}
   - component: {fileID: 2407301148253574405}
   - component: {fileID: 4583348238154443493}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: Van Back Door Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15909,7 +15909,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5060231060189728139}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: Doors Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15945,7 +15945,7 @@ GameObject:
   - component: {fileID: 8324242160105419502}
   - component: {fileID: 878019530034757171}
   - component: {fileID: 1713802271064594887}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: Van Doors Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17620,7 +17620,7 @@ GameObject:
   - component: {fileID: 7083079294029109388}
   - component: {fileID: 877710293748170688}
   - component: {fileID: 9219680921600496613}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: Van Wheel.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19017,7 +19017,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4943371125665136980}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: Wheels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19055,7 +19055,7 @@ GameObject:
   - component: {fileID: 9143988608860706843}
   - component: {fileID: 1386306467862512545}
   - component: {fileID: 7745707771222407517}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: Van Back Door Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19585,7 +19585,7 @@ GameObject:
   - component: {fileID: 847817665382980795}
   - component: {fileID: 427089615496734686}
   - component: {fileID: 8700314339240217808}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: Van Wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20982,9 +20982,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9112331673691658739}
+  - component: {fileID: 1184592357396219989}
+  - component: {fileID: 3944321107106683071}
   - component: {fileID: 6893681932325125502}
   - component: {fileID: 1578217906715086254}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: Van
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21009,6 +21011,54 @@ Transform:
   - {fileID: 2859612537014425764}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1184592357396219989
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9180164787489312865}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 84
+  m_CollisionDetection: 0
+--- !u!65 &3944321107106683071
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9180164787489312865}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.7633233, y: 2.7687323, z: 4.786994}
+  m_Center: {x: 0.0091302395, y: 1.2072872, z: -1.210958}
 --- !u!114 &6893681932325125502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21030,6 +21080,10 @@ MonoBehaviour:
   angularDragStop: 3
   startMoveDistance: 20
   stopMoveDistance: 5
+  boxcastDistance: 3
+  boxcastMask:
+    serializedVersion: 2
+    m_Bits: 257
 --- !u!114 &1578217906715086254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21056,6 +21110,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9112331673691658739}
     m_Modifications:
+    - target: {fileID: 515463500368033778, guid: c82e3469f9dd0974f86f159505cad2a6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 2064726940241522035, guid: c82e3469f9dd0974f86f159505cad2a6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -21111,6 +21170,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sell Point
       objectReference: {fileID: 0}
+    - target: {fileID: 2651837950077742368, guid: c82e3469f9dd0974f86f159505cad2a6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3517384456358876074, guid: c82e3469f9dd0974f86f159505cad2a6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3784136517143004113, guid: c82e3469f9dd0974f86f159505cad2a6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6103401272760647072, guid: c82e3469f9dd0974f86f159505cad2a6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6345053606955014372, guid: c82e3469f9dd0974f86f159505cad2a6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074282460636716021, guid: c82e3469f9dd0974f86f159505cad2a6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -21130,6 +21219,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9112331673691658739}
     m_Modifications:
+    - target: {fileID: 734556013315799062, guid: a9de29f50cc0e0b45973db80f739504a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3285758847245393950, guid: a9de29f50cc0e0b45973db80f739504a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3685706740625180993, guid: a9de29f50cc0e0b45973db80f739504a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 4034014580540622654, guid: a9de29f50cc0e0b45973db80f739504a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -21184,6 +21288,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Level Exit
+      objectReference: {fileID: 0}
+    - target: {fileID: 4842773117163288557, guid: a9de29f50cc0e0b45973db80f739504a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 4842773117163288557, guid: a9de29f50cc0e0b45973db80f739504a,
         type: 3}

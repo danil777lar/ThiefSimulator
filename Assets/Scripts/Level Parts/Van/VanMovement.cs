@@ -24,13 +24,17 @@ public class VanMovement : MonoBehaviour
     [Header("Path")] 
     [SerializeField] private float startMoveDistance = 15f;
     [SerializeField] private float stopMoveDistance = 2f;
+    [SerializeField] private float boxcastDistance = 3f;
+    [SerializeField] private LayerMask boxcastMask;
 
     private bool _move;
     private float _currentRotationSpeed;
     private Vector3 _currentVelocity;
     private Vector3 _currentDirection;
     private Vector3 _targetPosition;
-    
+
+    private Rigidbody _rigidbody;
+    private BoxCollider _collider;
     private Character _player; 
     private SplineComputer _splineComputer;
 
@@ -40,6 +44,8 @@ public class VanMovement : MonoBehaviour
     private void Start()
     {
         _splineComputer = GetComponentInParent<SplineComputer>();
+        _rigidbody = GetComponent<Rigidbody>();
+        _collider = GetComponent<BoxCollider>();
         _player = FindObjectsOfType<Character>().ToList().Find(x => x.CharacterType == Character.CharacterTypes.Player);
     }
     
@@ -89,17 +95,30 @@ public class VanMovement : MonoBehaviour
         _currentRotationSpeed += angularSpeedDelta * Time.fixedDeltaTime;
         _currentRotationSpeed *= 1f - Time.fixedDeltaTime * (_move ? angularDragMove : angularDragStop);
         
-        transform.rotation *= Quaternion.Euler(Vector3.up * (_currentRotationSpeed * Time.fixedDeltaTime));
+        ApplyRotation();
 
         if (_move)
         {
             _currentDirection = transform.forward;
         } 
     }
+
+    private void ApplyRotation()
+    {
+        if (_rigidbody)
+        {
+            _rigidbody.angularVelocity = Vector3.up * (_currentRotationSpeed * Mathf.Deg2Rad);
+        }
+        else
+        {
+            transform.rotation *= Quaternion.Euler(Vector3.up * (_currentRotationSpeed * Time.fixedDeltaTime));   
+        }
+    }
     
     private void Move()
     {
         float speedDelta = _move ? acceleration : 0f;
+        speedDelta *= HasForwardObstacle() ? -1f : 1f;
         
         _currentVelocity += _currentDirection * (speedDelta * Time.fixedDeltaTime);
         _currentVelocity = _currentVelocity.normalized * Mathf.Clamp(_currentVelocity.magnitude, 0f, speed);
@@ -110,6 +129,26 @@ public class VanMovement : MonoBehaviour
             drag = (1f - (Mathf.Abs(90f - Vector3.Angle(_currentVelocity, transform.forward)) / 90f)) * dragMove;
         }
         _currentVelocity *= 1f - Time.fixedDeltaTime * drag;
-        transform.position += _currentVelocity * Time.deltaTime;
+        
+        ApplyMovement();
+    }
+    
+    private void ApplyMovement()
+    {
+        if (_rigidbody)
+        {
+            _rigidbody.velocity = _currentVelocity;
+        }
+        
+        else
+        {
+            transform.position += _currentVelocity * Time.fixedDeltaTime;
+        }
+    }
+
+    private bool HasForwardObstacle()
+    {
+        return Physics.BoxCast(transform.position, _collider.size / 2f, transform.forward, 
+                transform.rotation, boxcastDistance, boxcastMask);
     }
 }
