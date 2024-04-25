@@ -10,13 +10,18 @@ using UnityEngine;
 
 public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
 {
+    [Space(50f)]
+    [Header("Find")]
     [SerializeField] private float findDistance;
-    [SerializeField] private float anchoringValuePerObject;
     [SerializeField] private LayerMask carryableMask;
+    
+    [Header("Carry")]
     [SerializeField] private Transform carryableAttachPoint;
+    
     [Header("Gizmos")]
     [SerializeField] private bool drawGizmos;
     [SerializeField] private Color gizmosColor;
+    
     [Header("Action Icons")] 
     [SerializeField] private Sprite takeIcon;
     [SerializeField] private Sprite dropIcon;
@@ -25,8 +30,8 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
     private Carryable _nearestCarryable;
     private List<Carryable> _currentCarryables;
 
-    protected const string _carryAnimationParameterName = "Carry";
     protected int _carryAnimationParameter;
+    protected const string _carryAnimationParameterName = "Carry";
 
     public PlayerAction[] Actions { get; private set; }
 
@@ -83,7 +88,7 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
 
     private void FixedUpdate()
     {
-        _currentCarryables?.ForEach(x => x.UpdatePosition(_movement.ActualSpeedPercent));
+        _currentCarryables?.ForEach(x => x.UpdatePosition(Time.fixedDeltaTime, _movement.ActualSpeedPercent));
     }
 
     private void OnDrawGizmos()
@@ -141,7 +146,7 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
             
             Transform attachPoint = _currentCarryables.Count > 0 ? 
                 _currentCarryables.Last().TopPoint : carryableAttachPoint;
-            _nearestCarryable.Take(attachPoint, Mathf.Clamp01(_currentCarryables.Count * anchoringValuePerObject));
+            _nearestCarryable.Take(attachPoint);
             _currentCarryables.Add(_nearestCarryable);
         }
     }

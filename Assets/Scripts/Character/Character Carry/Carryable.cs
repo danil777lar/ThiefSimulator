@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -10,9 +11,18 @@ public class Carryable : MonoBehaviour
     [Space] 
     [SerializeField] private float maxRotate = 5f;
     [SerializeField] private float dropForce;
-    
+
+    [Header("Anchoring Animation")] 
+    [SerializeField] private float anchoringBaseSpeed;
+    [SerializeField] private float anchoringAcceleration;
+    [SerializeField] private AnimationCurve anchoringTrajectory;
+
     private bool _blockTaking;
-    private float _anchoringValue;
+    private bool _anchored;
+    private float _currentSpeed;
+
+    private Vector3 _takePosition;
+
     private Rigidbody _rb;
     private Collider _collider;
     private Transform _attachPoint;
@@ -23,16 +33,24 @@ public class Carryable : MonoBehaviour
 
     public event Action<Carryable> EventDisabled;
 
-    public void Take(Transform attachPoint, float anchoringValue)
+    public void Take(Transform attachPoint)
     {
-        _anchoringValue = anchoringValue;
         _attachPoint = attachPoint;
+        
+        _anchored = false;
         _rb.isKinematic = true;
         _collider.enabled = false;
+        
+        _currentSpeed = anchoringBaseSpeed;
+        _takePosition = transform.position;
+        
+        PlayAnchoringAnimation();
     }
-    
+
     public void Drop(bool blockTaking = false)
     {
+        this.DOKill();
+
         _blockTaking = blockTaking;
         _attachPoint = null;
         _rb.isKinematic = false;
@@ -44,19 +62,11 @@ public class Carryable : MonoBehaviour
         _rb.AddForce(force, ForceMode.VelocityChange);
     }
 
-    public void UpdatePosition(float movementSpeed)
+    public void UpdatePosition(float deltaTime, float movementSpeed)
     {
-        if (_attachPoint != null)
-        {
-            float rotate = maxRotate * movementSpeed;
-            
-            transform.position = _attachPoint.position;
-            transform.rotation = _attachPoint.rotation;
-
-            transform.rotation *= Quaternion.Euler(Vector3.right * -rotate);
-        }
+        TryUpdatePosition(movementSpeed);
     }
-    
+
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -67,9 +77,32 @@ public class Carryable : MonoBehaviour
     {
         EventDisabled?.Invoke(this);
     }
-    
+
     private void OnDestroy()
     {
         EventDisabled?.Invoke(this);
+    }
+
+    private void PlayAnchoringAnimation()
+    {
+        DOTween.To(() => 0f, (x) =>
+        {
+            transform.position = Vector3.Lerp(_takePosition, _attachPoint.position, x);
+        }, 1f, 1f)
+            .OnComplete(() => _anchored = true)
+            .SetTarget(this);
+    }
+
+    private void TryUpdatePosition(float movementSpeed)
+    {
+        if (_attachPoint != null && _anchored)
+        {
+            float rotate = maxRotate * movementSpeed;
+
+            transform.position = _attachPoint.position;
+            transform.rotation = _attachPoint.rotation;
+
+            transform.rotation *= Quaternion.Euler(Vector3.right * -rotate);
+        }
     }
 }
