@@ -13,9 +13,8 @@ public class Carryable : MonoBehaviour
     [SerializeField] private float dropForce;
 
     [Header("Anchoring Animation")] 
-    [SerializeField] private float anchoringBaseSpeed;
-    [SerializeField] private float anchoringAcceleration;
-    [SerializeField] private AnimationCurve anchoringTrajectory;
+    [SerializeField] private float anchoringDuration = 0.5f;
+    [SerializeField] private float anchoringTrajectoryHeight = 1f;
 
     private bool _blockTaking;
     private bool _anchored;
@@ -40,8 +39,6 @@ public class Carryable : MonoBehaviour
         _anchored = false;
         _rb.isKinematic = true;
         _collider.enabled = false;
-        
-        _currentSpeed = anchoringBaseSpeed;
         _takePosition = transform.position;
         
         PlayAnchoringAnimation();
@@ -86,10 +83,13 @@ public class Carryable : MonoBehaviour
     private void PlayAnchoringAnimation()
     {
         DOTween.To(() => 0f, (x) =>
-        {
-            transform.position = Vector3.Lerp(_takePosition, _attachPoint.position, x);
-        }, 1f, 1f)
+                {
+                    transform.position = EvaluateTrajectory(x);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, _attachPoint.rotation, x);
+                }, 
+                1f, anchoringDuration)
             .OnComplete(() => _anchored = true)
+            .SetEase(Ease.OutBounce)
             .SetTarget(this);
     }
 
@@ -104,5 +104,15 @@ public class Carryable : MonoBehaviour
 
             transform.rotation *= Quaternion.Euler(Vector3.right * -rotate);
         }
+    }
+    
+    private Vector3 EvaluateTrajectory(float time)
+    {
+        Vector3 a = _takePosition;
+        Vector3 b = _attachPoint.position + Vector3.up * anchoringTrajectoryHeight;
+        Vector3 c = _attachPoint.position;
+        Vector3 ab = Vector3.Lerp(a, b, time);
+        Vector3 bc = Vector3.Lerp(b, c, time);
+        return Vector3.Lerp(ab, bc, time);
     }
 }

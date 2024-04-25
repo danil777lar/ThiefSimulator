@@ -131,41 +131,8 @@ MonoBehaviour:
   topPoint: {fileID: 5282805211192291861}
   maxRotate: 5
   dropForce: 5
-  anchoringBaseSpeed: 2
-  anchoringAcceleration: 5
-  anchoringTrajectory:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 5.18493
-      outSlope: 5.18493
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.053667
-    - serializedVersion: 3
-      time: 0.5
-      value: 2
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -5.340037
-      outSlope: -5.340037
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.059024096
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  anchoringDuration: 1.5
+  anchoringTrajectoryHeight: 4
 --- !u!114 &1026422449824308722
 MonoBehaviour:
   m_ObjectHideFlags: 0
