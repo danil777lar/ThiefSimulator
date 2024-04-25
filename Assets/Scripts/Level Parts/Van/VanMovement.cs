@@ -13,13 +13,14 @@ public class VanMovement : MonoBehaviour
 {
     [Header("Speed")]
     [SerializeField] private float speed = 10f;
+    [SerializeField] private float acceleration = 2f;
     [SerializeField] private float dragMove = 2f;
     [SerializeField] private float dragStop = 5f;
-    [SerializeField] private float acceleration = 2f;
     [Space]
     [SerializeField] private float angularSpeed = 45f;
     [SerializeField] private float angularDragMove = 1f;
     [SerializeField] private float angularDragStop = 1f;
+    [SerializeField] private AnimationCurve angularSpeedCurve;
 
     [Header("Path")] 
     [SerializeField] private float startMoveDistance = 15f;
@@ -40,6 +41,10 @@ public class VanMovement : MonoBehaviour
 
     private Vector3 TrajectoryCenter => Vector3.zero;
     private Vector3 PlayerPoint => _splineComputer.Project(_player.transform.position).position;
+    public bool IsMoving => _move;
+
+    public event Action EventStartMove; 
+    public event Action EventStopMove; 
     
     private void Start()
     {
@@ -76,21 +81,27 @@ public class VanMovement : MonoBehaviour
         if (_move && distance <= stopMoveDistance)
         {
             _move = false;
+            EventStopMove?.Invoke();
         }
 
         if (!_move && distance >= startMoveDistance)
         {
             _move = true;
+            EventStartMove?.Invoke();
         }
     }
 
     private void Rotate()
     {
-        float angularSpeedDelta = Mathf.Lerp(0f, angularSpeed, _currentVelocity.magnitude / speed);
-        Vector3 direction = _targetPosition - transform.position;
+        Vector3 direction = _move ? 
+            _targetPosition - transform.position :
+            transform.position - TrajectoryCenter;
+        
         float angle = Vector3.SignedAngle(transform.forward, direction, Vector3.up);
+        float angularSpeedDelta = angularSpeed;
+        angularSpeedDelta *= _currentVelocity.magnitude / speed;
+        angularSpeedDelta *= angularSpeedCurve.Evaluate(1f - Mathf.Clamp01((Mathf.Abs(angle) - 180f) / 180f));
         angularSpeedDelta *= (angle < 0f ? -1f : 1f);
-        angularSpeedDelta *= 1f - Mathf.Clamp01((Mathf.Abs(angle) - 180f) / 180f);
         
         _currentRotationSpeed += angularSpeedDelta * Time.fixedDeltaTime;
         _currentRotationSpeed *= 1f - Time.fixedDeltaTime * (_move ? angularDragMove : angularDragStop);
