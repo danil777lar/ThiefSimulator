@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6413876484014422262}
   - component: {fileID: 3110189240847436818}
   - component: {fileID: 1760797469972512395}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ MonoBehaviour:
   pullForce: 30
   mask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 256
 --- !u!65 &3860112071615303845
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -208,7 +208,7 @@ GameObject:
   - component: {fileID: 5047757293771385579}
   - component: {fileID: 3490652041507100459}
   - component: {fileID: 3982037061330394029}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 7071084918830812881}
   - component: {fileID: 3632902888679964605}
   - component: {fileID: 711492581432263575}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -101,7 +101,12 @@ PrefabInstance:
     - target: {fileID: 1356067717985629786, guid: 6df4af2efef53044688493cd7740b964,
         type: 3}
       propertyPath: m_Layer
-      value: 13
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2483000694220488879, guid: 6df4af2efef53044688493cd7740b964,
+        type: 3}
+      propertyPath: soundMask.m_Bits
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4110898182002299340, guid: 6df4af2efef53044688493cd7740b964,
         type: 3}

@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46741b4e1ccb01c478010328e741ba17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stealthValue: 0
 --- !u!1 &5653377505040893966
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,7 +220,7 @@ MonoBehaviour:
   config: {fileID: 11400000, guid: 2035a731f148715479633a7e6dd33174, type: 2}
   targetMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 256
 --- !u!1001 &462306283937215518
 PrefabInstance:
   m_ObjectHideFlags: 0

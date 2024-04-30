@@ -207,7 +207,7 @@ MonoBehaviour:
   _targetObject: {fileID: 2092014536794258412}
   _offset: {x: 0, y: 0}
   _rotationOffset: {x: 0, y: 0, z: 0}
-  lastPosition: {x: 0.24000072, y: 0, z: -10.6}
+  lastPosition: {x: -1.4210855e-14, y: 0, z: -1}
 --- !u!114 &5475510135916990155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,7 +236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 256
   duration: 1
   playMiniGame: 1
   miniGamePopupType: 2
@@ -310,7 +310,7 @@ MonoBehaviour:
   doorOpenAngle: 90
   interactionMask:
     serializedVersion: 2
-    m_Bits: 9216
+    m_Bits: 768
   trigger: {fileID: 4736827104974350710}
   doorRoots:
   - <Root>k__BackingField: {fileID: 6624436406292258375}

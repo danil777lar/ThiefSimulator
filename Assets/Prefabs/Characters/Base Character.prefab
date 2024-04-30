@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 2314369418861545768}
   - component: {fileID: 4752456712207448934}
   - component: {fileID: 2483000694220488879}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Base Character
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -158,7 +158,7 @@ MonoBehaviour:
   VelocityTransferMethod: 2
   ObstaclesLayerMask:
     serializedVersion: 2
-    m_Bits: 723712
+    m_Bits: 670784
   GroundedRaycastLength: 5
   MinimumGroundedDistance: 0.2
   GroundedComputationMode: 1
@@ -292,6 +292,7 @@ MonoBehaviour:
   AllowPhysicsInteractions: 1
   PhysicsInteractionsRaycastLength: 0.05
   PushPower: 6
+  ForceMode: 2
 --- !u!114 &5273731019370073304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -320,7 +321,7 @@ MonoBehaviour:
   detachDistance: 0.35
   cargosMask:
     serializedVersion: 2
-    m_Bits: 524288
+    m_Bits: 528384
   cargoPullPoint: {fileID: 9162709330136404148}
   drawGizmos: 0
   gizmosColor: {r: 1, g: 0.12645656, b: 0, a: 0.5019608}
@@ -348,10 +349,9 @@ MonoBehaviour:
   BlockingConditionStates: 
   BlockingWeaponStates: 
   findDistance: 2.5
-  anchoringValuePerObject: 0.1
   carryableMask:
     serializedVersion: 2
-    m_Bits: 1048576
+    m_Bits: 1056768
   carryableAttachPoint: {fileID: 6619566819241437286}
   drawGizmos: 0
   gizmosColor: {r: 1, g: 0.41726166, b: 0.058823526, a: 0.5019608}
@@ -381,7 +381,7 @@ MonoBehaviour:
   findDistance: 1
   transitionMask:
     serializedVersion: 2
-    m_Bits: 2097152
+    m_Bits: 0
   drawGizmos: 0
   gizmosColor: {r: 1, g: 0.3679244, b: 0.66161, a: 0.5019608}
   transitIcon: {fileID: 21300000, guid: 77c5e810d73684d60aea09a11021167d, type: 3}
@@ -462,7 +462,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundMask:
     serializedVersion: 2
-    m_Bits: 16777216
+    m_Bits: 65536
 --- !u!1 &2652114066311270829
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,7 +472,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1931078906579788121}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: VFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -504,7 +504,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6282012969164897799}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -537,7 +537,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6619566819241437286}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Cargo Carry Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -568,7 +568,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1453071905254236835}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Utility
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -600,7 +600,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5388484344293614955}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Model Look
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -632,7 +632,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9162709330136404148}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Cargo Pull Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -665,7 +665,7 @@ GameObject:
   - component: {fileID: 6433895011771078295}
   - component: {fileID: 1056094052024679695}
   - component: {fileID: 8340888888655862721}
-  m_Layer: 13
+  m_Layer: 7
   m_Name: FOV
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1021,6 +1021,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Decal Shadow
+      objectReference: {fileID: 0}
+    - target: {fileID: 2252629055116386808, guid: a572e73065c51064b97a3781fe2ee5d8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2938850420560588899, guid: a572e73065c51064b97a3781fe2ee5d8,
         type: 3}
