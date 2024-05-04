@@ -79,9 +79,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a600f2e2a25ee7d44a5d26dcfb92ddd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitializationMode: 0
+  InitializationMode: 1
   Label: Set Speed Attack
-  multiplier: 1
+  multiplier: 0.8
 --- !u!114 &7697209693646556258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f518c38b6b1a6f48b4d24beea0a9a8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitializationMode: 0
+  InitializationMode: 1
   Label: AimToPlayer
 --- !u!1 &2712649495081409984
 GameObject:
@@ -344,7 +344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 561ab803e1e9aa94ab096724696e5475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitializationMode: 0
+  InitializationMode: 1
   Label: Stay
 --- !u!1 &3274709828073337298
 GameObject:
@@ -487,7 +487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a600f2e2a25ee7d44a5d26dcfb92ddd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitializationMode: 0
+  InitializationMode: 1
   Label: Set Speed Attack
   multiplier: 1
 --- !u!114 &3301068288283832628
@@ -502,7 +502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f518c38b6b1a6f48b4d24beea0a9a8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitializationMode: 0
+  InitializationMode: 1
   Label: AimToPlayer
 --- !u!1 &5947151024597035064
 GameObject:
@@ -653,7 +653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a600f2e2a25ee7d44a5d26dcfb92ddd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitializationMode: 0
+  InitializationMode: 1
   Label: Set Speed Patrol
   multiplier: 0.25
 --- !u!114 &6005483628133107553
@@ -668,7 +668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b02e65e72a314dc45805ab07a644902c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitializationMode: 0
+  InitializationMode: 1
   Label: Patroll
   directionForward: 1
   distanceOnSpline: 2
@@ -924,7 +924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 561ab803e1e9aa94ab096724696e5475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitializationMode: 0
+  InitializationMode: 1
   Label: Stay
 --- !u!1 &8348485412510810695
 GameObject:
@@ -971,7 +971,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a600f2e2a25ee7d44a5d26dcfb92ddd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitializationMode: 0
+  InitializationMode: 1
   Label: Set Speed Seek
   multiplier: 0.5
 --- !u!114 &2804250490275052579
@@ -986,11 +986,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 439bb263eb8cbc449a32f39abad6cba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitializationMode: 0
+  InitializationMode: 1
   Label: Aim To Nearest Seek Point
   lookSpeed: 2
   recalculatePointDelayMin: 1
   recalculatePointDelayMax: 5
+  drawGizmos: 1
 --- !u!1 &8471876597984492766
 GameObject:
   m_ObjectHideFlags: 0
@@ -1035,5 +1036,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 561ab803e1e9aa94ab096724696e5475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitializationMode: 0
+  InitializationMode: 1
   Label: Stay

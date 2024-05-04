@@ -49,6 +49,11 @@ public class ThiefLevel : LevelProcessor
         GrabCharacters();
     }
 
+    private void OnDisable()
+    {
+        _currencyService.EventCurrencyChanged -= OnCurrencyChanged;
+    }
+
     private void OnDrawGizmos()
     {
         if (Points != null)

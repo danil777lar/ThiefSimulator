@@ -12,18 +12,17 @@ public class AIActionPatroll : AIAction
     [SerializeField] private bool directionForward = true;
     [SerializeField] private float distanceOnSpline;
 
-    private Vector3 _defaultPosition;
     private Transform _target;
     private SplineComputer _spline;
+    private EnemyPoint _enemyPoint;
 
     public override void Initialization()
     {
         base.Initialization();
 
         _spline = GetComponentInParent<SplineComputer>();
-
-        _defaultPosition = transform.position;
-
+        _enemyPoint = GetComponentInParent<EnemyPoint>();
+        
         _target = new GameObject().transform;
         _target.gameObject.name = "Patroll Target";
         _target.SetParent(transform);
@@ -37,9 +36,24 @@ public class AIActionPatroll : AIAction
 
     public override void PerformAction()
     {
+        TryPatrolOnPoint();
+        TryPatrolOnSpline();
+    }
+
+    private void TryPatrolOnPoint()
+    {
+        if (!_enemyPoint)
+        {
+            return;
+        }
+
+        _target.position = _enemyPoint.transform.position;
+    }
+
+    private void TryPatrolOnSpline()
+    {
         if (!_spline)
         {
-            _target.position = _defaultPosition;
             return;
         }
 

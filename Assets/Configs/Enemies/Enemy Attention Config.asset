@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Enemy Attention Config
   m_EditorClassIdentifier: 
   <SuspicionDecreaseDelay>k__BackingField: 2
-  <SuspicionDecreaseSpeed>k__BackingField: 0.2
+  <SuspicionDecreaseSpeed>k__BackingField: 0.1
   <MaxSuspicion>k__BackingField: 1
   <AggressionDecreaseDelay>k__BackingField: 4
   <AggressionDecreaseSpeed>k__BackingField: 0.5
@@ -21,6 +21,3 @@ MonoBehaviour:
   <VisionDistance>k__BackingField: 50
   <VisionSensitivity>k__BackingField: 1
   <HearingSensitivity>k__BackingField: 1
-  <AttackDistance>k__BackingField: 2
-  <AttackCooldown>k__BackingField: 3
-  <SeekPointDistance>k__BackingField: 0

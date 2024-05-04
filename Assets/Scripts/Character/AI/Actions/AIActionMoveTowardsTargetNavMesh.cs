@@ -55,10 +55,10 @@ public class AIActionMoveTowardsTargetNavMesh : AIAction
 			return;
 		}
 		
-		Vector3 from = _brain.Owner.transform.position;
+		Vector3 sourcePosition = _brain.Owner.transform.position; 
 		Vector3 targetPosition = _brain.Target.position;
 		
-		if (NavMesh.CalculatePath(from, targetPosition, NavMesh.AllAreas, _path))
+		if (NavMesh.CalculatePath(sourcePosition, targetPosition, NavMesh.AllAreas, _path))
 		{
 			foreach (Vector3 corner in _path.corners)
 			{
@@ -70,7 +70,7 @@ public class AIActionMoveTowardsTargetNavMesh : AIAction
 			}
 		}
 		
-		Vector3 direction = targetPosition - from;
+		Vector3 direction = targetPosition - sourcePosition;
 		if (useSmoothRotation)
 		{
 			_currentDirection = Vector3.RotateTowards(_currentDirection, direction,
@@ -80,9 +80,9 @@ public class AIActionMoveTowardsTargetNavMesh : AIAction
 		{
 			_currentDirection = direction;
 		}
-		targetPosition = from + (_currentDirection * direction.magnitude);
+		targetPosition = sourcePosition + (_currentDirection * direction.magnitude);
 
-		_directionToTarget = targetPosition - from;
+		_directionToTarget = targetPosition - sourcePosition;
 		_movementVector.x = _directionToTarget.x;
 		_movementVector.y = _directionToTarget.z;
 		_characterMovement.SetMovement(_movementVector);

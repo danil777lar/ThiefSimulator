@@ -35,10 +35,9 @@ public class EnemySeek : CharacterAbility
         ObservePoints();
     }
 
-    public bool TryFindBestPoint(out Vector3 point, out bool isPointVisible)
+    public bool TryFindBestPoint(out Vector3 point)
     {
         point = Vector3.zero;
-        isPointVisible = false;
         
         if (_seekPoints == null || _seekPoints.Count == 0)
         {
@@ -65,10 +64,7 @@ public class EnemySeek : CharacterAbility
                 float currentDistance = 1f - (paths[p].GetLength() / maxDistance);
                 return p.GetPriority() * currentDistance;
             }).First();
-        
             point = bestPoint.Position;
-            isPointVisible = paths[bestPoint].corners.Length <= 2 && 
-                             paths[bestPoint].GetLength() <= config.MaxSeekDistance / 2f;
         
             return true;   
         }

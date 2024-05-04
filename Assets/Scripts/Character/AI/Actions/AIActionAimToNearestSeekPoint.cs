@@ -13,6 +13,8 @@ public class AIActionAimToNearestSeekPoint : AIAction
     [SerializeField] private float lookSpeed;
     [SerializeField] private float recalculatePointDelayMin = 1f;
     [SerializeField] private float recalculatePointDelayMax = 5f;
+    [Header("Gizmos")]
+    [SerializeField] private bool drawGizmos;
 
     private bool _canUpdatePoint = true;
     private bool _isPointVisible;
@@ -20,6 +22,7 @@ public class AIActionAimToNearestSeekPoint : AIAction
     private Transform _targetLook;
     private EnemySeek _seek;
     private Vector3 _point;
+    private CharacterFOV _fov;
     private CoreCharacterOrientation3D _orientation;
     
     public override void Initialization()
@@ -28,6 +31,7 @@ public class AIActionAimToNearestSeekPoint : AIAction
 
         _seek = _brain.Owner.GetComponentInChildren<EnemySeek>();
         _orientation = _brain.Owner.GetComponentInChildren<CoreCharacterOrientation3D>();
+        _fov = _brain.Owner.GetComponentInChildren<CharacterFOV>();
         
         _target = new GameObject().transform;
         _target.gameObject.name = "Seek Point Target";
@@ -59,28 +63,16 @@ public class AIActionAimToNearestSeekPoint : AIAction
     {
         if (_canUpdatePoint)
         {
-            if (_seek.TryFindBestPoint(out Vector3 point, out bool isPointVisible))
+            if (_seek.TryFindBestPoint(out Vector3 point))
             {
                 _point = point;
-                _isPointVisible = isPointVisible;
             }
-
-            _canUpdatePoint = false;
             StartCoroutine(RecalculatePointDelay());
         }
         
-        _canUpdatePoint = false;
-        Vector3 lookPoint = transform.position + _orientation.Direction * 10f;
-        if (_isPointVisible)
-        {
-            lookPoint = _point;
-            _target.position = transform.position;
-        }
-        else
-        {
-            _target.position = _point;
-        }
-
+        _isPointVisible = _fov.PointsInVision.Contains(_point);
+        Vector3 lookPoint = _isPointVisible ? _point : transform.position + _orientation.Direction * 10f;
+        _target.position = _isPointVisible ? transform.position : _point;
         _targetLook.position = Vector3.Lerp(_targetLook.position, lookPoint, Time.deltaTime * lookSpeed);
     }
 
@@ -89,8 +81,18 @@ public class AIActionAimToNearestSeekPoint : AIAction
         _orientation.forceLookTarget = null;
     }
 
+    private void OnDrawGizmos()
+    {
+        if (drawGizmos)
+        {
+            Gizmos.color = _isPointVisible ? Color.green : Color.blue;
+            Gizmos.DrawSphere(_point, 0.5f);
+        }
+    }
+
     private IEnumerator RecalculatePointDelay()
     {
+        _canUpdatePoint = false;
         yield return new WaitForSeconds(Random.Range(recalculatePointDelayMin, recalculatePointDelayMax));
         _canUpdatePoint = true;
     }
