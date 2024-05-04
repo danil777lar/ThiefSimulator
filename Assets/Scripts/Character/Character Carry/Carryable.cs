@@ -7,18 +7,13 @@ using Random = UnityEngine.Random;
 
 public class Carryable : MonoBehaviour
 {
+    [SerializeField] private CarryableConfig config;
     [SerializeField] private Transform topPoint;
-    [Space] 
-    [SerializeField] private float maxRotate = 5f;
-    [SerializeField] private float dropForce;
-
-    [Header("Anchoring Animation")] 
-    [SerializeField] private float anchoringDuration = 0.5f;
-    [SerializeField] private float anchoringTrajectoryHeight = 1f;
 
     private bool _blockTaking;
     private bool _anchored;
-    private float _currentSpeed;
+    private float _currentRotation;
+    private float _currentForce;
 
     private Vector3 _takePosition;
 
@@ -41,6 +36,9 @@ public class Carryable : MonoBehaviour
         _collider.enabled = false;
         _takePosition = transform.position;
         
+        _currentRotation = 0f;
+        _currentForce = 0f;
+        
         PlayAnchoringAnimation();
     }
 
@@ -52,16 +50,19 @@ public class Carryable : MonoBehaviour
         _attachPoint = null;
         _rb.isKinematic = false;
         _collider.enabled = true;
+        
+        _currentRotation = 0f;
+        _currentForce = 0f;
 
         Vector3 force = Quaternion.Euler(Vector3.up * Random.Range(0f, 360f)) * Vector3.forward;
         force.y = 1f;
-        force *= dropForce;
+        force *= config.DropForce;
         _rb.AddForce(force, ForceMode.VelocityChange);
     }
 
-    public void UpdatePosition(float deltaTime, float movementSpeed)
+    public void UpdatePosition(float deltaTime, float speedPercent)
     {
-        TryUpdatePosition(movementSpeed);
+        TryUpdatePosition(deltaTime, speedPercent);
     }
 
     private void Start()
@@ -87,29 +88,43 @@ public class Carryable : MonoBehaviour
                     transform.position = EvaluateTrajectory(x);
                     transform.rotation = Quaternion.Lerp(transform.rotation, _attachPoint.rotation, x);
                 }, 
-                1f, anchoringDuration)
+                1f, config.AnchoringDuration)
             .OnComplete(() => _anchored = true)
             .SetEase(Ease.OutBounce)
             .SetTarget(this);
     }
 
-    private void TryUpdatePosition(float movementSpeed)
+    private void TryUpdatePosition(float deltaTime, float speedPercent)
     {
         if (_attachPoint != null && _anchored)
         {
-            float rotate = maxRotate * movementSpeed;
+            float forceDelta = config.MaxRotate * speedPercent * config.ForceMultiplier * deltaTime; 
+            forceDelta += config.SpringForce * (0f - _currentRotation) * deltaTime;
 
+            bool canAddForce = false;
+            canAddForce |= forceDelta < 0f && _currentRotation > -config.MaxRotate;
+            canAddForce |= forceDelta > 0f && _currentRotation < config.MaxRotate;
+                
+            if (canAddForce)
+            {
+                _currentForce += forceDelta;
+            }
+            _currentForce *= 1f - config.SpringDrag * deltaTime;
+            
+            _currentRotation += _currentForce * deltaTime;
+            _currentRotation = Mathf.Clamp(_currentRotation, -config.MaxRotate, config.MaxRotate);
+            
             transform.position = _attachPoint.position;
             transform.rotation = _attachPoint.rotation;
 
-            transform.rotation *= Quaternion.Euler(Vector3.right * -rotate);
+            transform.rotation *= Quaternion.Euler(Vector3.right * -_currentRotation);
         }
     }
     
     private Vector3 EvaluateTrajectory(float time)
     {
         Vector3 a = _takePosition;
-        Vector3 b = _attachPoint.position + Vector3.up * anchoringTrajectoryHeight;
+        Vector3 b = _attachPoint.position + Vector3.up * config.AnchoringTrajectoryHeight;
         Vector3 c = _attachPoint.position;
         Vector3 ab = Vector3.Lerp(a, b, time);
         Vector3 bc = Vector3.Lerp(b, c, time);
