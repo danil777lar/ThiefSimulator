@@ -874,7 +874,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 3073
+    m_Bits: 7169
   m_UseGeometry: 1
   m_DefaultArea: 0
   m_GenerateLinks: 0
@@ -905,7 +905,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 3073
+    m_Bits: 7169
   m_UseGeometry: 1
   m_DefaultArea: 3
   m_GenerateLinks: 0
@@ -964,7 +964,7 @@ GameObject:
   - component: {fileID: 6325168686660047558}
   - component: {fileID: 873914267232913646}
   - component: {fileID: 4442622462343836935}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Wall (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2586,7 +2586,7 @@ GameObject:
   - component: {fileID: 5546548294739555965}
   - component: {fileID: 3558652080015796175}
   - component: {fileID: 5434690050533787782}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5937,6 +5937,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052496994742313725, guid: 1f84a60fb1e765f4ba1d809b7d35a90e,
+        type: 3}
+      propertyPath: soundMask.m_Bits
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8410908527509402526, guid: 1f84a60fb1e765f4ba1d809b7d35a90e,
         type: 3}
