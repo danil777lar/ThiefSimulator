@@ -93,6 +93,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1230887134683089601, guid: 6df4af2efef53044688493cd7740b964,
+        type: 3}
+      propertyPath: minRotationSpeed
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 1356067717985629786, guid: 6df4af2efef53044688493cd7740b964,
         type: 3}
       propertyPath: m_Name
@@ -107,6 +112,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 2724311554232135388, guid: 6df4af2efef53044688493cd7740b964,
+        type: 3}
+      propertyPath: Acceleration
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4110898182002299340, guid: 6df4af2efef53044688493cd7740b964,
         type: 3}
