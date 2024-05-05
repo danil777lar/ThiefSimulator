@@ -25,8 +25,8 @@ public class ThiefLevel : LevelProcessor
     private float lootTotalPrice;
     private LevelData _levelData;
 
-    public float ProgressTotal { get; private set; }
-    public float ProgressForWin { get; private set; }
+    public float ProgressFull { get; private set; }
+    public float ProgressMin { get; private set; }
     public IReadOnlyList<Vector3> Points { get; private set; }
     public IReadOnlyList<Character> Characters { get; private set; }
     
@@ -117,15 +117,21 @@ public class ThiefLevel : LevelProcessor
     {
         if (lootTotalPrice > 0)
         {
-            float oldProgress = ProgressForWin;
+            float oldProgressFull = ProgressFull;
+            float oldProgressMin = ProgressMin;
             float currentMoney = (float)_currencyService.GetCurrency(CurrencyType.Coins, CurrencyPlacementType.Level);
 
-            ProgressTotal = currentMoney / (float)lootTotalPrice;
-            ProgressForWin = Mathf.Clamp01(ProgressTotal / moneyPercentForWin);
+            ProgressFull = currentMoney / (float)lootTotalPrice;
+            ProgressMin = Mathf.Clamp01(ProgressFull / moneyPercentForWin);
 
-            if (oldProgress < 1f && ProgressForWin >= 1f)
+            if (oldProgressFull < 1f && ProgressFull >= 1f)
             {
-                SendEvent(new LevelEventProgressComplete());
+                SendEvent(new LevelEventProgressComplete(LevelEventProgressComplete.ProgressType.Full));
+            }
+            
+            if (oldProgressMin < 1f && ProgressMin >= 1f)
+            {
+                SendEvent(new LevelEventProgressComplete(LevelEventProgressComplete.ProgressType.Min));
             }
         }
     }
@@ -134,8 +140,8 @@ public class ThiefLevel : LevelProcessor
     {
         private readonly ThiefLevel _level;
 
-        public float ProgressForWin => _level.ProgressForWin;
-        public float ProgressTotal => _level.ProgressTotal;
+        public float ProgressForWin => _level.ProgressMin;
+        public float ProgressTotal => _level.ProgressFull;
         
         public LevelData (ThiefLevel level)
         {

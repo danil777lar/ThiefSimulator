@@ -19204,7 +19204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PolyMesh:
-    name: PolybrushMesh52092
+    name: PolybrushMesh-3954
     vertices:
     - {x: 0.0014743711, y: 0, z: 0.00850307}
     - {x: 0.010850483, y: 0, z: 0.00850307}
@@ -21262,12 +21262,12 @@ PrefabInstance:
     - target: {fileID: 689007578301364515, guid: c82e3469f9dd0974f86f159505cad2a6,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.37
+      value: 5.35
       objectReference: {fileID: 0}
     - target: {fileID: 2064726940241522035, guid: c82e3469f9dd0974f86f159505cad2a6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2064726940241522035, guid: c82e3469f9dd0974f86f159505cad2a6,
         type: 3}
@@ -21277,7 +21277,7 @@ PrefabInstance:
     - target: {fileID: 2064726940241522035, guid: c82e3469f9dd0974f86f159505cad2a6,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.8600006
+      value: -6.48
       objectReference: {fileID: 0}
     - target: {fileID: 2064726940241522035, guid: c82e3469f9dd0974f86f159505cad2a6,
         type: 3}
@@ -21322,17 +21322,17 @@ PrefabInstance:
     - target: {fileID: 3611045434867620573, guid: c82e3469f9dd0974f86f159505cad2a6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3611045434867620573, guid: c82e3469f9dd0974f86f159505cad2a6,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.08
+      value: 3.41
       objectReference: {fileID: 0}
     - target: {fileID: 3611045434867620573, guid: c82e3469f9dd0974f86f159505cad2a6,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.1
+      value: 0.22
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -21355,8 +21355,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4034014580540622654, guid: a9de29f50cc0e0b45973db80f739504a,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4034014580540622654, guid: a9de29f50cc0e0b45973db80f739504a,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4034014580540622654, guid: a9de29f50cc0e0b45973db80f739504a,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4034014580540622654, guid: a9de29f50cc0e0b45973db80f739504a,
+        type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4034014580540622654, guid: a9de29f50cc0e0b45973db80f739504a,
         type: 3}
@@ -21366,7 +21381,7 @@ PrefabInstance:
     - target: {fileID: 4034014580540622654, guid: a9de29f50cc0e0b45973db80f739504a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.8600006
+      value: -4.57
       objectReference: {fileID: 0}
     - target: {fileID: 4034014580540622654, guid: a9de29f50cc0e0b45973db80f739504a,
         type: 3}
@@ -21403,6 +21418,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4034014580540622654, guid: a9de29f50cc0e0b45973db80f739504a,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4842773117163288557, guid: a9de29f50cc0e0b45973db80f739504a,
         type: 3}
       propertyPath: m_Name
@@ -21411,7 +21431,7 @@ PrefabInstance:
     - target: {fileID: 4842773117163288557, guid: a9de29f50cc0e0b45973db80f739504a,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

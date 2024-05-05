@@ -6056,11 +6056,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4760950343760930849}
     m_Modifications:
-    - target: {fileID: 7745707771222407517, guid: a3fd2750fa650fa409e75ee4ac701606,
-        type: 3}
-      propertyPath: m_PolyMesh.name
-      value: PolybrushMesh-3954
-      objectReference: {fileID: 0}
     - target: {fileID: 9112331673691658739, guid: a3fd2750fa650fa409e75ee4ac701606,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6477,6 +6472,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5948302063111576897}
     m_Modifications:
+    - target: {fileID: 325766363765845642, guid: 1f84a60fb1e765f4ba1d809b7d35a90e,
+        type: 3}
+      propertyPath: cargosMask.m_Bits
+      value: 4096
+      objectReference: {fileID: 0}
+    - target: {fileID: 2452610290386579719, guid: 1f84a60fb1e765f4ba1d809b7d35a90e,
+        type: 3}
+      propertyPath: carryableMask.m_Bits
+      value: 8192
+      objectReference: {fileID: 0}
     - target: {fileID: 5651057012455581085, guid: 1f84a60fb1e765f4ba1d809b7d35a90e,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -6506,6 +6511,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6214418557311329931, guid: 1f84a60fb1e765f4ba1d809b7d35a90e,
+        type: 3}
+      propertyPath: ObstaclesLayerMask.m_Bits
+      value: 7232
       objectReference: {fileID: 0}
     - target: {fileID: 6873879257955947528, guid: 1f84a60fb1e765f4ba1d809b7d35a90e,
         type: 3}
