@@ -11,7 +11,8 @@ using UnityEngine.AI;
 
 public class ThiefLevel : LevelProcessor
 {
-    [SerializeField] private int moneyForWin = 100;
+    [Header("Win Conditions")]
+    [SerializeField, Range(0f, 1f)] private float moneyPercentForWin = 1f;
     [Header("Grid")]
     [SerializeField, Min(1f)] private float gridSize = 2f;
     [SerializeField, Min(1f)] private float maxPointDistance = 1f;
@@ -21,7 +22,11 @@ public class ThiefLevel : LevelProcessor
     
     [InjectService] private ICurrencyService _currencyService;
 
-    public float Progress { get; private set; }
+    private float lootTotalPrice;
+    private LevelData _levelData;
+
+    public float ProgressTotal { get; private set; }
+    public float ProgressForWin { get; private set; }
     public IReadOnlyList<Vector3> Points { get; private set; }
     public IReadOnlyList<Character> Characters { get; private set; }
     
@@ -35,18 +40,21 @@ public class ThiefLevel : LevelProcessor
         StopLevel(data);
     }
 
-    public override LevelData GetLevelData()
+    public override LevelProcessor.LevelData GetLevelData()
     {
-        return null;
+        return _levelData;
     }
     
     private void Start()
     {
         ServiceLocator.Instance.InjectServicesInComponent(this);
+
+        _levelData = new LevelData(this);
         
         GrabCurrencyService();
         BuildNavmesh();
         GrabCharacters();
+        GrabLootTotalPrice();
     }
 
     private void OnDisable()
@@ -71,6 +79,11 @@ public class ThiefLevel : LevelProcessor
         _currencyService.SetCurrency(CurrencyType.Coins, CurrencyPlacementType.Level, 0);
         _currencyService.EventCurrencyChanged += OnCurrencyChanged;
         OnCurrencyChanged();        
+    }
+
+    private void GrabLootTotalPrice()
+    {
+        GetComponentsInChildren<Sellable>().ToList().ForEach(x => lootTotalPrice += x.Cost);
     }
 
     [ContextMenu("Build Navmesh")]
@@ -102,12 +115,31 @@ public class ThiefLevel : LevelProcessor
     
     private void OnCurrencyChanged()
     {
-        float oldProgress = Progress;
-        Progress = (float)_currencyService.GetCurrency(CurrencyType.Coins, CurrencyPlacementType.Level) / 
-                   (float)moneyForWin;
-        if (oldProgress < 1f && Progress >= 1f)
+        if (lootTotalPrice > 0)
         {
-            SendEvent(new LevelEventProgressComplete());
+            float oldProgress = ProgressForWin;
+            float currentMoney = (float)_currencyService.GetCurrency(CurrencyType.Coins, CurrencyPlacementType.Level);
+
+            ProgressTotal = currentMoney / (float)lootTotalPrice;
+            ProgressForWin = Mathf.Clamp01(ProgressTotal / moneyPercentForWin);
+
+            if (oldProgress < 1f && ProgressForWin >= 1f)
+            {
+                SendEvent(new LevelEventProgressComplete());
+            }
+        }
+    }
+    
+    public new class LevelData : LevelProcessor.LevelData
+    {
+        private readonly ThiefLevel _level;
+
+        public float ProgressForWin => _level.ProgressForWin;
+        public float ProgressTotal => _level.ProgressTotal;
+        
+        public LevelData (ThiefLevel level)
+        {
+            _level = level;
         }
     }
 }

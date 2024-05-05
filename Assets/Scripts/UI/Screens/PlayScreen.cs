@@ -8,21 +8,30 @@ using MoreMountains.TopDownEngine;
 using ProjectConstants;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class PlayScreen : UIScreen
 {
     [SerializeField] private PlayerActionButton actionButtonPrefab; 
-    [SerializeField] private RectTransform actionButtonsRoot; 
+    [SerializeField] private RectTransform actionButtonsRoot;
+    [Header("Progress")] 
+    [SerializeField] private Slider sliderTotal; 
+    [SerializeField] private Slider sliderWin; 
     
     [InjectService] private ILevelManagerService _levelService;
     [InjectService] private PlayerInputService _inputService;
 
+    private ThiefLevel.LevelData _levelData;
     private List<PlayerActionButton> _actionButtons;
 
     protected override void OnBeforeOpen(UIObject.Args args)
     {
         ServiceLocator.Instance.InjectServicesInComponent(this);
+
+        sliderTotal.value = 0f;
+        sliderWin.value = 0f;
         
+        _levelData = _levelService.GetCurrentLevelData<ThiefLevel.LevelData>();
         _inputService.ConnectPlayer();
         Character player = FindObjectsByType<Character>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).ToList()
             .Find(x => x.CharacterType == Character.CharacterTypes.Player);
@@ -43,9 +52,21 @@ public class PlayScreen : UIScreen
 
     private void Update()
     {
+        UpdateActionButtons();
+        UpdateProgress();
+    }
+
+    private void UpdateActionButtons()
+    {
         bool blockUpdate = false;
         _actionButtons.ForEach(x => blockUpdate |= x.PointerDown);
         _actionButtons.ForEach(x => x.blockUpdateUI = blockUpdate);
+    }
+
+    private void UpdateProgress()
+    {
+        sliderTotal.value = Mathf.Lerp(sliderTotal.value, _levelData.ProgressTotal, Time.deltaTime * 2f);
+        sliderWin.value = Mathf.Lerp(sliderWin.value, _levelData.ProgressForWin, Time.deltaTime * 2f);
     }
 
     public class Args : UIScreen.Args
