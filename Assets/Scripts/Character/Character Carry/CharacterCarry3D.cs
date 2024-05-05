@@ -12,6 +12,7 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
 {
     [Space(50f)] 
     [SerializeField] private float weightCapacity;
+    [SerializeField] private float maxWeightSpeedMultiplier;
     
     [Header("Find")]
     [SerializeField] private float findDistance;
@@ -34,20 +35,11 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
 
     protected int _carryAnimationParameter;
     protected const string _carryAnimationParameterName = "Carry";
-
     
     public float WeightCapacity => weightCapacity;
     public float CurrentWeight => _currentCarryables.Sum(x => x.Weight);
+    public float WeightPercent => Mathf.Clamp01(CurrentWeight / WeightCapacity);
     public PlayerAction[] Actions { get; private set; }
-
-    protected override void Initialization()
-    {
-        base.Initialization();
-        _movement = _character.FindAbility<CoreCharacterMovement>();
-        _currentCarryables = new List<Carryable>();
-        
-        BuildActions();
-    }
 
     public override void ProcessAbility()
     {
@@ -80,7 +72,7 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
 
         return null;
     }
-    
+
     public List<Carryable> DropAll()
     {
         List<Carryable> carryables = new List<Carryable>();
@@ -89,6 +81,31 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
             carryables.Add(TryDrop());
         }
         return carryables;
+    }
+
+    public override void UpdateAnimator()
+    {
+        base.UpdateAnimator();
+        MMAnimatorExtensions.UpdateAnimatorBool(_animator, _carryAnimationParameter, 
+            _currentCarryables is { Count: > 0 },
+            _character._animatorParameters, _character.RunAnimatorSanityChecks);
+    }
+
+    protected override void Initialization()
+    {
+        base.Initialization();
+        _movement = _character.FindAbility<CoreCharacterMovement>();
+        _movement.TryAddSpeedMultiplier(GetSpeedMultiplier);
+        _currentCarryables = new List<Carryable>();
+        
+        BuildActions();
+    }
+
+    protected override void InitializeAnimatorParameters()
+    {
+        base.InitializeAnimatorParameters();
+        RegisterAnimatorParameter(_carryAnimationParameterName, AnimatorControllerParameterType.Bool,
+            out _carryAnimationParameter);
     }
 
     private void FixedUpdate()
@@ -137,7 +154,7 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
     {
         return _nearestCarryable != null && AbilityAuthorized && CurrentWeight < WeightCapacity;
     }
-    
+
     private bool CanDrop()
     {
         return _currentCarryables.Count > 0;
@@ -156,18 +173,8 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
         }
     }
 
-    protected override void InitializeAnimatorParameters()
+    private float GetSpeedMultiplier()
     {
-        base.InitializeAnimatorParameters();
-        RegisterAnimatorParameter(_carryAnimationParameterName, AnimatorControllerParameterType.Bool,
-            out _carryAnimationParameter);
-    }
-
-    public override void UpdateAnimator()
-    {
-        base.UpdateAnimator();
-        MMAnimatorExtensions.UpdateAnimatorBool(_animator, _carryAnimationParameter, 
-            _currentCarryables is { Count: > 0 },
-            _character._animatorParameters, _character.RunAnimatorSanityChecks);
+        return Mathf.Lerp(1f, maxWeightSpeedMultiplier, WeightPercent);
     }
 }

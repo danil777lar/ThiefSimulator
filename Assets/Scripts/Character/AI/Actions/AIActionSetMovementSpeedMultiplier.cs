@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Larje.Core.Tools.TopDownEngine;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
@@ -7,29 +8,35 @@ using UnityEngine;
 public class AIActionSetMovementSpeedMultiplier : AIAction
 {
     [SerializeField] private float multiplier = 1f;
-    
-    private CharacterMovement _movement; 
+
+    private bool _isInState; 
     
     public override void Initialization()
     {
         base.Initialization();
-        _movement = _brain.Owner.GetComponent<CharacterMovement>();
+        CoreCharacterMovement movement = _brain.Owner.GetComponent<CoreCharacterMovement>();
+        movement.TryAddSpeedMultiplier(GetSpeedMultiplier);
     }
 
     public override void OnEnterState()
     {
         base.OnEnterState();
-        _movement.SetContextSpeedMultiplier(multiplier);
+        _isInState = true;
     }
     
     public override void OnExitState()
     {
         base.OnExitState();
-        _movement.ResetContextSpeedMultiplier();
+        _isInState = false;
     }
 
     public override void PerformAction()
     {
         
+    }
+
+    private float GetSpeedMultiplier()
+    {
+        return _isInState ? multiplier : 1f;
     }
 }
