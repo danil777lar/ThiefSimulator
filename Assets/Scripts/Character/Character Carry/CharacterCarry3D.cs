@@ -10,7 +10,9 @@ using UnityEngine;
 
 public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
 {
-    [Space(50f)]
+    [Space(50f)] 
+    [SerializeField] private float weightCapacity;
+    
     [Header("Find")]
     [SerializeField] private float findDistance;
     [SerializeField] private LayerMask carryableMask;
@@ -26,13 +28,16 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
     [SerializeField] private Sprite takeIcon;
     [SerializeField] private Sprite dropIcon;
 
-    private CoreCharacterMovement _movement;
     private Carryable _nearestCarryable;
+    private CoreCharacterMovement _movement;
     private List<Carryable> _currentCarryables;
 
     protected int _carryAnimationParameter;
     protected const string _carryAnimationParameterName = "Carry";
 
+    
+    public float WeightCapacity => weightCapacity;
+    public float CurrentWeight => _currentCarryables.Sum(x => x.Weight);
     public PlayerAction[] Actions { get; private set; }
 
     protected override void Initialization()
@@ -130,7 +135,7 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
 
     private bool CanTake()
     {
-        return _nearestCarryable != null && AbilityAuthorized;
+        return _nearestCarryable != null && AbilityAuthorized && CurrentWeight < WeightCapacity;
     }
     
     private bool CanDrop()

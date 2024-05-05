@@ -8,7 +8,7 @@ using ProjectConstants;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SellPoint : MonoBehaviour
+public class SellPoint : MonoBehaviour, ILevelEventHandler
 {
     [SerializeField] private float sellDelay;
     [SerializeField] private float sellAnimDuration;
@@ -24,6 +24,14 @@ public class SellPoint : MonoBehaviour
         
     private float _currentTime;
     private List<Sellable> _objectsToSell;
+    
+    public void OnLevelEvent(LevelEvent levelEvent)
+    {
+        if (levelEvent is LevelEventProgressComplete { Type: LevelEventProgressComplete.ProgressType.Full })
+        {
+            gameObject.SetActive(false);
+        }
+    }
 
     private void Start()
     {
@@ -31,7 +39,7 @@ public class SellPoint : MonoBehaviour
         
         _objectsToSell = new List<Sellable>();
     }
-    
+
     private void Update()
     {
         if (_objectsToSell.Count > 0)
@@ -66,7 +74,7 @@ public class SellPoint : MonoBehaviour
             }
         }
     }
-    
+
     private void OnTriggerEnter(Collider other)
     {
         Sellable sellable = other.GetComponentInParent<Sellable>();
@@ -75,7 +83,7 @@ public class SellPoint : MonoBehaviour
             _objectsToSell.Add(sellable);            
         }
     }
-    
+
     private void OnTriggerExit(Collider other)
     {
         Sellable sellable = other.GetComponentInParent<Sellable>();

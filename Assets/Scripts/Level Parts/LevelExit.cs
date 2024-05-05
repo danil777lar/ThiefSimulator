@@ -30,9 +30,8 @@ public class LevelExit : MonoBehaviour, ILevelEventHandler, ILevelStartHandler, 
     
     public void OnLevelEvent(LevelEvent levelEvent)
     {
-        if (levelEvent is LevelEventProgressComplete)
+        if (levelEvent is LevelEventProgressComplete { Type: LevelEventProgressComplete.ProgressType.Min })
         {
-            Debug.Log("LevelEventProgressComplete");
             gameObject.SetActive(true);
         }
     }

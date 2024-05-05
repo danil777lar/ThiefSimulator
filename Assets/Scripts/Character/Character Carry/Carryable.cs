@@ -7,6 +7,8 @@ using Random = UnityEngine.Random;
 
 public class Carryable : MonoBehaviour
 {
+    [SerializeField] private float weight;
+    [Space]
     [SerializeField] private CarryableConfig config;
     [SerializeField] private Transform topPoint;
 
@@ -22,6 +24,7 @@ public class Carryable : MonoBehaviour
     private Transform _attachPoint;
 
     public bool CanBeTaken => _attachPoint == null && !_blockTaking;
+    public float Weight => weight;
     public Rigidbody Rigidbody => _rb;
     public Transform TopPoint => topPoint;
 

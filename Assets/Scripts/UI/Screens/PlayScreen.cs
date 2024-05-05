@@ -17,10 +17,13 @@ public class PlayScreen : UIScreen
     [Header("Progress")] 
     [SerializeField] private Slider sliderTotal; 
     [SerializeField] private Slider sliderWin; 
+    [SerializeField] private Slider sliderWeight; 
     
     [InjectService] private ILevelManagerService _levelService;
     [InjectService] private PlayerInputService _inputService;
 
+    private Character _player;
+    private CharacterCarry3D _playerCarry;
     private ThiefLevel.LevelData _levelData;
     private List<PlayerActionButton> _actionButtons;
 
@@ -33,13 +36,16 @@ public class PlayScreen : UIScreen
         
         _levelData = _levelService.GetCurrentLevelData<ThiefLevel.LevelData>();
         _inputService.ConnectPlayer();
-        Character player = FindObjectsByType<Character>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).ToList()
+        
+        _player = FindObjectsByType<Character>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).ToList()
             .Find(x => x.CharacterType == Character.CharacterTypes.Player);
-        if (player != null)
+        _playerCarry = _player.FindAbility<CharacterCarry3D>();
+        
+        if (_player != null)
         {
             actionButtonsRoot.MMDestroyAllChildren();
             _actionButtons = new List<PlayerActionButton>();
-            IPlayerActionSource[] actionSources = player.GetComponents<IPlayerActionSource>();
+            IPlayerActionSource[] actionSources = _player.GetComponents<IPlayerActionSource>();
             foreach (IPlayerActionSource source in actionSources)
             {
                 foreach (PlayerAction playerAction in source.Actions)
@@ -54,6 +60,7 @@ public class PlayScreen : UIScreen
     {
         UpdateActionButtons();
         UpdateProgress();
+        UpdateCarryWeight();
     }
 
     private void UpdateActionButtons()
@@ -65,8 +72,14 @@ public class PlayScreen : UIScreen
 
     private void UpdateProgress()
     {
-        sliderTotal.value = Mathf.Lerp(sliderTotal.value, _levelData.ProgressTotal, Time.deltaTime * 2f);
-        sliderWin.value = Mathf.Lerp(sliderWin.value, _levelData.ProgressForWin, Time.deltaTime * 2f);
+        sliderTotal.value = Mathf.Lerp(sliderTotal.value, _levelData.ProgressTotal, Time.deltaTime * 5f);
+        sliderWin.value = Mathf.Lerp(sliderWin.value, _levelData.ProgressForWin, Time.deltaTime * 5f);
+    }
+
+    private void UpdateCarryWeight()
+    {
+        float value = _playerCarry.CurrentWeight / _playerCarry.WeightCapacity;
+        sliderWeight.value = Mathf.Lerp(sliderWeight.value, value, Time.deltaTime * 5f);
     }
 
     public class Args : UIScreen.Args
