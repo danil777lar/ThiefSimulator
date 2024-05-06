@@ -11,6 +11,8 @@ using UnityEngine.AI;
 
 public class ThiefLevel : LevelProcessor
 {
+    [Header("Base")] 
+    [SerializeField] private float startDelay;
     [Header("Win Conditions")]
     [SerializeField, Range(0f, 1f)] private float moneyPercentForWin = 1f;
     [Header("Grid")]
@@ -23,6 +25,7 @@ public class ThiefLevel : LevelProcessor
     [InjectService] private ICurrencyService _currencyService;
 
     private float lootTotalPrice;
+    private bool _isStarting;
     private LevelData _levelData;
 
     public float ProgressFull { get; private set; }
@@ -32,7 +35,11 @@ public class ThiefLevel : LevelProcessor
     
     public override void TryStartLevel(StartData data)
     {
-        StartLevel(data);
+        if (!_isStarting && !IsLevelPlaying)
+        {
+            SendEvent(new LevelEventPreStart(startDelay));
+            StartCoroutine(StartDelayCo(data));
+        }
     }
 
     public override void TryStopLevel(StopData data)
@@ -134,6 +141,16 @@ public class ThiefLevel : LevelProcessor
                 SendEvent(new LevelEventProgressComplete(LevelEventProgressComplete.ProgressType.Min));
             }
         }
+    }
+
+    private IEnumerator StartDelayCo(StartData data)
+    {
+        _isStarting = true;
+        
+        yield return new WaitForSeconds(startDelay);
+        
+        StartLevel(data);
+        _isStarting = false;
     }
     
     public new class LevelData : LevelProcessor.LevelData

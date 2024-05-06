@@ -5,7 +5,7 @@ using Larje.Core.Services.UI;
 using ProjectConstants;
 using UnityEngine;
 
-public class ThiefLevelUIMediator : MonoBehaviour, ILevelStartHandler, ILevelEndHandler
+public class ThiefLevelUIMediator : MonoBehaviour, ILevelStartHandler, ILevelEndHandler, ILevelEventHandler
 {
     [InjectService] private UIService _uiService;
     
@@ -13,10 +13,18 @@ public class ThiefLevelUIMediator : MonoBehaviour, ILevelStartHandler, ILevelEnd
     {
         ServiceLocator.Instance.InjectServicesInComponent(this);
     }
-    
+
+    public void OnLevelEvent(LevelEvent levelEvent)
+    {
+        if (levelEvent is LevelEventPreStart)
+        {
+            _uiService.GetProcessor<UIScreenProcessor>().OpenScreen(new PlayScreen.Args());    
+        }
+    }
+
     public void OnLevelStarted(LevelProcessor.StartData data)
     { 
-        _uiService.GetProcessor<UIScreenProcessor>().OpenScreen(new PlayScreen.Args());
+        
     }
 
     public void OnLevelEnded(LevelProcessor.StopData data)

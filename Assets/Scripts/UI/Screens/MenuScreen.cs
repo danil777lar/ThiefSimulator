@@ -18,6 +18,11 @@ public class MenuScreen : UIScreen
         _inputService.EventPointerDown += OnPointerDown;
     }
 
+    protected override void OnBeforeClose()
+    {
+        _inputService.EventPointerDown -= OnPointerDown;
+    }
+
     private void OnPointerDown()
     {
         _levelManagerService.TryStartCurrentLevel(new LevelProcessor.StartData(LevelStartType.Start));

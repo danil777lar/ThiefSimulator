@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Larje.Core.Tools.TopDownEngine;
+using MoreMountains.TopDownEngine;
 using UnityEngine;
 
 public class CharacterStepSound : MonoBehaviour
@@ -58,14 +59,17 @@ public class CharacterStepSound : MonoBehaviour
 
     private void SpawnSound()
     {
-        float amplitude = baseAmplitude * amplitudeBySpeed.Evaluate(_movement.ActualSpeedPercent);
-        if (amplitude < minAmplitude)
+        if (_movement.AbilityAuthorized && _movement.AbilityPermitted)
         {
-            return;
+            float amplitude = baseAmplitude * amplitudeBySpeed.Evaluate(_movement.ActualSpeedPercent);
+            if (amplitude < minAmplitude)
+            {
+                return;
+            }
+
+            SoundTransmitter sound = Instantiate(soundPrefab, transform);
+            sound.transform.localPosition = Vector3.zero;
+            sound.Init(amplitude);
         }
-        
-        SoundTransmitter sound = Instantiate(soundPrefab, transform);
-        sound.transform.localPosition = Vector3.zero;
-        sound.Init(amplitude);
     }
 }

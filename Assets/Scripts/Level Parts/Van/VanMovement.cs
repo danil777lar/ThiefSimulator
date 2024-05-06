@@ -2,14 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using Dreamteck.Splines;
+using Larje.Core.Services;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class VanMovement : MonoBehaviour
+public class VanMovement : MonoBehaviour, ILevelStartHandler, ILevelEndHandler, ILevelEventHandler
 {
     [Header("Speed")]
     [SerializeField] private float speed = 10f;
@@ -28,8 +30,14 @@ public class VanMovement : MonoBehaviour
     [SerializeField] private float boxcastDistance = 3f;
     [SerializeField] private LayerMask boxcastMask;
 
+    [Header("Start Animation")] 
+    [SerializeField] private float startAnimationDistance = 20f;
+    [SerializeField] private float startAnimationDurationModifier = 1f;
+
     private bool _move;
+    private bool _startedAnimationComplete;
     private float _currentRotationSpeed;
+    private Vector3 _startPosition;
     private Vector3 _currentVelocity;
     private Vector3 _currentDirection;
     private Vector3 _targetPosition;
@@ -45,6 +53,31 @@ public class VanMovement : MonoBehaviour
 
     public event Action EventStartMove; 
     public event Action EventStopMove; 
+    public event Action EventStartAnimationComplete; 
+    
+    public void OnLevelStarted(LevelProcessor.StartData data)
+    {
+        
+    }
+
+    public void OnLevelEnded(LevelProcessor.StopData data)
+    {
+        
+    }
+    
+    public void OnLevelEvent(LevelEvent levelEvent)
+    {
+        if (levelEvent is LevelEventPreStart levelEventPreStart)
+        {
+            transform.DOMove(_startPosition, levelEventPreStart.StartDelay * startAnimationDurationModifier)
+                .SetEase(Ease.OutBack)
+                .OnComplete(() =>
+                {
+                    _startedAnimationComplete = true;
+                    EventStartAnimationComplete?.Invoke();
+                });    
+        }        
+    }
     
     private void Start()
     {
@@ -52,13 +85,20 @@ public class VanMovement : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         _collider = GetComponent<BoxCollider>();
         _player = FindObjectsOfType<Character>().ToList().Find(x => x.CharacterType == Character.CharacterTypes.Player);
+
+        _startPosition = transform.position;
+        transform.position -= transform.forward * startAnimationDistance;
     }
     
     private void FixedUpdate()
     {
-        FindTargetPosition();
-        Rotate();
-        Move();
+
+        if (_startedAnimationComplete)
+        {
+            FindTargetPosition();
+            Rotate();
+            Move();
+        }
     }
 
     private void OnDrawGizmos()

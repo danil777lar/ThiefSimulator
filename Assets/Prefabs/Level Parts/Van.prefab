@@ -21205,6 +21205,8 @@ MonoBehaviour:
   boxcastMask:
     serializedVersion: 2
     m_Bits: 257
+  startAnimationDistance: 30
+  startAnimationDurationModifier: 1
 --- !u!114 &1578217906715086254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21355,21 +21357,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4034014580540622654, guid: a9de29f50cc0e0b45973db80f739504a,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 4034014580540622654, guid: a9de29f50cc0e0b45973db80f739504a,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 4034014580540622654, guid: a9de29f50cc0e0b45973db80f739504a,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 4034014580540622654, guid: a9de29f50cc0e0b45973db80f739504a,
-        type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
       objectReference: {fileID: 0}
@@ -21418,20 +21405,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4034014580540622654, guid: a9de29f50cc0e0b45973db80f739504a,
-        type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4842773117163288557, guid: a9de29f50cc0e0b45973db80f739504a,
         type: 3}
       propertyPath: m_Name
-      value: Level Exit
-      objectReference: {fileID: 0}
-    - target: {fileID: 4842773117163288557, guid: a9de29f50cc0e0b45973db80f739504a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      value: Player Spawner
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
