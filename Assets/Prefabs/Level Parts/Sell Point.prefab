@@ -124,10 +124,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e3bc3c1b189b8c4695b5f27f01fc1f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sellDelay: 0.5
-  sellAnimDuration: 0.75
-  sellProgressUi: {fileID: 1760797469972512395}
+  sellDelay: 0.35
+  sellAnimDuration: 1
+  sellEase: 8
   trajectory: {fileID: 5930504195480795973}
+  sellProgressUi: {fileID: 1760797469972512395}
 --- !u!114 &9014336980488743272
 MonoBehaviour:
   m_ObjectHideFlags: 0

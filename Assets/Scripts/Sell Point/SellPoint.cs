@@ -13,8 +13,10 @@ public class SellPoint : MonoBehaviour, ILevelEventHandler
 {
     [SerializeField] private float sellDelay;
     [SerializeField] private float sellAnimDuration;
-    [SerializeField] private Image sellProgressUi;
+    [SerializeField] private Ease sellEase;
     [SerializeField] private SplineComputer trajectory;
+    [Space]
+    [SerializeField] private Image sellProgressUi;
 
     [InjectService] private ICurrencyService _currencyService;
         
@@ -86,6 +88,7 @@ public class SellPoint : MonoBehaviour, ILevelEventHandler
                     x => sellable.transform.position =
                         EvaluateTrajectory(startPoint, x), 
                     1f, sellAnimDuration)
+                .SetEase(sellEase)
                 .OnComplete(() =>
                 {
                     Destroy(sellable.gameObject);
