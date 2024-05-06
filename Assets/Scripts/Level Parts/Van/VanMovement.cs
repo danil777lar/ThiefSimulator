@@ -69,12 +69,14 @@ public class VanMovement : MonoBehaviour, ILevelStartHandler, ILevelEndHandler, 
     {
         if (levelEvent is LevelEventPreStart levelEventPreStart)
         {
+            EventStartMove?.Invoke();
             transform.DOMove(_startPosition, levelEventPreStart.StartDelay * startAnimationDurationModifier)
                 .SetEase(Ease.OutBack)
                 .OnComplete(() =>
                 {
                     _startedAnimationComplete = true;
                     EventStartAnimationComplete?.Invoke();
+                    EventStopMove?.Invoke();
                 });    
         }        
     }

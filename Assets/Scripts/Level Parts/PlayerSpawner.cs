@@ -84,13 +84,13 @@ public class PlayerSpawner : MonoBehaviour, ILevelEventHandler, ILevelStartHandl
     private void GrabPlayer()
     {
         _player = playerRoot.GetComponentInChildren<CharacterSpawn>();
-        _player.SetSpawningState(playerRoot);
+        _player.SetSpawningState(playerRoot, CharacterSpawn.SpawningDirection.Out);
         playerRoot.position = pointIn.position;
     }
 
     private void Spawn()
     {
-        playerRoot.DOLocalMove(Vector3.up * pointIn.localPosition.y, 0.5f)
+        playerRoot.DOLocalMove(Vector3.up * pointIn.localPosition.y, 0.25f)
             .OnComplete(() =>
             {
                 playerRoot.DOLocalMove(Vector3.zero, 0.25f)
