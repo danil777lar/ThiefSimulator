@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using Dreamteck.Splines;
 using Larje.Core.Services;
 using ProjectConstants;
 using UnityEngine;
@@ -13,12 +14,7 @@ public class SellPoint : MonoBehaviour, ILevelEventHandler
     [SerializeField] private float sellDelay;
     [SerializeField] private float sellAnimDuration;
     [SerializeField] private Image sellProgressUi;
-    [Header("Trajectory")] 
-    [SerializeField] private Transform middlePoint;
-    [SerializeField] private Transform finishPoint;
-    [Header("Gizmos")] 
-    [SerializeField] private Color gizmosColor;
-    [SerializeField, Min(0.05f)] private float gizmosStep;
+    [SerializeField] private SplineComputer trajectory;
 
     [InjectService] private ICurrencyService _currencyService;
         
@@ -59,22 +55,6 @@ public class SellPoint : MonoBehaviour, ILevelEventHandler
         sellProgressUi.fillAmount = _currentTime / sellDelay;
     }
 
-    private void OnDrawGizmos()
-    {
-        if (middlePoint != null && finishPoint != null)
-        {
-            Gizmos.color = gizmosColor;
-            Vector3 lastPoint = transform.position;
-            float step = Mathf.Max(0.05f, gizmosStep);
-            for (float t = 0f; t <= 1f; t += step)
-            {
-                Vector3 point = EvaluateTrajectory(transform.position, middlePoint.position, finishPoint.position, t);
-                Gizmos.DrawLine(lastPoint, point);
-                lastPoint = point;
-            }
-        }
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         Sellable sellable = other.GetComponentInParent<Sellable>();
@@ -104,7 +84,7 @@ public class SellPoint : MonoBehaviour, ILevelEventHandler
             _currencyService.AddCurrency(CurrencyType.Coins, CurrencyPlacementType.Level, sellable.Cost);
             DOTween.To(() => 0f, 
                     x => sellable.transform.position =
-                        EvaluateTrajectory(startPoint, middlePoint.position, finishPoint.position, x), 
+                        EvaluateTrajectory(startPoint, x), 
                     1f, sellAnimDuration)
                 .OnComplete(() =>
                 {
@@ -113,10 +93,8 @@ public class SellPoint : MonoBehaviour, ILevelEventHandler
         }
     }
 
-    private Vector3 EvaluateTrajectory(Vector3 a, Vector3 b, Vector3 c, float t)
+    private Vector3 EvaluateTrajectory(Vector3 startPoint, float t)
     {
-        Vector3 ab = Vector3.Lerp(a, b, t);
-        Vector3 bc = Vector3.Lerp(b, c, t);
-        return Vector3.Lerp(ab, bc, t);
+        return Vector3.Lerp(startPoint, trajectory.EvaluatePosition(t), t * 10f);
     }
 }

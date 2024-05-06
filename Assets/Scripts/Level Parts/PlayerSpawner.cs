@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Dreamteck.Splines;
 using Larje.Core.Services;
 using MoreMountains.TopDownEngine;
 using ProjectConstants;
@@ -14,7 +15,7 @@ public class PlayerSpawner : MonoBehaviour, ILevelEventHandler, ILevelStartHandl
     
     [Header("Player")] 
     [SerializeField] private Transform playerRoot;
-    [SerializeField] private Transform pointIn;
+    [SerializeField] private SplineComputer trajectory;
     
     [Header("UI")]
     [SerializeField] private GameObject uiRoot;
@@ -25,6 +26,7 @@ public class PlayerSpawner : MonoBehaviour, ILevelEventHandler, ILevelStartHandl
     private bool _levelPlaying;
     private bool _triggerActive;
     private bool _playerTouched;
+    private bool _despawning;
     private float _currentTime;
     private CharacterSpawn _player;
     private VanMovement _vanMovement;
@@ -58,12 +60,12 @@ public class PlayerSpawner : MonoBehaviour, ILevelEventHandler, ILevelStartHandl
     
     private void Update()
     {
-        if (_playerTouched && _levelPlaying && _triggerActive)
+        if (!_despawning && _playerTouched && _levelPlaying && _triggerActive)
         {
             _currentTime += Time.deltaTime;
             if (_currentTime >= delay)
             {
-                Win();
+                Despawn();
                 _currentTime = Mathf.Min(_currentTime, delay);
             }
         }
@@ -85,22 +87,21 @@ public class PlayerSpawner : MonoBehaviour, ILevelEventHandler, ILevelStartHandl
     {
         _player = playerRoot.GetComponentInChildren<CharacterSpawn>();
         _player.SetSpawningState(playerRoot, CharacterSpawn.SpawningDirection.Out);
-        playerRoot.position = pointIn.position;
+        playerRoot.position = EvaluateTrajectory(1f);
     }
 
     private void Spawn()
     {
-        playerRoot.DOLocalMove(Vector3.up * pointIn.localPosition.y, 0.25f)
-            .OnComplete(() =>
-            {
-                playerRoot.DOLocalMove(Vector3.zero, 0.25f)
-                    .OnComplete(() => _player.SetNormalState());
-            });
+        DOTween.To(() => 1f, (x) => playerRoot.position = EvaluateTrajectory(x), 0f, 0.5f)
+            .OnComplete(() =>_player.SetNormalState());
     }
 
     private void Despawn()
     {
-        
+        _despawning = true;
+        _player.SetSpawningState(playerRoot, CharacterSpawn.SpawningDirection.In);
+        DOTween.To(() => 0f, (x) => playerRoot.position = EvaluateTrajectory(x), 1f, 0.5f)
+            .OnComplete(Win);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -128,5 +129,10 @@ public class PlayerSpawner : MonoBehaviour, ILevelEventHandler, ILevelStartHandl
     private void Win()
     {
         _levelService.TryStopCurrentLevel(new LevelProcessor.StopData(LevelStopType.Win));
+    }
+
+    private Vector3 EvaluateTrajectory(float value)
+    {
+        return trajectory.EvaluatePosition(value);
     }
 }
