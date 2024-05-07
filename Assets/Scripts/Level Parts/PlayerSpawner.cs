@@ -13,6 +13,11 @@ public class PlayerSpawner : MonoBehaviour, ILevelEventHandler, ILevelStartHandl
 {
     [SerializeField] private float delay;
     
+    [Header("Animation")]
+    [SerializeField] private float spawnAnimDuration;
+    [SerializeField] private float spawnAnimDelay;
+    [SerializeField] private Ease spawnAnimEase;
+    
     [Header("Player")] 
     [SerializeField] private Transform playerRoot;
     [SerializeField] private SplineComputer trajectory;
@@ -92,16 +97,27 @@ public class PlayerSpawner : MonoBehaviour, ILevelEventHandler, ILevelStartHandl
 
     private void Spawn()
     {
-        DOTween.To(() => 1f, (x) => playerRoot.position = EvaluateTrajectory(x), 0f, 0.5f)
-            .OnComplete(() =>_player.SetNormalState());
+        this.DOKill();
+        Sequence seq = DOTween.Sequence();
+        seq.AppendInterval(spawnAnimDelay);
+        seq.Append(DOTween.To(() => 1f, (x) => playerRoot.position = EvaluateTrajectory(x), 0f, spawnAnimDuration)
+            .SetEase(spawnAnimEase)
+            .SetTarget(this)
+            .OnComplete(() =>_player.SetNormalState()));
     }
 
     private void Despawn()
     {
         _despawning = true;
         _player.SetSpawningState(playerRoot, CharacterSpawn.SpawningDirection.In);
-        DOTween.To(() => 0f, (x) => playerRoot.position = EvaluateTrajectory(x), 1f, 0.5f)
-            .OnComplete(Win);
+        
+        this.DOKill();
+        Sequence seq = DOTween.Sequence();
+        seq.AppendInterval(spawnAnimDelay);
+        seq.Append(DOTween.To(() => 0f, (x) => playerRoot.position = EvaluateTrajectory(x), 1f, spawnAnimDuration)
+            .SetEase(spawnAnimEase)
+            .SetTarget(this)
+            .OnComplete(Win));
     }
 
     private void OnTriggerEnter(Collider other)

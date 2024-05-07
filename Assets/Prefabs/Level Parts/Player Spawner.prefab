@@ -553,6 +553,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 2
+  spawnAnimDuration: 0.5
+  spawnAnimDelay: 0.25
+  spawnAnimEase: 1
   playerRoot: {fileID: 3330136377218286960}
   trajectory: {fileID: 2434402041845937664}
   uiRoot: {fileID: 3685706740625180993}

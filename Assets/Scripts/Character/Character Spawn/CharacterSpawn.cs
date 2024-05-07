@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Larje.Core.Services;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
@@ -7,6 +8,8 @@ using UnityEngine;
 
 public class CharacterSpawn : CharacterAbility
 {
+    [SerializeField] private float fitAnimationDuration = 0.5f;
+    
     private bool _isSpawning;
     private SpawningDirection _direction;
     private TopDownController _topDownController;
@@ -27,6 +30,10 @@ public class CharacterSpawn : CharacterAbility
         _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Frozen);
         _characterController.enabled = false;
         transform.SetParent(parent);
+
+        transform.DOLocalMove(Vector3.zero, fitAnimationDuration);
+        transform.DOLocalRotate(Vector3.up * (direction == SpawningDirection.Out ? 180f : 0f), fitAnimationDuration);
+        _character.CharacterModel.transform.DOLocalRotate(Vector3.zero, fitAnimationDuration);
     }
 
     public void SetNormalState()
