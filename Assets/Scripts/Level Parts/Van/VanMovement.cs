@@ -7,6 +7,7 @@ using Dreamteck.Splines;
 using Larje.Core.Services;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
+using ProjectConstants;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -36,6 +37,7 @@ public class VanMovement : MonoBehaviour, ILevelStartHandler, ILevelEndHandler, 
 
     private bool _move;
     private bool _startedAnimationComplete;
+    private bool _winAnimationPlaying;
     private float _currentRotationSpeed;
     private Vector3 _startPosition;
     private Vector3 _currentVelocity;
@@ -62,7 +64,10 @@ public class VanMovement : MonoBehaviour, ILevelStartHandler, ILevelEndHandler, 
 
     public void OnLevelEnded(LevelProcessor.StopData data)
     {
-        
+        if (data.StopType == LevelStopType.Win)
+        {
+            _winAnimationPlaying = true;
+        }
     }
     
     public void OnLevelEvent(LevelEvent levelEvent)
@@ -94,7 +99,6 @@ public class VanMovement : MonoBehaviour, ILevelStartHandler, ILevelEndHandler, 
     
     private void FixedUpdate()
     {
-
         if (_startedAnimationComplete)
         {
             FindTargetPosition();
@@ -111,15 +115,9 @@ public class VanMovement : MonoBehaviour, ILevelStartHandler, ILevelEndHandler, 
 
     private void FindTargetPosition()
     {
-        Vector3 playerDirection = PlayerPoint - TrajectoryCenter;
-        Vector3 selfDirection = _splineComputer.Project(transform.position).position - TrajectoryCenter;
-        float angle = Vector3.SignedAngle(playerDirection, selfDirection, Vector3.up);
-        float angleDelta = 20f * (angle > 0f ? -1f : 1f);
+        _targetPosition = _winAnimationPlaying ? GetTargetPositionWin() : GetTargetPositionDefault();
+        float distance = Vector3.Distance(transform.position, _winAnimationPlaying ? _targetPosition : PlayerPoint); 
         
-        selfDirection = Quaternion.Euler(Vector3.up * angleDelta) * selfDirection;
-        _targetPosition = _splineComputer.Project(TrajectoryCenter + (selfDirection.normalized * 100f)).position;
-
-        float distance = Vector3.Distance(transform.position, PlayerPoint); 
         if (_move && distance <= stopMoveDistance)
         {
             _move = false;
@@ -131,6 +129,23 @@ public class VanMovement : MonoBehaviour, ILevelStartHandler, ILevelEndHandler, 
             _move = true;
             EventStartMove?.Invoke();
         }
+    }
+
+    private Vector3 GetTargetPositionDefault()
+    {
+        Vector3 playerDirection = PlayerPoint - TrajectoryCenter;
+        Vector3 selfDirection = _splineComputer.Project(transform.position).position - TrajectoryCenter;
+        float angle = Vector3.SignedAngle(playerDirection, selfDirection, Vector3.up);
+        float angleDelta = 20f * (angle > 0f ? -1f : 1f);
+        
+        selfDirection = Quaternion.Euler(Vector3.up * angleDelta) * selfDirection;
+        return _splineComputer.Project(TrajectoryCenter + (selfDirection.normalized * 100f)).position;        
+    }
+
+    private Vector3 GetTargetPositionWin()
+    {
+        Vector3 direction = transform.position - TrajectoryCenter;
+        return TrajectoryCenter + direction.normalized * 100f;
     }
 
     private void Rotate()
