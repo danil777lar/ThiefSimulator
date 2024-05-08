@@ -21,12 +21,15 @@ public class LookIK : MonoBehaviour
     
     private void Update()
     {
-        _weight = Mathf.Lerp(_weight, _orientation.PermitLook ? 1f : 0f, Time.deltaTime * weightChangeSharpness);
+        if (_orientation)
+        {
+            _weight = Mathf.Lerp(_weight, _orientation.PermitLook ? 1f : 0f, Time.deltaTime * weightChangeSharpness);
+        }
     }
     
     private void OnAnimatorIK(int layerIndex)
     {
-        if (_animator)
+        if (_animator && _orientation)
         {
             _animator.SetLookAtWeight(_weight);
             Vector3 lookPosition = transform.position;
