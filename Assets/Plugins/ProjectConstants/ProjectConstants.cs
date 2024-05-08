@@ -56,6 +56,7 @@ namespace ProjectConstants
 		Play = 4,
 		Win = 8,
 		Fail = 16,
+		Shop = 32,
 	}
 
 	[Flags]
@@ -66,6 +67,7 @@ namespace ProjectConstants
 		Play = 4,
 		Win = 8,
 		Fail = 16,
+		Shop = 32,
 	}
 
 	public enum UIPopupType

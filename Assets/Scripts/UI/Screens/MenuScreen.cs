@@ -5,9 +5,13 @@ using Larje.Core.Services.UI;
 using ProjectConstants;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class MenuScreen : UIScreen
 {
+    [SerializeField] private Button shopButton; 
+    [SerializeField] private Button settingsButton; 
+    
     [InjectService] private ILevelManagerService _levelManagerService;
     [InjectService] private UIService _uiService;
     [InjectService] private PlayerInputService _inputService;
@@ -16,6 +20,9 @@ public class MenuScreen : UIScreen
     {
         ServiceLocator.Instance.InjectServicesInComponent(this);
         _inputService.EventPointerDown += OnPointerDown;
+
+        shopButton.onClick.AddListener(OnShopButtonClicked);
+        settingsButton.onClick.AddListener(OnSettingsButtonClicked);
     }
 
     protected override void OnBeforeClose()
@@ -23,6 +30,16 @@ public class MenuScreen : UIScreen
         _inputService.EventPointerDown -= OnPointerDown;
     }
 
+    private void OnShopButtonClicked()
+    {
+        _uiService.GetProcessor<UIScreenProcessor>().OpenScreen(new ShopScreen.Args());
+    }
+    
+    private void OnSettingsButtonClicked()
+    {
+        //_uiService.GetProcessor<UIPopupProcessor>().OpenPopup();
+    }
+    
     private void OnPointerDown()
     {
         _levelManagerService.TryStartCurrentLevel(new LevelProcessor.StartData(LevelStartType.Start));

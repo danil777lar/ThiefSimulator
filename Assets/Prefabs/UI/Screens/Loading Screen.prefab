@@ -55,6 +55,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useDeviceBackButton: 1
   blockNextDeviceBackButtonInvokes: 1
+  focusTarget: 1
   <ClearHistoryOnOpen>k__BackingField: 1
   <ScreenType>k__BackingField: 1
   usualLoadingDuration: 1
@@ -397,7 +398,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useForceDelay: 0
   forceDelay: 0
-  _eventType: -1
+  _eventType: 10
 --- !u!114 &2081497396152790809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -497,8 +498,8 @@ MonoBehaviour:
   InitializationMode: 1
   AutoInitialization: 1
   SafeMode: 3
-  Direction: 0
-  AutoChangeDirectionOnEnd: 1
+  Direction: 1
+  AutoChangeDirectionOnEnd: 0
   AutoPlayOnStart: 0
   AutoPlayOnEnable: 0
   ForceTimescaleMode: 0
@@ -650,7 +651,7 @@ MonoBehaviour:
         Duration: 0.25
         StartsOff: 0
         EndsOff: 0
-        RelativeValues: 1
+        RelativeValues: 0
         AllowAdditivePlays: 0
         DisableOnStop: 0
         OnlyPlayIfTargetIsActive: 0

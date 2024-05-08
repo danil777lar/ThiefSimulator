@@ -702,7 +702,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useForceDelay: 0
   forceDelay: 0
-  _eventType: -1
+  _eventType: 15
 --- !u!114 &2081497396152790809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -955,7 +955,7 @@ MonoBehaviour:
         Duration: 0.25
         StartsOff: 0
         EndsOff: 0
-        RelativeValues: 1
+        RelativeValues: 0
         AllowAdditivePlays: 0
         DisableOnStop: 0
         OnlyPlayIfTargetIsActive: 0
