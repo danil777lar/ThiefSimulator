@@ -118,6 +118,11 @@ PrefabInstance:
       propertyPath: Acceleration
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3044173946580402551, guid: 6df4af2efef53044688493cd7740b964,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4110898182002299340, guid: 6df4af2efef53044688493cd7740b964,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -184,6 +189,11 @@ PrefabInstance:
       propertyPath: targetMask.m_Bits
       value: 1024
       objectReference: {fileID: 0}
+    - target: {fileID: 6429352445081443009, guid: 6df4af2efef53044688493cd7740b964,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 463e5bd2f28bf15448245e5b84e653d0, type: 2}
     - target: {fileID: 6615307867351138231, guid: 6df4af2efef53044688493cd7740b964,
         type: 3}
       propertyPath: PlayerID
@@ -204,6 +214,16 @@ PrefabInstance:
       propertyPath: AdditionalAbilityNodes.Array.data[0]
       value: 
       objectReference: {fileID: 4813206059263425285}
+    - target: {fileID: 6727776696417280242, guid: 6df4af2efef53044688493cd7740b964,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9035603896670126138, guid: 6df4af2efef53044688493cd7740b964,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
