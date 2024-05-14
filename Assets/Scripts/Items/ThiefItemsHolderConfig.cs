@@ -7,6 +7,6 @@ using UnityEngine;
 public class ThiefItemsHolderConfig : ItemsHolderConfig
 {
     [SerializeField] private ThiefItem[] items;
-    
-    public override Item[] Items { get; }
+
+    public override Item[] Items => items;
 }

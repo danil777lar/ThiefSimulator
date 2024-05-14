@@ -355,9 +355,10 @@ namespace MoreMountains.TopDownEngine
 		protected virtual void MoveCharacterController()
 		{
 			GroundNormal.x = GroundNormal.y = GroundNormal.z = 0f;
-
-			_collisionFlags = _characterController.Move(_motion); // controller move
-
+			if (_characterController.enabled)
+			{
+				_collisionFlags = _characterController.Move(_motion); // controller move
+			}
 			_lastHitPoint = _hitPoint;
 			_lastGroundNormal = GroundNormal;
 		}
