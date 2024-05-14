@@ -93,6 +93,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 694957863698764490, guid: 6df4af2efef53044688493cd7740b964,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1230887134683089601, guid: 6df4af2efef53044688493cd7740b964,
         type: 3}
       propertyPath: minRotationSpeed
@@ -183,6 +188,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5649675171474137973, guid: 6df4af2efef53044688493cd7740b964,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5912758571417681413, guid: 6df4af2efef53044688493cd7740b964,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -203,6 +213,11 @@ PrefabInstance:
         type: 3}
       propertyPath: targetMask.m_Bits
       value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 6281996500881615432, guid: 6df4af2efef53044688493cd7740b964,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6387586988409844926, guid: 6df4af2efef53044688493cd7740b964,
         type: 3}

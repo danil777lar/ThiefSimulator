@@ -87,4 +87,19 @@ namespace ProjectConstants
 		LockMiniGame = 2,
 	}
 
+	public enum ItemType
+	{
+		Hats = 1,
+		Jackets = 2,
+		Pants = 4,
+	}
+
+	[Flags]
+	public enum ItemTypes
+	{
+		Hats = 1,
+		Jackets = 2,
+		Pants = 4,
+	}
+
 }
