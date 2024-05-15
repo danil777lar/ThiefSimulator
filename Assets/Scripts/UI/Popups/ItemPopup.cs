@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Larje.Core.Services;
@@ -14,6 +15,7 @@ public class ItemPopup : UIPopup
     [Header("Buttons")]
     [SerializeField] private Button closeButton;
     [SerializeField] private Button equipButton;
+    [SerializeField] private Button removeButton;
 
     [InjectService] private IItemHolderService _itemHolderService;
 
@@ -32,12 +34,36 @@ public class ItemPopup : UIPopup
         
         closeButton.onClick.AddListener(Close);
         equipButton.onClick.AddListener(OnEquipButtonClicked);   
+        removeButton.onClick.AddListener(OnRemoveButtonClicked);
+        
+        _itemHolderService.EventCurrentItemChanged += UpdateUI;
+        UpdateUI();
+    }
+
+    private void OnDestroy()
+    {
+        _itemHolderService.EventCurrentItemChanged -= UpdateUI;
+    }
+
+    private void UpdateUI()
+    {
+        bool isItemEquip = _itemHolderService.TryGetCurrentItem(out Item currentItem, _args.ItemType) 
+                           && currentItem.Name == _args.Item.Name;
+        
+        equipButton.gameObject.SetActive(!isItemEquip);
+        removeButton.gameObject.SetActive(isItemEquip);
     }
     
     private void OnEquipButtonClicked()
     {
         _itemHolderService.UnlockItem(_args.ItemType, _args.Item.Name);
         _itemHolderService.SetCurrentItem(_args.ItemType, _args.Item.Name);
+        Close();
+    }
+    
+    private void OnRemoveButtonClicked()
+    {
+        _itemHolderService.SetCurrentItem(_args.ItemType, string.Empty);
         Close();
     }
 
