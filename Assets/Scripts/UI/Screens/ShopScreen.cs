@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using DG.Tweening;
 using Larje.Core.Services;
 using Larje.Core.Services.UI;
 using MoreMountains.Tools;
@@ -12,7 +14,11 @@ public class ShopScreen : UIScreen
 {
     [Space(40f)] 
     [SerializeField] private Button exitButton;
+    
+    [Header("Tabs")]
     [SerializeField] private List<ItemTypeTab> tabs;
+    [SerializeField] private RectTransform tabsFocus;
+    [SerializeField] private float tabsFocusAnimaDuration = 0.5f;
 
     [Header("Item Buttons")] 
     [SerializeField] private RectTransform itemButtonsRoot;
@@ -33,21 +39,44 @@ public class ShopScreen : UIScreen
         
         exitButton.onClick.AddListener(OnExitButtonClicked);
 
-        SubscribeTabs();
         SetPreview();
-        BuildItems();
+        SubscribeTabs();
     }
 
     private void SubscribeTabs()
     {
-        tabs.ForEach(x =>
+        tabs.ForEach(tab =>
         {
-            x.TabButton.onClick.AddListener(() =>
+            tab.TabButton.onClick.AddListener(() =>
             {
-                _currentItemTypes = x.ItemType;
+                tabsFocus.DOKill();
+                tabsFocus.SetParent(tab.TabButton.transform);
+                tabsFocus.localScale = Vector3.one;
+                tabsFocus.anchorMin = new Vector2(0f, 0f);
+                tabsFocus.anchorMax = new Vector2(1f, 0f);
+                
+                float height = tabsFocus.sizeDelta.y;
+                Vector2 minStart = tabsFocus.offsetMin; 
+                Vector2 maxStart = tabsFocus.offsetMax; 
+                DOTween.To(() => 0f, (percent) =>
+                {
+                    bool moveRight = tabsFocus.offsetMin.x < 0;
+                    float percentB = Mathf.Clamp01(percent * 2f);
+                    float percentA = Mathf.Clamp01((percent - 0.5f) * 2f); 
+                    
+                    tabsFocus.offsetMin = Vector2.LerpUnclamped(minStart, Vector2.zero, moveRight ? percentA : percentB);
+                    tabsFocus.offsetMax = Vector2.LerpUnclamped(maxStart, Vector2.zero, moveRight ? percentB : percentA);
+                    tabsFocus.sizeDelta = new Vector2(tabsFocus.sizeDelta.x, height);
+                }, 1f, tabsFocusAnimaDuration)
+                    .SetTarget(tabsFocus)
+                    .SetEase(Ease.OutQuad);
+                
+                _currentItemTypes = tab.ItemType;
                 BuildItems(); 
             });
         });
+
+        tabs.First().TabButton.onClick.Invoke();
     }
 
     private void SetPreview()
