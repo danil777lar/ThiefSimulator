@@ -33,8 +33,7 @@ public class ItemAccessoryOwner : MonoBehaviour
     {
         foreach (ItemAccessory accessory in _accessories)
         {
-            Item currentItem = _itemsService.GetCurrentItem(accessory.ItemType);
-            string key = currentItem != null ? currentItem.Name : "";
+            string key = _itemsService.TryGetCurrentItem(out Item currentItem, accessory.ItemType) ? currentItem.Name : "";
             accessory.gameObject.SetActive(accessory.Key == key);
         }
     }

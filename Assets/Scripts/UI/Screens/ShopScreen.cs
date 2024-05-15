@@ -66,7 +66,7 @@ public class ShopScreen : UIScreen
             if (_currentItemTypes.HasFlag((ItemTypes)(int)type))
             {
                 _itemHolderService.GetAllItems(type).ForEach(x => 
-                    Instantiate(itemButtonPrefab, itemButtonsRoot).Build(x));
+                    Instantiate(itemButtonPrefab, itemButtonsRoot).Build(type, x));
             }
         }
     }

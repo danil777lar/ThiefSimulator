@@ -74,6 +74,7 @@ namespace ProjectConstants
 	{
 		TestMiniGame = 1,
 		LockMiniGame = 2,
+		Item = 4,
 	}
 
 	public enum UIToastType
