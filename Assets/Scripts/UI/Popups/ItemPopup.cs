@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Larje.Core.Services;
 using Larje.Core.Services.UI;
 using ProjectConstants;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,10 @@ using UnityEngine.UI;
 public class ItemPopup : UIPopup
 {
     [SerializeField] private Image icon;
+    [SerializeField] private Image frame;
+    [SerializeField] private TextMeshProUGUI qualityTitle;
+    [SerializeField] private TextMeshProUGUI nameTitle;
+    [SerializeField] private List<QualityOptions> qualityOptions;
     
     [Header("Buttons")]
     [SerializeField] private Button closeButton;
@@ -31,6 +36,12 @@ public class ItemPopup : UIPopup
             icon.sprite = _args.Item.Icon;
             icon.preserveAspect = true;
         }
+
+        frame.sprite = GetQualityOptions().Frame;
+        qualityTitle.text = _args.Item.Quality.ToString(); 
+        qualityTitle.color = GetQualityOptions().QualityTitleColor;
+        nameTitle.text = _args.Item.DisplayName; 
+        nameTitle.color = GetQualityOptions().NameTitleColor;
         
         closeButton.onClick.AddListener(Close);
         equipButton.onClick.AddListener(OnEquipButtonClicked);   
@@ -67,21 +78,35 @@ public class ItemPopup : UIPopup
         Close();
     }
 
+    private QualityOptions GetQualityOptions()
+    {
+        return qualityOptions.Find(x => x.Quality == _args.Item.Quality);
+    }
+
+    [Serializable]
+    private class QualityOptions
+    {
+        [field: SerializeField] public ItemQuality Quality;
+        [field: SerializeField] public Color QualityTitleColor;
+        [field: SerializeField] public Color NameTitleColor;
+        [field: SerializeField] public Sprite Frame;
+    }
+
     public class Args : UIPopup.Args
     {
         public readonly ItemType ItemType;
-        public readonly Item Item;
+        public readonly ThiefItem Item;
         
         public Args(ItemType type, Item item) : base(UIPopupType.Item)
         {
             ItemType = type;
-            Item = item;
+            Item = item as ThiefItem;
         }
 
         public Args(ItemType type, Item item, UIPopupCombinationType combinationType) : base(UIPopupType.Item, combinationType)
         {
             ItemType = type;
-            Item = item;
+            Item = item as ThiefItem;
         }
     }
 }
