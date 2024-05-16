@@ -103,4 +103,19 @@ namespace ProjectConstants
 		Pants = 4,
 	}
 
+	public enum UpgradeType
+	{
+		MoreWeigth = 1,
+		LessSound = 2,
+		FasterAttack = 4,
+	}
+
+	[Flags]
+	public enum UpgradeTypes
+	{
+		MoreWeigth = 1,
+		LessSound = 2,
+		FasterAttack = 4,
+	}
+
 }

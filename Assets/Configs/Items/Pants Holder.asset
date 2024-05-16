@@ -18,11 +18,17 @@ MonoBehaviour:
     Icon: {fileID: 21300000, guid: 743add45d0c772d46ac501a2994d67ed, type: 3}
     <Quality>k__BackingField: 0
     <DisplayName>k__BackingField: Thief Pants
+    upgrades:
+    - {fileID: 1540247811315525889, guid: b64b3682ab6b8a54ca8cefbaafa2a872, type: 3}
   - Name: Construction
     Icon: {fileID: 21300000, guid: 8fccd3431bf5caf4cb34a56c85b2e36f, type: 3}
     <Quality>k__BackingField: 1
     <DisplayName>k__BackingField: Worker Pants
+    upgrades:
+    - {fileID: -1534594552028198627, guid: 411d2658d53feb646820816e49154acf, type: 3}
   - Name: Business
     Icon: {fileID: 21300000, guid: bf1248f2ec8324845b0e12666577808b, type: 3}
     <Quality>k__BackingField: 2
     <DisplayName>k__BackingField: Business Pants
+    upgrades:
+    - {fileID: -8114175967740047980, guid: 8535d0094c4dcc447a0e437aa9e59760, type: 3}

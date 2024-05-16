@@ -2637,6 +2637,9 @@ MonoBehaviour:
     QualityTitleColor: {r: 1, g: 0.76862746, b: 0.19215687, a: 1}
     NameTitleColor: {r: 1, g: 0.7921569, b: 0.48235294, a: 1}
     Frame: {fileID: 21300000, guid: 84063999b9e1741d099c1d8f7bbc0f7a, type: 3}
+  upgradePanelPrefab: {fileID: 1288648907357205083, guid: 8990480df51732443a7070ee0cea75a3,
+    type: 3}
+  upgradesRoot: {fileID: 7911033529826027908}
   closeButton: {fileID: 1802054405807747000}
   equipButton: {fileID: 7911033530373530536}
   removeButton: {fileID: 583193072350850168}
@@ -3886,6 +3889,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7911033529826027908}
     m_Modifications:
+    - target: {fileID: 7702286993370567128, guid: 8990480df51732443a7070ee0cea75a3,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7702286993370567128, guid: 8990480df51732443a7070ee0cea75a3,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7702286993620782938, guid: 8990480df51732443a7070ee0cea75a3,
         type: 3}
       propertyPath: m_Pivot.x

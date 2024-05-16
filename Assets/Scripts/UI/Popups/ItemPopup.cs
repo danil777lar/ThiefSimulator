@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Larje.Core.Services;
 using Larje.Core.Services.UI;
+using MoreMountains.Tools;
 using ProjectConstants;
 using TMPro;
 using UnityEditor;
@@ -16,6 +17,10 @@ public class ItemPopup : UIPopup
     [SerializeField] private TextMeshProUGUI qualityTitle;
     [SerializeField] private TextMeshProUGUI nameTitle;
     [SerializeField] private List<QualityOptions> qualityOptions;
+
+    [Header("Upgrades")] 
+    [SerializeField] private ItemUpgradePanel upgradePanelPrefab;
+    [SerializeField] private RectTransform upgradesRoot;
     
     [Header("Buttons")]
     [SerializeField] private Button closeButton;
@@ -49,11 +54,21 @@ public class ItemPopup : UIPopup
         
         _itemHolderService.EventCurrentItemChanged += UpdateUI;
         UpdateUI();
+        BuildUpgrades();
     }
 
     private void OnDestroy()
     {
         _itemHolderService.EventCurrentItemChanged -= UpdateUI;
+    }
+
+    private void BuildUpgrades()
+    {
+        upgradesRoot.MMDestroyAllChildren();
+        foreach (UpgradeProcessor upgrade in _args.Item.Upgrades)
+        {
+            Instantiate(upgradePanelPrefab, upgradesRoot).Build(_args.ItemType, _args.Item, upgrade);
+        }
     }
 
     private void UpdateUI()

@@ -9,4 +9,7 @@ public class ThiefItem : Item
 {
     [field: SerializeField] public ItemQuality Quality { get; private set; }
     [field: SerializeField] public string DisplayName { get; private set; }
+    
+    [SerializeField] private List<UpgradeProcessor> upgrades;
+    public IReadOnlyCollection<UpgradeProcessor> Upgrades => upgrades.AsReadOnly();
 }
