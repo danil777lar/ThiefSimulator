@@ -425,6 +425,9 @@ MonoBehaviour:
   openButton: {fileID: 5810679669185959313}
   skipButton: {fileID: 937888154846279875}
   bestRewardRoot: {fileID: 3558526670285988920}
+  bestRewardChance: {fileID: 2520335479942527584}
+  bestRewardIcon: {fileID: 2901601129371723053}
+  rewardItemIcon: {fileID: 1465347562870438089}
   rewardItem: {fileID: 9103812859012761946}
   rewardCoins: {fileID: 4669002793593470768}
   caseImage: {fileID: 5902916674786993071}
@@ -432,10 +435,16 @@ MonoBehaviour:
   lootSteps:
   - <Case>k__BackingField: {fileID: 3335127385320653980}
     <BestRewardChance>k__BackingField: 13
+    <CoinsMin>k__BackingField: 10
+    <CoinsMax>k__BackingField: 15
   - <Case>k__BackingField: {fileID: 236170647942302859}
     <BestRewardChance>k__BackingField: 25
+    <CoinsMin>k__BackingField: 25
+    <CoinsMax>k__BackingField: 50
   - <Case>k__BackingField: {fileID: 6902301273696123284}
     <BestRewardChance>k__BackingField: 48
+    <CoinsMin>k__BackingField: 75
+    <CoinsMax>k__BackingField: 100
 --- !u!223 &937985035763752740
 Canvas:
   m_ObjectHideFlags: 0

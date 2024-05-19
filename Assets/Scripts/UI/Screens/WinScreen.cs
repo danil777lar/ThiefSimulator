@@ -1,12 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Larje.Core.Services;
 using Larje.Core.Services.UI;
 using ProjectConstants;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class WinScreen : UIScreen
 {
@@ -16,6 +19,11 @@ public class WinScreen : UIScreen
 
     [Header("Reward")] 
     [SerializeField] private GameObject bestRewardRoot;
+    [SerializeField] private TextMeshProUGUI bestRewardChance;
+    [Space]
+    [SerializeField] private Image bestRewardIcon;
+    [SerializeField] private Image rewardItemIcon;
+    [Space]
     [SerializeField] private GameObject rewardItem;
     [SerializeField] private TextMeshProUGUI rewardCoins;
     
@@ -27,14 +35,21 @@ public class WinScreen : UIScreen
     [SerializeField] private List<LootStep> lootSteps;
 
     [InjectService] private ILevelManagerService _levelService;
+    [InjectService] private ICurrencyService _currencyService;
+    [InjectService] private ItemHolderService _itemsService;
+    [InjectService] private DataService _dataService;
     [InjectService] private UIService _uiService;
 
     private bool _bestRewardGiven;
     private int _currentStepIndex;
+    private Item _bestReward;
+    private ItemType _bestRewardType;
     
     protected override void OnBeforeOpen(UIObject.Args args)
     {
         ServiceLocator.Instance.InjectServicesInComponent(this);
+        
+        GrabBestReward();
         
         openButton.onClick.AddListener(OnOpenButtonClicked);
         skipButton.onClick.AddListener(OnSkipButtonClicked);
@@ -52,11 +67,34 @@ public class WinScreen : UIScreen
         
         ShowCase();
     }
+
+    private void GrabBestReward()
+    {
+        Dictionary<Item, ItemType> lockedItems = new Dictionary<Item, ItemType>();
+        foreach (ItemType type in Enum.GetValues(typeof(ItemType)))
+        {
+            foreach (Item item in _itemsService.GetLockedItems(type))
+            {
+                lockedItems.Add(item, type);
+            }
+        }
+
+        if (lockedItems.Count > 0)
+        {
+            _bestReward = lockedItems.Keys.ToList()[Random.Range(0, lockedItems.Count)];
+            _bestRewardType = lockedItems[_bestReward];
+
+            bestRewardIcon.sprite = _bestReward.Icon;
+            rewardItemIcon.sprite = _bestReward.Icon;
+        }
+    }
     
     private void ShowCase()
     {
         LootStep lootStep = lootSteps[_currentStepIndex];
         lootStep.Case.gameObject.SetActive(true);
+        
+        bestRewardChance.text = $"CHANCE: {lootStep.BestRewardChance}%";
         
         RectTransform imageTransform = caseImage.rectTransform;
         caseImage.texture = lootStep.Case.Show((int)imageTransform.rect.width, (int)imageTransform.rect.height);
@@ -65,7 +103,11 @@ public class WinScreen : UIScreen
     private void OnCaseShown()
     {
         openButton.gameObject.SetActive(true);
-        bestRewardRoot.SetActive(true);
+
+        if (_bestReward != null)
+        {
+            bestRewardRoot.SetActive(true);
+        }
     }
 
     private void OnOpenButtonClicked()
@@ -78,13 +120,34 @@ public class WinScreen : UIScreen
     
     private void OnCaseOpened()
     {
-        rewardCoins.gameObject.SetActive(true);
+        GiveReward();
         StartCoroutine(NextStepDelayCoroutine());
+    }
+    
+    private void GiveReward()
+    {
+        if (_bestReward != null && Random.Range(0, 100) < lootSteps[_currentStepIndex].BestRewardChance)
+        {
+            _bestRewardGiven = true;
+            _itemsService.UnlockItem(_bestRewardType, _bestReward.Name);
+            _itemsService.SetCurrentItem(_bestRewardType, _bestReward.Name);
+            
+            rewardItem.SetActive(true);
+        }
+        else
+        {
+            int coinsAmount = Random.Range(lootSteps[_currentStepIndex].CoinsMin, lootSteps[_currentStepIndex].CoinsMax);
+            rewardCoins.text = $"{coinsAmount}<sprite index=0>";
+            rewardCoins.gameObject.SetActive(true);
+            
+            _currencyService.AddCurrency(CurrencyType.Coins, CurrencyPlacementType.Global, coinsAmount);
+            _dataService.Save();
+        }
     }
 
     private void NextStep()
     {
-        if (_currentStepIndex >= lootSteps.Count - 1 || _bestRewardGiven)
+        if (_currentStepIndex >= lootSteps.Count - 1 || _bestRewardGiven || _bestReward == null)
         {
             CloseScreen();
         }
@@ -133,6 +196,8 @@ public class WinScreen : UIScreen
     private class LootStep
     {
         [field: SerializeField] public LootCase Case { get; private set; }
-        [field: SerializeField] public float BestRewardChance { get; private set; }
+        [field: SerializeField, Max(100)] public int BestRewardChance { get; private set; }
+        [field: SerializeField] public int CoinsMin { get; private set; }
+        [field: SerializeField] public int CoinsMax { get; private set; }
     }
 }
