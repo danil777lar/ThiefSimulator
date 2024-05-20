@@ -16,6 +16,7 @@ public class ItemPopup : UIPopup
     [SerializeField] private Image frame;
     [SerializeField] private TextMeshProUGUI qualityTitle;
     [SerializeField] private TextMeshProUGUI nameTitle;
+    [SerializeField] private TextMeshProUGUI unlockInGameTitle;
     [SerializeField] private List<QualityOptions> qualityOptions;
 
     [Header("Upgrades")] 
@@ -73,16 +74,18 @@ public class ItemPopup : UIPopup
 
     private void UpdateUI()
     {
+        bool isItemUnlock = _itemHolderService.IsItemUnlocked(_args.ItemType, _args.Item.Name);
         bool isItemEquip = _itemHolderService.TryGetCurrentItem(out Item currentItem, _args.ItemType) 
                            && currentItem.Name == _args.Item.Name;
         
-        equipButton.gameObject.SetActive(!isItemEquip);
-        removeButton.gameObject.SetActive(isItemEquip);
+        unlockInGameTitle.gameObject.SetActive(!isItemUnlock);
+        equipButton.gameObject.SetActive(isItemUnlock && !isItemEquip);
+        removeButton.gameObject.SetActive(isItemUnlock && isItemEquip);
     }
     
     private void OnEquipButtonClicked()
     {
-        _itemHolderService.UnlockItem(_args.ItemType, _args.Item.Name);
+        
         _itemHolderService.SetCurrentItem(_args.ItemType, _args.Item.Name);
         Close();
     }

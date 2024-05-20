@@ -17,10 +17,12 @@ public class ItemUpgradePanel : MonoBehaviour
     [SerializeField] private Image progressBarDivider;
     [Space]
     [SerializeField] private Button upgradeButton;
+    [SerializeField] private Image upgradeLockIcon;
     [SerializeField] private TextMeshProUGUI upgradeButtonText;
 
     [InjectService] private DataService _dataService;
     [InjectService] private ICurrencyService _currencyService;
+    [InjectService] private IItemHolderService _itemHolderService;
     
     private ItemType _itemType;
     private ThiefItem _item;
@@ -40,8 +42,19 @@ public class ItemUpgradePanel : MonoBehaviour
         upgradeName.text = upgrade.DisplayName;
         upgradeDescription.text = upgrade.GetDescription(0);
         
+        UpdateUpgradeButton();
         BuildProgressSlider();
+    }
+
+    private void UpdateUpgradeButton()
+    {
+        upgradeButton.onClick.RemoveAllListeners();
         upgradeButton.onClick.AddListener(OnUpgradeButtonClicked);
+        
+        bool isUnlocked = _itemHolderService.IsItemUnlocked(_itemType, _item.Name);
+        upgradeButton.interactable = isUnlocked;
+        upgradeLockIcon.gameObject.SetActive(!isUnlocked);
+        upgradeButtonText.gameObject.SetActive(isUnlocked);
     }
 
     private void BuildProgressSlider()

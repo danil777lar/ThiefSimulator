@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class ShopItemButton : MonoBehaviour
 {
     [SerializeField] private Image icon;
+    [SerializeField] private GameObject lockIcon;
     
     [InjectService] private ItemHolderService _itemHolderService;
     [InjectService] private UIService _uiService;
@@ -26,6 +27,8 @@ public class ShopItemButton : MonoBehaviour
         
         icon.sprite = item.Icon;
         icon.preserveAspect = true;
+        
+        lockIcon.SetActive(!_itemHolderService.IsItemUnlocked(_itemType, _item.Name));
         
         _button = GetComponent<Button>();
         _button.onClick.AddListener(OnButtonClicked);
