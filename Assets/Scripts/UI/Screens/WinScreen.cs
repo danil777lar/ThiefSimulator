@@ -13,6 +13,8 @@ using Random = UnityEngine.Random;
 
 public class WinScreen : UIScreen
 {
+    [SerializeField] private float showSkipButtonDelay = 2f;
+    
     [Header("Buttons")]
     [SerializeField] private Button openButton;
     [SerializeField] private Button skipButton;
@@ -29,6 +31,7 @@ public class WinScreen : UIScreen
     
     [Header("UI")]
     [SerializeField] private RawImage caseImage;
+    [SerializeField] private GameObject openButtonAdIcon;
 
     [Space]
     [SerializeField] private float nextStepDelay;
@@ -36,6 +39,7 @@ public class WinScreen : UIScreen
 
     [InjectService] private ILevelManagerService _levelService;
     [InjectService] private ICurrencyService _currencyService;
+    [InjectService] private IAdsService _adsService;
     [InjectService] private ItemHolderService _itemsService;
     [InjectService] private DataService _dataService;
     [InjectService] private UIService _uiService;
@@ -44,6 +48,7 @@ public class WinScreen : UIScreen
     private int _currentStepIndex;
     private Item _bestReward;
     private ItemType _bestRewardType;
+    private IEnumerator _showSkipButtonCoroutine;
     
     protected override void OnBeforeOpen(UIObject.Args args)
     {
@@ -103,6 +108,13 @@ public class WinScreen : UIScreen
     private void OnCaseShown()
     {
         openButton.gameObject.SetActive(true);
+        openButtonAdIcon.gameObject.SetActive(lootSteps[_currentStepIndex].WithAd);
+
+        if (lootSteps[_currentStepIndex].WithAd)
+        {
+            _showSkipButtonCoroutine = ShowSkipButtonDelayCoroutine();
+            StartCoroutine(_showSkipButtonCoroutine);
+        }
 
         if (_bestReward != null)
         {
@@ -112,10 +124,27 @@ public class WinScreen : UIScreen
 
     private void OnOpenButtonClicked()
     {
-        lootSteps[_currentStepIndex].Case.Open();
+        if (lootSteps[_currentStepIndex].WithAd)
+        {
+            _adsService.ShowRewarded(null, null, OpenCase, null);
+        }
+        else
+        {
+            OpenCase();
+        }
+    }
+
+    private void OpenCase()
+    {
+        if (_showSkipButtonCoroutine != null)
+        {
+            StopCoroutine(_showSkipButtonCoroutine);
+        }
         
+        lootSteps[_currentStepIndex].Case.Open();
         bestRewardRoot.SetActive(false);
         openButton.gameObject.SetActive(false);
+        skipButton.gameObject.SetActive(false);
     }
     
     private void OnCaseOpened()
@@ -183,6 +212,12 @@ public class WinScreen : UIScreen
         yield return new WaitForSeconds(nextStepDelay);
         NextStep();
     }
+    
+    private IEnumerator ShowSkipButtonDelayCoroutine()
+    {
+        yield return new WaitForSeconds(showSkipButtonDelay);
+        skipButton.gameObject.SetActive(true);
+    }
 
     public class Args : UIScreen.Args
     {
@@ -196,6 +231,7 @@ public class WinScreen : UIScreen
     private class LootStep
     {
         [field: SerializeField] public LootCase Case { get; private set; }
+        [field: SerializeField] public bool WithAd { get; private set; }
         [field: SerializeField, Max(100)] public int BestRewardChance { get; private set; }
         [field: SerializeField] public int CoinsMin { get; private set; }
         [field: SerializeField] public int CoinsMax { get; private set; }

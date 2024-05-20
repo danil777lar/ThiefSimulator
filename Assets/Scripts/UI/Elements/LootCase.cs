@@ -7,7 +7,10 @@ using UnityEngine.Serialization;
 
 public class LootCase : MonoBehaviour
 {
+    [SerializeField, Min(0f)] private float showEventDelayMultiplier = 1f;
     [SerializeField] private MMF_Player showFeedback;
+    [Space]
+    [SerializeField, Min(0f)] private float openEventDelayMultiplier = 1f;
     [SerializeField] private MMF_Player openFeedback;
     
     private Camera caseCamera;
@@ -22,6 +25,7 @@ public class LootCase : MonoBehaviour
         caseCamera.targetTexture = texture;
         
         showFeedback?.PlayFeedbacks();
+        StartCoroutine(ShowEventDelay());
         
         return texture;
     }
@@ -29,14 +33,12 @@ public class LootCase : MonoBehaviour
     public void Open()
     {
         openFeedback?.PlayFeedbacks();
+        StartCoroutine(OpenEventDelay());
     }
 
     private void Awake()
     {
         caseCamera = GetComponentInChildren<Camera>();
-        
-        showFeedback.Events.OnComplete.AddListener(() => EventShown?.Invoke());
-        openFeedback.Events.OnComplete.AddListener(() => EventOpened?.Invoke());
     }
 
     private void OnDestroy()
@@ -45,5 +47,17 @@ public class LootCase : MonoBehaviour
         {
             Destroy(texture);
         }
+    }
+
+    private IEnumerator ShowEventDelay()
+    {
+        yield return new WaitForSeconds(showFeedback.TotalDuration * showEventDelayMultiplier);
+        EventShown?.Invoke();
+    }
+    
+    private IEnumerator OpenEventDelay()
+    {
+        yield return new WaitForSeconds(openFeedback.TotalDuration * openEventDelayMultiplier);
+        EventOpened?.Invoke();
     }
 }
