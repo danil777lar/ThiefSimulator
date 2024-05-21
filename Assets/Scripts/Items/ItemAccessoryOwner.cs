@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,11 @@ public class ItemAccessoryOwner : MonoBehaviour
         UpdateAccessories();
         
         _itemsService.EventCurrentItemChanged += UpdateAccessories;
+    }
+
+    private void OnDestroy()
+    {
+        _itemsService.EventCurrentItemChanged -= UpdateAccessories;
     }
 
     private void GrabAccessories()
