@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Larje.Core.Services;
 using Larje.Core.Services.UI;
+using Larje.Core.Tools;
 using ProjectConstants;
 using TMPro;
 using UnityEngine;
@@ -48,6 +49,7 @@ public class WinScreen : UIScreen
     private int _currentStepIndex;
     private Item _bestReward;
     private ItemType _bestRewardType;
+    private RewardedAdButton _rewardAdButton;
     private IEnumerator _showSkipButtonCoroutine;
     
     protected override void OnBeforeOpen(UIObject.Args args)
@@ -58,6 +60,8 @@ public class WinScreen : UIScreen
         
         openButton.onClick.AddListener(OnOpenButtonClicked);
         skipButton.onClick.AddListener(OnSkipButtonClicked);
+
+        _rewardAdButton = openButton.GetComponent<RewardedAdButton>();
         
         bestRewardRoot.SetActive(false);
         openButton.gameObject.SetActive(false);
@@ -108,6 +112,7 @@ public class WinScreen : UIScreen
     private void OnCaseShown()
     {
         openButton.gameObject.SetActive(true);
+        _rewardAdButton.SetEnableChecking(lootSteps[_currentStepIndex].WithAd);
         openButtonAdIcon.gameObject.SetActive(lootSteps[_currentStepIndex].WithAd);
 
         if (lootSteps[_currentStepIndex].WithAd)
