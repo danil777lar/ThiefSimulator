@@ -46,6 +46,7 @@ public class WinScreen : UIScreen
     [InjectService] private UIService _uiService;
 
     private bool _bestRewardGiven;
+    private bool _rewardedShown;
     private int _currentStepIndex;
     private Item _bestReward;
     private ItemType _bestRewardType;
@@ -55,6 +56,8 @@ public class WinScreen : UIScreen
     protected override void OnBeforeOpen(UIObject.Args args)
     {
         ServiceLocator.Instance.InjectServicesInComponent(this);
+        
+        _currencyService.MoveCurrency(CurrencyType.Coins, CurrencyPlacementType.Level, CurrencyPlacementType.Global);
         
         GrabBestReward();
         
@@ -131,6 +134,7 @@ public class WinScreen : UIScreen
     {
         if (lootSteps[_currentStepIndex].WithAd)
         {
+            _rewardedShown = true;
             _adsService.ShowRewarded(null, null, OpenCase, null);
         }
         else
@@ -209,7 +213,7 @@ public class WinScreen : UIScreen
         _levelService.IncrementLevelId();
         _levelService.SpawnCurrentLevel();
         _uiService.GetProcessor<UIScreenProcessor>()
-            .OpenScreen(new LoadingScreen.Args(false,null));
+            .OpenScreen(new LoadingScreen.Args(!_rewardedShown,null));
     }
 
     private IEnumerator NextStepDelayCoroutine()
