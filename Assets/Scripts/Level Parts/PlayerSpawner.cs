@@ -57,8 +57,8 @@ public class PlayerSpawner : MonoBehaviour, ILevelEventHandler, ILevelStartHandl
     private void Start()
     {
         ServiceLocator.Instance.InjectServicesInComponent(this);
-        SetActiveTrigger(false);
         
+        SetActiveTrigger(false);
         GrabVanMovement();
         GrabPlayer();
     }
@@ -92,6 +92,7 @@ public class PlayerSpawner : MonoBehaviour, ILevelEventHandler, ILevelStartHandl
     {
         _player = playerRoot.GetComponentInChildren<CharacterSpawn>();
         _player.SetSpawningState(playerRoot, CharacterSpawn.SpawningDirection.Out);
+        trajectory.RebuildImmediate();
         playerRoot.position = EvaluateTrajectory(1f);
     }
 

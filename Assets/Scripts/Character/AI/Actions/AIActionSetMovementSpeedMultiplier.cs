@@ -9,7 +9,7 @@ public class AIActionSetMovementSpeedMultiplier : AIAction
 {
     [SerializeField] private float multiplier = 1f;
 
-    private bool _isInState; 
+    private bool _isInState;
     
     public override void Initialization()
     {
@@ -37,6 +37,6 @@ public class AIActionSetMovementSpeedMultiplier : AIAction
 
     private float GetSpeedMultiplier()
     {
-        return _isInState ? multiplier : 1f;
+        return _isInState && gameObject.activeInHierarchy ? multiplier : 1f;
     }
 }

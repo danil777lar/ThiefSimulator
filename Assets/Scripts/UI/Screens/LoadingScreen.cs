@@ -18,8 +18,9 @@ public class LoadingScreen : UIScreen
         [SerializeField] private Slider loadingProgress;
         [SerializeField] private TextMeshProUGUI loadingPercent;
 
-        [InjectService] private UIService _uiService;
         [InjectService] private ILevelManagerService _levelService;
+        [InjectService] private IAdsService _adsService;
+        [InjectService] private UIService _uiService;
         [InjectService] private DataService _dataService;
 
         private void Awake()
@@ -56,6 +57,10 @@ public class LoadingScreen : UIScreen
                 .OnComplete(() =>
                 {
                     onLoadComplete?.Invoke();
+                    if (showInter)
+                    {
+                        _adsService.ShowInterstitial();
+                    }
                 });
         }
 

@@ -15,6 +15,39 @@ public class CharacterSpawn : CharacterAbility
     private TopDownController _topDownController;
     private CharacterController _characterController;
     private LevelProcessor _level;
+
+    private TopDownController TopDownController
+    {
+        get
+        {
+            if (_topDownController == null)
+            {
+                _topDownController = _character.GetComponent<TopDownController>();
+            }
+
+            return _topDownController;
+        }
+        set
+        {
+            _topDownController = value;
+        }
+    }
+    private CharacterController CharacterController
+    {
+        get
+        {
+            if (_characterController == null)
+            {
+                _characterController = _character.GetComponent<CharacterController>();
+            }
+
+            return _characterController;
+        }
+        set
+        {
+            _characterController = value;
+        }
+    }
     
     protected const string _spawnOutAnimationParameterName = "SpawnOut";
     protected const string _spawnInAnimationParameterName = "SpawnIn";
@@ -26,9 +59,9 @@ public class CharacterSpawn : CharacterAbility
         _isSpawning = true;
         _direction = direction;
         
-        _topDownController.GravityActive = false;
+        TopDownController.GravityActive = false;
+        CharacterController.enabled = false;
         _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Frozen);
-        _characterController.enabled = false;
         transform.SetParent(parent);
 
         transform.DOLocalMove(Vector3.zero, fitAnimationDuration);
@@ -40,7 +73,7 @@ public class CharacterSpawn : CharacterAbility
     {
         _isSpawning = false;
         
-        _topDownController.GravityActive = true;
+        TopDownController.GravityActive = true;
         _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Normal);
         _characterController.enabled = true;
         transform.SetParent(_level.transform);
@@ -65,7 +98,6 @@ public class CharacterSpawn : CharacterAbility
         
         _level = GetComponentInParent<LevelProcessor>();
         _characterController = _character.GetComponent<CharacterController>();
-        _topDownController = _character.GetComponent<TopDownController>();
     }
     
     protected override void InitializeAnimatorParameters()

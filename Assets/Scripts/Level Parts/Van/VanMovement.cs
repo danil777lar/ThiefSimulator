@@ -53,6 +53,7 @@ public class VanMovement : MonoBehaviour, ILevelStartHandler, ILevelEndHandler, 
     private Vector3 PlayerPoint => _splineComputer.Project(_player.transform.position).position;
     public bool IsMoving => _move;
 
+    public event Action EventInitialized;
     public event Action EventStartMove; 
     public event Action EventStopMove; 
     public event Action EventStartAnimationComplete; 
@@ -95,6 +96,8 @@ public class VanMovement : MonoBehaviour, ILevelStartHandler, ILevelEndHandler, 
 
         _startPosition = transform.position;
         transform.position -= transform.forward * startAnimationDistance;
+        
+        EventInitialized?.Invoke();
     }
     
     private void FixedUpdate()
