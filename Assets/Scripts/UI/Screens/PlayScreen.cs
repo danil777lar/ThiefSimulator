@@ -62,6 +62,12 @@ public class PlayScreen : UIScreen
         }
     }
 
+    protected override bool OnBack(bool onlyOverride)
+    {
+        _uiService.GetProcessor<UIPopupProcessor>().OpenPopup(new PausePopup.Args());
+        return true;
+    }
+
     private void Update()
     {
         UpdateActionButtons();
