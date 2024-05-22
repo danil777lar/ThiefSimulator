@@ -31,6 +31,11 @@ public class CurrentItemButton : MonoBehaviour
         UpdateItem();
     }
 
+    private void OnDestroy()
+    {
+        _itemHolderService.EventCurrentItemChanged -= UpdateItem;
+    }
+
     private void UpdateItem()
     {
         _itemHolderService.TryGetCurrentItem(out _item, itemType);

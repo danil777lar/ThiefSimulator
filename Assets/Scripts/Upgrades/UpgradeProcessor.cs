@@ -12,10 +12,14 @@ public abstract class UpgradeProcessor : MonoBehaviour
     [field: SerializeField] public string DisplayName { get; private set; }
     [field: SerializeField] public string DescriptionLeftModifier { get; private set; }
     [field: SerializeField] public string DescriptionRightModifier { get; private set; }
-    [field: Space]
+    [field: Header("Value")]
     [field: SerializeField] public float MaxLevel { get; private set; }
     [field: SerializeField] public float BaseValue { get; private set; }
     [field: SerializeField] public float AddValuePerLevel { get; private set; }
+    [field: Header("Value")]
+    [field: SerializeField] public float BaseLevelPrice { get; private set; }
+    [field: SerializeField] public float LevelPriceMultiplier { get; private set; }
+    
     
     public string GetDescription(int level)
     {

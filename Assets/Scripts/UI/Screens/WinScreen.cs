@@ -57,9 +57,9 @@ public class WinScreen : UIScreen
     {
         ServiceLocator.Instance.InjectServicesInComponent(this);
         
-        _currencyService.MoveCurrency(CurrencyType.Coins, CurrencyPlacementType.Level, CurrencyPlacementType.Global);
-        
         GrabBestReward();
+        
+        _currencyService.MoveCurrency(CurrencyType.Coins, CurrencyPlacementType.Level, CurrencyPlacementType.Global);
         
         openButton.onClick.AddListener(OnOpenButtonClicked);
         skipButton.onClick.AddListener(OnSkipButtonClicked);

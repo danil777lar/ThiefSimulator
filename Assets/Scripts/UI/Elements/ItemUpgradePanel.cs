@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Remoting.Messaging;
 using Larje.Core.Services;
+using Larje.Core.Services.UI;
 using ProjectConstants;
 using TMPro;
 using UnityEngine;
@@ -21,6 +22,7 @@ public class ItemUpgradePanel : MonoBehaviour
     [SerializeField] private TextMeshProUGUI upgradeButtonText;
 
     [InjectService] private DataService _dataService;
+    [InjectService] private UIService _uiService;
     [InjectService] private ICurrencyService _currencyService;
     [InjectService] private IItemHolderService _itemHolderService;
     
@@ -50,11 +52,14 @@ public class ItemUpgradePanel : MonoBehaviour
     {
         upgradeButton.onClick.RemoveAllListeners();
         upgradeButton.onClick.AddListener(OnUpgradeButtonClicked);
-        
+     
+        bool isMaxLevel = _data.Level >= _upgrade.MaxLevel;
         bool isUnlocked = _itemHolderService.IsItemUnlocked(_itemType, _item.Name);
-        upgradeButton.interactable = isUnlocked;
+        upgradeButton.interactable = isUnlocked && !isMaxLevel;
         upgradeLockIcon.gameObject.SetActive(!isUnlocked);
         upgradeButtonText.gameObject.SetActive(isUnlocked);
+        
+        upgradeButtonText.text = isMaxLevel ? "MAX LEVEL" : $"UPGRADE\n{GetCurrentUpgradePrice()}<sprite index=0>";
     }
 
     private void BuildProgressSlider()
@@ -80,8 +85,29 @@ public class ItemUpgradePanel : MonoBehaviour
 
     private void OnUpgradeButtonClicked()
     {
-        _data.Level++;
-        _dataService.Save();
-        progressBar.value = _data.Level;
+        if (_data.Level >= _upgrade.MaxLevel)
+        {
+            return;
+        }
+        
+        if (_currencyService.TrySpendCurrency(CurrencyType.Coins, CurrencyPlacementType.Global, GetCurrentUpgradePrice()))
+        {
+            _data.Level++;
+            _dataService.Save();
+            progressBar.value = _data.Level;
+            
+            UpdateUpgradeButton();
+        }
+        else
+        {
+            UIToast.Args toast = new UIToast.Args(UIToastType.Info, "Not enough coins");
+            _uiService.GetProcessor<UIToastProcessor>().OpenToast(toast);
+        }
+    }
+
+    private int GetCurrentUpgradePrice()
+    {
+        float price = _upgrade.BaseLevelPrice * Mathf.Pow(_upgrade.LevelPriceMultiplier, _data.Level);
+        return Mathf.RoundToInt(price);
     }
 }
