@@ -1223,6 +1223,8 @@ MonoBehaviour:
   - {fileID: 1196915836644682806, guid: 4bfbbe99652dfdf4bb0b18a99818d800, type: 3}
   - {fileID: 1196915836644682806, guid: 296f9ce72539c734fb7edc9618b7724c, type: 3}
   - {fileID: 1196915836644682806, guid: 5f37bdd53f605594d8210bf33034bd2d, type: 3}
+  - {fileID: 1196915836644682806, guid: de202db10c3ee684abd129acd9c710cd, type: 3}
+  - {fileID: 1196915836644682806, guid: 76c5e605946bc6940867e8a259aeb87a, type: 3}
 --- !u!114 &1133984730129808477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1283,7 +1285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testMode: 1
-  logsEnabled: 0
+  logsEnabled: 1
   androidKeys:
     <GameId>k__BackingField: 5621809
     InterstitialId: Interstitial_Android

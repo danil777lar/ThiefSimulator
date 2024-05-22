@@ -10,11 +10,11 @@ using UnityEngine.UI;
 public class MenuScreen : UIScreen
 {
     [SerializeField] private Button shopButton; 
-    [SerializeField] private Button settingsButton; 
-    
-    [InjectService] private ILevelManagerService _levelManagerService;
+    [SerializeField] private Button settingsButton;
+
     [InjectService] private UIService _uiService;
     [InjectService] private PlayerInputService _inputService;
+    [InjectService] private ILevelManagerService _levelManagerService;
 
     protected override void OnBeforeOpen(UIObject.Args screenOpenProperties)
     {
@@ -37,7 +37,7 @@ public class MenuScreen : UIScreen
     
     private void OnSettingsButtonClicked()
     {
-        //_uiService.GetProcessor<UIPopupProcessor>().OpenPopup();
+        _uiService.GetProcessor<UIPopupProcessor>().OpenPopup(new SettingsPopup.Args());
     }
     
     private void OnPointerDown()

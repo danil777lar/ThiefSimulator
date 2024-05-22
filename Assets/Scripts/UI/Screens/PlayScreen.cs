@@ -12,6 +12,9 @@ using UnityEngine.UI;
 
 public class PlayScreen : UIScreen
 {
+    [Header("Buttons")]
+    [SerializeField] private Button pauseButton;
+    [Header("Action Buttons")]
     [SerializeField] private PlayerActionButton actionButtonPrefab; 
     [SerializeField] private RectTransform actionButtonsRoot;
     [Header("Progress")] 
@@ -20,6 +23,7 @@ public class PlayScreen : UIScreen
     [SerializeField] private Slider sliderWeight; 
     
     [InjectService] private ILevelManagerService _levelService;
+    [InjectService] private UIService _uiService;
     [InjectService] private PlayerInputService _inputService;
 
     private Character _player;
@@ -30,7 +34,9 @@ public class PlayScreen : UIScreen
     protected override void OnBeforeOpen(UIObject.Args args)
     {
         ServiceLocator.Instance.InjectServicesInComponent(this);
-
+        
+        pauseButton.onClick.AddListener(OnPauseButtonClicked);
+        
         sliderTotal.value = 0f;
         sliderWin.value = 0f;
         
@@ -80,6 +86,11 @@ public class PlayScreen : UIScreen
     {
         float value = _playerCarry.CurrentWeight / _playerCarry.WeightCapacity;
         sliderWeight.value = Mathf.Lerp(sliderWeight.value, value, Time.deltaTime * 5f);
+    }
+
+    private void OnPauseButtonClicked()
+    {
+        _uiService.GetProcessor<UIPopupProcessor>().OpenPopup(new PausePopup.Args());
     }
 
     public class Args : UIScreen.Args
