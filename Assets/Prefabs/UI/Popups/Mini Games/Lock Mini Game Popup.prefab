@@ -625,6 +625,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useDeviceBackButton: 1
   blockNextDeviceBackButtonInvokes: 1
+  focusTarget: 1
   _popupType: 2
   _closeByBackgroundClick: 0
   _background: {fileID: 1869326397655645973}
@@ -1525,6 +1526,7 @@ GameObject:
   - component: {fileID: 725831323395121816}
   - component: {fileID: 1869326397655645973}
   - component: {fileID: 4780113884577865520}
+  - component: {fileID: 5698824384173291124}
   m_Layer: 5
   m_Name: Popup Base
   m_TagString: Untagged
@@ -1614,6 +1616,18 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &5698824384173291124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8758297456099936891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 150fd211c1a2b4a448721b0721acc7cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8979317707085327960
 PrefabInstance:
   m_ObjectHideFlags: 0
