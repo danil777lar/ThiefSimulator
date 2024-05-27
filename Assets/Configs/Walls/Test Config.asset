@@ -12,14 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddefffd8e2819fe4b934adf728bd3308, type: 3}
   m_Name: Test Config
   m_EditorClassIdentifier: 
-  height: 4
-  width: 1
+  height: 9.38
+  width: 0.76
   wallParts:
-  - topWidthMultiplier: 1
-    bottomWidthMultiplier: 1.4
+  - topWidthMultiplier: 1.54
+    bottomWidthMultiplier: 4.22
+    drawTop: 1
+    drawBottom: 0
+    weight: 0.71
+    material: {fileID: 2100000, guid: 597381b302d5eb54584c743acf2fa3da, type: 2}
+    vertexColorTop: {r: 1, g: 0.21960784, b: 0, a: 1}
+    vertexColorBottom: {r: 0.6296296, g: 0, b: 1, a: 1}
+  - topWidthMultiplier: 0.86
+    bottomWidthMultiplier: 0.98
     drawTop: 1
     drawBottom: 0
     weight: 1
-    material: {fileID: 2100000, guid: 6540d60bb0f37cd4f8c6408f966636d7, type: 2}
-    vertexColorTop: {r: 0.33333334, g: 0.18431373, b: 0.24705882, a: 1}
-    vertexColorBottom: {r: 0.33333334, g: 0.18431373, b: 0.24705882, a: 1}
+    material: {fileID: 2100000, guid: 597381b302d5eb54584c743acf2fa3da, type: 2}
+    vertexColorTop: {r: 1, g: 0.40609497, b: 0, a: 1}
+    vertexColorBottom: {r: 1, g: 0.21984355, b: 0, a: 1}
+  - topWidthMultiplier: 5.82
+    bottomWidthMultiplier: 5.03
+    drawTop: 1
+    drawBottom: 0
+    weight: 0.67
+    material: {fileID: 2100000, guid: 597381b302d5eb54584c743acf2fa3da, type: 2}
+    vertexColorTop: {r: 1, g: 0, b: 0.035470963, a: 1}
+    vertexColorBottom: {r: 1, g: 0.40784314, b: 0, a: 1}
