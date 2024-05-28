@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
@@ -7,6 +8,7 @@ using UnityEngine.AI;
 
 public class AIActionMoveTowardsTargetNavMesh : AIAction
 {
+	[SerializeField] private float pathShiftDistance = 0f;
 	[SerializeField] private float minimumDistance = 1f;
 	[SerializeField] private float minimumDistanceToCorner = 1f;
 	[Header("Smooth Rotation")]
@@ -60,7 +62,7 @@ public class AIActionMoveTowardsTargetNavMesh : AIAction
 		
 		if (NavMesh.CalculatePath(sourcePosition, targetPosition, NavMesh.AllAreas, _path))
 		{
-			foreach (Vector3 corner in _path.corners)
+			foreach (Vector3 corner in _path.GetShiftedCorners(pathShiftDistance))
 			{
 				targetPosition = corner;
 				if (Vector3.Distance(targetPosition, _brain.Owner.transform.position) >= minimumDistanceToCorner)
@@ -108,16 +110,25 @@ public class AIActionMoveTowardsTargetNavMesh : AIAction
 
 	private void OnDrawGizmos()
 	{
-		if (_path != null && _path.corners.Length > 0)
+		if (_path != null)
 		{
-			Gizmos.color = Color.red;
-			Gizmos.DrawLine(transform.position, _path.corners[0]);
-			for (int i = 0; i < _path.corners.Length - 1; i++)
+			DrawPathGizmo(_path.corners.ToList(), Color.red);
+			DrawPathGizmo(_path.GetShiftedCorners(pathShiftDistance), Color.blue);
+		}
+	}
+
+	private void DrawPathGizmo(List<Vector3> points, Color color)
+	{
+		if (points.Count > 0)
+		{
+			Gizmos.color = color;
+			Gizmos.DrawLine(transform.position, points[0]);
+			for (int i = 0; i < points.Count - 1; i++)
 			{
-				Gizmos.DrawSphere(_path.corners[i], 0.25f);
-				Gizmos.DrawLine(_path.corners[i], _path.corners[i + 1]);
+				Gizmos.DrawSphere(points[i], 0.25f);
+				Gizmos.DrawLine(points[i], points[i + 1]);
 			}
-			Gizmos.DrawSphere(_path.corners[^1], 0.25f);
+			Gizmos.DrawSphere(points[^1], 0.25f);
 		}
 	}
 }

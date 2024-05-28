@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public static class NavMeshPathExtensions
@@ -15,6 +16,29 @@ public static class NavMeshPathExtensions
         }
 
         return length;
+    }
+
+    public static List<Vector3> GetShiftedCorners(this NavMeshPath path, float distance)
+    {
+        List<Vector3> shiftedCorners = new List<Vector3>(path.corners);
+        
+        if (shiftedCorners.Count > 1)
+        {
+            for (int i = 1; i < shiftedCorners.Count - 1; i++)
+            {
+                Vector3 normal = path.corners[i + 1] - path.corners[i - 1];
+                Vector3 point = path.corners[i] - path.corners[i - 1];
+                Vector3 projection = Vector3.Project(point, normal) + path.corners[i - 1];
+                Vector3 direction = (path.corners[i] - projection).normalized;
+                
+                Debug.DrawRay(projection, Vector3.up * 2f, Color.blue);
+                Debug.DrawRay(projection + Vector3.up * 0.1f, direction * distance, Color.blue);
+                
+                shiftedCorners[i] += direction * distance;
+            }
+        }
+
+        return shiftedCorners;
     }
     
     public static void DrawDebugPath(this NavMeshPath path, Color color)
