@@ -18,9 +18,11 @@ public static class NavMeshPathExtensions
         return length;
     }
 
-    public static List<Vector3> GetShiftedCorners(this NavMeshPath path, float distance)
+    public static List<Vector3> GetShiftedCorners(this NavMeshPath path, float distanceMin, float distanceMax)
     {
         List<Vector3> shiftedCorners = new List<Vector3>(path.corners);
+        
+        
         
         if (shiftedCorners.Count > 1)
         {
@@ -30,11 +32,18 @@ public static class NavMeshPathExtensions
                 Vector3 point = path.corners[i] - path.corners[i - 1];
                 Vector3 projection = Vector3.Project(point, normal) + path.corners[i - 1];
                 Vector3 direction = (path.corners[i] - projection).normalized;
+
+                Vector3 targetPosition = path.corners[i] + direction * distanceMax;
+                if (NavMesh.Raycast(path.corners[i], targetPosition, out NavMeshHit hit, NavMesh.AllAreas))
+                {
+                    targetPosition = Vector3.Lerp(path.corners[i], hit.position, 0.5f);
+                }
+                else
+                {
+                    targetPosition = path.corners[i] + direction * distanceMin;
+                }
                 
-                Debug.DrawRay(projection, Vector3.up * 2f, Color.blue);
-                Debug.DrawRay(projection + Vector3.up * 0.1f, direction * distance, Color.blue);
-                
-                shiftedCorners[i] += direction * distance;
+                shiftedCorners[i] = targetPosition;
             }
         }
 

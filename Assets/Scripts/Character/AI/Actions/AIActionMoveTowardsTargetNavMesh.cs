@@ -8,7 +8,9 @@ using UnityEngine.AI;
 
 public class AIActionMoveTowardsTargetNavMesh : AIAction
 {
-	[SerializeField] private float pathShiftDistance = 0f;
+	[SerializeField] private float pathShiftDistanceMin = 0f;
+	[SerializeField] private float pathShiftDistanceMax = 0f;
+	[Space]
 	[SerializeField] private float minimumDistance = 1f;
 	[SerializeField] private float minimumDistanceToCorner = 1f;
 	[Header("Smooth Rotation")]
@@ -62,7 +64,7 @@ public class AIActionMoveTowardsTargetNavMesh : AIAction
 		
 		if (NavMesh.CalculatePath(sourcePosition, targetPosition, NavMesh.AllAreas, _path))
 		{
-			foreach (Vector3 corner in _path.GetShiftedCorners(pathShiftDistance))
+			foreach (Vector3 corner in _path.GetShiftedCorners(pathShiftDistanceMin, pathShiftDistanceMax))
 			{
 				targetPosition = corner;
 				if (Vector3.Distance(targetPosition, _brain.Owner.transform.position) >= minimumDistanceToCorner)
@@ -113,7 +115,7 @@ public class AIActionMoveTowardsTargetNavMesh : AIAction
 		if (_path != null)
 		{
 			DrawPathGizmo(_path.corners.ToList(), Color.red);
-			DrawPathGizmo(_path.GetShiftedCorners(pathShiftDistance), Color.blue);
+			DrawPathGizmo(_path.GetShiftedCorners(pathShiftDistanceMin, pathShiftDistanceMax), Color.blue);
 		}
 	}
 

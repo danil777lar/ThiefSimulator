@@ -200,6 +200,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InitializationMode: 0
   Label: Move
+  pathShiftDistanceMin: 1
+  pathShiftDistanceMax: 3
   minimumDistance: 0.5
   minimumDistanceToCorner: 1
   useSmoothRotation: 0
@@ -296,6 +298,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InitializationMode: 0
   Label: Move
+  pathShiftDistanceMin: 1
+  pathShiftDistanceMax: 3
   minimumDistance: 0.5
   minimumDistanceToCorner: 1
   useSmoothRotation: 0
@@ -438,6 +442,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InitializationMode: 0
   Label: Move
+  pathShiftDistanceMin: 1
+  pathShiftDistanceMax: 3
   minimumDistance: 0.5
   minimumDistanceToCorner: 1
   useSmoothRotation: 0
