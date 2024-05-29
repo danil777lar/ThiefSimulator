@@ -55,7 +55,7 @@ public class DoorOpenClose : MonoBehaviour
 
     private void Update()
     {
-        _doorColliders.ForEach(x => x.isTrigger = _doorOpened && _isActive);
+        _doorColliders.ForEach(x => x.isTrigger = (_doorOpened || DOTween.IsTweening(this)) && _isActive);
     }
 
     private void OnTriggerEnter(Collider other)
