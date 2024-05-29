@@ -77,6 +77,7 @@ public class VanMovement : MonoBehaviour, ILevelStartHandler, ILevelEndHandler, 
         {
             EventStartMove?.Invoke();
             transform.DOMove(_startPosition, levelEventPreStart.StartDelay * startAnimationDurationModifier)
+                .SetUpdate(UpdateType.Fixed)
                 .SetEase(Ease.OutBack)
                 .OnComplete(() =>
                 {
