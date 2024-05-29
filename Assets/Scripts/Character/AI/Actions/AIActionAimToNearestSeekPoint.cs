@@ -71,6 +71,7 @@ public class AIActionAimToNearestSeekPoint : AIAction
         }
         
         _isPointVisible = _fov.PointsInVision.Contains(_point);
+        
         Vector3 lookPoint = _isPointVisible ? _point : transform.position + _orientation.TargetDirection * 10f;
         _target.position = _isPointVisible ? transform.position : _point;
         _targetLook.position = Vector3.Lerp(_targetLook.position, lookPoint, Time.deltaTime * lookSpeed);
