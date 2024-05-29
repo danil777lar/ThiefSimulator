@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
+using Dreamteck;
 using UnityEngine;
 
 public class DoorOpenClose : MonoBehaviour
@@ -21,6 +23,8 @@ public class DoorOpenClose : MonoBehaviour
     [SerializeField] private Ease closeEase = Ease.OutElastic;
 
     private bool _isActive;
+    private bool _doorOpened;
+    private List<Collider> _doorColliders;
     private List<Collider> _interactions = new List<Collider>();
 
     public void SetIsActive(bool arg)
@@ -44,6 +48,14 @@ public class DoorOpenClose : MonoBehaviour
     private void Start()
     {
         SetIsActive(isActiveOnStart);
+
+        _doorColliders = new List<Collider>();
+        doorRoots.ForEach(x => _doorColliders.AddRange(x.Root.GetComponentsInChildren<Collider>()));
+    }
+
+    private void Update()
+    {
+        _doorColliders.ForEach(x => x.isTrigger = _doorOpened && _isActive);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -80,6 +92,8 @@ public class DoorOpenClose : MonoBehaviour
     {
         if (_isActive)
         {
+            _doorOpened = true;
+                
             this.DOKill();
             float direction = transform.InverseTransformPoint(position).x < 0f ? 1f : -1f;
             foreach (DoorRoot door in doorRoots)
@@ -95,6 +109,8 @@ public class DoorOpenClose : MonoBehaviour
     {
         if (_isActive)
         {
+            _doorOpened = false;
+            
             this.DOKill();
             foreach (DoorRoot door in doorRoots)
             {

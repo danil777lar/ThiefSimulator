@@ -9,6 +9,7 @@ public class CharacterFOV : CharacterAbility
 {
     [SerializeField] private bool drawGizmo;
     [SerializeField] private bool buildMesh = true;
+    [SerializeField] private float verticalRaycastOffset;
     [SerializeField] private LayerMask mask;
     [SerializeField] private MeshFilter meshFilter;
     [SerializeField] private Options options;
@@ -98,12 +99,13 @@ public class CharacterFOV : CharacterAbility
             direction.z = Mathf.Cos(Mathf.Deg2Rad * angle);
             direction.Normalize();
 
+            Vector3 raycastOrigin = meshFilter.transform.position + Vector3.up * verticalRaycastOffset; 
             Vector3 localDirection = meshFilter.transform.TransformDirection(direction);
             Vector3 vertex = Vector3.zero;
 
-            if (Physics.Raycast(meshFilter.transform.position, localDirection, out RaycastHit hit, options.DistanceVision, mask))
+            if (Physics.Raycast(raycastOrigin, localDirection, out RaycastHit hit, options.DistanceVision, mask))
             {
-                vertex = meshFilter.transform.InverseTransformPoint(hit.point);
+                vertex = meshFilter.transform.InverseTransformPoint(hit.point - Vector3.up * verticalRaycastOffset);
 
                 CharacterVisionTarget character = CharacterVisionTarget.Targets.ToList()
                     .Find(x => x.Character.gameObject == hit.collider.gameObject); 

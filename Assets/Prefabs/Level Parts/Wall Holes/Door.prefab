@@ -207,7 +207,7 @@ MonoBehaviour:
   _targetObject: {fileID: 2092014536794258412}
   _offset: {x: 0, y: 0}
   _rotationOffset: {x: 0, y: 0, z: 0}
-  lastPosition: {x: -1.4210855e-14, y: 0, z: -1}
+  lastPosition: {x: 0.24000072, y: 0, z: -10.6}
 --- !u!114 &5475510135916990155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1654,7 +1654,8 @@ GameObject:
   - component: {fileID: 1176281858052290975}
   - component: {fileID: 2008881212499970850}
   - component: {fileID: 6577164215709243425}
-  m_Layer: 0
+  - component: {fileID: 5827527553082784847}
+  m_Layer: 10
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1739,7 +1740,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PolyMesh:
-    name: PolybrushMesh50910
+    name: PolybrushMesh202834
     vertices:
     - {x: -0.0061542094, y: 0.0013084611, z: 0.0011191785}
     - {x: -0.008424388, y: 0, z: 0.0011191785}
@@ -6847,6 +6848,27 @@ MonoBehaviour:
   m_OriginalMeshObject: {fileID: 2619086233303812490, guid: 9a759a915e8f8134980665cfbda497b3,
     type: 3}
   m_Mode: 0
+--- !u!65 &5827527553082784847
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8082997632824711955}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.017448781, y: 0.0040779207, z: 0.028360965}
+  m_Center: {x: 0.0000000029673488, y: -0.000000002278936, z: 0.015299658}
 --- !u!1001 &616567175379839151
 PrefabInstance:
   m_ObjectHideFlags: 0
