@@ -1,33 +1,34 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using MoreMountains.Tools;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SoundTransmitter : MonoBehaviour
 {
-    [SerializeField] private float _soundSpeed;
+    [SerializeField] private float soundSpeed = 5f;
+    [SerializeField] private Gradient colorOverLifetime;
 
     private float _initialAmplitude;
     private Color _baseColor;
-    private MeshRenderer _renderer;
+    private Mesh _mesh;
 
     public float CurrentAmplitude { get; private set; }
 
     public void Init(float amplitude)
     {
-        _renderer = GetComponentInChildren<MeshRenderer>();
-        _baseColor = _renderer.material.GetColor("_BaseColor");
-
         _initialAmplitude = amplitude;
         CurrentAmplitude = amplitude;
 
         transform.localScale = Vector3.zero;
+        GrabMesh();
     }
 
     private void Update()
     {
-        float delta = _soundSpeed * Time.deltaTime;
+        float delta = soundSpeed * Time.deltaTime;
         CurrentAmplitude -= delta;
         transform.localScale += Vector3.one * delta;
         if (CurrentAmplitude <= 0f)
@@ -35,11 +36,38 @@ public class SoundTransmitter : MonoBehaviour
             OnComplete();
         }
         
-        if (_renderer)
+        if (_mesh)
         {
-            float alpha = CurrentAmplitude / _initialAmplitude;
-            _renderer.material.SetColor("_BaseColor", _baseColor.SetAlpha(alpha * _baseColor.a));
+            float lifetime = 1f - (CurrentAmplitude / _initialAmplitude);
+            List<Color> colors = new List<Color>();
+            for (int i = 0; i < _mesh.vertexCount; i++)
+            {
+                colors.Add(colorOverLifetime.Evaluate(lifetime));
+            }
+            _mesh.colors = colors.ToArray();
         }   
+    }
+
+    private void OnDestroy()
+    {
+        if (_mesh != null)
+        {
+            Destroy(_mesh);
+        }
+    }
+
+    private void GrabMesh()
+    {
+        MeshFilter meshFilter = GetComponentInChildren<MeshFilter>();
+        if (meshFilter)
+        {
+            _mesh = new Mesh();
+            _mesh.vertices = meshFilter.mesh.vertices;
+            _mesh.triangles = meshFilter.mesh.triangles;
+            _mesh.uv = meshFilter.mesh.uv;
+
+            meshFilter.mesh = _mesh;
+        }
     }
 
     private void OnComplete()
