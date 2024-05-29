@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -18,35 +19,37 @@ public static class NavMeshPathExtensions
         return length;
     }
 
-    public static List<Vector3> GetShiftedCorners(this NavMeshPath path, float distanceMin, float distanceMax)
+    public static List<Vector3> GetShiftedCorners(this NavMeshPath path, float distance)
     {
-        List<Vector3> shiftedCorners = new List<Vector3>(path.corners);
-        
-        
-        
-        if (shiftedCorners.Count > 1)
+        if (path.corners.Length < 3)
         {
-            for (int i = 1; i < shiftedCorners.Count - 1; i++)
-            {
-                Vector3 normal = path.corners[i + 1] - path.corners[i - 1];
-                Vector3 point = path.corners[i] - path.corners[i - 1];
-                Vector3 projection = Vector3.Project(point, normal) + path.corners[i - 1];
-                Vector3 direction = (path.corners[i] - projection).normalized;
+            return path.corners.ToList();
+        }
+        
+        List<Vector3> shiftedCorners = new List<Vector3>();
+        shiftedCorners.Add(path.corners[0]);
 
-                Vector3 targetPosition = path.corners[i] + direction * distanceMax;
+        for (int i = 1; i < path.corners.Length - 1; i++)
+        {
+            Vector3 normal = path.corners[i + 1] - path.corners[i - 1];
+            Vector3 point = path.corners[i] - path.corners[i - 1];
+            Vector3 projection = Vector3.Project(point, normal) + path.corners[i - 1];
+            Vector3 direction = (path.corners[i] - projection).normalized;
+
+            if (direction != Vector3.zero)
+            {
+                float maxDistance = distance;
+                Vector3 targetPosition = path.corners[i] + direction * (distance * 2f);
                 if (NavMesh.Raycast(path.corners[i], targetPosition, out NavMeshHit hit, NavMesh.AllAreas))
                 {
-                    targetPosition = Vector3.Lerp(path.corners[i], hit.position, 0.5f);
+                    maxDistance = hit.distance * 0.5f;
                 }
-                else
-                {
-                    targetPosition = path.corners[i] + direction * distanceMin;
-                }
-                
-                shiftedCorners[i] = targetPosition;
+
+                shiftedCorners.Add(path.corners[i] + direction * Mathf.Min(distance, maxDistance));
             }
         }
-
+        
+        shiftedCorners.Add(path.corners[^1]);
         return shiftedCorners;
     }
     

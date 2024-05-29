@@ -200,12 +200,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InitializationMode: 0
   Label: Move
-  pathShiftDistanceMin: 1
-  pathShiftDistanceMax: 3
+  pathShiftDistance: 1.5
+  maximumWalkAngle: 45
   minimumDistance: 0.5
   minimumDistanceToCorner: 1
-  useSmoothRotation: 0
-  rotationSpeed: 180
 --- !u!1 &2740387061463993476
 GameObject:
   m_ObjectHideFlags: 0
@@ -298,12 +296,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InitializationMode: 0
   Label: Move
-  pathShiftDistanceMin: 1
-  pathShiftDistanceMax: 3
+  pathShiftDistance: 1.5
+  maximumWalkAngle: 45
   minimumDistance: 0.5
   minimumDistanceToCorner: 1
-  useSmoothRotation: 0
-  rotationSpeed: 180
 --- !u!1 &3031246083136954009
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,12 +438,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InitializationMode: 0
   Label: Move
-  pathShiftDistanceMin: 1
-  pathShiftDistanceMax: 3
+  pathShiftDistance: 1.5
+  maximumWalkAngle: 45
   minimumDistance: 0.5
   minimumDistanceToCorner: 1
-  useSmoothRotation: 0
-  rotationSpeed: 180
 --- !u!1 &4221771762480918514
 GameObject:
   m_ObjectHideFlags: 0

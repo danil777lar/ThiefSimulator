@@ -100,8 +100,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1230887134683089601, guid: 6df4af2efef53044688493cd7740b964,
         type: 3}
-      propertyPath: minRotationSpeed
+      propertyPath: lookSpeed
+      value: 360
+      objectReference: {fileID: 0}
+    - target: {fileID: 1230887134683089601, guid: 6df4af2efef53044688493cd7740b964,
+        type: 3}
+      propertyPath: maxRotationSpeed
       value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 1230887134683089601, guid: 6df4af2efef53044688493cd7740b964,
+        type: 3}
+      propertyPath: minRotationSpeed
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 1356067717985629786, guid: 6df4af2efef53044688493cd7740b964,
         type: 3}

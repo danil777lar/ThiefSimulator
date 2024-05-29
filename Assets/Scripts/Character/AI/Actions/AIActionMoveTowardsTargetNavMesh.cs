@@ -1,28 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Larje.Core.Tools.TopDownEngine;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class AIActionMoveTowardsTargetNavMesh : AIAction
 {
-	[SerializeField] private float pathShiftDistanceMin = 0f;
-	[SerializeField] private float pathShiftDistanceMax = 0f;
-	[Space]
+	[SerializeField] private float pathShiftDistance = 0f;
+	[Space] 
+	[SerializeField] private float maximumWalkAngle = 90f; 
 	[SerializeField] private float minimumDistance = 1f;
 	[SerializeField] private float minimumDistanceToCorner = 1f;
-	[Header("Smooth Rotation")]
-	[SerializeField] private bool useSmoothRotation;
-	[SerializeField] private float rotationSpeed = 180f;
-
-	private float _lastPerformTime;
-	private Vector3 _currentDirection;
-	private Vector3 _directionToTarget;
+	
+	private Transform _orientationTarget;
 	private NavMeshPath _path;
 	private CharacterMovement _characterMovement;
-	private Vector2 _movementVector;
+	private CoreCharacterOrientation3D _characterOrientation;
 	
 	public override void Initialization()
 	{
@@ -35,25 +32,44 @@ public class AIActionMoveTowardsTargetNavMesh : AIAction
 
 		_path = new NavMeshPath();
 		_characterMovement = this.gameObject.GetComponentInParent<Character>()?.FindAbility<CharacterMovement>();
+		_characterOrientation = this.gameObject.GetComponentInParent<Character>()?.FindAbility<CoreCharacterOrientation3D>();
+
+		if (_orientationTarget == null)
+		{
+			_orientationTarget = new GameObject().transform;
+			_orientationTarget.gameObject.name = "AIActionMoveTowardsTargetNavMesh: Orientation Target";
+			_orientationTarget.SetParent(transform);
+		}
 	}
 
 	public override void OnEnterState()
 	{
 		base.OnEnterState();
-		_lastPerformTime = Time.time;
-		_currentDirection = Vector3.forward;
+		
+		_characterOrientation.forceTarget = _orientationTarget;
+	}
+	
+	public override void OnExitState()
+	{
+		base.OnExitState();
+
+		_characterMovement?.SetHorizontalMovement(0f);
+		_characterMovement?.SetVerticalMovement(0f);
+		
+		_characterOrientation.forceTarget = null;
 	}
 
 	public override void PerformAction()
 	{
+		SetOrientationTargetPosition();
 		Move();
-	}
-	
-	protected virtual void Move()
-	{
-		float deltaTime = Time.time - _lastPerformTime;
-		_lastPerformTime = Time.time;
 		
+		CheckDistanceLimits();
+		CheckAngleLimits();
+	}
+
+	protected virtual void SetOrientationTargetPosition()
+	{
 		if (_brain.Target == null)
 		{
 			return;
@@ -64,7 +80,7 @@ public class AIActionMoveTowardsTargetNavMesh : AIAction
 		
 		if (NavMesh.CalculatePath(sourcePosition, targetPosition, NavMesh.AllAreas, _path))
 		{
-			foreach (Vector3 corner in _path.GetShiftedCorners(pathShiftDistanceMin, pathShiftDistanceMax))
+			foreach (Vector3 corner in _path.GetShiftedCorners(pathShiftDistance))
 			{
 				targetPosition = corner;
 				if (Vector3.Distance(targetPosition, _brain.Owner.transform.position) >= minimumDistanceToCorner)
@@ -74,40 +90,36 @@ public class AIActionMoveTowardsTargetNavMesh : AIAction
 			}
 		}
 		
-		Vector3 direction = targetPosition - sourcePosition;
-		if (useSmoothRotation)
-		{
-			_currentDirection = Vector3.RotateTowards(_currentDirection, direction,
-				Mathf.Deg2Rad * rotationSpeed * deltaTime, 0f).normalized;
-		}
-		else
-		{
-			_currentDirection = direction;
-		}
-		targetPosition = sourcePosition + (_currentDirection * direction.magnitude);
+		_orientationTarget.position = targetPosition;
+	}
+	
+	protected virtual void Move()
+	{
+		Vector2 movementVector = new Vector2();
+		movementVector.x = _characterOrientation.CurrentDirection.x;
+		movementVector.y = _characterOrientation.CurrentDirection.z;
 
-		_directionToTarget = targetPosition - sourcePosition;
-		_movementVector.x = _directionToTarget.x;
-		_movementVector.y = _directionToTarget.z;
-		_characterMovement.SetMovement(_movementVector);
+		_characterMovement.SetMovement(movementVector);
+	}
 
-		if (Mathf.Abs(this.transform.position.x - targetPosition.x) < minimumDistance)
+	protected virtual void CheckDistanceLimits()
+	{
+		if (Vector3.Distance(transform.position, _orientationTarget.position) < minimumDistance)
 		{
 			_characterMovement.SetHorizontalMovement(0f);
-		}
-
-		if (Mathf.Abs(this.transform.position.z - targetPosition.z) < minimumDistance)
-		{
 			_characterMovement.SetVerticalMovement(0f);
 		}
 	}
-
-	public override void OnExitState()
+	
+	protected virtual void CheckAngleLimits()
 	{
-		base.OnExitState();
-
-		_characterMovement?.SetHorizontalMovement(0f);
-		_characterMovement?.SetVerticalMovement(0f);
+		Vector3 targetDirection = _orientationTarget.position - transform.position; 
+		float angle = Vector3.Angle(targetDirection, _characterOrientation.CurrentDirection);
+		if (angle >= maximumWalkAngle)
+		{
+			_characterMovement.SetHorizontalMovement(0f);
+			_characterMovement.SetVerticalMovement(0f);
+		}
 	}
 
 	private void OnDrawGizmos()
@@ -115,7 +127,7 @@ public class AIActionMoveTowardsTargetNavMesh : AIAction
 		if (_path != null)
 		{
 			DrawPathGizmo(_path.corners.ToList(), Color.red);
-			DrawPathGizmo(_path.GetShiftedCorners(pathShiftDistanceMin, pathShiftDistanceMax), Color.blue);
+			DrawPathGizmo(_path.GetShiftedCorners(pathShiftDistance), Color.blue);
 		}
 	}
 
