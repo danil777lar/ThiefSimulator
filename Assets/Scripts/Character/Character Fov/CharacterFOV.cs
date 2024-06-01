@@ -4,6 +4,7 @@ using System.Linq;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UIElements;
 
 public class CharacterFOV : CharacterAbility
 {
@@ -70,94 +71,39 @@ public class CharacterFOV : CharacterAbility
 
     private void UpdateVision()
     {
-        if (options == null)
-        {
-            return;
-        }
-
-        List<Vector3> rays = new List<Vector3>(); 
-        _charactersInVision.Clear();
-
-        Vector3 scale = Vector3.one * meshFilter.transform.parent.InverseTransformVector(Vector3.right).magnitude;
-        meshFilter.transform.localScale = scale;
-
-        int rayCount = Mathf.RoundToInt(options.Angle);
-        float angle = options.Angle * 0.5f;
-        float angleIncrease = options.Angle / rayCount;
-        Vector3[] verticles = new Vector3[rayCount + 2];
-        Vector2[] uv = new Vector2[verticles.Length];
-        int[] triangles = new int[rayCount * 3];
-
-        verticles[0] = Vector3.zero;
-
-        int vertexIndex = 1;
-        int triangleIndex = 0;
-        for (int i = 0; i <= rayCount; i++)
-        {
-            Vector3 direction = Vector3.zero;
-            direction.x = Mathf.Sin(Mathf.Deg2Rad * angle);
-            direction.z = Mathf.Cos(Mathf.Deg2Rad * angle);
-            direction.Normalize();
-
-            Vector3 raycastOrigin = meshFilter.transform.position + Vector3.up * verticalRaycastOffset; 
-            Vector3 localDirection = meshFilter.transform.TransformDirection(direction);
-            Vector3 vertex = Vector3.zero;
-
-            if (Physics.Raycast(raycastOrigin, localDirection, out RaycastHit hit, options.DistanceVision, mask))
-            {
-                vertex = meshFilter.transform.InverseTransformPoint(hit.point - Vector3.up * verticalRaycastOffset);
-
-                CharacterVisionTarget character = CharacterVisionTarget.Targets.ToList()
-                    .Find(x => x.Character.gameObject == hit.collider.gameObject); 
-                if (character != null)
-                {
-                    _charactersInVision.Add(character);
-                }
-            }
-            else
-            {
-                vertex = direction * options.DistanceVision;
-            }
-            
-            rays.Add(vertex);
-
-            if (drawGizmo)
-            {
-                Debug.DrawLine(meshFilter.transform.position, meshFilter.transform.TransformPoint(vertex),
-                    Color.red);
-            }
-
-            verticles[vertexIndex] = vertex;
-            if (i > 0)
-            {
-                triangles[triangleIndex + 0] = vertexIndex;
-                triangles[triangleIndex + 1] = vertexIndex - 1;
-                triangles[triangleIndex + 2] = 0;
-                triangleIndex += 3;
-            }
-
-            vertexIndex++;
-            angle -= angleIncrease;
-        }
-
-        if (buildMesh)
-        {
-            if (meshFilter.mesh == null)
-            {
-                meshFilter.mesh = new Mesh
-                {
-                    name = "FOV"
-                };
-            }
-
-            meshFilter.mesh.vertices = verticles;
-            meshFilter.mesh.uv = uv;
-            meshFilter.mesh.triangles = triangles;
-        }
+        FovMeshBuilder.Output fovOutput = FovMeshBuilder.BuildMesh(GetFovMeshInput());
         
-        FindPointsInVision(rays, angleIncrease);
+        FindCharactersInVision(fovOutput.hits);
+        FindPointsInVision(fovOutput.verts, fovOutput.angleIncrease);
     }
 
+    private FovMeshBuilder.Input GetFovMeshInput()
+    {
+        return new FovMeshBuilder.Input
+        {
+            angle = options.Angle,
+            raysPerAngle = 1f,
+            distance = options.DistanceVision,
+            meshFilter = meshFilter,
+            raycastMask = mask,
+            raycastOffset = new Vector3(0, verticalRaycastOffset, 0)
+        };
+    }
+
+    private void FindCharactersInVision(List<RaycastHit> hits)
+    {
+        _charactersInVision.Clear();
+        foreach (RaycastHit hit in hits)
+        {
+            CharacterVisionTarget character = CharacterVisionTarget.Targets.ToList()
+                .Find(x => x.Character.gameObject == hit.collider.gameObject);
+            if (character != null)
+            {
+                _charactersInVision.Add(character);
+            }
+        }
+    }
+    
     private void FindPointsInVision(List<Vector3> rays, float angle)
     {
         _pointsInVision.Clear();

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing.Printing;
+using System.Linq;
 using DG.Tweening;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
@@ -11,10 +12,18 @@ public class CharacterAttack : CharacterAbility
     [SerializeField] private CharacterAttackConfig config;
     [SerializeField] private LayerMask targetMask;
 
+    [Header("Attack Marker")] 
+    [SerializeField] private bool useMarker;
+    [SerializeField] private float markerSpawnDistance;
+    [SerializeField] private AttackMarker markerPrefab;
+
     private bool _grabbed;
     private CharacterController _characterController;
     private Character _target;
     private RuntimeAnimatorController _defaultAnimatorController;
+
+    private Dictionary<Collider, CharacterAttack> _targetsDatabase = new Dictionary<Collider, CharacterAttack>();
+    private Dictionary<CharacterAttack, AttackMarker> _markers = new Dictionary<CharacterAttack, AttackMarker>();
 
     public bool IsAttacking { get; private set; }
 
@@ -27,6 +36,7 @@ public class CharacterAttack : CharacterAbility
             return;
         }
 
+        UpdateMarkers();
         TryFindTarget();
         TryStartAttack();
     }
@@ -53,7 +63,7 @@ public class CharacterAttack : CharacterAbility
         receiver.EventSendDamage += SendDamage;
         receiver.EventAttackComplete += CompleteAttack;
     }
-
+    
     private void TryFindTarget()
     {
         if (!IsAttacking)
@@ -80,7 +90,9 @@ public class CharacterAttack : CharacterAbility
 
     private void TryStartAttack()
     {
-        if (_target != null && !IsAttacking && CheckLimit())
+        bool canAttack = _target != null && !IsAttacking && CheckLimits(); 
+        
+        if (canAttack)
         {
             CharacterAttack targetAttack = _target.FindAbility<CharacterAttack>();
             if (targetAttack != null && !targetAttack.IsAttacking)
@@ -126,20 +138,97 @@ public class CharacterAttack : CharacterAbility
         }
     }
 
-    private bool CheckLimit()
+    private void UpdateMarkers()
     {
-        if (!config.UseLimit) return true;
+        if (!useMarker)
+        {
+            return;
+        }
+        
+        List<CharacterAttack> targets = FindTargetsInDistance(markerSpawnDistance);
+        List<CharacterAttack> targetsToRemove = new List<CharacterAttack>();
+        foreach (CharacterAttack target in _markers.Keys)
+        {
+            if (!targets.Contains(target))
+            {
+                _markers[target].Remove();
+                targetsToRemove.Add(target);
+            }
+        }
+        
+        foreach (CharacterAttack target in targetsToRemove)
+        {
+            _markers.Remove(target);
+        }
+        
+        foreach (CharacterAttack target in targets)
+        {
+            if (!_markers.ContainsKey(target))
+            {
+                AttackMarker marker = Instantiate(markerPrefab, target.transform);
+                _markers.Add(target, marker);
+            }
+        }
+    }
+
+    private List<CharacterAttack> FindTargetsInDistance(float distance)
+    {
+        List<CharacterAttack> result = new List<CharacterAttack>();
+        Physics.OverlapSphere(transform.position, markerSpawnDistance, targetMask)
+            .ToList().ForEach(x =>
+            {
+                if (TryGetTarget(x, out CharacterAttack target))
+                {
+                    result.Add(target);
+                } 
+            });
+
+        return result;
+    }
+    
+    private bool TryGetTarget(Collider collider, out CharacterAttack target)
+    {
+        if (_targetsDatabase.TryGetValue(collider, out target) && target != null)
+        {
+            return true;
+        }
+
+        Character character = collider.GetComponent<Character>();
+        if (character != null)
+        {
+            target = character.FindAbility<CharacterAttack>();
+            _targetsDatabase.Add(collider, target);   
+        }
+            
+        return target != null;
+    }
+
+    private bool CheckLimits()
+    {
+        if (_target != null)
+        {
+            Vector3 playerToEnemy = _target.transform.position - _character.transform.position;
+            
+            Vector3 enemyDirection = _target.CharacterModel.transform.TransformDirection(config.EnemyDirectionLimit.LimitDirection);
+            bool enemyDirectionLimit = CheckLimit(config.EnemyDirectionLimit, enemyDirection, playerToEnemy);
+            
+            Vector3 playerDirection = _character.CharacterModel.transform.TransformDirection(config.PlayerDirectionLimit.LimitDirection);
+            bool playerDirectionLimit = CheckLimit(config.PlayerDirectionLimit, playerDirection, playerToEnemy);     
+            
+            return enemyDirectionLimit && playerDirectionLimit;
+        }
+
+        return false;
+    }
+    
+    private bool CheckLimit(CharacterAttackConfig.Limit limit, Vector3 a, Vector3 b)
+    {
+        if (!limit.UseLimit) return true;
 
         if (_target != null)
         {
-            Vector3 directionSelf = _character.CharacterModel.transform.forward;
-            Vector3 directionTarget = _target.CharacterModel.transform.TransformDirection(config.LimitDirection);
-
-            Debug.DrawRay(transform.position, directionSelf * 5f, Color.blue);
-            Debug.DrawRay(_target.transform.position, directionTarget * 5f, Color.red);
-
-            float angle = Vector3.Angle(directionSelf, directionTarget);
-            return angle <= config.LimitAngle;
+            float angle = Vector3.Angle(a, b);
+            return angle <= limit.LimitAngle;
         }
 
         return false;
