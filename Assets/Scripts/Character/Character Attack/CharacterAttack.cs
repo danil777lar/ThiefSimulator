@@ -234,13 +234,8 @@ public class CharacterAttack : CharacterAbility
     {
         if (!limit.UseLimit) return true;
 
-        if (_target != null)
-        {
-            float angle = Vector3.Angle(a, b);
-            return angle <= limit.LimitAngle;
-        }
-
-        return false;
+        float angle = Vector3.Angle(a, b);
+        return angle <= (limit.LimitAngle * 0.5f);
     }
 
     private void ApplyAnimation(AnimatorOverrideController controller, string key)

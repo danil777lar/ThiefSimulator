@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Enemy Attack Config
   m_EditorClassIdentifier: 
   <AttackDistance>k__BackingField: 1
-  <AttackDelay>k__BackingField: 1
+  <AttackDelay>k__BackingField: 0
   <Damage>k__BackingField: 1
   <Animations>k__BackingField: {fileID: 0}
   <AttackerDirectionLimit>k__BackingField:
     <UseLimit>k__BackingField: 1
     <LimitAngle>k__BackingField: 90
-    <LimitDirection>k__BackingField: {x: 0, y: 0, z: -1}
+    <LimitDirection>k__BackingField: {x: 0, y: 0, z: 1}
   <VictimDirectionLimit>k__BackingField:
     <UseLimit>k__BackingField: 0
     <LimitAngle>k__BackingField: 20
