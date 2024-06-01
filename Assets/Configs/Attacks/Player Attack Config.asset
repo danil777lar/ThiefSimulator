@@ -12,13 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed370e1f7c04a7949b086a51764d6eeb, type: 3}
   m_Name: Player Attack Config
   m_EditorClassIdentifier: 
-  <AttackDistance>k__BackingField: 1
+  <AttackDistance>k__BackingField: 3
+  <AttackDelay>k__BackingField: 3
   <Damage>k__BackingField: 1
   <Animations>k__BackingField: {fileID: 22100000, guid: bf836b2a7d9daaf48b04ed1207cccd30,
     type: 2}
-  <UseLimit>k__BackingField: 1
-  <LimitAngle>k__BackingField: 20
-  <LimitDirection>k__BackingField: {x: 0, y: 0, z: 1}
+  <AttackerDirectionLimit>k__BackingField:
+    <UseLimit>k__BackingField: 0
+    <LimitAngle>k__BackingField: 0
+    <LimitDirection>k__BackingField: {x: 0, y: 0, z: 1}
+  <VictimDirectionLimit>k__BackingField:
+    <UseLimit>k__BackingField: 1
+    <LimitAngle>k__BackingField: 90
+    <LimitDirection>k__BackingField: {x: 0, y: 0, z: 1}
   <UseFixedPosition>k__BackingField: 1
   <TransitionToFixedPositionDuration>k__BackingField: 0.5
   <FixedPosition>k__BackingField: {x: 0, y: 0, z: -1.5}

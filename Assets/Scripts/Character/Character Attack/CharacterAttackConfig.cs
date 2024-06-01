@@ -7,14 +7,15 @@ using UnityEngine;
 public class CharacterAttackConfig : ScriptableObject
 {
     [field: SerializeField] public float AttackDistance { get; private set; } = 2f;
+    [field: SerializeField] public float AttackDelay { get; private set; } = 1f;
     [field: SerializeField] public float Damage { get; private set; } = 1f;
     
     [field: Space]
     [field: SerializeField] public AnimatorOverrideController Animations { get; private set; }
 
     [field: Header("Limits")]
-    [field: SerializeField] public Limit PlayerDirectionLimit { get; private set; }
-    [field: SerializeField] public Limit EnemyDirectionLimit { get; private set; }
+    [field: SerializeField] public Limit AttackerDirectionLimit { get; private set; }
+    [field: SerializeField] public Limit VictimDirectionLimit { get; private set; }
 
     [field: Header("Fixed Position")]
     [field: SerializeField] public bool UseFixedPosition { get; private set; }

@@ -7,23 +7,24 @@ public class AttackMarker : MonoBehaviour
 {
     private MeshFilter _meshFilter;
 
-    public void Remove()
-    {
-        Destroy(gameObject);
-    }
-    
-    private void Start()
+    public void Init(float distance, float angle, Vector3 direction)
     {
         _meshFilter = GetComponent<MeshFilter>();
         
         FovMeshBuilder.Input input = new FovMeshBuilder.Input
         {
-            angle = 45,
+            angle = angle,
+            directionRotate = 180f + Quaternion.LookRotation(direction).eulerAngles.y,
             raysPerAngle = 1f,
-            distance = 3f,
+            distance = distance,
             meshFilter = _meshFilter
         };
         
-        FovMeshBuilder.Output output = FovMeshBuilder.BuildMesh(input);
+        FovMeshBuilder.Output output = FovMeshBuilder.BuildMesh(input);   
+    }
+    
+    public void Remove()
+    {
+        Destroy(gameObject);
     }
 }
