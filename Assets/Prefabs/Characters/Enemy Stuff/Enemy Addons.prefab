@@ -222,6 +222,11 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 256
+  effectOnDamage: {fileID: 7376321625086484395, guid: 4327edc5874d3ec45861af547c17043a,
+    type: 3}
+  useMarker: 0
+  markerSpawnDistance: 0
+  markerPrefab: {fileID: 0}
 --- !u!1001 &462306283937215518
 PrefabInstance:
   m_ObjectHideFlags: 0

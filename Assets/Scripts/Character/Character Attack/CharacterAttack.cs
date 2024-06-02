@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing.Printing;
 using System.Linq;
 using DG.Tweening;
+using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
@@ -12,6 +13,8 @@ public class CharacterAttack : CharacterAbility
 {
     [SerializeField] private CharacterAttackConfig config;
     [SerializeField] private LayerMask targetMask;
+    [SerializeField] private MMF_Player effectOnDamage;
+    [SerializeField] private MMF_Player effectOnCharge;
 
     [Header("Attack Marker")] 
     [SerializeField] private bool useMarker;
@@ -97,6 +100,16 @@ public class CharacterAttack : CharacterAbility
         if (_target != null && _attackDelay > 0 && !_grabbed && !IsAttacking)
         {
             _attackDelay -= Time.deltaTime;
+
+            if (effectOnCharge != null)
+            {
+                effectOnCharge.FeedbacksIntensity = AttackProgress;
+                effectOnCharge.PlayFeedbacks();
+            }
+        }
+        else
+        {
+            effectOnCharge?.StopFeedbacks();
         }
     }
 
@@ -302,6 +315,12 @@ public class CharacterAttack : CharacterAbility
             Vector3 damageDirection = _directionToTarget * 10f;
             damageDirection += Vector3.up * 5f;
             _target.CharacterHealth.Damage(1, gameObject, 0f, 0f, damageDirection);
+            
+            if (effectOnDamage != null)
+            {
+                MMF_Player effect = Instantiate(effectOnDamage);
+                effect.transform.position = _target.transform.position;
+            }
         }
     }
 
