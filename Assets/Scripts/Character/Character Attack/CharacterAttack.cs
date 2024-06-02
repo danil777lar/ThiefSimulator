@@ -21,6 +21,7 @@ public class CharacterAttack : CharacterAbility
     private bool _grabbed;
     private float _attackDelay;
     private CharacterAttack _target;
+    private CharacterController _characterController;
     private RuntimeAnimatorController _defaultAnimatorController;
 
     private Dictionary<Collider, CharacterAttack> _targetsDatabase = new Dictionary<Collider, CharacterAttack>();
@@ -62,6 +63,7 @@ public class CharacterAttack : CharacterAbility
     {
         base.Initialization();
 
+        _characterController = _character.GetComponent<CharacterController>();
         _defaultAnimatorController = _character.CharacterAnimator.runtimeAnimatorController;
 
         AnimatorEventReceiver receiver = _character.CharacterAnimator.GetComponent<AnimatorEventReceiver>();
@@ -188,7 +190,15 @@ public class CharacterAttack : CharacterAbility
             {
                 if (TryGetTarget(x, out CharacterAttack target))
                 {
-                    result.Add(target);
+                    LayerMask mask = _controller3D.ObstaclesLayerMask;
+                    Vector3 direction = target.transform.position - transform.position;
+                    Ray ray = new Ray();
+                    ray.origin = _characterController.transform.position + _characterController.center;
+                    ray.direction = direction.normalized;
+                    if (!Physics.SphereCast(ray, _characterController.radius, direction.magnitude, mask))
+                    {
+                        result.Add(target);                           
+                    }
                 } 
             });
 

@@ -58,8 +58,10 @@ public class AttackMarker : MonoBehaviour
             raycastMask = mask,
         };
         FovMeshBuilder.Output output = FovMeshBuilder.BuildMesh(input);
-
-        float percent = _attacker.Target == _target ? _attacker.AttackProgress : 0f;
-        _meshRenderer.material.SetFloat("_FillPercent", percent);
+        
+        float targetPercent = _attacker.Target == _target ? _attacker.AttackProgress : 0f;
+        float currentPercent = _meshRenderer.material.GetFloat("_FillPercent");
+        targetPercent = Mathf.Lerp(currentPercent, targetPercent, Time.deltaTime * 10f);
+        _meshRenderer.material.SetFloat("_FillPercent", targetPercent);
     }
 }
