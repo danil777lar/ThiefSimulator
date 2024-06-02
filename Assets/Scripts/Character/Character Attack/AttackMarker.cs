@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
 public class AttackMarker : MonoBehaviour
 {
+    [SerializeField] private float showHideAnimDuration;
     [SerializeField] private LayerMask mask;
 
     private float _distance;
@@ -22,11 +24,22 @@ public class AttackMarker : MonoBehaviour
         _meshFilter = GetComponent<MeshFilter>();
      
         transform.localPosition = transform.localPosition.MMSetY(0.05f);
+        transform.localRotation = Quaternion.LookRotation(direction);
+        transform.localScale = Vector3.zero;
+        
+        this.DOKill();
+        transform.DOScale(Vector3.one, showHideAnimDuration)
+            .SetTarget(this)
+            .SetEase(Ease.OutBack);
     }
     
     public void Remove()
     {
-        Destroy(gameObject);
+        this.DOKill();
+        transform.DOScale(Vector3.zero, showHideAnimDuration)
+            .SetTarget(this)
+            .SetEase(Ease.InQuad)
+            .OnComplete(() => Destroy(gameObject));
     }
 
     private void Update()
@@ -34,7 +47,7 @@ public class AttackMarker : MonoBehaviour
         FovMeshBuilder.Input input = new FovMeshBuilder.Input
         {
             angle = _angle,
-            directionRotate = 180f + Quaternion.LookRotation(_direction).eulerAngles.y,
+            directionRotate = 180f,
             raysPerAngle = 1f,
             distance = _distance,
             meshFilter = _meshFilter,

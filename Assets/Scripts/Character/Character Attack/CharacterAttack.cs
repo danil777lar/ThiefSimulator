@@ -18,9 +18,6 @@ public class CharacterAttack : CharacterAbility
     [SerializeField] private bool useMarker;
     [SerializeField] private float markerSpawnDistance;
     [SerializeField] private AttackMarker markerPrefab;
-    
-    [Header("Debug")]
-    [SerializeField] private bool enableDebugs;
 
     private bool _grabbed;
     private float _attackDelay;
@@ -76,9 +73,7 @@ public class CharacterAttack : CharacterAbility
         if (!IsAttacking)
         {
             List<CharacterAttack> targets = FindTargetsInDistance(config.AttackDistance);
-            if (enableDebugs) MMDebug.DebugOnScreen(targets.Count.ToString());
             targets = targets.FindAll(CheckLimits);
-            if (enableDebugs) MMDebug.DebugOnScreen(targets.Count.ToString());
             targets = targets.OrderBy(x => Vector3.Distance(x.transform.position, transform.position)).ToList();
             
             CharacterAttack target = targets.Count > 0 ? targets[0] : null;
