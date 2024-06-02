@@ -28,8 +28,10 @@ public class CharacterAttack : CharacterAbility
     private Dictionary<CharacterAttack, AttackMarker> _markers = new Dictionary<CharacterAttack, AttackMarker>();
 
     public bool IsAttacking { get; private set; }
+    public float AttackProgress => 1f - (_attackDelay / config.AttackDelay);
     public Transform CharacterModel => _character.CharacterModel.transform;
     public Health CharacterHealth => _character.CharacterHealth;
+    public CharacterAttack Target => _target;
 
     public override void ProcessAbility()
     {
@@ -100,29 +102,25 @@ public class CharacterAttack : CharacterAbility
 
     private void TryStartAttack()
     {
-        if (_attackDelay <= 0 && _target != null && !_grabbed)
+        if (_attackDelay <= 0 && _target != null && !_grabbed && !IsAttacking && !_target.IsAttacking)
         {
-            ResetDelay();
-            if (!_target.IsAttacking)
-            {
-                _target.Froze();
-                IsAttacking = true;
-                _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Frozen);
+            _target.Froze();
+            IsAttacking = true;
+            _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Frozen);
 
-                TryStartTransition(() =>
+            TryStartTransition(() =>
+            {
+                _target.ApplyVictimAnimation(config.Animations);
+                if (config.Animations != null)
                 {
-                    _target.ApplyVictimAnimation(config.Animations);
-                    if (config.Animations != null)
-                    {
-                        ApplyAnimation(config.Animations, "Killer");
-                    }
-                    else
-                    {
-                        SendDamage();
-                        CompleteAttack();
-                    }
-                });
-            }
+                    ApplyAnimation(config.Animations, "Killer");
+                }
+                else
+                {
+                    SendDamage();
+                    CompleteAttack();
+                }
+            });
         }
     }
 
@@ -174,7 +172,10 @@ public class CharacterAttack : CharacterAbility
             if (!_markers.ContainsKey(target))
             {
                 AttackMarker marker = Instantiate(markerPrefab, target.CharacterModel);
-                marker.Init(config.AttackDistance, config.VictimDirectionLimit.LimitAngle, config.VictimDirectionLimit.LimitDirection);
+                float distance = config.AttackDistance;
+                float angle = config.VictimDirectionLimit.LimitAngle;
+                Vector3 direction = config.VictimDirectionLimit.LimitDirection;
+                marker.Init(distance, angle, direction, this, target);
                 _markers.Add(target, marker);
             }
         }

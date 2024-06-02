@@ -13,13 +13,19 @@ public class AttackMarker : MonoBehaviour
     private float _distance;
     private float _angle;
     private MeshFilter _meshFilter;
+    private MeshRenderer _meshRenderer;
+    private CharacterAttack _attacker;
+    private CharacterAttack _target;
 
-    public void Init(float distance, float angle, Vector3 direction)
+    public void Init(float distance, float angle, Vector3 direction, CharacterAttack attacker, CharacterAttack target)
     {
         _distance = distance;
         _angle = angle;
+        _attacker = attacker;
+        _target = target;
         
         _meshFilter = GetComponent<MeshFilter>();
+        _meshRenderer = GetComponent<MeshRenderer>();
      
         transform.localPosition = transform.localPosition.MMSetY(0.05f);
         transform.localRotation = Quaternion.LookRotation(direction);
@@ -52,5 +58,8 @@ public class AttackMarker : MonoBehaviour
             raycastMask = mask,
         };
         FovMeshBuilder.Output output = FovMeshBuilder.BuildMesh(input);
+
+        float percent = _attacker.Target == _target ? _attacker.AttackProgress : 0f;
+        _meshRenderer.material.SetFloat("_FillPercent", percent);
     }
 }
