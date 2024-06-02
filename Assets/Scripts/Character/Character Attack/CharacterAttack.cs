@@ -20,6 +20,7 @@ public class CharacterAttack : CharacterAbility
 
     private bool _grabbed;
     private float _attackDelay;
+    private Vector3 _directionToTarget;
     private CharacterAttack _target;
     private CharacterController _characterController;
     private RuntimeAnimatorController _defaultAnimatorController;
@@ -56,7 +57,10 @@ public class CharacterAttack : CharacterAbility
 
     public void ApplyVictimAnimation(AnimatorOverrideController animations)
     {
-        ApplyAnimation(animations, "Victim");
+        if (HasOverride(animations, "Victim"))
+        {
+            ApplyAnimation(animations, "Victim");
+        }
     } 
 
     protected override void Initialization()
@@ -105,6 +109,7 @@ public class CharacterAttack : CharacterAbility
     {
         if (_attackDelay <= 0 && _target != null && !_grabbed && !IsAttacking && !_target.IsAttacking)
         {
+            _directionToTarget = (_target.transform.position - transform.position).normalized;
             _target.Froze();
             IsAttacking = true;
             _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Frozen);
@@ -114,7 +119,10 @@ public class CharacterAttack : CharacterAbility
                 _target.ApplyVictimAnimation(config.Animations);
                 if (config.Animations != null)
                 {
-                    ApplyAnimation(config.Animations, "Killer");
+                    if (HasOverride(config.Animations, "Killer"))
+                    {
+                        ApplyAnimation(config.Animations, "Killer");
+                    }
                     ApplyAttackRam();
                 }
                 
@@ -132,7 +140,7 @@ public class CharacterAttack : CharacterAbility
         {
             SendDamage();
             CompleteAttack();
-        });
+        }, false);
     }
 
     private void TryStartTransition(Action onComplete)
@@ -200,12 +208,8 @@ public class CharacterAttack : CharacterAbility
             {
                 if (TryGetTarget(x, out CharacterAttack target))
                 {
-                    LayerMask mask = _controller3D.ObstaclesLayerMask;
-                    Vector3 direction = target.transform.position - transform.position;
-                    Ray ray = new Ray();
-                    ray.origin = _characterController.transform.position + _characterController.center;
-                    ray.direction = direction.normalized;
-                    if (!Physics.SphereCast(ray, _characterController.radius, direction.magnitude, mask))
+                    float sphereCastDistance = Vector3.Distance(transform.position, target.transform.position); 
+                    if (!SphereCastToTarget(target, sphereCastDistance,  out RaycastHit hit))
                     {
                         result.Add(target);                           
                     }
@@ -230,6 +234,17 @@ public class CharacterAttack : CharacterAbility
         }
             
         return target != null;
+    }
+
+    private bool SphereCastToTarget(CharacterAttack target, float distance, out RaycastHit hit)
+    {
+        LayerMask mask = _controller3D.ObstaclesLayerMask;
+        Vector3 direction = target.transform.position - transform.position;
+        Ray ray = new Ray();
+        ray.origin = _characterController.transform.position + _characterController.center;
+        ray.direction = direction.normalized;
+
+        return Physics.SphereCast(ray, _characterController.radius, out hit, distance, mask); 
     }
 
     private bool CheckLimits(CharacterAttack target)
@@ -266,8 +281,14 @@ public class CharacterAttack : CharacterAbility
     {
         if (config.AttackRamDistance > 0)
         {
+            float distance = config.AttackRamDistance;
+            if (SphereCastToTarget(_target, distance, out RaycastHit hit))
+            {
+                distance = hit.distance - _characterController.radius / 2f;
+            }
+            
             Vector3 direction = _target.transform.position - transform.position;
-            Vector3 targetPosition = transform.position + direction.normalized * config.AttackRamDistance;
+            Vector3 targetPosition = transform.position + direction.normalized * distance;
             _character.transform.DOMove(targetPosition, config.AttackRamDuration)
                 .SetEase(config.AttackRamEase)
                 .SetUpdate(UpdateType.Fixed);
@@ -278,7 +299,9 @@ public class CharacterAttack : CharacterAbility
     {
         if (_target != null)
         {
-            _target.CharacterHealth.Damage(1, gameObject, 0f, 0f, Vector3.zero);
+            Vector3 damageDirection = _directionToTarget * 10f;
+            damageDirection += Vector3.up * 5f;
+            _target.CharacterHealth.Damage(1, gameObject, 0f, 0f, damageDirection);
         }
     }
 
@@ -286,5 +309,15 @@ public class CharacterAttack : CharacterAbility
     {
         IsAttacking = false;
         _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Normal);
+    }
+
+    private bool HasOverride(AnimatorOverrideController controller, string animName)
+    {
+        List<KeyValuePair<AnimationClip, AnimationClip>> overrides = new List<KeyValuePair<AnimationClip, AnimationClip>>();
+        controller.GetOverrides(overrides);
+        KeyValuePair<AnimationClip, AnimationClip> animOverride = 
+            overrides.Find(x => x.Key.name == animName);
+
+        return animOverride.Value != null;
     }
 }

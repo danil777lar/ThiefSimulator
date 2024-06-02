@@ -15,7 +15,8 @@ MonoBehaviour:
   <AttackDistance>k__BackingField: 1
   <AttackDelay>k__BackingField: 0
   <Damage>k__BackingField: 1
-  <Animations>k__BackingField: {fileID: 0}
+  <Animations>k__BackingField: {fileID: 22100000, guid: fc73db701d0a3f5458ea5ee350b003f6,
+    type: 2}
   <AttackerDirectionLimit>k__BackingField:
     <UseLimit>k__BackingField: 1
     <LimitAngle>k__BackingField: 90
@@ -24,6 +25,11 @@ MonoBehaviour:
     <UseLimit>k__BackingField: 0
     <LimitAngle>k__BackingField: 20
     <LimitDirection>k__BackingField: {x: 0, y: 0, z: 1}
+  <UseConstantAttackDuration>k__BackingField: 1
+  <ConstantAttackDuration>k__BackingField: 0.125
+  <AttackRamDistance>k__BackingField: 3
+  <AttackRamDuration>k__BackingField: 0.25
+  <AttackRamEase>k__BackingField: 13
   <UseFixedPosition>k__BackingField: 0
   <TransitionToFixedPositionDuration>k__BackingField: 0
   <FixedPosition>k__BackingField: {x: 0, y: 0, z: 0}

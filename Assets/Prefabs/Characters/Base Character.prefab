@@ -97,7 +97,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Gravity: 40
-  GravityActive: 1
+  GravityActive: 0
   CrouchedRaycastLengthMultiplier: 1
   PerformCardinalObstacleRaycastDetection: 0
   Speed: {x: 0, y: 0, z: 0}
@@ -159,7 +159,7 @@ MonoBehaviour:
   VelocityTransferMethod: 2
   ObstaclesLayerMask:
     serializedVersion: 2
-    m_Bits: 662592
+    m_Bits: 138304
   GroundedRaycastLength: 5
   MinimumGroundedDistance: 0.2
   GroundedComputationMode: 1
@@ -325,7 +325,7 @@ MonoBehaviour:
   detachDistance: 0.35
   cargosMask:
     serializedVersion: 2
-    m_Bits: 528384
+    m_Bits: 4096
   cargoPullPoint: {fileID: 9162709330136404148}
   drawGizmos: 0
   gizmosColor: {r: 1, g: 0.12645656, b: 0, a: 0.5019608}
@@ -357,7 +357,7 @@ MonoBehaviour:
   findDistance: 2.5
   carryableMask:
     serializedVersion: 2
-    m_Bits: 1056768
+    m_Bits: 8192
   carryableAttachPoint: {fileID: 6619566819241437286}
   drawGizmos: 0
   gizmosColor: {r: 1, g: 0.41726166, b: 0.058823526, a: 0.5019608}
@@ -467,7 +467,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1356067717985629786}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f01dee999a6fa1d4f8d37b86d7685f3c, type: 3}
+  m_Script: {fileID: 11500000, guid: 8fee2281eb798e145824f61038ef5e4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Ragdoller: {fileID: 8489277164874707880}
