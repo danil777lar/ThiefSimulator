@@ -12,14 +12,12 @@ public class AttackMarker : MonoBehaviour
 
     private float _distance;
     private float _angle;
-    private Vector3 _direction;
     private MeshFilter _meshFilter;
 
     public void Init(float distance, float angle, Vector3 direction)
     {
         _distance = distance;
         _angle = angle;
-        _direction = direction;
         
         _meshFilter = GetComponent<MeshFilter>();
      
