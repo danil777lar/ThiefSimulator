@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed370e1f7c04a7949b086a51764d6eeb, type: 3}
-  m_Name: Player Attack Config
+  m_Name: Player Ram Attack Config
   m_EditorClassIdentifier: 
   <AttackDistance>k__BackingField: 3
   <AttackDelay>k__BackingField: 3
   <Damage>k__BackingField: 1
-  <Animations>k__BackingField: {fileID: 22100000, guid: bf836b2a7d9daaf48b04ed1207cccd30,
+  <Animations>k__BackingField: {fileID: 22100000, guid: fc73db701d0a3f5458ea5ee350b003f6,
     type: 2}
   <AttackerDirectionLimit>k__BackingField:
     <UseLimit>k__BackingField: 0
@@ -25,6 +25,11 @@ MonoBehaviour:
     <UseLimit>k__BackingField: 1
     <LimitAngle>k__BackingField: 90
     <LimitDirection>k__BackingField: {x: 0, y: 0, z: 1}
-  <UseFixedPosition>k__BackingField: 1
-  <TransitionToFixedPositionDuration>k__BackingField: 0.5
-  <FixedPosition>k__BackingField: {x: 0, y: 0, z: -1.5}
+  <UseConstantAttackDuration>k__BackingField: 1
+  <ConstantAttackDuration>k__BackingField: 0.25
+  <AttackRamDistance>k__BackingField: 6
+  <AttackRamDuration>k__BackingField: 0.5
+  <AttackRamEase>k__BackingField: 13
+  <UseFixedPosition>k__BackingField: 0
+  <TransitionToFixedPositionDuration>k__BackingField: 0.25
+  <FixedPosition>k__BackingField: {x: 0, y: 0, z: 1.5}

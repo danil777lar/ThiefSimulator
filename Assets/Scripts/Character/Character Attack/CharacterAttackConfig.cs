@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Character Attack Config", menuName = "Configs/Character Attack")]
@@ -17,6 +18,15 @@ public class CharacterAttackConfig : ScriptableObject
     [field: SerializeField] public Limit AttackerDirectionLimit { get; private set; }
     [field: SerializeField] public Limit VictimDirectionLimit { get; private set; }
 
+    [field: Header("Attack Duration")]
+    [field: SerializeField] public bool UseConstantAttackDuration { get; private set; }
+    [field: SerializeField] public float ConstantAttackDuration { get; private set; } = 0.5f;
+    
+    [field: Header("Attack Ram")]
+    [field: SerializeField] public float AttackRamDistance { get; private set; }
+    [field: SerializeField] public float AttackRamDuration { get; private set; }
+    [field: SerializeField] public Ease AttackRamEase { get; private set; }
+    
     [field: Header("Fixed Position")]
     [field: SerializeField] public bool UseFixedPosition { get; private set; }
 

@@ -115,14 +115,24 @@ public class CharacterAttack : CharacterAbility
                 if (config.Animations != null)
                 {
                     ApplyAnimation(config.Animations, "Killer");
+                    ApplyAttackRam();
                 }
-                else
+                
+                if (config.Animations == null || config.UseConstantAttackDuration)
                 {
-                    SendDamage();
-                    CompleteAttack();
+                    SendDamageDelayed(config.UseConstantAttackDuration ? config.ConstantAttackDuration : 0f);
                 }
             });
         }
+    }
+
+    private void SendDamageDelayed(float duration)
+    {
+        DOVirtual.DelayedCall(duration, () =>
+        {
+            SendDamage();
+            CompleteAttack();
+        });
     }
 
     private void TryStartTransition(Action onComplete)
@@ -249,6 +259,18 @@ public class CharacterAttack : CharacterAbility
         if (controller != null)
         {
             _character.CharacterAnimator.SetTrigger(key);
+        }
+    }
+
+    private void ApplyAttackRam()
+    {
+        if (config.AttackRamDistance > 0)
+        {
+            Vector3 direction = _target.transform.position - transform.position;
+            Vector3 targetPosition = transform.position + direction.normalized * config.AttackRamDistance;
+            _character.transform.DOMove(targetPosition, config.AttackRamDuration)
+                .SetEase(config.AttackRamEase)
+                .SetUpdate(UpdateType.Fixed);
         }
     }
 

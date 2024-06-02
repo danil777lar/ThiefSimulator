@@ -53,7 +53,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 0400000005000000
   BlockingWeaponStates: 
-  config: {fileID: 11400000, guid: d18f4eae9e2bc1e43a6bbd5fb82b34b0, type: 2}
+  config: {fileID: 11400000, guid: 1f542ff9f851c6444a46a1dcf04063ae, type: 2}
   targetMask:
     serializedVersion: 2
     m_Bits: 512
@@ -61,7 +61,6 @@ MonoBehaviour:
   markerSpawnDistance: 5
   markerPrefab: {fileID: 5229158570126236803, guid: 12b8478bbff46ca429216105b389b260,
     type: 3}
-  enableDebugs: 1
 --- !u!1 &5263396957636663709
 GameObject:
   m_ObjectHideFlags: 0
