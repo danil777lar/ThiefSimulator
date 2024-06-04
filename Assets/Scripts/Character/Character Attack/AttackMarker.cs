@@ -4,6 +4,7 @@ using DG.Tweening;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class AttackMarker : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class AttackMarker : MonoBehaviour
 
     private float _distance;
     private float _angle;
+    private Vector3 _lastPosition;
+    private Quaternion _lastRotation;
     private MeshFilter _meshFilter;
     private MeshRenderer _meshRenderer;
     private CharacterAttack _attacker;
@@ -48,17 +51,26 @@ public class AttackMarker : MonoBehaviour
 
     private void Update()
     {
+        UpdateMesh();
+        UpdateProgress();
+    }
+
+    private void UpdateMesh()
+    {
         FovMeshBuilder.Input input = new FovMeshBuilder.Input
         {
             angle = _angle,
             directionRotate = 180f,
-            raysPerAngle = 1f,
+            raysPerDeg = 1f,
             distance = _distance,
             meshFilter = _meshFilter,
             raycastMask = mask,
         };
-        FovMeshBuilder.Output output = FovMeshBuilder.BuildMesh(input);
-        
+        FovMeshBuilder.BuildMesh(input);
+    }
+
+    private void UpdateProgress()
+    {
         float targetPercent = _attacker.Target == _target ? _attacker.AttackProgress : 0f;
         float currentPercent = _meshRenderer.material.GetFloat("_FillPercent");
         targetPercent = Mathf.Lerp(currentPercent, targetPercent, Time.deltaTime * 10f);

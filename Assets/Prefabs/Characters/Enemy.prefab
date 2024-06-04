@@ -8,11 +8,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1630409740701441315}
     m_Modifications:
-    - target: {fileID: 2034718055234790299, guid: 28015fa2e12781b4ca14c787b6cf7592,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.05
-      objectReference: {fileID: 0}
     - target: {fileID: 3262599684543637662, guid: 28015fa2e12781b4ca14c787b6cf7592,
         type: 3}
       propertyPath: meshFilter
@@ -288,6 +283,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9121854301713531681, guid: 6df4af2efef53044688493cd7740b964,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

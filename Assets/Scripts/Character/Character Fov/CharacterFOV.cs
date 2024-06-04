@@ -8,19 +8,30 @@ using UnityEngine.UIElements;
 
 public class CharacterFOV : CharacterAbility
 {
-    [SerializeField] private bool drawGizmo;
-    [SerializeField] private bool buildMesh = true;
+    [Space(40f)]
+    
+    [SerializeField] private float raysPerDeg = 1f;
     [SerializeField] private float verticalRaycastOffset;
     [SerializeField] private LayerMask mask;
-    [SerializeField] private MeshFilter meshFilter;
     [SerializeField] private Options options;
+    
+    [Header("Links")]
+    [SerializeField] private MeshFilter meshFilter;
+    
+    [Header("Debug")]
+    [SerializeField] private bool drawGizmo;
+    [SerializeField] private bool buildMesh = true;
 
+    private float _fovStep;
+    private Vector3 _lastPosition;
+    private Vector3 _lastRotation;
     private ThiefLevel _level;
+    private Dictionary<Vector3, float> _fovVerts;
     private List<Vector3> _pointsInVision = new List<Vector3>();
     private List<CharacterVisionTarget> _charactersInVision = new List<CharacterVisionTarget>();
 
-    public IReadOnlyCollection<Vector3> PointsInVision => _pointsInVision.AsReadOnly();
-    public IReadOnlyCollection<CharacterVisionTarget> CharactersInVision => _charactersInVision.AsReadOnly();
+    public IReadOnlyCollection<Vector3> PointsInVision => _pointsInVision?.AsReadOnly();
+    public IReadOnlyCollection<CharacterVisionTarget> CharactersInVision => _charactersInVision?.AsReadOnly();
 
     public void Build(Options options)
     {
@@ -41,7 +52,7 @@ public class CharacterFOV : CharacterAbility
         }
 
         meshFilter.gameObject.SetActive(true);
-        UpdateVision();
+        TryUpdateVision();
     }
 
     protected override void OnDeath()
@@ -69,12 +80,19 @@ public class CharacterFOV : CharacterAbility
         meshFilter.gameObject.SetActive(false);
     }
 
-    private void UpdateVision()
+    private void TryUpdateVision()
     {
         FovMeshBuilder.Output fovOutput = FovMeshBuilder.BuildMesh(GetFovMeshInput());
-        
-        FindCharactersInVision(fovOutput.hits);
-        FindPointsInVision(fovOutput.verts, fovOutput.angleIncrease);
+        _fovStep = fovOutput.angleIncrease;
+
+        _fovVerts = new Dictionary<Vector3, float>();
+        foreach (Vector3 vert in fovOutput.verts)
+        {
+            _fovVerts.Add(vert, Vector3.SignedAngle(Vector3.forward, vert, Vector3.up));
+        }
+
+        FindCharactersInVision();
+        FindPointsInVision();
     }
 
     private FovMeshBuilder.Input GetFovMeshInput()
@@ -82,7 +100,7 @@ public class CharacterFOV : CharacterAbility
         return new FovMeshBuilder.Input
         {
             angle = options.Angle,
-            raysPerAngle = 1f,
+            raysPerDeg = raysPerDeg,
             distance = options.DistanceVision,
             meshFilter = meshFilter,
             raycastMask = mask,
@@ -90,33 +108,38 @@ public class CharacterFOV : CharacterAbility
         };
     }
 
-    private void FindCharactersInVision(List<RaycastHit> hits)
+    private void FindCharactersInVision()
     {
-        _charactersInVision.Clear();
-        foreach (RaycastHit hit in hits)
+        _charactersInVision = new List<CharacterVisionTarget>();
+        foreach (CharacterVisionTarget target in CharacterVisionTarget.Targets)
         {
-            CharacterVisionTarget character = CharacterVisionTarget.Targets.ToList()
-                .Find(x => x.Character.gameObject == hit.collider.gameObject);
-            if (character != null)
+            if (InPositionInFov(target.transform.position))
             {
-                _charactersInVision.Add(character);
+                _charactersInVision.Add(target);
             }
         }
     }
     
-    private void FindPointsInVision(List<Vector3> rays, float angle)
+    private void FindPointsInVision()
     {
-        _pointsInVision.Clear();
+        _pointsInVision = new List<Vector3>();
         foreach (Vector3 point in _level.Points)
         {
-            Vector3 pointDirection = meshFilter.transform.InverseTransformPoint(point);
-            List<Vector3> nearestRays = rays.FindAll(x => 
-                Vector3.Angle(x.normalized.XZ(), pointDirection.normalized.XZ()) <= angle);
-            if (nearestRays.Count > 0 && pointDirection.magnitude < nearestRays.First().magnitude)
+            if (InPositionInFov(point))
             {
                 _pointsInVision.Add(point);
             }
         }
+    }
+
+    private bool InPositionInFov(Vector3 position)
+    {
+        Vector3 pointDirection = meshFilter.transform.InverseTransformPoint(position);
+        float angle = Vector3.SignedAngle(Vector3.forward, pointDirection, Vector3.up);
+        Vector3 nearestVert = _fovVerts.OrderBy(x => Mathf.Abs(x.Value - angle)).First().Key;
+
+        return Mathf.Abs(_fovVerts[nearestVert] - angle) <= _fovStep &&
+               pointDirection.magnitude < nearestVert.magnitude; 
     }
 
     [Serializable]

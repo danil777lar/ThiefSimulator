@@ -8,6 +8,7 @@ using UnityEngine.Serialization;
 
 public class SoundTransmitter : MonoBehaviour
 {
+    [SerializeField] private bool updateMaterial;
     [SerializeField] private float soundSpeed = 5f;
     [SerializeField] private Gradient colorOverLifetime;
 
@@ -36,6 +37,19 @@ public class SoundTransmitter : MonoBehaviour
             OnComplete();
         }
         
+        UpdateMaterial();
+    }
+
+    private void OnDestroy()
+    {
+        if (_mesh != null)
+        {
+            Destroy(_mesh);
+        }
+    }
+
+    private void UpdateMaterial()
+    {
         if (_mesh)
         {
             float lifetime = 1f - (CurrentAmplitude / _initialAmplitude);
@@ -48,25 +62,20 @@ public class SoundTransmitter : MonoBehaviour
         }   
     }
 
-    private void OnDestroy()
-    {
-        if (_mesh != null)
-        {
-            Destroy(_mesh);
-        }
-    }
-
     private void GrabMesh()
     {
-        MeshFilter meshFilter = GetComponentInChildren<MeshFilter>();
-        if (meshFilter)
+        if (updateMaterial)
         {
-            _mesh = new Mesh();
-            _mesh.vertices = meshFilter.mesh.vertices;
-            _mesh.triangles = meshFilter.mesh.triangles;
-            _mesh.uv = meshFilter.mesh.uv;
+            MeshFilter meshFilter = GetComponentInChildren<MeshFilter>();
+            if (meshFilter)
+            {
+                _mesh = new Mesh();
+                _mesh.vertices = meshFilter.mesh.vertices;
+                _mesh.triangles = meshFilter.mesh.triangles;
+                _mesh.uv = meshFilter.mesh.uv;
 
-            meshFilter.mesh = _mesh;
+                meshFilter.mesh = _mesh;
+            }
         }
     }
 
