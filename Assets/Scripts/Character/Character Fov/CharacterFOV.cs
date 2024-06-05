@@ -8,24 +8,20 @@ using UnityEngine.UIElements;
 
 public class CharacterFOV : CharacterAbility
 {
-    [Space(40f)]
-    
-    [SerializeField] private float raysPerDeg = 1f;
+    [Space(40f)] [SerializeField] private float raysPerDeg = 1f;
     [SerializeField] private float verticalRaycastOffset;
     [SerializeField] private LayerMask mask;
     [SerializeField] private Options options;
-    
-    [Header("Links")]
-    [SerializeField] private MeshFilter meshFilter;
-    
-    [Header("Debug")]
-    [SerializeField] private bool drawGizmo;
+
+    [Header("Links")] [SerializeField] private MeshFilter meshFilter;
+
+    [Header("Debug")] [SerializeField] private bool drawGizmo;
     [SerializeField] private bool buildMesh = true;
 
     private Vector3 _lastPosition;
     private Vector3 _lastRotation;
     private FovMeshBuilder _fovMeshBuilder;
-    
+
     private List<CharacterVisionTarget> _charactersInVision = new List<CharacterVisionTarget>();
     public IReadOnlyCollection<CharacterVisionTarget> CharactersInVision => _charactersInVision?.AsReadOnly();
 
@@ -37,7 +33,7 @@ public class CharacterFOV : CharacterAbility
     public override void ProcessAbility()
     {
         base.ProcessAbility();
-        
+
         if (!AbilityAuthorized || !AbilityPermitted)
         {
             meshFilter.gameObject.SetActive(false);
@@ -49,7 +45,7 @@ public class CharacterFOV : CharacterAbility
         meshFilter.gameObject.SetActive(true);
         TryUpdateVision();
     }
-    
+
     public bool IsPointInVision(Vector3 point)
     {
         return _fovMeshBuilder.InPositionInFov(point);
@@ -58,14 +54,14 @@ public class CharacterFOV : CharacterAbility
     protected override void OnDeath()
     {
         base.OnDeath();
-        
+
         meshFilter.gameObject.SetActive(false);
     }
 
     protected override void Initialization()
     {
         base.Initialization();
-        
+
         InitializeFovMeshBuilder();
     }
 
@@ -103,11 +99,26 @@ public class CharacterFOV : CharacterAbility
 
     private void TryUpdateVision()
     {
-        _fovMeshBuilder.BuildMesh();
+        if (NeedUpdateVision())
+        {
+            _fovMeshBuilder.BuildMesh();
+        }
+
         FindCharactersInVision();
     }
 
-    private void FindCharactersInVision()
+    private bool NeedUpdateVision()
+    {
+        bool positionChanged = meshFilter.transform.position != _lastPosition;
+        bool rotationChanged = meshFilter.transform.rotation.eulerAngles != _lastRotation;
+        
+        _lastPosition = meshFilter.transform.position;
+        _lastRotation = meshFilter.transform.rotation.eulerAngles;
+        
+        return positionChanged || rotationChanged;
+    }
+
+private void FindCharactersInVision()
     {
         _charactersInVision = new List<CharacterVisionTarget>();
         foreach (CharacterVisionTarget target in CharacterVisionTarget.Targets)

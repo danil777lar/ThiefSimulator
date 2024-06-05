@@ -15,7 +15,7 @@ public class ThiefLevel : LevelProcessor
     [SerializeField] private float startDelay;
     [Header("Win Conditions")]
     [SerializeField, Range(0f, 1f)] private float moneyPercentForWin = 1f;
-    [Header("Grid")]
+    [Header("Grid")] 
     [SerializeField, Min(1f)] private float gridSize = 2f;
     [SerializeField, Min(1f)] private float maxPointDistance = 1f;
     [Header("Gizmos")] 
@@ -96,9 +96,11 @@ public class ThiefLevel : LevelProcessor
     [ContextMenu("Build Navmesh")]
     private void BuildNavmesh()
     {
-        List<NavMeshSurface> surfaces = GetComponents<NavMeshSurface>().ToList();
-        surfaces.ForEach(x => x.BuildNavMesh());
+        StartCoroutine(BuildNavmeshCo());
+    }
 
+    private void BuildPoints()
+    {
         List<Vector3> points = new List<Vector3>();
         for (float x = -100f; x <= 100f; x += gridSize)
         {
@@ -151,6 +153,18 @@ public class ThiefLevel : LevelProcessor
         
         StartLevel(data);
         _isStarting = false;
+    }
+
+    private IEnumerator BuildNavmeshCo()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            yield return null;   
+        }
+        
+        List<NavMeshSurface> surfaces = GetComponents<NavMeshSurface>().ToList();
+        surfaces.ForEach(x => x.BuildNavMesh());
+        BuildPoints();
     }
     
     public new class LevelData : LevelProcessor.LevelData
