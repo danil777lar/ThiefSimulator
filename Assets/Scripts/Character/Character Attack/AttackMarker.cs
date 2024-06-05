@@ -13,8 +13,10 @@ public class AttackMarker : MonoBehaviour
 
     private float _distance;
     private float _angle;
+    private Vector3 _direction;
     private Vector3 _lastPosition;
     private Quaternion _lastRotation;
+    private FovMeshBuilder _fovMeshBuilder;
     private MeshFilter _meshFilter;
     private MeshRenderer _meshRenderer;
     private CharacterAttack _attacker;
@@ -24,20 +26,15 @@ public class AttackMarker : MonoBehaviour
     {
         _distance = distance;
         _angle = angle;
+        _direction = direction;
         _attacker = attacker;
         _target = target;
         
         _meshFilter = GetComponent<MeshFilter>();
         _meshRenderer = GetComponent<MeshRenderer>();
      
-        transform.localPosition = transform.localPosition.MMSetY(0.05f);
-        transform.localRotation = Quaternion.LookRotation(direction);
-        transform.localScale = Vector3.zero;
-        
-        this.DOKill();
-        transform.DOScale(Vector3.one, showHideAnimDuration)
-            .SetTarget(this)
-            .SetEase(Ease.OutBack);
+        InitFovMesh();
+        PlayStartAnim();
     }
     
     public void Remove()
@@ -51,13 +48,13 @@ public class AttackMarker : MonoBehaviour
 
     private void Update()
     {
-        UpdateMesh();
+        _fovMeshBuilder.BuildMesh();
         UpdateProgress();
     }
 
-    private void UpdateMesh()
+    private void InitFovMesh()
     {
-        FovMeshBuilder.Input input = new FovMeshBuilder.Input
+        _fovMeshBuilder = new FovMeshBuilder(new FovMeshBuilder.Options
         {
             angle = _angle,
             directionRotate = 180f,
@@ -65,8 +62,19 @@ public class AttackMarker : MonoBehaviour
             distance = _distance,
             meshFilter = _meshFilter,
             raycastMask = mask,
-        };
-        FovMeshBuilder.BuildMesh(input);
+        });
+    }
+
+    private void PlayStartAnim()
+    {
+        transform.localPosition = transform.localPosition.MMSetY(0.05f);
+        transform.localRotation = Quaternion.LookRotation(_direction);
+        transform.localScale = Vector3.zero;
+        
+        this.DOKill();
+        transform.DOScale(Vector3.one, showHideAnimDuration)
+            .SetTarget(this)
+            .SetEase(Ease.OutBack);
     }
 
     private void UpdateProgress()

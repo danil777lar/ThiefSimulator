@@ -22,11 +22,11 @@ public class CharacterFOV : CharacterAbility
     [SerializeField] private bool drawGizmo;
     [SerializeField] private bool buildMesh = true;
 
-    private float _fovStep;
     private Vector3 _lastPosition;
     private Vector3 _lastRotation;
     private ThiefLevel _level;
-    private Dictionary<Vector3, float> _fovVerts;
+    private FovMeshBuilder _fovMeshBuilder;
+    
     private List<Vector3> _pointsInVision = new List<Vector3>();
     private List<CharacterVisionTarget> _charactersInVision = new List<CharacterVisionTarget>();
 
@@ -67,6 +67,7 @@ public class CharacterFOV : CharacterAbility
         base.Initialization();
         
         _level = GetComponentInParent<ThiefLevel>();
+        InitializeFovMeshBuilder();
     }
 
     protected override void OnEnable()
@@ -80,24 +81,23 @@ public class CharacterFOV : CharacterAbility
         meshFilter.gameObject.SetActive(false);
     }
 
-    private void TryUpdateVision()
+    private void OnDrawGizmos()
     {
-        FovMeshBuilder.Output fovOutput = FovMeshBuilder.BuildMesh(GetFovMeshInput());
-        _fovStep = fovOutput.angleIncrease;
-
-        _fovVerts = new Dictionary<Vector3, float>();
-        foreach (Vector3 vert in fovOutput.verts)
+        if (!drawGizmo)
         {
-            _fovVerts.Add(vert, Vector3.SignedAngle(Vector3.forward, vert, Vector3.up));
+            return;
         }
-
-        FindCharactersInVision();
-        FindPointsInVision();
+        
+        foreach (Vector3 point in _pointsInVision)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawSphere(point, 0.5f);
+        }
     }
 
-    private FovMeshBuilder.Input GetFovMeshInput()
+    private void InitializeFovMeshBuilder()
     {
-        return new FovMeshBuilder.Input
+        _fovMeshBuilder = new FovMeshBuilder(new FovMeshBuilder.Options
         {
             angle = options.Angle,
             raysPerDeg = raysPerDeg,
@@ -105,7 +105,14 @@ public class CharacterFOV : CharacterAbility
             meshFilter = meshFilter,
             raycastMask = mask,
             raycastOffset = new Vector3(0, verticalRaycastOffset, 0)
-        };
+        });
+    }
+
+    private void TryUpdateVision()
+    {
+        _fovMeshBuilder.BuildMesh();
+        FindCharactersInVision();
+        FindPointsInVision();
     }
 
     private void FindCharactersInVision()
@@ -136,10 +143,34 @@ public class CharacterFOV : CharacterAbility
     {
         Vector3 pointDirection = meshFilter.transform.InverseTransformPoint(position);
         float angle = Vector3.SignedAngle(Vector3.forward, pointDirection, Vector3.up);
-        Vector3 nearestVert = _fovVerts.OrderBy(x => Mathf.Abs(x.Value - angle)).First().Key;
+        
+        Vector3 nearestVert = FindNearestVert(angle, _fovMeshBuilder.Verts.ToList());
+        bool isAngleOk = Mathf.Abs(_fovMeshBuilder.VertAngles[nearestVert] - angle) <= _fovMeshBuilder.AngleStep;
+        bool isDistanceOk = pointDirection.magnitude < nearestVert.magnitude;
 
-        return Mathf.Abs(_fovVerts[nearestVert] - angle) <= _fovStep &&
-               pointDirection.magnitude < nearestVert.magnitude; 
+        return isAngleOk && isDistanceOk; 
+    }
+    
+    private Vector3 FindNearestVert(float angle, List<Vector3> verts)
+    {
+        int half = verts.Count / 2;
+        
+        if (verts.Count == 1)
+        {
+            return verts[0];
+        }
+        
+        if (VertAngle(verts[half]) < angle)
+        {
+            return FindNearestVert(angle, verts.GetRange(0, half));
+        }
+        
+        return FindNearestVert(angle, verts.GetRange(half, verts.Count - half));
+    }
+
+    private float VertAngle(Vector3 vert)
+    {
+        return _fovMeshBuilder.VertAngles[vert];        
     }
 
     [Serializable]
