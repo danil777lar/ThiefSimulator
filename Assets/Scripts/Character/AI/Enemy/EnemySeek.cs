@@ -129,7 +129,7 @@ public class EnemySeek : CharacterAbility
                 float distance = Vector3.Distance(transform.position, point.Position);
                 float distanceModifier = Mathf.Clamp01(1f - (distance / config.MaxObserveDistance));
                 
-                bool observable = _fov.PointsInVision.Contains(point.Position);
+                bool observable = _fov.IsPointInVision(point.Position);
                 observable |= distance <= config.ForceObserveDistance;
                 observable &= distanceModifier > 0f;
                 

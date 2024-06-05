@@ -70,7 +70,7 @@ public class AIActionAimToNearestSeekPoint : AIAction
             StartCoroutine(RecalculatePointDelay());
         }
         
-        _isPointVisible = _fov.PointsInVision.Contains(_point);
+        _isPointVisible = _fov.IsPointInVision(_point);
         
         Vector3 lookPoint = _isPointVisible ? _point : transform.position + _orientation.TargetDirection * 10f;
         _target.position = _isPointVisible ? transform.position : _point;
