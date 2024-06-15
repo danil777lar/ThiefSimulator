@@ -57,6 +57,12 @@ public class CharacterAttack : CharacterAbility
         _grabbed = true;
         _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Frozen);
     }
+    
+    public void Unfroze()
+    {
+        _grabbed = false;
+        _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Normal);
+    }
 
     public void ApplyVictimAnimation(AnimatorOverrideController animations)
     {
@@ -320,6 +326,11 @@ public class CharacterAttack : CharacterAbility
             {
                 MMF_Player effect = Instantiate(effectOnDamage);
                 effect.transform.position = _target.transform.position;
+            }
+
+            if (_target.CharacterHealth.CurrentHealth > 0)
+            {
+                _target.Unfroze();
             }
         }
     }

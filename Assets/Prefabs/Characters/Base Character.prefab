@@ -400,7 +400,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1356067717985629786}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01754710d9f92ec4d9a21b81f5682667, type: 3}
+  m_Script: {fileID: 11500000, guid: 7cca04a517ec23a418ca2cf2faecadf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Model: {fileID: 5445676164548388878}
@@ -436,6 +436,7 @@ MonoBehaviour:
   TargetDamageResistanceProcessor: {fileID: 0}
   TargetAnimator: {fileID: 0}
   DisableAnimatorLogs: 1
+  save: 0
 --- !u!114 &-7102296250445968076
 MonoBehaviour:
   m_ObjectHideFlags: 0
