@@ -7,13 +7,15 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Vertex
+  m_Name: Wall
   m_Shader: {fileID: -6465566751694194690, guid: 940bbe88f57318e43b90dacbeb47c1f9,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _COLOR_SOURCE_VERTEX_COLOR
+  - _USE_HIGHLIGHT
+  - _USE_SHADOW
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
@@ -200,6 +202,8 @@ Material:
     - _SrcBlendAlpha: 1
     - _Surface: 0
     - _USE_FRESNEL: 0
+    - _USE_HIGHLIGHT: 1
+    - _USE_SHADOW: 1
     - _UVSec: 0
     - _UseAlphaTest: 0
     - _UseEmission: 0
