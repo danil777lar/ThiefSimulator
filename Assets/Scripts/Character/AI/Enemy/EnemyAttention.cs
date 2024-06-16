@@ -57,11 +57,21 @@ public class EnemyAttention : CharacterAbility
         
         if (player)
         {
+            if (_player == null && player.Character.CharacterHealth is CharacterHealth characterHealth)
+            {
+                characterHealth.EventDamageDeclined += OnCharacterDamageDeclined;
+            }
+            
             _player = player;
             float distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
             float playerVisibility = Mathf.Clamp01(1f - (distanceToPlayer / config.VisionDistance)) * _player.Visibility;
             AddAttention(playerVisibility * config.VisionSensitivity * Time.deltaTime, player.transform.position); 
         }
+    }
+    
+    private void OnCharacterDamageDeclined()
+    {
+        AttentionLevel = Mathf.Clamp(AttentionLevel, 0, MaxSuspicion);
     }
     
     private void AddAttention(float attention, Vector3 position, bool onlySuspicion = false)

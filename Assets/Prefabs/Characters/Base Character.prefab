@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 6234999558004962175}
   - component: {fileID: 2314369418861545768}
   - component: {fileID: -7102296250445968076}
+  - component: {fileID: 8104505144142883194}
   - component: {fileID: 4752456712207448934}
   - component: {fileID: 2483000694220488879}
   m_Layer: 7
@@ -436,7 +437,7 @@ MonoBehaviour:
   TargetDamageResistanceProcessor: {fileID: 0}
   TargetAnimator: {fileID: 0}
   DisableAnimatorLogs: 1
-  save: 0
+  maxDamageDeclines: 1
 --- !u!114 &-7102296250445968076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,6 +460,21 @@ MonoBehaviour:
   BlockingConditionStates: 
   BlockingWeaponStates: 
   fitAnimationDuration: 0.5
+--- !u!114 &8104505144142883194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356067717985629786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e267f93da4d99408e6c2fd9803d3b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distance: 5
+  partsOnHide: {fileID: 7652473481740206948, guid: 60274b1edc8ea2246a9086e3131914be,
+    type: 3}
 --- !u!114 &4752456712207448934
 MonoBehaviour:
   m_ObjectHideFlags: 0
