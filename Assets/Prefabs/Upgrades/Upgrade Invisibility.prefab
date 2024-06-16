@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4198222070285482011
+--- !u!1 &8902206614531991426
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 973723956995756572}
-  - component: {fileID: 1540247811315525889}
+  - component: {fileID: 5133889408840657633}
+  - component: {fileID: -5557106007377072304}
   m_Layer: 0
-  m_Name: Upgrade Less Sound
+  m_Name: Upgrade Invisibility
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &973723956995756572
+--- !u!4 &5133889408840657633
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4198222070285482011}
+  m_GameObject: {fileID: 8902206614531991426}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,30 +32,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1540247811315525889
+--- !u!114 &-5557106007377072304
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4198222070285482011}
+  m_GameObject: {fileID: 8902206614531991426}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daa5f8ad511d8e64ab85fb4475b67202, type: 3}
+  m_Script: {fileID: 11500000, guid: ed8d5d9e647b93343a6efc17a9d924d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <UpgradeType>k__BackingField: 2
-  <Upgradable>k__BackingField: 1
-  <Icon>k__BackingField: {fileID: 21300000, guid: e438f0b0266bd4e2c966accc12f66f0b,
-    type: 3}
-  <DisplayName>k__BackingField: Step Sound
-  <DescriptionLeftModifier>k__BackingField: '-'
+  <UpgradeType>k__BackingField: 8
+  <Upgradable>k__BackingField: 0
+  <Icon>k__BackingField: {fileID: 0}
+  <DisplayName>k__BackingField: 
+  <DescriptionLeftModifier>k__BackingField: 
   <DescriptionRightModifier>k__BackingField: 
-  <MaxLevel>k__BackingField: 5
-  <BaseValue>k__BackingField: 0.25
-  <AddValuePerLevel>k__BackingField: 0.15
-  <BaseLevelPrice>k__BackingField: 100
-  <LevelPriceMultiplier>k__BackingField: 1.15
+  <MaxLevel>k__BackingField: 0
+  <BaseValue>k__BackingField: 0
+  <AddValuePerLevel>k__BackingField: 0
+  <BaseLevelPrice>k__BackingField: 0
+  <LevelPriceMultiplier>k__BackingField: 0
   durationCombinationType: 0
-  unlimitedDuration: 1
-  duration: 0
+  unlimitedDuration: 0
+  duration: 5

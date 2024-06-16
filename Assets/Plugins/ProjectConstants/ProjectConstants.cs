@@ -110,6 +110,7 @@ namespace ProjectConstants
 		MoreWeigth = 1,
 		LessSound = 2,
 		FasterAttack = 4,
+		Invisibility = 8,
 	}
 
 	[Flags]
@@ -118,6 +119,7 @@ namespace ProjectConstants
 		MoreWeigth = 1,
 		LessSound = 2,
 		FasterAttack = 4,
+		Invisibility = 8,
 	}
 
 }
