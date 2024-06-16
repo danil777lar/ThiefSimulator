@@ -7,7 +7,7 @@ using UnityEngine;
 public class MaterialSetter : MonoBehaviour
 {
     private Dictionary<Renderer, List<Material>> _renderers;
-    private Dictionary<object, Material> _overrides;
+    private Dictionary<object, Material> _overrides = new Dictionary<object, Material>();
 
     private void Start()
     {
@@ -23,7 +23,7 @@ public class MaterialSetter : MonoBehaviour
         _renderers = new Dictionary<Renderer, List<Material>>();
         foreach (Renderer renderer in renderers)
         {
-            _renderers.Add(renderer, new List<Material>(renderer.materials));
+            _renderers.Add(renderer, renderer.materials.ToList());
         }
     }
 
@@ -55,7 +55,7 @@ public class MaterialSetter : MonoBehaviour
             _renderers.Keys.ToList().ForEach(renderer =>
             {
                 List<Material> materials = new List<Material>();
-                for (int i = 0; i < materials.Count; i++)
+                for (int i = 0; i < _renderers[renderer].Count; i++)
                 {
                     materials.Add(_overrides.Last().Value);
                 }
