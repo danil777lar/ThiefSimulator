@@ -11,29 +11,48 @@ public class CharacterVisionTarget : MonoBehaviour
     public static IReadOnlyCollection<CharacterVisionTarget> Targets => _targets.AsReadOnly();
 
     [SerializeField] private float delayOnDamageDecline = 2f;
+    [SerializeField] private float defaultVisibility = 1f;
     
-    public float Visibility = 1f;
+    private List<Func<float>> _visibilityMultipliers = new List<Func<float>>();
+    
     public Character Character { get; private set; }
+
+    public float GetVisibility()
+    {
+        float visibility = defaultVisibility;
+
+        foreach (Func<float> multiplier in _visibilityMultipliers)
+        {
+            visibility *= multiplier.Invoke();
+        }
+        
+        return visibility;
+    }
+    
+    public void AddVisibilityMultiplier(Func<float> multiplier)
+    {
+        if (!_visibilityMultipliers.Contains(multiplier))
+        {
+            _visibilityMultipliers.Add(multiplier);
+        }
+    }
+
+    public void RemoveVisibilityMultiplier(Func<float> multiplier)
+    {
+        if (_visibilityMultipliers.Contains(multiplier))
+        {
+            _visibilityMultipliers.Remove(multiplier);
+        }
+    }
     
     private void Start()
     {
         Character = GetComponentInParent<Character>();
-        if (Character.CharacterHealth is CharacterHealth health)
-        {
-            health.EventDamageDeclined += OnDamageDeclined;
-        }
-        
         _targets.Add(this);
     }
 
     private void OnDestroy()
     {
         _targets.Remove(this);
-    }
-    
-    private void OnDamageDeclined()
-    {
-        Visibility = 0f;
-        DOVirtual.DelayedCall(delayOnDamageDecline, () => Visibility = 1f);
     }
 }

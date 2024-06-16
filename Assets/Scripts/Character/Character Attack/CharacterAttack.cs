@@ -70,7 +70,12 @@ public class CharacterAttack : CharacterAbility
         {
             ApplyAnimation(animations, "Victim");
         }
-    } 
+    }
+
+    public bool CanBeAttacked()
+    {
+        return !CharacterHealth.ImmuneToDamage;
+    }
 
     protected override void Initialization()
     {
@@ -225,7 +230,7 @@ public class CharacterAttack : CharacterAbility
         Physics.OverlapSphere(transform.position, distance, targetMask)
             .ToList().ForEach(x =>
             {
-                if (TryGetTarget(x, out CharacterAttack target))
+                if (TryGetTarget(x, out CharacterAttack target) && target.CanBeAttacked())
                 {
                     float sphereCastDistance = Vector3.Distance(transform.position, target.transform.position); 
                     if (!SphereCastToTarget(target, sphereCastDistance,  out RaycastHit hit))
