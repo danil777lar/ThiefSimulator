@@ -10,7 +10,6 @@ using UnityEngine.Serialization;
 
 public class CharacterHealth : Health
 {
-    [FormerlySerializedAs("savesCount")]
     [MMInspectorGroup("Thief", true, 6)]
     [SerializeField, Min(0)] private int maxDamageDeclines = 1;
 

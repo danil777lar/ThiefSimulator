@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: -7102296250445968076}
   - component: {fileID: 8104505144142883194}
   - component: {fileID: 4752456712207448934}
+  - component: {fileID: 6687820759680381197}
   - component: {fileID: 2483000694220488879}
   m_Layer: 7
   m_Name: Base Character
@@ -493,6 +494,18 @@ MonoBehaviour:
   ForceMultiplier: 10000
   RagdollButton: 0
   ResetRagdollButton: 0
+--- !u!114 &6687820759680381197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356067717985629786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0ddf55feec66104eb1335046ed85fe1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2483000694220488879
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -29,6 +29,7 @@ public abstract class UpgradeProcessor : MonoBehaviour
     [SerializeField] protected bool unlimitedDuration;
     [SerializeField] protected float duration;
 
+    private bool _inited;
     private int _currentLevel;
     private float _fullDuration;
     private float _currentDuration;
@@ -50,6 +51,7 @@ public abstract class UpgradeProcessor : MonoBehaviour
     {
         _currentLevel = level;
         _fullDuration = duration;
+        _inited = true;
     }
 
     public virtual void Combine(int level)
@@ -66,7 +68,7 @@ public abstract class UpgradeProcessor : MonoBehaviour
 
     protected virtual void Update()
     {
-        if (!unlimitedDuration)
+        if (!unlimitedDuration && _inited)
         {
             _currentDuration += Time.deltaTime;
             if (_currentDuration >= _fullDuration)
