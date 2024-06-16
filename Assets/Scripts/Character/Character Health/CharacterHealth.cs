@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Larje.Core.Services;
+using Larje.Core.Services.UI;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using ProjectConstants;
@@ -22,14 +23,30 @@ public class CharacterHealth : Health
     {
         if (_character.CharacterType == Character.CharacterTypes.Player && currentDamageDeclines < maxDamageDeclines)
         {
-            ServiceLocator.Instance.GetService<UpgradesService>()
-                .SpawnUpgrade(UpgradeType.Invisibility, 0, transform);
-            
-            currentDamageDeclines++;
-            EventDamageDeclined?.Invoke();
+            ImmuneToDamage = true;
+            UIService uiService = ServiceLocator.Instance.GetService<UIService>();
+            RevivePopup.Args popup = new RevivePopup.Args(
+                DeclineDamage, 
+                () =>
+                {
+                    ImmuneToDamage = false;
+                    base.Damage(damage, instigator, flickerDuration, invincibilityDuration, damageDirection,
+                        typedDamages);
+                });
+            uiService.GetProcessor<UIPopupProcessor>().OpenPopup(popup);
             return;
         }
         
         base.Damage(damage, instigator, flickerDuration, invincibilityDuration, damageDirection, typedDamages);
+    }
+
+    private void DeclineDamage()
+    {
+        ImmuneToDamage = false;
+        
+        ServiceLocator.Instance.GetService<UpgradesService>()
+            .SpawnUpgrade(UpgradeType.Invisibility, 0, transform);
+        currentDamageDeclines++;
+        EventDamageDeclined?.Invoke();
     }
 }
