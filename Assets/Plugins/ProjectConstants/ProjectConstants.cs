@@ -41,6 +41,7 @@ namespace ProjectConstants
 	{
 		Start = 1,
 		Stop = 2,
+		StopSmooth = 4,
 	}
 
 	public enum TimeScaleLayerType

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Larje.Core.Services;
 using Larje.Core.Services.UI;
 using ProjectConstants;
@@ -14,7 +15,18 @@ public class PausePopup : UIPopup
 
     [InjectService] private UIService _uiService;
     [InjectService] private ILevelManagerService _levelManagerService;
-    
+    [InjectService] private TimeScaleService _timeScaleService;
+
+    private bool _interactable = false;
+    private bool _closable = false;
+
+    public override void Close()
+    {
+        if (!_closable) return;
+        
+        base.Close();
+    }
+
     protected override void OnBeforeOpen(UIObject.Args args)
     {
         ServiceLocator.Instance.InjectServicesInComponent(this);
@@ -22,15 +34,34 @@ public class PausePopup : UIPopup
         resumeButton.onClick.AddListener(OnResumeButtonClicked);
         restartButton.onClick.AddListener(OnRestartButtonClicked);
         mainMenuButton.onClick.AddListener(OnMainMenuButtonClicked);
+        
+        _timeScaleService.PlayTimeScaleAnim(TimeScaleAnimationType.Stop);
+        
+        DOVirtual.DelayedCall(0.25f, () =>
+        {
+            _interactable = true;
+            _closable = true;
+        });
+    }
+
+    protected override void OnBeforeClose()
+    {
+        _timeScaleService.PlayTimeScaleAnim(TimeScaleAnimationType.Start);
     }
 
     private void OnResumeButtonClicked()
     {
+        if (!_interactable) return;
+        _interactable = false;
+        
         Close();
     }
 
     private void OnRestartButtonClicked()
     {
+        if (!_interactable) return;
+        _interactable = false;
+        
         Close();
         
         _levelManagerService.SpawnCurrentLevel();
@@ -44,6 +75,9 @@ public class PausePopup : UIPopup
 
     private void OnMainMenuButtonClicked()
     {
+        if (!_interactable) return;
+        _interactable = false;
+        
         Close();
         
         _levelManagerService.SpawnCurrentLevel();

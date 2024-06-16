@@ -56,8 +56,8 @@ public class RevivePopup : UIPopup
         _adsService.ShowRewarded(null, null,
             () =>
             {
-                _args.OnRevive?.Invoke();
                 Close();
+                _args.OnRevive?.Invoke();
             },
             () =>
             {
@@ -70,8 +70,8 @@ public class RevivePopup : UIPopup
         if (!_interactable) return;
         _interactable = false;
         
-        _args.OnSkip?.Invoke();
         Close();
+        _args.OnSkip?.Invoke();
     }
 
     private IEnumerator HeartAnimationCoroutine()

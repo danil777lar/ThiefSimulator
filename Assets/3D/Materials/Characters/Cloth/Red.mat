@@ -14,6 +14,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _COLOR_SOURCE_BASE_COLOR
+  - _USE_FRESNEL
   - _USE_HIGHLIGHT
   - _USE_SHADOW
   m_InvalidKeywords: []
@@ -109,15 +110,15 @@ Material:
     - _FresnelColorValue: 0
     - _FresnelMainValue: 1
     - _FresnelPower: 1
-    - _FresnelTreshold: 0.6
+    - _FresnelTreshold: 0.5
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _HighlightSize: 0.145
+    - _HighlightSize: 0.211
     - _Highlight_Hue_Shift: 0
-    - _Highlight_Saturation_Shift: 0
-    - _Highlight_Sharpness: 0
-    - _Highlight_Value_Shift: 0.15
+    - _Highlight_Saturation_Shift: 0.14
+    - _Highlight_Sharpness: 0.553
+    - _Highlight_Value_Shift: 0.1
     - _Metallic: 0
     - _NoiseScale: 100
     - _NoiseSize: 0.1
@@ -126,18 +127,18 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _ShadowSize: 0.45
-    - _Shadow_Hue_Shift: -0
-    - _Shadow_Saturation_Shift: 0.62
-    - _Shadow_Sharpness: 0.624
-    - _Shadow_Value_Shift: 0
+    - _ShadowSize: 0.539
+    - _Shadow_Hue_Shift: -0.05
+    - _Shadow_Saturation_Shift: 0.56
+    - _Shadow_Sharpness: 0.917
+    - _Shadow_Value_Shift: -0.02
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
-    - _USE_FRESNEL: 0
+    - _USE_FRESNEL: 1
     - _USE_HIGHLIGHT: 1
     - _USE_SHADOW: 1
     - _VertexColorValue: 0

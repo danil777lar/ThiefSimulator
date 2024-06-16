@@ -12,12 +12,20 @@ public class FailScreen : UIScreen
 
     [InjectService] private ILevelManagerService _levelService;
     [InjectService] private UIService _uiService;
+    [InjectService] private TimeScaleService _timeScaleService;
 
     protected override void OnBeforeOpen(UIObject.Args args)
     {
         ServiceLocator.Instance.InjectServicesInComponent(this);
 
         retryButton.onClick.AddListener(OnRetryButtonClicked);
+        
+        _timeScaleService.PlayTimeScaleAnim(TimeScaleAnimationType.StopSmooth);
+    }
+
+    protected override void OnBeforeClose()
+    {
+        _timeScaleService.PlayTimeScaleAnim(TimeScaleAnimationType.Start);
     }
 
     private void OnRetryButtonClicked()
