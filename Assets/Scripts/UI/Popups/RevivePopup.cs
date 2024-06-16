@@ -1,16 +1,24 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Larje.Core.Services;
 using Larje.Core.Services.UI;
 using ProjectConstants;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class RevivePopup : UIPopup
 {
+    [Space(40f)]
+    [SerializeField] private int delay; 
+    [Header("Buttons")]
     [SerializeField] private Button reviveButton;
     [SerializeField] private Button skipButton;
+    [Header("Heart")] 
+    [SerializeField] private Image heartImage;
+    [SerializeField] private TextMeshProUGUI heartTimer;
     
     [InjectService] private IAdsService _adsService;
     [InjectService] private TimeScaleService _timeScaleService;
@@ -31,6 +39,8 @@ public class RevivePopup : UIPopup
         skipButton.onClick.AddListener(OnSkipButtonClicked);
         
         _timeScaleService.PlayTimeScaleAnim(TimeScaleAnimationType.Stop);
+        
+        StartCoroutine(HeartAnimationCoroutine());
     }
     
     protected override void OnBeforeClose()
@@ -62,6 +72,31 @@ public class RevivePopup : UIPopup
         
         _args.OnSkip?.Invoke();
         Close();
+    }
+
+    private IEnumerator HeartAnimationCoroutine()
+    {
+        skipButton.gameObject.SetActive(false);
+        heartTimer.text = delay.ToString();
+        
+        for (int i = delay - 1; i >= 0; i--)
+        {
+            int time = i;
+            heartImage.transform.DOScale(1.25f, 0.25f)
+                .SetUpdate(UpdateType.Normal, true)
+                .OnComplete(() =>
+                {
+                    heartTimer.text = time > 0 ? time.ToString() : "";
+                    heartImage.transform.DOScale(1f, 0.25f)
+                        .SetUpdate(UpdateType.Normal, true);
+
+                    if (time == 0)
+                    {
+                        skipButton.gameObject.SetActive(true);
+                    }
+                });
+            yield return new WaitForSecondsRealtime(1);
+        }
     }
 
     public new class Args : UIPopup.Args
