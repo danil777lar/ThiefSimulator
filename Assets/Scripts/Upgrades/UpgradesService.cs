@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Larje.Core.Services;
 using ProjectConstants;
 using Unity.VisualScripting;
@@ -22,8 +23,16 @@ public class UpgradesService : Service
         {
             return;
         }
-        
-        UpgradeProcessor upgrade = Instantiate(processor, parent);
-        
+
+        UpgradeProcessor instance = parent.GetComponentsInChildren<UpgradeProcessor>().ToList()
+            .Find(x => x.UpgradeType == upgradeType);
+        if (instance != null)
+        {
+            instance.Combine(level);
+        }
+        else
+        {
+            Instantiate(processor, parent).Init(level);   
+        }
     }
 }

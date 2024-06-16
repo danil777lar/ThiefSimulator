@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Larje.Core.Services;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
+using ProjectConstants;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -22,6 +23,9 @@ public class CharacterHealth : Health
     {
         if (_character.CharacterType == Character.CharacterTypes.Player && currentDamageDeclines < maxDamageDeclines)
         {
+            ServiceLocator.Instance.GetService<UpgradesService>()
+                .SpawnUpgrade(UpgradeType.Invisibility, 0, transform);
+            
             currentDamageDeclines++;
             EventDamageDeclined?.Invoke();
             return;
