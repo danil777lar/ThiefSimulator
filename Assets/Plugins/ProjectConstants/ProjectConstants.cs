@@ -113,6 +113,9 @@ namespace ProjectConstants
 		LessSound = 2,
 		FasterAttack = 4,
 		Invisibility = 8,
+		FasterMovement = 16,
+		MoreMoney = 32,
+		LockPicking = 64,
 	}
 
 	[Flags]
@@ -122,6 +125,9 @@ namespace ProjectConstants
 		LessSound = 2,
 		FasterAttack = 4,
 		Invisibility = 8,
+		FasterMovement = 16,
+		MoreMoney = 32,
+		LockPicking = 64,
 	}
 
 }
