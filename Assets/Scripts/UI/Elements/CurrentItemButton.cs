@@ -8,19 +8,22 @@ using ProjectConstants;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CurrentItemButton : MonoBehaviour
+public class CurrentItemButton : MonoBehaviour, IItemQualityBackgroundUser
 {
     [SerializeField] private ItemType itemType;
     [Space] 
     [SerializeField] private Image icon;
     [SerializeField] private Image placeholder;
-    [SerializeField] private List<ItemBackground> backgrounds;
     
     [InjectService] private IItemHolderService _itemHolderService;
     [InjectService] private UIService _uiService;
 
     private Item _item;
     private Button _button; 
+    
+    public ThiefItem Item => _item as ThiefItem;
+    
+    public event Action EventItemChanged;
 
     private void Start()
     {
@@ -45,23 +48,13 @@ public class CurrentItemButton : MonoBehaviour
         if (newItem != _item)
         {
             _item = newItem;
+            EventItemChanged?.Invoke();
+            
             icon.sprite = _item?.Icon;
             icon.gameObject.SetActive(_item != null);
             placeholder.gameObject.SetActive(_item == null);
 
             _button.interactable = _item != null;
-
-            backgrounds.ForEach(bg =>
-            {
-                if (_item is ThiefItem thiefItem)
-                {
-                    bg.Background.SetActive(bg.Quality == thiefItem.Quality);
-                }
-                else
-                {
-                    bg.Background.SetActive(false);
-                }
-            });
 
             PlayUpdateAnimation();
         }
@@ -69,8 +62,11 @@ public class CurrentItemButton : MonoBehaviour
 
     private void OnButtonClicked()
     {
-        UIPopup.Args args = new ItemPopup.Args(itemType, _item);
-        _uiService.GetProcessor<UIPopupProcessor>().OpenPopup(args);        
+        if (_item != null)
+        {
+            UIPopup.Args args = new ItemPopup.Args(itemType, _item);
+            _uiService.GetProcessor<UIPopupProcessor>().OpenPopup(args);
+        }
     }
 
     private void PlayUpdateAnimation()
@@ -84,12 +80,5 @@ public class CurrentItemButton : MonoBehaviour
                     .SetEase(Ease.OutBack)
                     .SetTarget(this);
             });
-    }
-    
-    [Serializable]
-    private class ItemBackground
-    {
-        [field: SerializeField] public ItemQuality Quality { get; private set; }
-        [field: SerializeField] public GameObject Background { get; private set; }
     }
 }

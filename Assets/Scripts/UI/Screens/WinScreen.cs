@@ -12,7 +12,7 @@ using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class WinScreen : UIScreen
+public class WinScreen : UIScreen, IItemQualityBackgroundUser
 {
     [SerializeField] private float showSkipButtonDelay = 2f;
     
@@ -52,6 +52,9 @@ public class WinScreen : UIScreen
     private ItemType _bestRewardType;
     private RewardedAdButton _rewardAdButton;
     private IEnumerator _showSkipButtonCoroutine;
+    
+    public ThiefItem Item => _bestReward as ThiefItem;
+    public event Action EventItemChanged;
     
     protected override void OnBeforeOpen(UIObject.Args args)
     {
@@ -98,6 +101,8 @@ public class WinScreen : UIScreen
 
             bestRewardIcon.sprite = _bestReward.Icon;
             rewardItemIcon.sprite = _bestReward.Icon;
+            
+            EventItemChanged?.Invoke();
         }
     }
     
