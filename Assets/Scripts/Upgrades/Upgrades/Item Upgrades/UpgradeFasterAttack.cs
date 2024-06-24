@@ -21,12 +21,12 @@ public class UpgradeFasterAttack : UpgradeProcessor
 
     public override void Remove()
     {
-        base.Remove();
-        
         if (_attack != null)
         {
             _attack.RemoveAttackSpeedModifier(GetModifier);
         }
+        
+        base.Remove();
     }
     
     private float GetModifier()

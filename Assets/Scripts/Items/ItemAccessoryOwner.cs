@@ -41,7 +41,7 @@ public class ItemAccessoryOwner : MonoBehaviour
     private void UpdateAccessories()
     {
         _upgrades.ForEach(x => x.Remove());
-        _upgrades.Clear();
+        _upgrades = new List<UpgradeProcessor>();
         
         foreach (ItemAccessory accessory in _accessories)
         {
@@ -61,7 +61,11 @@ public class ItemAccessoryOwner : MonoBehaviour
         {
             foreach (UpgradeType upgrade in thiefItem.Upgrades)
             {
-                _upgrades.Add(_upgradesService.SpawnUpgrade(upgrade, 0, _root.transform));
+                UpgradeProcessor upgradeInstance = _upgradesService.SpawnUpgrade(upgrade, 0, _root.transform);
+                if (!_upgrades.Contains(upgradeInstance))
+                {
+                    _upgrades.Add(upgradeInstance);
+                }
             }
         }
     }

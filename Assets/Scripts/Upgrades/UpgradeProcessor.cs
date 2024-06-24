@@ -57,7 +57,7 @@ public abstract class UpgradeProcessor : MonoBehaviour
 
     public virtual void Remove()
     {
-        Destroy(gameObject);
+        DestroyImmediate(gameObject);
         EventRemoved?.Invoke();
     }
 
