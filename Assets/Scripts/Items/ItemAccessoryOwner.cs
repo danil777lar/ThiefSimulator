@@ -11,6 +11,7 @@ public class ItemAccessoryOwner : MonoBehaviour
 {
     [InjectService] private IItemHolderService _itemsService;
     [InjectService] private UpgradesService _upgradesService;
+    [InjectService] private DataService _dataService;
 
     private GameObject _root;
     private List<UpgradeProcessor> _upgrades = new List<UpgradeProcessor>();
@@ -50,18 +51,19 @@ public class ItemAccessoryOwner : MonoBehaviour
             accessory.gameObject.SetActive(isActive);
             if (isActive)
             {
-                SpawnUpgrades(currentItem);
+                SpawnUpgrades(currentItem, accessory.ItemType);
             }
         }
     }
 
-    private void SpawnUpgrades(Item item)
+    private void SpawnUpgrades(Item item, ItemType itemType)
     {
         if (item is ThiefItem thiefItem)
         {
             foreach (UpgradeType upgrade in thiefItem.Upgrades)
             {
-                UpgradeProcessor upgradeInstance = _upgradesService.SpawnUpgrade(upgrade, 0, _root.transform);
+                ItemUpgradeData data = _dataService.Data.GetItemUpgradeData(thiefItem.Name, itemType, upgrade);
+                UpgradeProcessor upgradeInstance = _upgradesService.SpawnUpgrade(upgrade, data.Level, _root.transform);
                 if (!_upgrades.Contains(upgradeInstance))
                 {
                     _upgrades.Add(upgradeInstance);
