@@ -28,11 +28,12 @@ public class CharacterAttack : CharacterAbility
     private CharacterController _characterController;
     private RuntimeAnimatorController _defaultAnimatorController;
 
+    private List<Func<float>> _attackSpeedModifiers = new List<Func<float>>();
     private Dictionary<Collider, CharacterAttack> _targetsDatabase = new Dictionary<Collider, CharacterAttack>();
     private Dictionary<CharacterAttack, AttackMarker> _markers = new Dictionary<CharacterAttack, AttackMarker>();
 
     public bool IsAttacking { get; private set; }
-    public float AttackProgress => 1f - (_attackDelay / config.AttackDelay);
+    public float AttackProgress => 1f - (_attackDelay / config.AttackSpeed);
     public Transform CharacterModel => _character.CharacterModel.transform;
     public Health CharacterHealth => _character.CharacterHealth;
     public CharacterAttack Target => _target;
@@ -76,6 +77,16 @@ public class CharacterAttack : CharacterAbility
     {
         return !CharacterHealth.ImmuneToDamage;
     }
+    
+    public void AddAttackSpeedModifier(Func<float> modifier)
+    {
+        _attackSpeedModifiers.Add(modifier);
+    }
+    
+    public void RemoveAttackSpeedModifier(Func<float> modifier)
+    {
+        _attackSpeedModifiers.Remove(modifier);
+    }
 
     protected override void Initialization()
     {
@@ -110,7 +121,7 @@ public class CharacterAttack : CharacterAbility
     {
         if (_target != null && _attackDelay > 0 && !_grabbed && !IsAttacking)
         {
-            _attackDelay -= Time.deltaTime;
+            _attackDelay -= GetAttackSpeed();
 
             if (effectOnCharge != null)
             {
@@ -124,9 +135,19 @@ public class CharacterAttack : CharacterAbility
         }
     }
 
+    private float GetAttackSpeed()
+    {
+        float speed = config.AttackSpeed;
+        foreach (Func<float> modifier in _attackSpeedModifiers)
+        {
+            speed += config.AttackSpeed * modifier.Invoke();
+        } 
+        return speed * Time.deltaTime;
+    }
+
     private void ResetDelay()
     {
-        _attackDelay = config.AttackDelay;
+        _attackDelay = 1f;
     }
 
     private void TryStartAttack()

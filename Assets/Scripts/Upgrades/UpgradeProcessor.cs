@@ -29,10 +29,10 @@ public abstract class UpgradeProcessor : MonoBehaviour
     [SerializeField] protected bool unlimitedDuration;
     [SerializeField] protected float duration;
 
-    private bool _inited;
-    private int _currentLevel;
-    private float _fullDuration;
-    private float _currentDuration;
+    protected bool _inited;
+    protected int _currentLevel;
+    protected float _fullDuration;
+    protected float _currentDuration;
     
     public event Action EventRemoved;
     
@@ -40,11 +40,6 @@ public abstract class UpgradeProcessor : MonoBehaviour
     {
         //return $"{DescriptionLeftModifier}{GetValueOnLevel(level)}{DescriptionRightModifier}";
         return $"Level {level + 1}";
-    }
-
-    private float GetValueOnLevel(int level)
-    {
-        return BaseValue + (AddValuePerLevel * level);
     }
 
     public virtual void Init(int level)
@@ -78,6 +73,11 @@ public abstract class UpgradeProcessor : MonoBehaviour
         }
     }
 
+    protected float GetValueOnLevel(int level)
+    {
+        return BaseValue + (AddValuePerLevel * level);
+    }
+    
     protected virtual void CombineLevel(int level)
     {
         if (LevelCombination == LevelCombinationType.Add)

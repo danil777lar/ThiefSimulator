@@ -15,13 +15,18 @@ public class UpgradesService : Service
     {
         
     }
+
+    public UpgradeProcessor GetUpgradePrefab(UpgradeType upgradeType)
+    {
+        return config.GetUpgradeProcessor(upgradeType);
+    }
     
-    public void SpawnUpgrade(UpgradeType upgradeType, int level, Transform parent)
+    public UpgradeProcessor SpawnUpgrade(UpgradeType upgradeType, int level, Transform parent)
     {
         UpgradeProcessor processor = config.GetUpgradeProcessor(upgradeType);
         if (processor == null)
         {
-            return;
+            return null;
         }
 
         UpgradeProcessor instance = parent.GetComponentsInChildren<UpgradeProcessor>().ToList()
@@ -32,7 +37,10 @@ public class UpgradesService : Service
         }
         else
         {
-            Instantiate(processor, parent).Init(level);   
+            instance = Instantiate(processor, parent);
+            instance.Init(level);   
         }
+
+        return instance;
     }
 }

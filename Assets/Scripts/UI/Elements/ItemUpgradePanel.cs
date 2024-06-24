@@ -23,6 +23,7 @@ public class ItemUpgradePanel : MonoBehaviour
 
     [InjectService] private DataService _dataService;
     [InjectService] private UIService _uiService;
+    [InjectService] private UpgradesService _upgradesService;
     [InjectService] private ICurrencyService _currencyService;
     [InjectService] private IItemHolderService _itemHolderService;
     
@@ -31,18 +32,18 @@ public class ItemUpgradePanel : MonoBehaviour
     private UpgradeProcessor _upgrade;
     private ItemUpgradeData _data;
 
-    public void Build(ItemType itemType, ThiefItem item, UpgradeProcessor upgrade)
+    public void Build(ItemType itemType, ThiefItem item, UpgradeType upgradeType)
     {
         ServiceLocator.Instance.InjectServicesInComponent(this);
         
         _itemType = itemType;
         _item = item;
-        _upgrade = upgrade;
+        _upgrade = _upgradesService.GetUpgradePrefab(upgradeType);
         _data = _dataService.Data.GetItemUpgradeData(_item.Name, _itemType, _upgrade.UpgradeType);
         
-        icon.sprite = upgrade.Icon;
-        upgradeName.text = upgrade.DisplayName;
-        upgradeDescription.text = upgrade.GetDescription(0);
+        icon.sprite = _upgrade.Icon;
+        upgradeName.text = _upgrade.DisplayName;
+        upgradeDescription.text = _upgrade.GetDescription(0);
         
         UpdateUpgradeButton();
         BuildProgressSlider();

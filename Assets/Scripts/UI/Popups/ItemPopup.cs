@@ -66,7 +66,7 @@ public class ItemPopup : UIPopup
     private void BuildUpgrades()
     {
         upgradesRoot.MMDestroyAllChildren();
-        foreach (UpgradeProcessor upgrade in _args.Item.Upgrades)
+        foreach (UpgradeType upgrade in _args.Item.Upgrades)
         {
             Instantiate(upgradePanelPrefab, upgradesRoot).Build(_args.ItemType, _args.Item, upgrade);
         }

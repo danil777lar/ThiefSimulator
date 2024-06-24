@@ -8,7 +8,7 @@ using UnityEngine;
 public class CharacterAttackConfig : ScriptableObject
 {
     [field: SerializeField] public float AttackDistance { get; private set; } = 2f;
-    [field: SerializeField] public float AttackDelay { get; private set; } = 1f;
+    [field: SerializeField] public float AttackSpeed { get; private set; } = 0.5f;
     [field: SerializeField] public float Damage { get; private set; } = 1f;
     
     [field: Space]
