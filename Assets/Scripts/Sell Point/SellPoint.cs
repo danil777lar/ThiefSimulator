@@ -22,12 +22,30 @@ public class SellPoint : MonoBehaviour, ILevelEventHandler
         
     private float _currentTime;
     private List<Sellable> _objectsToSell;
+
+    private List<Func<float>> _sellPriceMultipliers = new List<Func<float>>();
     
     public void OnLevelEvent(LevelEvent levelEvent)
     {
         if (levelEvent is LevelEventProgressComplete { Type: LevelEventProgressComplete.ProgressType.Full })
         {
             gameObject.SetActive(false);
+        }
+    }
+    
+    public void AddSellPriceMultiplier(Func<float> multiplier)
+    {
+        if (!_sellPriceMultipliers.Contains(multiplier))
+        {
+            _sellPriceMultipliers.Add(multiplier);
+        }
+    }
+    
+    public void RemoveSellPriceMultiplier(Func<float> multiplier)
+    {
+        if (_sellPriceMultipliers.Contains(multiplier))
+        {
+            _sellPriceMultipliers.Remove(multiplier);
         }
     }
 
@@ -83,7 +101,10 @@ public class SellPoint : MonoBehaviour, ILevelEventHandler
             Vector3 startPoint = sellable.transform.position;
             _objectsToSell.Remove(sellable);
             sellable.PrepareToSell();
-            _currencyService.AddCurrency(CurrencyType.Coins, CurrencyPlacementType.Level, sellable.Cost);
+
+            int price = Mathf.RoundToInt(sellable.Cost * GetSellPriceMultiplier());
+            _currencyService.AddCurrency(CurrencyType.Coins, CurrencyPlacementType.Level, price);
+            
             DOTween.To(() => 0f, 
                     x => sellable.transform.position =
                         EvaluateTrajectory(startPoint, x), 
@@ -99,5 +120,16 @@ public class SellPoint : MonoBehaviour, ILevelEventHandler
     private Vector3 EvaluateTrajectory(Vector3 startPoint, float t)
     {
         return Vector3.Lerp(startPoint, trajectory.EvaluatePosition(t), t * 10f);
+    }
+
+    private float GetSellPriceMultiplier()
+    {
+        float result = 1f;
+        foreach (Func<float> multiplier in _sellPriceMultipliers)
+        {
+            result *= multiplier();
+        }
+
+        return result;
     }
 }

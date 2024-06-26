@@ -9,6 +9,8 @@ using UnityEngine;
 
 public class ItemAccessoryOwner : MonoBehaviour
 {
+    [SerializeField] private bool useUpgrades = true;
+    
     [InjectService] private IItemHolderService _itemsService;
     [InjectService] private UpgradesService _upgradesService;
     [InjectService] private DataService _dataService;
@@ -58,6 +60,11 @@ public class ItemAccessoryOwner : MonoBehaviour
 
     private void SpawnUpgrades(Item item, ItemType itemType)
     {
+        if (!useUpgrades)
+        {
+            return;
+        }
+        
         if (item is ThiefItem thiefItem)
         {
             foreach (UpgradeType upgrade in thiefItem.Upgrades)

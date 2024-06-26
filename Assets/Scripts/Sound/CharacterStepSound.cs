@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Larje.Core.Tools.TopDownEngine;
@@ -18,6 +19,24 @@ public class CharacterStepSound : MonoBehaviour
     private float _traveledDistance;
     private Vector3 _lastPosition;
     private CoreCharacterMovement _movement;
+    
+    private List<Func<float>> _amplitudeMultipliers = new List<Func<float>>();
+    
+    public void TryAddAmplitudeMultiplier(Func<float> multiplier)
+    {
+        if (!_amplitudeMultipliers.Contains(multiplier))
+        {
+            _amplitudeMultipliers.Add(multiplier);
+        }
+    }
+    
+    public void TryRemoveAmplitudeMultiplier(Func<float> multiplier)
+    {
+        if (_amplitudeMultipliers.Contains(multiplier))
+        {
+            _amplitudeMultipliers.Remove(multiplier);
+        }
+    }
     
     private void Start()
     {
@@ -62,6 +81,8 @@ public class CharacterStepSound : MonoBehaviour
         if (_movement.AbilityAuthorized && _movement.AbilityPermitted)
         {
             float amplitude = baseAmplitude * amplitudeBySpeed.Evaluate(_movement.ActualSpeedPercent);
+            amplitude *= GetAmplitudeMultiplier();
+            
             if (amplitude < minAmplitude)
             {
                 return;
@@ -71,5 +92,16 @@ public class CharacterStepSound : MonoBehaviour
             sound.transform.localPosition = Vector3.zero;
             sound.Init(amplitude);
         }
+    }
+    
+    private float GetAmplitudeMultiplier()
+    {
+        float result = 1f;
+        foreach (Func<float> multiplier in _amplitudeMultipliers)
+        {
+            result *= multiplier.Invoke();
+        }
+
+        return result;
     }
 }

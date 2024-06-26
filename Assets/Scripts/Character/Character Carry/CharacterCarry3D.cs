@@ -33,10 +33,12 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
     private CoreCharacterMovement _movement;
     private List<Carryable> _currentCarryables;
 
+    private List<Func<float>> _weightCapacityMultipliers = new List<Func<float>>();
+
     protected int _carryAnimationParameter;
     protected const string _carryAnimationParameterName = "Carry";
     
-    public float WeightCapacity => weightCapacity;
+    public float WeightCapacity => weightCapacity * GetWeightCapacityMultiplier();
     public float CurrentWeight => _currentCarryables.Sum(x => x.Weight);
     public float WeightPercent => Mathf.Clamp01(CurrentWeight / WeightCapacity);
     public PlayerAction[] Actions { get; private set; }
@@ -89,6 +91,22 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
         MMAnimatorExtensions.UpdateAnimatorBool(_animator, _carryAnimationParameter, 
             _currentCarryables is { Count: > 0 },
             _character._animatorParameters, _character.RunAnimatorSanityChecks);
+    }
+    
+    public void TryAddWeightCapacityMultiplier(Func<float> multiplier)
+    {
+        if (!_weightCapacityMultipliers.Contains(multiplier))
+        {
+            _weightCapacityMultipliers.Add(multiplier);
+        }
+    }
+    
+    public void TryRemoveWeightCapacityMultiplier(Func<float> multiplier)
+    {
+        if (_weightCapacityMultipliers.Contains(multiplier))
+        {
+            _weightCapacityMultipliers.Remove(multiplier);
+        }
     }
 
     protected override void Initialization()
@@ -176,5 +194,12 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
     private float GetSpeedMultiplier()
     {
         return Mathf.Lerp(1f, maxWeightSpeedMultiplier, WeightPercent);
+    }
+
+    private float GetWeightCapacityMultiplier()
+    {
+        float result = 1f;
+        _weightCapacityMultipliers.ForEach(x => result *= x());
+        return result;
     }
 }
