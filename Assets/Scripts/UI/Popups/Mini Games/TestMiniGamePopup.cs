@@ -6,7 +6,7 @@ using ProjectConstants;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TestMiniGamePopup : MiniGamePopup
+public class TestMiniGamePopupOption : MiniGamePopup
 {
     [SerializeField] private Button completeButton;
     [SerializeField] private Button failButton;
@@ -44,7 +44,7 @@ public class TestMiniGamePopup : MiniGamePopup
 
     public class Args : MiniGamePopup.MiniGameArgs
     {
-        public Args(Action onComplete, Action onFail) : base(UIPopupType.TestMiniGame, onComplete, onFail)
+        public Args(float multiplier, Action onComplete, Action onFail) : base(UIPopupType.TestMiniGame, multiplier, onComplete, onFail)
         {
         }
     }    

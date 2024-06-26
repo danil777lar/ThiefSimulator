@@ -8,22 +8,42 @@ using ProjectConstants;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class SimplePlayerInteractionPoint : MonoBehaviour
+public class SimplePlayerInteractionPoint : MonoBehaviour, IMiniGameLauncher
 {
     [SerializeField] private LayerMask mask;
     [SerializeField] private float duration;
     [Space]
     [SerializeField] private bool playMiniGame;
-    [SerializeField] private UIPopupType miniGamePopupType;
+    [SerializeField] private MiniGameType miniGamePopupType;
     [Space]
     [SerializeField] private UnityEvent eventOnComplete;
     [SerializeField] private UnityEvent eventOnFail;
-
-    [InjectService] private UIService _uiService;
+    
+    [InjectService] private MiniGameLauncherService _miniGameLauncherService;
 
     private float _timer;
     private Collider _other;
+    
+    private List<Func<float>> _multipliers = new List<Func<float>>();
+    
+    public MiniGameType MiniGameType => miniGamePopupType;
 
+    public void AddMultiplier(Func<float> multiplier)
+    {
+        if (!_multipliers.Contains(multiplier))
+        {
+            _multipliers.Add(multiplier);
+        }
+    }
+
+    public void RemoveMultiplier(Func<float> multiplier)
+    {
+        if (_multipliers.Contains(multiplier))
+        {
+            _multipliers.Remove(multiplier);
+        }
+    }
+    
     private void Start()
     {
         ServiceLocator.Instance.InjectServicesInComponent(this);
@@ -69,14 +89,25 @@ public class SimplePlayerInteractionPoint : MonoBehaviour
     {
         if (playMiniGame)
         {
-            _uiService.GetProcessor<UIPopupProcessor>().OpenPopup(
-                new MiniGamePopup.MiniGameArgs(miniGamePopupType, 
-                    () => eventOnComplete.Invoke(), 
-                    () => eventOnFail.Invoke()));
+            _miniGameLauncherService.LaunchMiniGame(
+                miniGamePopupType,
+                GetMultiplier(), 
+                () => eventOnComplete.Invoke(), 
+                () => eventOnFail.Invoke());
         }
         else
         {
             eventOnComplete?.Invoke();   
         }
+    }
+
+    private float GetMultiplier()
+    {
+        float result = 1f;
+        foreach (Func<float> multiplier in _multipliers)
+        {
+            result *= multiplier.Invoke();
+        }
+        return result;
     }
 }

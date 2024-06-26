@@ -136,12 +136,12 @@ public class LockMiniGamePopup : MiniGamePopup
     
     private float GetDistanceToUnlock()
     { 
-        return 1f - Mathf.Clamp01(Mathf.Abs(_unlockerValue - _unlockPoint) - unlockRange); 
+        return 1f - Mathf.Clamp01(Mathf.Abs(_unlockerValue - _unlockPoint) - (unlockRange * _args.Multiplier)); 
     }
 
     public class Args : MiniGamePopup.MiniGameArgs
     {
-        public Args(Action onComplete, Action onFail) : base(UIPopupType.LockMiniGame, onComplete, onFail)
+        public Args(float multiplier, Action onComplete, Action onFail) : base(UIPopupType.LockMiniGame, multiplier, onComplete, onFail)
         {
         }
     }    
