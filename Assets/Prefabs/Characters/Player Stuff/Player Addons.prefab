@@ -146,7 +146,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15662f5317f936441ac8b06163bc55bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Visibility: 1
+  delayOnDamageDecline: 2
+  defaultVisibility: 1
 --- !u!114 &8199809276004282342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,7 +168,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
+      time: 0.2
       value: 0
       inSlope: 2
       outSlope: 2
@@ -213,6 +214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52c63caa009522944b617faa7010389c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useUpgrades: 1
 --- !u!1001 &2691367368390982457
 PrefabInstance:
   m_ObjectHideFlags: 0

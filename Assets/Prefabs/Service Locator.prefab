@@ -623,9 +623,15 @@ MonoBehaviour:
   spawnLevelOnInit: 1
   levelHolder: {fileID: 0}
   levels:
+  - addToRandomList: 0
+    levelPrefab:
+      m_AssetGUID: ff99004503ddd4244a8e1aeac12ea6fe
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
   - addToRandomList: 1
     levelPrefab:
-      m_AssetGUID: a26c43bcbe26eb64d9b126aa9d522168
+      m_AssetGUID: 4e77182909899dd46810088697093ce6
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
@@ -1009,7 +1015,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetFrameRate: 120
-  drawFrameRate: 0
+  drawFrameRate: 1
   logEnabled: 1
   logSystemInfo: 0
 --- !u!1 &6837883488843795403
