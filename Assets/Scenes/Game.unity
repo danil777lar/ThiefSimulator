@@ -3480,7 +3480,7 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!43 &1010043828
+--- !u!43 &1003248013
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6175,11 +6175,6 @@ PrefabInstance:
       objectReference: {fileID: 296545876}
     - target: {fileID: 276959864694218263, guid: ff99004503ddd4244a8e1aeac12ea6fe,
         type: 3}
-      propertyPath: m_PolyMesh.name
-      value: PolybrushMesh-1740
-      objectReference: {fileID: 0}
-    - target: {fileID: 276959864694218263, guid: ff99004503ddd4244a8e1aeac12ea6fe,
-        type: 3}
       propertyPath: m_PolyMesh.m_Mesh
       value: 
       objectReference: {fileID: 890556302}
@@ -6188,6 +6183,16 @@ PrefabInstance:
       propertyPath: m_OriginalMeshObject
       value: 
       objectReference: {fileID: 1687482907}
+    - target: {fileID: 323896769379592058, guid: ff99004503ddd4244a8e1aeac12ea6fe,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 323896769379592058, guid: ff99004503ddd4244a8e1aeac12ea6fe,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 449270600246671069, guid: ff99004503ddd4244a8e1aeac12ea6fe,
         type: 3}
       propertyPath: m_PolyMesh.m_Mesh
@@ -6298,6 +6303,16 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1145206558}
+    - target: {fileID: 3048586209496785343, guid: ff99004503ddd4244a8e1aeac12ea6fe,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3048586209496785343, guid: ff99004503ddd4244a8e1aeac12ea6fe,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3062966831622045148, guid: ff99004503ddd4244a8e1aeac12ea6fe,
         type: 3}
       propertyPath: m_PolyMesh.m_Mesh
@@ -6368,6 +6383,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1621480761}
+    - target: {fileID: 3563582988630177306, guid: ff99004503ddd4244a8e1aeac12ea6fe,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 330585545}
     - target: {fileID: 3595718928519276987, guid: ff99004503ddd4244a8e1aeac12ea6fe,
         type: 3}
       propertyPath: m_Mesh
@@ -6378,6 +6398,11 @@ PrefabInstance:
       propertyPath: m_PolyMesh.m_Mesh
       value: 
       objectReference: {fileID: 710040289}
+    - target: {fileID: 3769970336190971445, guid: ff99004503ddd4244a8e1aeac12ea6fe,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 330585545}
     - target: {fileID: 3819152037708529094, guid: ff99004503ddd4244a8e1aeac12ea6fe,
         type: 3}
       propertyPath: m_Mesh
@@ -6392,7 +6417,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1010043828}
+      objectReference: {fileID: 1003248013}
     - target: {fileID: 4288949118918055169, guid: ff99004503ddd4244a8e1aeac12ea6fe,
         type: 3}
       propertyPath: m_PolyMesh.m_Mesh
@@ -6583,6 +6608,16 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 710040289}
+    - target: {fileID: 7408936689129714292, guid: ff99004503ddd4244a8e1aeac12ea6fe,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7408936689129714292, guid: ff99004503ddd4244a8e1aeac12ea6fe,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7733297529063078212, guid: ff99004503ddd4244a8e1aeac12ea6fe,
         type: 3}
       propertyPath: m_PolyMesh.m_Mesh
@@ -6597,7 +6632,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1010043828}
+      objectReference: {fileID: 1003248013}
     - target: {fileID: 7817955423145579720, guid: ff99004503ddd4244a8e1aeac12ea6fe,
         type: 3}
       propertyPath: m_Mesh
@@ -6658,6 +6693,11 @@ PrefabInstance:
       propertyPath: m_PolyMesh.m_Mesh
       value: 
       objectReference: {fileID: 710040289}
+    - target: {fileID: 9031662927809046999, guid: ff99004503ddd4244a8e1aeac12ea6fe,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 330585545}
     - target: {fileID: 9105537529155114305, guid: ff99004503ddd4244a8e1aeac12ea6fe,
         type: 3}
       propertyPath: m_Mesh
