@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1892132425358571583}
   - component: {fileID: 7652473481740206948}
   - component: {fileID: 5175286804515125288}
+  - component: {fileID: 5590558108537223372}
   m_Layer: 0
   m_Name: Hide Parts
   m_TagString: Untagged
@@ -4920,6 +4921,22 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &5590558108537223372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1059398848353613787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bba815fe486a0244a805f84798774229, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stopOnDestroy: 0
+  autoDestroy: 1
+  delay: 0
+  destroyTargetOverride: {fileID: 0}
 --- !u!1 &4269991608892246353
 GameObject:
   m_ObjectHideFlags: 0

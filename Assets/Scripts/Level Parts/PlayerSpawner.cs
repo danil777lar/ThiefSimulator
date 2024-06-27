@@ -22,8 +22,9 @@ public class PlayerSpawner : MonoBehaviour, ILevelEventHandler, ILevelStartHandl
     [Header("Player")] 
     [SerializeField] private Transform playerRoot;
     [SerializeField] private SplineComputer trajectory;
-    
-    [Header("UI")]
+
+    [Header("UI")] 
+    [SerializeField] private OffscreenMarker markerPrefab;
     [SerializeField] private Image progressUi;
         
     [InjectService] private ILevelManagerService _levelService;
@@ -34,6 +35,7 @@ public class PlayerSpawner : MonoBehaviour, ILevelEventHandler, ILevelStartHandl
     private bool _despawning;
     private bool _minProgressAchieved;
     private float _currentTime;
+    private OffscreenMarker _marker;
     private SellPoint _sellPoint;
     private CharacterSpawn _player;
     private VanMovement _vanMovement;
@@ -64,6 +66,7 @@ public class PlayerSpawner : MonoBehaviour, ILevelEventHandler, ILevelStartHandl
         GrabPlayer();
         
         _sellPoint = transform.parent.GetComponentInChildren<SellPoint>();
+        _marker = Instantiate(markerPrefab).Init(transform, IsMarkerActive);
     }
     
     private void Update()
@@ -85,6 +88,14 @@ public class PlayerSpawner : MonoBehaviour, ILevelEventHandler, ILevelStartHandl
         }
 
         progressUi.fillAmount = _currentTime / delay;
+    }
+    
+    private void OnDestroy()
+    {
+        if (_marker != null)
+        {
+            Destroy(_marker.gameObject);
+        }
     }
 
     private void GrabVanMovement()
@@ -157,5 +168,10 @@ public class PlayerSpawner : MonoBehaviour, ILevelEventHandler, ILevelStartHandl
     private Vector3 EvaluateTrajectory(float value)
     {
         return trajectory.EvaluatePosition(value);
+    }
+
+    private bool IsMarkerActive()
+    {
+        return _minProgressAchieved && !_sellPoint.TriggerActive && _levelPlaying;
     }
 }

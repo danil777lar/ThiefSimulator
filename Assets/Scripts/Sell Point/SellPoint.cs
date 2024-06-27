@@ -17,13 +17,15 @@ public class SellPoint : MonoBehaviour
     [SerializeField] private Ease sellEase;
     [SerializeField] private SplineComputer trajectory;
     [SerializeField] private GameObject content;
-    [Space]
+    [Space] 
+    [SerializeField] private OffscreenMarker markerPrefab;
     [SerializeField] private Image sellProgressUi;
 
     [InjectService] private ICurrencyService _currencyService;
     
     private bool _triggerActive;
     private float _currentTime;
+    private OffscreenMarker _marker;
     private CharacterCarry3D _playerCarry;
     private List<Sellable> _objectsToSell;
 
@@ -56,6 +58,16 @@ public class SellPoint : MonoBehaviour
         _playerCarry = player.GetComponentInChildren<CharacterCarry3D>();
         
         _objectsToSell = new List<Sellable>();
+        
+        _marker = Instantiate(markerPrefab).Init(transform, IsMarkerActive);
+    }
+
+    private void OnDestroy()
+    {
+        if (_marker != null)
+        {
+            Destroy(_marker.gameObject);
+        }
     }
 
     private void Update()
@@ -142,5 +154,10 @@ public class SellPoint : MonoBehaviour
         }
 
         return result;
+    }
+
+    private bool IsMarkerActive()
+    {
+        return _playerCarry.HasCarryable;
     }
 }
