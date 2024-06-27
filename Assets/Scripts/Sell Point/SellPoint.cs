@@ -5,33 +5,31 @@ using System.Linq;
 using DG.Tweening;
 using Dreamteck.Splines;
 using Larje.Core.Services;
+using MoreMountains.TopDownEngine;
 using ProjectConstants;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SellPoint : MonoBehaviour, ILevelEventHandler
+public class SellPoint : MonoBehaviour
 {
     [SerializeField] private float sellDelay;
     [SerializeField] private float sellAnimDuration;
     [SerializeField] private Ease sellEase;
     [SerializeField] private SplineComputer trajectory;
+    [SerializeField] private GameObject content;
     [Space]
     [SerializeField] private Image sellProgressUi;
 
     [InjectService] private ICurrencyService _currencyService;
-        
+    
+    private bool _triggerActive;
     private float _currentTime;
+    private CharacterCarry3D _playerCarry;
     private List<Sellable> _objectsToSell;
 
     private List<Func<float>> _sellPriceMultipliers = new List<Func<float>>();
     
-    public void OnLevelEvent(LevelEvent levelEvent)
-    {
-        if (levelEvent is LevelEventProgressComplete { Type: LevelEventProgressComplete.ProgressType.Full })
-        {
-            gameObject.SetActive(false);
-        }
-    }
+    public bool TriggerActive => _triggerActive;
     
     public void AddSellPriceMultiplier(Func<float> multiplier)
     {
@@ -53,12 +51,18 @@ public class SellPoint : MonoBehaviour, ILevelEventHandler
     {
         ServiceLocator.Instance.InjectServicesInComponent(this);
         
+        Character player = FindObjectsOfType<Character>().ToList()
+            .Find(x => x.CharacterType == Character.CharacterTypes.Player);
+        _playerCarry = player.GetComponentInChildren<CharacterCarry3D>();
+        
         _objectsToSell = new List<Sellable>();
     }
 
     private void Update()
     {
-        if (_objectsToSell.Count > 0)
+        CheckIsActive();
+        
+        if (_triggerActive && _objectsToSell.Count > 0)
         {
             _currentTime += Time.deltaTime;
             if (_currentTime >= sellDelay)
@@ -115,6 +119,13 @@ public class SellPoint : MonoBehaviour, ILevelEventHandler
                     Destroy(sellable.gameObject);
                 });
         }
+    }
+
+    private void CheckIsActive()
+    {
+        _triggerActive = _objectsToSell.Count > 0 || _playerCarry.HasCarryable;
+        
+        content.SetActive(_triggerActive);
     }
 
     private Vector3 EvaluateTrajectory(Vector3 startPoint, float t)

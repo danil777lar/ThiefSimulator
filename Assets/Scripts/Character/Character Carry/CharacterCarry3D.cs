@@ -38,6 +38,7 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
     protected int _carryAnimationParameter;
     protected const string _carryAnimationParameterName = "Carry";
     
+    public bool HasCarryable => _currentCarryables.Count > 0;
     public float WeightCapacity => weightCapacity * GetWeightCapacityMultiplier();
     public float CurrentWeight => _currentCarryables.Sum(x => x.Weight);
     public float WeightPercent => Mathf.Clamp01(CurrentWeight / WeightCapacity);

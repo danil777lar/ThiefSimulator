@@ -12,6 +12,7 @@ using UnityEngine.UI;
 public class PlayerSpawner : MonoBehaviour, ILevelEventHandler, ILevelStartHandler, ILevelEndHandler
 {
     [SerializeField] private float delay;
+    [SerializeField] private GameObject content;
     
     [Header("Animation")]
     [SerializeField] private float spawnAnimDuration;
@@ -23,7 +24,6 @@ public class PlayerSpawner : MonoBehaviour, ILevelEventHandler, ILevelStartHandl
     [SerializeField] private SplineComputer trajectory;
     
     [Header("UI")]
-    [SerializeField] private GameObject uiRoot;
     [SerializeField] private Image progressUi;
         
     [InjectService] private ILevelManagerService _levelService;
@@ -32,7 +32,9 @@ public class PlayerSpawner : MonoBehaviour, ILevelEventHandler, ILevelStartHandl
     private bool _triggerActive;
     private bool _playerTouched;
     private bool _despawning;
+    private bool _minProgressAchieved;
     private float _currentTime;
+    private SellPoint _sellPoint;
     private CharacterSpawn _player;
     private VanMovement _vanMovement;
     
@@ -50,7 +52,7 @@ public class PlayerSpawner : MonoBehaviour, ILevelEventHandler, ILevelStartHandl
     {
         if (levelEvent is LevelEventProgressComplete { Type: LevelEventProgressComplete.ProgressType.Min })
         {
-            SetActiveTrigger(true);
+            _minProgressAchieved = true;
         }
     }
 
@@ -58,13 +60,16 @@ public class PlayerSpawner : MonoBehaviour, ILevelEventHandler, ILevelStartHandl
     {
         ServiceLocator.Instance.InjectServicesInComponent(this);
         
-        SetActiveTrigger(false);
         GrabVanMovement();
         GrabPlayer();
+        
+        _sellPoint = transform.parent.GetComponentInChildren<SellPoint>();
     }
     
     private void Update()
     {
+        CheckIsActive();
+        
         if (!_despawning && _playerTouched && _levelPlaying && _triggerActive)
         {
             _currentTime += Time.deltaTime;
@@ -137,10 +142,11 @@ public class PlayerSpawner : MonoBehaviour, ILevelEventHandler, ILevelStartHandl
         }
     }
 
-    private void SetActiveTrigger(bool arg)
+    private void CheckIsActive()
     {
-        uiRoot.SetActive(arg);
-        _triggerActive = arg;
+        _triggerActive = _minProgressAchieved && !_sellPoint.TriggerActive;
+        
+        content.SetActive(_triggerActive);
     }
 
     private void Win()
