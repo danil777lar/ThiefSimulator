@@ -1556,6 +1556,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 331804239138816599}
+  - component: {fileID: 7638713436218388786}
   - component: {fileID: 4934886703649566117}
   m_Layer: 0
   m_Name: Enemy Spline
@@ -1580,6 +1581,21 @@ Transform:
   - {fileID: 559986340273030142}
   m_Father: {fileID: 2065302226118478061}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &7638713436218388786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6242090038257116544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c60c70b3b54663c4991711089650549b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  directionForward: 1
+  distanceOnSpline: 0.5
+  pausePoints: []
 --- !u!114 &4934886703649566117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1851,6 +1867,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7006342374312386792}
+  - component: {fileID: 4273456201911202864}
   - component: {fileID: 4892718185572582317}
   m_Layer: 0
   m_Name: Enemy Spline
@@ -1875,6 +1892,21 @@ Transform:
   - {fileID: 1122387425137741656}
   m_Father: {fileID: 2065302226118478061}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &4273456201911202864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8400710301527558281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c60c70b3b54663c4991711089650549b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  directionForward: 1
+  distanceOnSpline: 0.5
+  pausePoints: []
 --- !u!114 &4892718185572582317
 MonoBehaviour:
   m_ObjectHideFlags: 0
