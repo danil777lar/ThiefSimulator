@@ -1743,7 +1743,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionForward: 1
-  distanceOnSpline: 2
+  distanceOnSpline: 0.5
+  pausePoints:
+  - <Percent>k__BackingField: 0
+    <Delay>k__BackingField: 3
+    <UseLookPosition>k__BackingField: 1
+    <LookAngle>k__BackingField: 180
+    <LookDistance>k__BackingField: 1.84
+  - <Percent>k__BackingField: 0.5109999775886536
+    <Delay>k__BackingField: 3
+    <UseLookPosition>k__BackingField: 1
+    <LookAngle>k__BackingField: 90
+    <LookDistance>k__BackingField: 3.65
+  - <Percent>k__BackingField: 1
+    <Delay>k__BackingField: 3
+    <UseLookPosition>k__BackingField: 1
+    <LookAngle>k__BackingField: 0
+    <LookDistance>k__BackingField: 1.8
 --- !u!114 &7203228882768479589
 MonoBehaviour:
   m_ObjectHideFlags: 0
