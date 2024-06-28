@@ -53,7 +53,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1976d5dd96bbf9e479d1365d67009151, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 350
+  distanceFromCenterPercent: 0.5
+  useOnscreenDistance: 1
+  distanceToTargetPercent: 0.5
   iconRoot: {fileID: 4911146173022469316}
   arrow: {fileID: 4515791438607370059}
 --- !u!223 &1331503176260402385

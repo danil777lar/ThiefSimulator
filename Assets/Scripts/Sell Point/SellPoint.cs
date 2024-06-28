@@ -102,12 +102,12 @@ public class SellPoint : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        Sellable sellable = other.GetComponentInParent<Sellable>();
+        /*Sellable sellable = other.GetComponentInParent<Sellable>();
         if (sellable != null && _objectsToSell.Contains(sellable))
         {
             sellable.StopSelling();
             _objectsToSell.Remove(sellable);            
-        }
+        }*/
     }
 
     private void Sell(Sellable sellable)
