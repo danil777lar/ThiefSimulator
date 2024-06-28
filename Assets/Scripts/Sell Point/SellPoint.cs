@@ -59,7 +59,7 @@ public class SellPoint : MonoBehaviour
         
         _objectsToSell = new List<Sellable>();
         
-        _marker = Instantiate(markerPrefab).Init(transform, IsMarkerActive);
+        _marker = Instantiate(markerPrefab).Init(transform, _playerCarry.transform, IsMarkerActive);
     }
 
     private void OnDestroy()

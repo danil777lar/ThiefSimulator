@@ -66,7 +66,7 @@ public class PlayerSpawner : MonoBehaviour, ILevelEventHandler, ILevelStartHandl
         GrabPlayer();
         
         _sellPoint = transform.parent.GetComponentInChildren<SellPoint>();
-        _marker = Instantiate(markerPrefab).Init(transform, IsMarkerActive);
+        _marker = Instantiate(markerPrefab).Init(transform, _player.transform, IsMarkerActive);
     }
     
     private void Update()

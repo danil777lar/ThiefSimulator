@@ -220,7 +220,7 @@ public class VanMovement : MonoBehaviour, ILevelStartHandler, ILevelEndHandler, 
 
     private bool HasForwardObstacle()
     {
-        return Physics.BoxCast(transform.position, _collider.size / 2f, transform.forward, 
+        return Physics.BoxCast(transform.position + _collider.center, _collider.size / 2f, transform.forward, 
                 transform.rotation, boxcastDistance, boxcastMask);
     }
 }
