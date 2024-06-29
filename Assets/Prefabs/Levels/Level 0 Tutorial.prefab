@@ -1497,7 +1497,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   editorDrawPivot: 1
   editorPathColor: {r: 1, g: 1, b: 1, a: 1}
-  editorAlwaysDraw: 0
+  editorAlwaysDraw: 1
   editorDrawThickness: 0
   editorBillboardThickness: 1
   isNewlyCreated: 0
@@ -3510,8 +3510,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5398084967432008396, guid: c66ee4c3a2e05384a8ae7e05d397f27a,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 23.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5398084967432008396, guid: c66ee4c3a2e05384a8ae7e05d397f27a,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 23.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5398084967432008396, guid: c66ee4c3a2e05384a8ae7e05d397f27a,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 23.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5398084967432008396, guid: c66ee4c3a2e05384a8ae7e05d397f27a,
+        type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 5398084967432008396, guid: c66ee4c3a2e05384a8ae7e05d397f27a,
         type: 3}
@@ -3521,7 +3536,7 @@ PrefabInstance:
     - target: {fileID: 5398084967432008396, guid: c66ee4c3a2e05384a8ae7e05d397f27a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 5398084967432008396, guid: c66ee4c3a2e05384a8ae7e05d397f27a,
         type: 3}
