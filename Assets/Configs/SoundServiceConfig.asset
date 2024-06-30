@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 826bded0faae284449f6ff9438a84d63, type: 3}
   m_Name: SoundServiceConfig
   m_EditorClassIdentifier: 
-  soundPacks: []
+  soundPacks:
+  - soundType: 1
+    sounds:
+    - clip: {fileID: 8300000, guid: 5d452967eae0e76429cbd48a09c4f40f, type: 3}
+      volume: 1

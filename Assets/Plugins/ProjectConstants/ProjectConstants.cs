@@ -35,6 +35,7 @@ namespace ProjectConstants
 
 	public enum SoundType
 	{
+		UI_Click = 1,
 	}
 
 	public enum TimeScaleAnimationType
