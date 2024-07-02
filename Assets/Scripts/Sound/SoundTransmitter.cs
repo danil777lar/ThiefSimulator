@@ -11,10 +11,13 @@ public class SoundTransmitter : MonoBehaviour
     [SerializeField] private bool updateMaterial;
     [SerializeField] private float soundSpeed = 5f;
     [SerializeField] private Gradient colorOverLifetime;
+    [SerializeField] private AnimationCurve heightCurve;
 
+    private float _defaultHeight;
     private float _initialAmplitude;
     private Color _baseColor;
     private Mesh _mesh;
+    private MeshRenderer _meshRenderer;
 
     public float CurrentAmplitude { get; private set; }
 
@@ -23,21 +26,23 @@ public class SoundTransmitter : MonoBehaviour
         _initialAmplitude = amplitude;
         CurrentAmplitude = amplitude;
 
-        transform.localScale = Vector3.zero;
-        GrabMesh();
+        _meshRenderer = GetComponentInChildren<MeshRenderer>();
+        _defaultHeight = transform.localScale.y;
+        transform.localScale = new Vector3(0f, _defaultHeight, 0f);
     }
 
     private void Update()
     {
         float delta = soundSpeed * Time.deltaTime;
         CurrentAmplitude -= delta;
-        transform.localScale += Vector3.one * delta;
+        transform.localScale += new Vector3(1f, 0f, 1f) * delta;
         if (CurrentAmplitude <= 0f)
         {
             OnComplete();
         }
         
         UpdateMaterial();
+        UpdateHeight();
     }
 
     private void OnDestroy()
@@ -50,33 +55,15 @@ public class SoundTransmitter : MonoBehaviour
 
     private void UpdateMaterial()
     {
-        if (_mesh)
-        {
-            float lifetime = 1f - (CurrentAmplitude / _initialAmplitude);
-            List<Color> colors = new List<Color>();
-            for (int i = 0; i < _mesh.vertexCount; i++)
-            {
-                colors.Add(colorOverLifetime.Evaluate(lifetime));
-            }
-            _mesh.colors = colors.ToArray();
-        }   
+        float lifetime = 1f - (CurrentAmplitude / _initialAmplitude);
+        Color color = colorOverLifetime.Evaluate(lifetime);
+        _meshRenderer.material.SetColor("_BaseColor", color);
     }
 
-    private void GrabMesh()
+    private void UpdateHeight()
     {
-        if (updateMaterial)
-        {
-            MeshFilter meshFilter = GetComponentInChildren<MeshFilter>();
-            if (meshFilter)
-            {
-                _mesh = new Mesh();
-                _mesh.vertices = meshFilter.mesh.vertices;
-                _mesh.triangles = meshFilter.mesh.triangles;
-                _mesh.uv = meshFilter.mesh.uv;
-
-                meshFilter.mesh = _mesh;
-            }
-        }
+        float lifetime = 1f - (CurrentAmplitude / _initialAmplitude);
+        transform.localScale = transform.localScale.MMSetY(_defaultHeight * heightCurve.Evaluate(lifetime));
     }
 
     private void OnComplete()
