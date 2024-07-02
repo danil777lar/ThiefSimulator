@@ -16,7 +16,8 @@ public class OffscreenMarker : MonoBehaviour
     [SerializeField] private RectTransform iconRoot;
     [SerializeField] private RectTransform arrow;
 
-    private Vector3 _centerPosition;
+    private Vector3 _targetCenterPosition;
+    private Vector3 _currentCenterPosition;
     
     private Camera _camera;
     private CanvasGroup _canvasGroup;
@@ -35,17 +36,21 @@ public class OffscreenMarker : MonoBehaviour
         _isActive = isActive;
         
         _canvasGroup = GetComponent<CanvasGroup>();
+
+        _currentCenterPosition = new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0f);
         
         return this;
     }
 
     private void FixedUpdate()
     {
-        _centerPosition = _camera.WorldToScreenPoint(_center.position);
+        _targetCenterPosition = _camera.WorldToScreenPoint(_center.position);
     }
 
     private void Update()
     {
+        _currentCenterPosition = Vector3.Lerp(_currentCenterPosition, _targetCenterPosition, Time.deltaTime * 2f);
+        
         if (_target == null) return;
 
         Vector3 screenPositionRaw = _camera.WorldToScreenPoint(_target.position);
@@ -54,9 +59,9 @@ public class OffscreenMarker : MonoBehaviour
             screenPositionRaw *= -1f;
         }
         
-        Vector3 direction = (screenPositionRaw - _centerPosition).normalized;
+        Vector3 direction = (screenPositionRaw - _currentCenterPosition).normalized;
         float distance = Screen.width * 0.5f * distanceFromCenterPercent;
-        Vector3 screenPositionFixed = _centerPosition + direction * distance;
+        Vector3 screenPositionFixed = _currentCenterPosition + direction * distance;
         
         bool targetOnScreen = screenPositionRaw.x > 0f && screenPositionRaw.x < Screen.width && 
                               screenPositionRaw.y > 0f && screenPositionRaw.y < Screen.height;
