@@ -8,6 +8,7 @@ using UnityEngine.Analytics;
 public class ThiefLevelAnaliticsMediator : MonoBehaviour, ILevelStartHandler, ILevelEndHandler
 {
     [InjectService] private ILevelManagerService _levelService;
+    [InjectService] private IAnalyticsService _analyticsService;
     
     public void OnLevelStarted(LevelProcessor.StartData data)
     {
@@ -39,7 +40,6 @@ public class ThiefLevelAnaliticsMediator : MonoBehaviour, ILevelStartHandler, IL
         int levelIndex = _levelService.GetCurrentLevelIndex();
         string fullEvent = $"Level_{levelIndex}_{eventName}";
 
-        Analytics.CustomEvent(fullEvent);
-        Debug.Log($"<color=yellow>{fullEvent}</color>");   
+        _analyticsService.SendEvent(fullEvent);
     }
 }
