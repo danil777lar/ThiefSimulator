@@ -739,12 +739,6 @@ MonoBehaviour:
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-  - addToRandomList: 1
-    levelPrefab:
-      m_AssetGUID: 6277ef290c7809342bdad639f1e7db17
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
 --- !u!1 &4607037393585412874
 GameObject:
   m_ObjectHideFlags: 0
@@ -1126,8 +1120,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetFrameRate: 120
-  drawFrameRate: 0
-  logEnabled: 0
+  drawFrameRate: 1
+  logEnabled: 1
   logSystemInfo: 0
 --- !u!1 &6837883488843795403
 GameObject:
