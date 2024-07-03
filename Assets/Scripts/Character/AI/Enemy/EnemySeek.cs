@@ -99,7 +99,8 @@ public class EnemySeek : CharacterAbility
     
     private void TryBuildPoints()
     {
-        if (_lastAttentionPoint != _attention.LastAttentionPoint)
+        if (_lastAttentionPoint != _attention.LastAttentionPoint && 
+            _attention.CurrentState == EnemyAttention.AttentionState.Suspicious)
         {
             _lastAttentionPoint = _attention.LastAttentionPoint;
             _seekPoints = new List<SeekPoint>();
@@ -122,7 +123,7 @@ public class EnemySeek : CharacterAbility
     
     private void ObservePoints()
     {
-        if (_seekPoints != null)
+        if (_seekPoints != null && _attention.CurrentState == EnemyAttention.AttentionState.Suspicious)
         {
             foreach (SeekPoint point in _seekPoints.ToArray())
             {

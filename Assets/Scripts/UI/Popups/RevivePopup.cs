@@ -48,6 +48,11 @@ public class RevivePopup : UIPopup
         _timeScaleService.PlayTimeScaleAnim(TimeScaleAnimationType.Start);
     }
 
+    protected override bool OnBack(bool onlyOverride)
+    {
+        return true;
+    }
+
     private void OnReviveButtonClicked()
     {
         if (!_interactable) return;
