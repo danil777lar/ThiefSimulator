@@ -14,11 +14,14 @@ public class MiniMapCamera : MonoBehaviour
     [SerializeField] private List<StaticLayer> staticLayers;
     [Header("Shaders")] 
     [SerializeField] private Shader copyShader;
+    [SerializeField] private Shader copyCameraShader;
     
     private Camera _camera;
     private RenderTexture _cameraTexture;
     private Texture2D _staticTexture;
+    
     private Material _copyMaterial;
+    private Material _copyCameraMaterial;
     
     public RenderTexture OutTexture { get; private set; }
 
@@ -37,26 +40,15 @@ public class MiniMapCamera : MonoBehaviour
     {
         if (OutTexture)
         {
-            RenderTexture texture = new RenderTexture(mapPixelSize.x, mapPixelSize.y, 24);
-            _camera.targetTexture = texture;
-            _camera.Render();
-            RenderTexture.active = texture;
-
-            Texture2D dynamicResult = new Texture2D(mapPixelSize.x, mapPixelSize.y);
-            dynamicResult.ReadPixels(new Rect(0, 0, mapPixelSize.x, mapPixelSize.y), 0, 0);
-            dynamicResult.Apply();
-            
-            _copyMaterial.SetTexture("_Prev", _staticTexture);
-            _copyMaterial.SetColor("_Color", Color.blue);
-            
-            Graphics.Blit(dynamicResult, texture, _copyMaterial);
-            Graphics.Blit(texture, OutTexture);
+            _copyCameraMaterial.SetTexture("_Prev", _staticTexture);
+            Graphics.Blit(_cameraTexture, OutTexture, _copyCameraMaterial);
         }
     }
 
     private void Initialize()
     {
         _copyMaterial = new Material(copyShader);
+        _copyCameraMaterial = new Material(copyCameraShader);
         
         _camera = GetComponent<Camera>();
         
