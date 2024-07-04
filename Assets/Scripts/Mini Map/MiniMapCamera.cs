@@ -69,23 +69,26 @@ public class MiniMapCamera : MonoBehaviour
     private IEnumerator CreateStaticTexture()
     {
         RenderTexture outTexture = CreateTexture();
+        ClearTexture(_staticTexture);
         
         foreach (StaticLayer layer in staticLayers)
         {
+            ClearTexture(outTexture);
             ClearTexture(_cameraTexture);
-            
+
             _camera.targetTexture = _cameraTexture;
             _camera.cullingMask = layer.Layer;
-
-            yield return null;
-            yield return new WaitForEndOfFrame();
+            _camera.Render();
             
             _copyMaterial.SetTexture("_Prev", _staticTexture);
             _copyMaterial.SetColor("_Color", layer.Color);
             
             Graphics.Blit(_cameraTexture, outTexture, _copyMaterial);
             Graphics.Blit(outTexture, _staticTexture);
-        }
+        } 
+        
+        
+        Graphics.Blit(_staticTexture, OutTexture);
         
         Destroy(outTexture);
 
@@ -96,7 +99,7 @@ public class MiniMapCamera : MonoBehaviour
     {
         RenderTexture texture = new RenderTexture(mapPixelSize.x, mapPixelSize.y, 
             GraphicsFormat.R8G8B8A8_UNorm, GraphicsFormat.D16_UNorm);
-        texture.filterMode = FilterMode.Point;
+        texture.filterMode = FilterMode.Bilinear;
         texture.Create();
 
         return texture;
@@ -105,7 +108,7 @@ public class MiniMapCamera : MonoBehaviour
     private void ClearTexture(RenderTexture texture)
     {
         RenderTexture rt = RenderTexture.active;
-        RenderTexture.active = OutTexture;
+        RenderTexture.active = texture;
         GL.Clear(true, true, Color.clear);
         RenderTexture.active = rt;
     }
