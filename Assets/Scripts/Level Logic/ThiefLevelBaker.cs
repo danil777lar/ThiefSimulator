@@ -61,6 +61,18 @@ public class ThiefLevelBaker : MonoBehaviour
         yield return null;
         yield return null;
         yield return null;
+        yield return null;
+        yield return null;
+        yield return null;
+        yield return null;
+        yield return null;
+        yield return null;
+        yield return null;
+        yield return null;
+        yield return null;
+        yield return null;
+        yield return null;
+        yield return null;
         
         Bake(objectsToBake);
     }

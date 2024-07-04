@@ -15,10 +15,11 @@ public class MiniMapCamera : MonoBehaviour
     [Header("Shaders")] 
     [SerializeField] private Shader copyShader;
     [SerializeField] private Shader copyCameraShader;
-    
+
+    private bool _initialized;
     private Camera _camera;
     private RenderTexture _cameraTexture;
-    private Texture2D _staticTexture;
+    private RenderTexture _staticTexture;
     
     private Material _copyMaterial;
     private Material _copyCameraMaterial;
@@ -33,62 +34,80 @@ public class MiniMapCamera : MonoBehaviour
     private IEnumerator Start()
     {
         yield return null;
-        Initialize();
+        
+        _copyMaterial = new Material(copyShader);
+        _copyCameraMaterial = new Material(copyCameraShader);
+        
+        _camera = GetComponent<Camera>();
+
+        OutTexture = CreateTexture();
+        _cameraTexture = CreateTexture();
+        _staticTexture = CreateTexture();
+        
+        _camera.targetTexture = _cameraTexture;
+        
+        yield return StartCoroutine(CreateStaticTexture());
+
+        _camera.cullingMask = dynamicLayers;
+
+        yield return null;
+
+        _initialized = true;
     }
 
     private void Update()
     {
-        if (OutTexture)
+        if (_initialized)
         {
+            ClearTexture(OutTexture);
             _copyCameraMaterial.SetTexture("_Prev", _staticTexture);
             Graphics.Blit(_cameraTexture, OutTexture, _copyCameraMaterial);
         }
     }
 
-    private void Initialize()
-    {
-        _copyMaterial = new Material(copyShader);
-        _copyCameraMaterial = new Material(copyCameraShader);
-        
-        _camera = GetComponent<Camera>();
-        
-        OutTexture = new RenderTexture(mapPixelSize.x, mapPixelSize.y, 24);
-        _cameraTexture = new RenderTexture(mapPixelSize.x, mapPixelSize.y, 24);
-        _staticTexture = new Texture2D(mapPixelSize.x, mapPixelSize.y);
-        
-        CreateStaticTexture();
 
-        _camera.cullingMask = dynamicLayers;
-        _camera.targetTexture = _cameraTexture;
-    }
-
-    private void CreateStaticTexture()
+    private IEnumerator CreateStaticTexture()
     {
-        RenderTexture fullResult = new RenderTexture(mapPixelSize.x, mapPixelSize.y, 24);
+        RenderTexture outTexture = CreateTexture();
         
         foreach (StaticLayer layer in staticLayers)
         {
+            ClearTexture(_cameraTexture);
+            
+            _camera.targetTexture = _cameraTexture;
             _camera.cullingMask = layer.Layer;
 
-            RenderTexture texture = new RenderTexture(mapPixelSize.x, mapPixelSize.y, 24);
-            _camera.targetTexture = texture;
-            _camera.Render();
-            RenderTexture.active = texture;
-
-            Texture2D layerResult = new Texture2D(mapPixelSize.x, mapPixelSize.y);
-            layerResult.ReadPixels(new Rect(0, 0, mapPixelSize.x, mapPixelSize.y), 0, 0);
-            layerResult.Apply();
+            yield return null;
+            yield return new WaitForEndOfFrame();
             
-            _copyMaterial.SetTexture("_Prev", fullResult);
+            _copyMaterial.SetTexture("_Prev", _staticTexture);
             _copyMaterial.SetColor("_Color", layer.Color);
             
-            Graphics.Blit(layerResult, texture, _copyMaterial);
-            Graphics.Blit(texture, fullResult);
+            Graphics.Blit(_cameraTexture, outTexture, _copyMaterial);
+            Graphics.Blit(outTexture, _staticTexture);
         }
         
-        RenderTexture.active = fullResult;
-        _staticTexture.ReadPixels(new Rect(0, 0, mapPixelSize.x, mapPixelSize.y), 0, 0);
-        _staticTexture.Apply();
+        Destroy(outTexture);
+
+        yield return null;
+    }
+
+    private RenderTexture CreateTexture()
+    {
+        RenderTexture texture = new RenderTexture(mapPixelSize.x, mapPixelSize.y, 
+            GraphicsFormat.R8G8B8A8_UNorm, GraphicsFormat.D16_UNorm);
+        texture.filterMode = FilterMode.Point;
+        texture.Create();
+
+        return texture;
+    }
+
+    private void ClearTexture(RenderTexture texture)
+    {
+        RenderTexture rt = RenderTexture.active;
+        RenderTexture.active = OutTexture;
+        GL.Clear(true, true, Color.clear);
+        RenderTexture.active = rt;
     }
 
     [Serializable]
