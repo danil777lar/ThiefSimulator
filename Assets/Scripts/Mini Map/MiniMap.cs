@@ -5,10 +5,12 @@ using UnityEngine.UI;
 
 public class MiniMap : MonoBehaviour
 {
-    [SerializeField] private RawImage mapImage;
+    [SerializeField] private RawImage mapImageStatic;
+    [SerializeField] private RawImage mapImageDynamic;
     
     private void Start()
     {
-        mapImage.texture = MiniMapCamera.Instance.OutTexture;
+        mapImageStatic.texture = MiniMapCamera.Instance.StaticTexture;
+        mapImageDynamic.texture = MiniMapCamera.Instance.DynamicTexture;
     }
 }
