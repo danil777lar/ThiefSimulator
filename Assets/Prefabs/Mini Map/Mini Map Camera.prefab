@@ -54,15 +54,17 @@ MonoBehaviour:
   - <Layer>k__BackingField:
       serializedVersion: 2
       m_Bits: 262144
-    <Color>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+    <Color>k__BackingField: {r: 0, g: 0, b: 0, a: 0.2509804}
   - <Layer>k__BackingField:
       serializedVersion: 2
       m_Bits: 4096
-    <Color>k__BackingField: {r: 0, g: 0, b: 0, a: 0.101960786}
+    <Color>k__BackingField: {r: 0, g: 0, b: 0, a: 0.5019608}
   - <Layer>k__BackingField:
       serializedVersion: 2
       m_Bits: 1024
-    <Color>k__BackingField: {r: 0, g: 0, b: 0, a: 0.2}
+    <Color>k__BackingField: {r: 0, g: 0, b: 0, a: 0.7490196}
+  rewriteShader: {fileID: -6465566751694194690, guid: fdd8058fdd5c5ce4d8cbb45f6c0b509a,
+    type: 3}
   copyShader: {fileID: -6465566751694194690, guid: 82c9d3c0bb7349742aec96424b1cc89e,
     type: 3}
   copyCameraShader: {fileID: -6465566751694194690, guid: 9635964a36d81734f9d454ab8c99f5a5,

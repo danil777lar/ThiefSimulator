@@ -13,6 +13,7 @@ public class MiniMapCamera : MonoBehaviour
     [SerializeField] private LayerMask dynamicLayers;
     [SerializeField] private List<StaticLayer> staticLayers;
     [Header("Shaders")] 
+    [SerializeField] private Shader rewriteShader;
     [SerializeField] private Shader copyShader;
     [SerializeField] private Shader copyCameraShader;
 
@@ -20,7 +21,8 @@ public class MiniMapCamera : MonoBehaviour
     private Camera _camera;
     private RenderTexture _cameraTexture;
     private RenderTexture _staticTexture;
-    
+
+    private Material _rewriteMaterial;
     private Material _copyMaterial;
     private Material _copyCameraMaterial;
     
@@ -34,7 +36,8 @@ public class MiniMapCamera : MonoBehaviour
     private IEnumerator Start()
     {
         yield return null;
-        
+
+        _rewriteMaterial = new Material(rewriteShader);
         _copyMaterial = new Material(copyShader);
         _copyCameraMaterial = new Material(copyCameraShader);
         
@@ -61,7 +64,7 @@ public class MiniMapCamera : MonoBehaviour
         {
             ClearTexture(OutTexture);
             _copyCameraMaterial.SetTexture("_Prev", _staticTexture);
-            Graphics.Blit(_cameraTexture, OutTexture, _copyCameraMaterial);
+            Graphics.Blit(_cameraTexture, OutTexture, _copyCameraMaterial, 0);
         }
     }
 
@@ -83,12 +86,12 @@ public class MiniMapCamera : MonoBehaviour
             _copyMaterial.SetTexture("_Prev", _staticTexture);
             _copyMaterial.SetColor("_Color", layer.Color);
             
-            Graphics.Blit(_cameraTexture, outTexture, _copyMaterial);
-            Graphics.Blit(outTexture, _staticTexture);
+            Graphics.Blit(_cameraTexture, outTexture, _copyMaterial, 0);
+            Graphics.Blit(outTexture, _staticTexture, _rewriteMaterial, 0);
         } 
         
         
-        Graphics.Blit(_staticTexture, OutTexture);
+        Graphics.Blit(_staticTexture, OutTexture, _rewriteMaterial, 0);
         
         Destroy(outTexture);
 
