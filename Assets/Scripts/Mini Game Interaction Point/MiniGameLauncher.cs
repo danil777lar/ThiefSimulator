@@ -12,12 +12,11 @@ public class MiniGameLauncher : MonoBehaviour, IMiniGameLauncher
 {
     [SerializeField] private bool playMiniGame;
     [SerializeField] private MiniGameType miniGamePopupType;
-    [Space]
-    [SerializeField] private UnityEvent eventOnComplete;
-    [SerializeField] private UnityEvent eventOnFail;
     
     [InjectService] private MiniGameLauncherService _miniGameLauncherService;
     
+    public UnityEvent eventOnComplete;
+    public UnityEvent eventOnFail;
     private List<Func<float>> _multipliers = new List<Func<float>>();
     
     public MiniGameType MiniGameType => miniGamePopupType;

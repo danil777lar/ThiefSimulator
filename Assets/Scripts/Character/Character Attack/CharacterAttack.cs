@@ -33,6 +33,7 @@ public class CharacterAttack : CharacterAbility
     private Dictionary<CharacterAttack, AttackMarker> _markers = new Dictionary<CharacterAttack, AttackMarker>();
 
     public bool IsAttacking { get; private set; }
+    public bool HasTarget => _markers is { Count: > 0 }; 
     public float AttackProgress => 1f - _attackDelay;
     public Transform CharacterModel => _character.CharacterModel.transform;
     public Health CharacterHealth => _character.CharacterHealth;

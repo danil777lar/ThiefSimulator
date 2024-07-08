@@ -30,6 +30,7 @@ public class ThiefLevel : LevelProcessor
 
     public float ProgressFull { get; private set; }
     public float ProgressMin { get; private set; }
+    public bool IsPlaying => IsLevelPlaying;
     public IReadOnlyList<Vector3> Points { get; private set; }
     public IReadOnlyList<Character> Characters { get; private set; }
     
