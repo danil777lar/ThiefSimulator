@@ -14,6 +14,7 @@ public class OffscreenMarker : MonoBehaviour
     
     [Header("Links")]
     [SerializeField] private RectTransform iconRoot;
+    [SerializeField] private RectTransform back;
     [SerializeField] private RectTransform arrow;
 
     private Vector3 _targetCenterPosition;
@@ -79,7 +80,12 @@ public class OffscreenMarker : MonoBehaviour
         {
             float arrowAngle = Vector2.SignedAngle(Vector2.right, screenPositionRaw - iconRoot.position);
             Quaternion arrowRotation = Quaternion.Euler(Vector3.forward * arrowAngle);
-            arrow.localRotation = arrowRotation;
+            arrow.localRotation = Quaternion.Lerp(arrow.localRotation, arrowRotation, Time.deltaTime * 10f);
+        }
+        
+        if (back != null)
+        {
+            back.rotation = Quaternion.Euler(Vector3.zero);
         }
     }
 }

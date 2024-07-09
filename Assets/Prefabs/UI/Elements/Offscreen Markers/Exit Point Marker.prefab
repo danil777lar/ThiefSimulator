@@ -55,8 +55,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distanceFromCenterPercent: 0.5
   useOnscreenDistance: 1
-  distanceToTargetPercent: 0.5
+  distanceToTargetPercent: 0
   iconRoot: {fileID: 4911146173022469316}
+  back: {fileID: 6625756988772361264}
   arrow: {fileID: 4515791438607370059}
 --- !u!223 &1331503176260402385
 Canvas:
@@ -306,6 +307,12 @@ RectTransform:
 --- !u!224 &4911146173022469316 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 31397806025726744, guid: cf312f7f1a784334dbc77f99cb73240e,
+    type: 3}
+  m_PrefabInstance: {fileID: 4920298384849774556}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &6625756988772361264 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2286425288293254124, guid: cf312f7f1a784334dbc77f99cb73240e,
     type: 3}
   m_PrefabInstance: {fileID: 4920298384849774556}
   m_PrefabAsset: {fileID: 0}

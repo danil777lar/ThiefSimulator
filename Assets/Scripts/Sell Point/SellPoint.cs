@@ -96,6 +96,7 @@ public class SellPoint : MonoBehaviour
         Sellable sellable = other.GetComponentInParent<Sellable>();
         if (sellable != null && !sellable.InSaleProcess && !_objectsToSell.Contains(sellable))
         {
+            sellable.AddToSellOrder();
             _objectsToSell.Add(sellable);            
         }
     }

@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Larje.Core.Services;
 using MoreMountains.TopDownEngine;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Timeline;
 
-public class ThiefTutorial : MonoBehaviour
+public class ThiefTutorial : MonoBehaviour, ILevelEventHandler
 {
     [SerializeField] private OffscreenMarker markerPrefab;
 
@@ -19,21 +20,37 @@ public class ThiefTutorial : MonoBehaviour
     [SerializeField] private Character enemy;
 
     [Header("Loot Step")] 
-    [SerializeField] private List<Sellable> mainLootGroup;
-    [SerializeField] private List<Sellable> secondaryLootGroup;
+    [SerializeField] private List<Sellable> loot;
 
+    private bool _minProgressAchieved;
+    private bool _fullProgressAchieved;
     private bool _showMarker;
     
     private bool _isEnemyStep;
     private bool _isLootStep;
     
     private CharacterAttack _playerAttack;
-    private CharacterAttack _playerCarry;
+    private CharacterCarry3D _playerCarry;
     private ThiefLevel _level;
     private Transform _markerTarget;
     private Transform _markerCenter;
     private OffscreenMarker _markerInstance;
     private TextMeshProUGUI _tutorialText;
+    
+    public void OnLevelEvent(LevelEvent levelEvent)
+    {
+        if (levelEvent is LevelEventProgressComplete progressCompleteEvent)
+        {
+            if (progressCompleteEvent.Type == LevelEventProgressComplete.ProgressType.Min)
+            {
+                _minProgressAchieved = true;
+            }
+            else if (progressCompleteEvent.Type == LevelEventProgressComplete.ProgressType.Full)
+            {
+                _fullProgressAchieved = true;
+            }
+        }
+    }
     
     private void Start()
     {
@@ -43,6 +60,7 @@ public class ThiefTutorial : MonoBehaviour
         Character player = _level.GetComponentsInChildren<Character>().ToList()
             .Find(x => x.CharacterType == Character.CharacterTypes.Player);
         _playerAttack = player.GetComponentInChildren<CharacterAttack>();
+        _playerCarry = player.GetComponentInChildren<CharacterCarry3D>();
         
         _markerCenter = player.transform;
         _markerTarget = new GameObject("Tutorial Marker Target").transform;
@@ -92,22 +110,45 @@ public class ThiefTutorial : MonoBehaviour
 
     private void EnemyStepUpdate()
     {
-        _tutorialText.text = _playerAttack.HasTarget ? "Wait in trigger to attack" : "Slowly go to the enemy";
+        _tutorialText.text = _playerAttack.HasTarget ? "Wait in the red area to attack" : "Slowly go to the enemy";
         if (enemy.CharacterHealth.CurrentHealth <= 0)
         {
             _isEnemyStep = false;
-            StartGoldStep();    
+            StartLootStep();    
         }
     }
 
-    private void StartGoldStep()
+    private void StartLootStep()
     {
         _showMarker = true;
+        _isLootStep = true;
         _tutorialText.text = "Grab the loot";
     }
 
     private void LootStepUpdate()
     {
-        if (_playerCarry.)
+        Sellable markedLoot = loot.Find(x => !x.InSaleProcess && !x.InSaleOrder);
+        if (markedLoot)
+        {
+            _markerTarget.position = markedLoot.transform.position;
+        }
+        
+        if (!_minProgressAchieved && !_fullProgressAchieved)
+        {
+            _tutorialText.text = _playerCarry.HasCarryable ? "Take loot to the car" : "Pick up the loot";
+            _showMarker = !_playerCarry.HasCarryable;
+        }
+        
+        if (_minProgressAchieved)
+        {
+            _tutorialText.text = "Pick up the remaining loot or get into the car";
+            _showMarker = !_playerCarry.HasCarryable;
+        }
+        
+        if (_fullProgressAchieved)
+        {
+            _showMarker = false;
+            _tutorialText.text = "Get into the car";
+        }
     }
 }
