@@ -22,9 +22,12 @@ public class ThiefTutorial : MonoBehaviour, ILevelEventHandler
     [Header("Loot Step")] 
     [SerializeField] private List<Sellable> loot;
 
+    [InjectService] private IAnalyticsService _analyticsService;
+
     private bool _minProgressAchieved;
     private bool _fullProgressAchieved;
     private bool _showMarker;
+    private bool _levelPlaying;
     
     private bool _isEnemyStep;
     private bool _isLootStep;
@@ -44,6 +47,7 @@ public class ThiefTutorial : MonoBehaviour, ILevelEventHandler
             if (progressCompleteEvent.Type == LevelEventProgressComplete.ProgressType.Min)
             {
                 _minProgressAchieved = true;
+                _analyticsService.SendEvent("Tutorial_Loot_Complete");
             }
             else if (progressCompleteEvent.Type == LevelEventProgressComplete.ProgressType.Full)
             {
@@ -54,6 +58,8 @@ public class ThiefTutorial : MonoBehaviour, ILevelEventHandler
     
     private void Start()
     {
+        ServiceLocator.Instance.InjectServicesInComponent(this);
+        
         _level = GetComponentInParent<ThiefLevel>();
         _tutorialText = GetComponentInChildren<TextMeshProUGUI>();
 
@@ -89,7 +95,7 @@ public class ThiefTutorial : MonoBehaviour, ILevelEventHandler
 
     private bool IsMarkerActive()
     {
-        return _showMarker;
+        return _showMarker && _level.IsPlaying;
     }
 
     private void StartLockStep()
@@ -98,7 +104,11 @@ public class ThiefTutorial : MonoBehaviour, ILevelEventHandler
         _tutorialText.text = "Go to the lock to start unlocking";
         
         _markerTarget.position = lockMarker.position;
-        lockMiniGame.eventOnComplete.AddListener(StartEnemyStep);
+        lockMiniGame.eventOnComplete.AddListener(() => 
+        {
+            StartEnemyStep();
+            _analyticsService.SendEvent("Tutorial_Lock_Complete");
+        });
     }
     
     private void StartEnemyStep()
@@ -115,6 +125,7 @@ public class ThiefTutorial : MonoBehaviour, ILevelEventHandler
         {
             _isEnemyStep = false;
             StartLootStep();    
+            _analyticsService.SendEvent("Tutorial_Enemy_Complete");
         }
     }
 
