@@ -8,11 +8,13 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Ground
-  m_Shader: {fileID: -6465566751694194690, guid: b7a30143cf016b240b4de495e97d21b7,
+  m_Shader: {fileID: -6465566751694194690, guid: 85671be33aa4ed54980811cbb10c29d5,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - _MAIN_COLOR_SOURCE_COLOR
+  - _NORMAL_BLEND_MODE_REORIENTED
   - _USE_NOISE
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -54,6 +56,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Grid_Texture:
+        m_Texture: {fileID: 2800000, guid: 1deba9f92800e074c9aea97d03750376, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -72,6 +78,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _NoiseTexture:
         m_Texture: {fileID: 2800000, guid: 12d5113f15c27ae40b9f6c81ce1fadf7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal_Texture:
+        m_Texture: {fileID: 2800000, guid: aee4ceb262f895c4cb5e785d33d3c341, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -134,17 +144,24 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _Grid_Noise_Amount: 5.76
+    - _Grid_Scale: 0.15
+    - _Grid_Visibility: 1
     - _IndirectIntensity: 1
     - _IndirectIntensityOutline: 0
+    - _MAIN_COLOR_SOURCE: 0
     - _MatCapMaskChannel: 0
     - _MatCapType: 0
     - _Metallic: 0
     - _Mode: 0
+    - _NORMAL_BLEND_MODE: 1
     - _NoiseCount: 2.2
     - _NoiseLox: 1
-    - _NoiseScale: 0.15
+    - _NoiseScale: 0.11
     - _NoiseSharpness: 0
     - _NoiseValue: 1
+    - _Normal_Map_Strength: 0.1
+    - _Normal_Noise_Amount: 0
     - _NormalsSource: 0
     - _NormalsUVType: 0
     - _OcclusionChannel: 0
@@ -178,6 +195,8 @@ Material:
     - _SampleGI: 0
     - _Scale: 0.5
     - _ShadowColorLightAtten: 1
+    - _Shadow_Sharpness: 0
+    - _Shadow_Size: 0
     - _Sharpness: 0.5
     - _SingleIndirectColor: 0
     - _Smoothness: 0.5
@@ -214,8 +233,11 @@ Material:
     - _Color: {r: 0.4206977, g: 0.43446344, b: 0.60754704, a: 1}
     - _ColorMax: {r: 0.41960785, g: 0.43529412, b: 0.60784316, a: 1}
     - _ColorMin: {r: 0.3625251, g: 0.37776974, b: 0.59119487, a: 1}
+    - _ColorShadow: {r: 0.464756, g: 0.3725524, b: 0.57232696, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Grid_Color: {r: 0.4282176, g: 0.31731337, b: 0.5283019, a: 1}
     - _HColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Main_Color: {r: 0.33123538, g: 0.2934812, b: 0.44654083, a: 1}
     - _MatCapColor: {r: 1, g: 1, b: 1, a: 1}
     - _Offset: {r: 0, g: 0, b: 0, a: 0}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
