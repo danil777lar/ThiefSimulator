@@ -41,7 +41,7 @@ public class Pullable : MonoBehaviour
             Vector3 direction = _attachTarget.position - _attachPoint.position;
             //direction -= direction.normalized * _attachDistance;
             float speed = direction.magnitude / Time.fixedDeltaTime;
-            _rb.velocity = _rb.velocity.Y();
+            _rb.linearVelocity = _rb.linearVelocity.Y();
             _rb.angularVelocity = Vector3.zero;
             _rb.AddForceAtPosition(direction.normalized * speed, _attachPoint.position, ForceMode.VelocityChange);
         }

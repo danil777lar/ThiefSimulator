@@ -209,7 +209,7 @@ public class VanMovement : MonoBehaviour, ILevelStartHandler, ILevelEndHandler, 
     {
         if (_rigidbody)
         {
-            _rigidbody.velocity = _currentVelocity;
+            _rigidbody.linearVelocity = _currentVelocity;
         }
         
         else

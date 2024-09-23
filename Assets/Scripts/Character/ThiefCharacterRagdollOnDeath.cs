@@ -13,7 +13,7 @@ public class ThiefCharacterRagdollOnDeath : CharacterRagdollOnDeath
         base.OnDeath();
         GetRigidbodies().ForEach(x =>
         {
-            x.velocity = _health.LastDamageDirection;
+            x.linearVelocity = _health.LastDamageDirection;
         });
     }
 
