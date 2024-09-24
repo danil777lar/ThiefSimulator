@@ -80,6 +80,7 @@ namespace ProjectConstants
 		Pause = 8,
 		Settings = 16,
 		Revive = 32,
+		Upgrades = 64,
 	}
 
 	public enum UIToastType

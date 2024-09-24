@@ -16,6 +16,11 @@ public class UpgradesService : Service
         
     }
 
+    public bool CanMakeSomeUpgrade()
+    {
+        return true;
+    }
+
     public UpgradeProcessor GetUpgradePrefab(UpgradeType upgradeType)
     {
         return config.GetUpgradeProcessor(upgradeType);
