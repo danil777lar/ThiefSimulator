@@ -163,6 +163,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 3
   m_RendererPriority: 0
   m_Materials:
@@ -867,7 +870,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startDelay: 2
-  moneyPercentForWin: 0.5
+  moneyPercentForWin: 1
   gridSize: 2
   maxPointDistance: 1
   gizmoColor: {r: 1, g: 1, b: 1, a: 1}
@@ -923,6 +926,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
   m_AgentTypeID: -1372625422
   m_CollectObjects: 0
   m_Size: {x: 10, y: 10, z: 10}
@@ -3306,22 +3310,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7126246771842467637, guid: 3fa442c62604a71478911a00baf5be9c,
         type: 3}
-      propertyPath: hideWallParts.Array.data[0]
+      propertyPath: 'hideWallParts.Array.data[0]'
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7126246771842467637, guid: 3fa442c62604a71478911a00baf5be9c,
         type: 3}
-      propertyPath: hideWallParts.Array.data[1]
+      propertyPath: 'hideWallParts.Array.data[1]'
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7126246771842467637, guid: 3fa442c62604a71478911a00baf5be9c,
         type: 3}
-      propertyPath: hideWallParts.Array.data[2]
+      propertyPath: 'hideWallParts.Array.data[2]'
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7126246771842467637, guid: 3fa442c62604a71478911a00baf5be9c,
         type: 3}
-      propertyPath: hideWallParts.Array.data[3]
+      propertyPath: 'hideWallParts.Array.data[3]'
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7308663602430672516, guid: 3fa442c62604a71478911a00baf5be9c,
@@ -5291,7 +5295,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5086027291953488760, guid: 3fa442c62604a71478911a00baf5be9c,
         type: 3}
-      propertyPath: _subscribers.Array.data[3]
+      propertyPath: '_subscribers.Array.data[3]'
       value: 
       objectReference: {fileID: 1482086200439436729}
     - target: {fileID: 5086027291953488760, guid: 3fa442c62604a71478911a00baf5be9c,
@@ -5671,22 +5675,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7126246771842467637, guid: 3fa442c62604a71478911a00baf5be9c,
         type: 3}
-      propertyPath: hideWallParts.Array.data[0]
+      propertyPath: 'hideWallParts.Array.data[0]'
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7126246771842467637, guid: 3fa442c62604a71478911a00baf5be9c,
         type: 3}
-      propertyPath: hideWallParts.Array.data[1]
+      propertyPath: 'hideWallParts.Array.data[1]'
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7126246771842467637, guid: 3fa442c62604a71478911a00baf5be9c,
         type: 3}
-      propertyPath: hideWallParts.Array.data[2]
+      propertyPath: 'hideWallParts.Array.data[2]'
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7126246771842467637, guid: 3fa442c62604a71478911a00baf5be9c,
         type: 3}
-      propertyPath: hideWallParts.Array.data[3]
+      propertyPath: 'hideWallParts.Array.data[3]'
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7308663602430672516, guid: 3fa442c62604a71478911a00baf5be9c,
@@ -8454,7 +8458,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7126246771842467637, guid: 3fa442c62604a71478911a00baf5be9c,
         type: 3}
-      propertyPath: hideWallParts.Array.data[0]
+      propertyPath: 'hideWallParts.Array.data[0]'
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7308663602430672516, guid: 3fa442c62604a71478911a00baf5be9c,

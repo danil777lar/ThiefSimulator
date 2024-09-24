@@ -11,6 +11,8 @@ using UnityEngine;
 public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
 {
     [Space(50f)] 
+    [SerializeField] private bool autoGrab;
+    [SerializeField] private float autoGrabDelay = 0.5f;
     [SerializeField] private float weightCapacity;
     [SerializeField] private float maxWeightSpeedMultiplier;
     
@@ -29,6 +31,7 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
     [SerializeField] private Sprite takeIcon;
     [SerializeField] private Sprite dropIcon;
 
+    private float _autoGrabTimer;
     private Carryable _nearestCarryable;
     private CoreCharacterMovement _movement;
     private List<Carryable> _currentCarryables;
@@ -55,6 +58,7 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
         }
         
         TryFindCarryable();
+        TryAutoGrab();
     }
 
     public Carryable TryDrop(bool blockTaking = false)
@@ -129,6 +133,11 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
 
     private void FixedUpdate()
     {
+        if (_autoGrabTimer > 0f)
+        {
+            _autoGrabTimer -= Time.fixedDeltaTime;
+        }
+
         _currentCarryables?.ForEach(x => x.UpdatePosition(Time.fixedDeltaTime, _movement.ActualSpeedPercent));
     }
 
@@ -146,11 +155,23 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
         }   
     }
 
+    private void TryAutoGrab()
+    {
+        if (autoGrab && CanTake())
+        {
+            TryTake();
+            _autoGrabTimer = autoGrabDelay;
+        }
+    }
+
     private void BuildActions()
     {
         List<PlayerAction> actions = new List<PlayerAction>();
-        actions.Add(new PlayerAction(TryTake, CanTake, () => 0.2f, takeIcon));
-        actions.Add(new PlayerAction(() => TryDrop(), CanDrop, () => 0.2f, dropIcon));
+        if (!autoGrab)
+        {
+            actions.Add(new PlayerAction(TryTake, CanTake, () => 0.2f, takeIcon));
+            actions.Add(new PlayerAction(() => TryDrop(), CanDrop, () => 0.2f, dropIcon));
+        }
         Actions = actions.ToArray();
     }
 
@@ -171,7 +192,12 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
 
     private bool CanTake()
     {
-        return _nearestCarryable != null && AbilityAuthorized && CurrentWeight < WeightCapacity;
+        bool result = _nearestCarryable != null && AbilityAuthorized && CurrentWeight < WeightCapacity;
+        if (autoGrab)
+        {
+            result &= _autoGrabTimer <= 0f;
+        }
+        return result;
     }
 
     private bool CanDrop()

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -75,6 +76,11 @@ public class ThiefTutorial : MonoBehaviour, ILevelEventHandler
         _markerInstance = Instantiate(markerPrefab).Init(_markerTarget, _markerCenter, IsMarkerActive);
         
         StartLockStep();
+    }
+
+    private void OnDisable()
+    {
+        Destroy(_markerInstance.gameObject);
     }
 
     private void Update()

@@ -63,6 +63,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Addons
       objectReference: {fileID: 0}
+    - target: {fileID: 8199809276004282342, guid: f9b6fc882f2cb914ebdda2f92cf7fc76,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -160,9 +165,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6615307867351138231, guid: 6df4af2efef53044688493cd7740b964,
         type: 3}
-      propertyPath: AdditionalAbilityNodes.Array.data[0]
+      propertyPath: 'AdditionalAbilityNodes.Array.data[0]'
       value: 
       objectReference: {fileID: 1804617501079613297}
+    - target: {fileID: 8051372575558603605, guid: 6df4af2efef53044688493cd7740b964,
+        type: 3}
+      propertyPath: autoGrab
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051372575558603605, guid: 6df4af2efef53044688493cd7740b964,
+        type: 3}
+      propertyPath: autoGrabDelay
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 8720725782410476974, guid: 6df4af2efef53044688493cd7740b964,
         type: 3}
       propertyPath: m_Enabled
