@@ -11,16 +11,15 @@ namespace Larje.Core.Services
     {
         public List<ItemUpgradeData> ItemUpgrades;
 
-        public ItemUpgradeData GetItemUpgradeData(string itemName, ItemType itemType, UpgradeType upgradeType)
+        public ItemUpgradeData GetItemUpgradeData(string key, UpgradeType upgradeType)
         {
             ItemUpgrades ??= new List<ItemUpgradeData>();
-            ItemUpgradeData data = ItemUpgrades.Find(x => x.ItemName == itemName && x.ItemType == itemType && x.UpgradeType == upgradeType);
+            ItemUpgradeData data = ItemUpgrades.Find(x => x.Key == key && x.UpgradeType == upgradeType);
             if (data == null)
             {
                 data = new ItemUpgradeData
                 {
-                    ItemName = itemName,
-                    ItemType = itemType,
+                    Key = key,
                     UpgradeType = upgradeType,
                     Level = 0
                 };
@@ -35,8 +34,7 @@ namespace Larje.Core.Services
 [Serializable]
 public class ItemUpgradeData
 {
-    public string ItemName;
-    public ItemType ItemType;
+    public string Key;
     public UpgradeType UpgradeType;
 
     public int Level;

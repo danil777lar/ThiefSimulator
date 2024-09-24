@@ -69,7 +69,7 @@ public class ItemAccessoryOwner : MonoBehaviour
         {
             foreach (UpgradeType upgrade in thiefItem.Upgrades)
             {
-                ItemUpgradeData data = _dataService.Data.GetItemUpgradeData(thiefItem.Name, itemType, upgrade);
+                ItemUpgradeData data = _dataService.Data.GetItemUpgradeData($"{thiefItem.Name}_{itemType}", upgrade);
                 UpgradeProcessor upgradeInstance = _upgradesService.SpawnUpgrade(upgrade, data.Level, _root.transform);
                 if (!_upgrades.Contains(upgradeInstance))
                 {

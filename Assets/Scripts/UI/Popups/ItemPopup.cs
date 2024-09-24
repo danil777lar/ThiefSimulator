@@ -29,6 +29,7 @@ public class ItemPopup : UIPopup
     [SerializeField] private Button removeButton;
 
     [InjectService] private IItemHolderService _itemHolderService;
+    [InjectService] private DataService _dataService;
 
     private Args _args;
     
@@ -68,7 +69,9 @@ public class ItemPopup : UIPopup
         upgradesRoot.MMDestroyAllChildren();
         foreach (UpgradeType upgrade in _args.Item.Upgrades)
         {
-            Instantiate(upgradePanelPrefab, upgradesRoot).Build(_args.ItemType, _args.Item, upgrade);
+            ItemUpgradeData data = _dataService.Data.GetItemUpgradeData($"{_args.Item.Name}_{_args.ItemType}", upgrade);
+            Func<bool> isUnlocked = () => _itemHolderService.IsItemUnlocked(_args.ItemType, _args.Item.Name);
+            Instantiate(upgradePanelPrefab, upgradesRoot).Build(upgrade, data, isUnlocked);
         }
     }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Remoting.Messaging;
@@ -27,19 +28,17 @@ public class ItemUpgradePanel : MonoBehaviour
     [InjectService] private ICurrencyService _currencyService;
     [InjectService] private IItemHolderService _itemHolderService;
     
-    private ItemType _itemType;
-    private ThiefItem _item;
     private UpgradeProcessor _upgrade;
     private ItemUpgradeData _data;
+    private Func<bool> _unlocked;
 
-    public void Build(ItemType itemType, ThiefItem item, UpgradeType upgradeType)
+    public void Build(UpgradeType upgradeType, ItemUpgradeData data, Func<bool> unlocked)
     {
         ServiceLocator.Instance.InjectServicesInComponent(this);
         
-        _itemType = itemType;
-        _item = item;
         _upgrade = _upgradesService.GetUpgradePrefab(upgradeType);
-        _data = _dataService.Data.GetItemUpgradeData(_item.Name, _itemType, _upgrade.UpgradeType);
+        _data = data;
+        _unlocked = unlocked;
         
         icon.sprite = _upgrade.Icon;
         upgradeName.text = _upgrade.DisplayName;
@@ -55,7 +54,7 @@ public class ItemUpgradePanel : MonoBehaviour
         upgradeButton.onClick.AddListener(OnUpgradeButtonClicked);
      
         bool isMaxLevel = _data.Level >= _upgrade.MaxLevel;
-        bool isUnlocked = _itemHolderService.IsItemUnlocked(_itemType, _item.Name);
+        bool isUnlocked = _unlocked.Invoke();
         upgradeButton.interactable = isUnlocked && !isMaxLevel;
         upgradeLockIcon.gameObject.SetActive(!isUnlocked);
         upgradeButtonText.gameObject.SetActive(isUnlocked);

@@ -9,7 +9,14 @@ using UnityEngine;
 [BindService(typeof(UpgradesService))]
 public class UpgradesService : Service
 {
+    private const string PLAYER_UPGRADES_KEY = "player_global";
+    
     [SerializeField] private UpgradesServiceConfig config;
+    [Space]
+    [SerializeField] private List<UpgradeType> playerGlobalUpgrades;
+
+    [InjectService] private DataService _dataService;
+    [InjectService] private ICurrencyService _currencyService;
     
     public override void Init()
     {
@@ -18,7 +25,31 @@ public class UpgradesService : Service
 
     public bool CanMakeSomeUpgrade()
     {
-        return true;
+        foreach (UpgradeType upgrade in playerGlobalUpgrades)
+        {
+            UpgradeProcessor processor = config.GetUpgradeProcessor(upgrade);
+            ItemUpgradeData data = _dataService.Data.GetItemUpgradeData(PLAYER_UPGRADES_KEY, upgrade);
+            
+            int price = Mathf.RoundToInt(processor.BaseLevelPrice * Mathf.Pow(processor.LevelPriceMultiplier, data.Level));
+            if (_currencyService.CheckEnoughCurrency(CurrencyType.Coins, CurrencyPlacementType.Global, price))
+            {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+    public Dictionary<UpgradeType, ItemUpgradeData> GetPlayerGlobalUpgrades()
+    {
+        Dictionary<UpgradeType, ItemUpgradeData> upgrades = new Dictionary<UpgradeType, ItemUpgradeData>();
+        foreach (UpgradeType upgrade in playerGlobalUpgrades)
+        {
+            ItemUpgradeData data = _dataService.Data.GetItemUpgradeData(PLAYER_UPGRADES_KEY, upgrade);
+            upgrades.Add(upgrade, data);
+        }
+        
+        return upgrades;
     }
 
     public UpgradeProcessor GetUpgradePrefab(UpgradeType upgradeType)

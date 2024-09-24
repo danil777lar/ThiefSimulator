@@ -677,66 +677,77 @@ MonoBehaviour:
     levelPrefab:
       m_AssetGUID: ff99004503ddd4244a8e1aeac12ea6fe
       m_SubObjectName: 
+      m_SubObjectGUID: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
   - addToRandomList: 1
     levelPrefab:
       m_AssetGUID: ddeb77c1ef83f4c4fa736994cda29759
       m_SubObjectName: 
+      m_SubObjectGUID: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
   - addToRandomList: 1
     levelPrefab:
       m_AssetGUID: 4e77182909899dd46810088697093ce6
       m_SubObjectName: 
+      m_SubObjectGUID: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
   - addToRandomList: 1
     levelPrefab:
       m_AssetGUID: eab7ea63d0c182342b8146d9d9f4f652
       m_SubObjectName: 
+      m_SubObjectGUID: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
   - addToRandomList: 1
     levelPrefab:
       m_AssetGUID: acedf0f5cfb08734b911b37462652c68
       m_SubObjectName: 
+      m_SubObjectGUID: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
   - addToRandomList: 1
     levelPrefab:
       m_AssetGUID: 35501d83808dd974083c196b4cd144e7
       m_SubObjectName: 
+      m_SubObjectGUID: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
   - addToRandomList: 1
     levelPrefab:
       m_AssetGUID: 70bcf9e60645e0c40b43b27dac40b605
       m_SubObjectName: 
+      m_SubObjectGUID: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
   - addToRandomList: 1
     levelPrefab:
       m_AssetGUID: 93c988e2a6bc1dc4794fa498899c7a53
       m_SubObjectName: 
+      m_SubObjectGUID: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
   - addToRandomList: 1
     levelPrefab:
       m_AssetGUID: a48bf792e836a734d83ad7f3e924bcbe
       m_SubObjectName: 
+      m_SubObjectGUID: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
   - addToRandomList: 1
     levelPrefab:
       m_AssetGUID: b0183afb8cfc45248a4304b775cc4d28
       m_SubObjectName: 
+      m_SubObjectGUID: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
   - addToRandomList: 1
     levelPrefab:
       m_AssetGUID: f342c2be78868634fb84735a1cd8b790
       m_SubObjectName: 
+      m_SubObjectGUID: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
 --- !u!1 &4607037393585412874
@@ -858,6 +869,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 8d8c3690e7a60434581e3877ff725ec7, type: 2}
+  playerGlobalUpgrades: 010000001000000020000000
 --- !u!1 &5417024905918732191
 GameObject:
   m_ObjectHideFlags: 0
@@ -1120,7 +1132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetFrameRate: 120
-  drawFrameRate: 1
+  drawFrameRate: 0
   logEnabled: 1
   logSystemInfo: 0
 --- !u!1 &6837883488843795403
@@ -1433,6 +1445,7 @@ MonoBehaviour:
   - {fileID: 1196915836644682806, guid: de202db10c3ee684abd129acd9c710cd, type: 3}
   - {fileID: 1196915836644682806, guid: 76c5e605946bc6940867e8a259aeb87a, type: 3}
   - {fileID: 1196915836644682806, guid: deda0e1bc34a5a1439330238fd86bb95, type: 3}
+  - {fileID: 1196915836644682806, guid: 87bb586ba82331e448c79170c7f4baf1, type: 3}
 --- !u!114 &1133984730129808477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1493,7 +1506,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delayBetweenAds: 20
-  testMode: 1
+  testMode: 0
   logsEnabled: 1
   enableAds: 1
   androidKeys:
