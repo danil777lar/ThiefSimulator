@@ -34,6 +34,8 @@ public abstract class UpgradeProcessor : MonoBehaviour
     protected float _fullDuration;
     protected float _currentDuration;
     
+    public int CurrentLevel => _currentLevel;
+    
     public event Action EventRemoved;
     
     public string GetDescription(int level)

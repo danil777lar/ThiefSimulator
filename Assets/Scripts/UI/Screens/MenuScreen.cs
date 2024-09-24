@@ -20,6 +20,14 @@ public class MenuScreen : UIScreen
     [InjectService] private UpgradesService _upgradesService;
     [InjectService] private ILevelManagerService _levelManagerService;
 
+
+    public override void Show()
+    {
+        base.Show();
+        Debug.Log("Menu Shown");
+    }
+
+
     protected override void OnBeforeOpen(UIObject.Args screenOpenProperties)
     {
         ServiceLocator.Instance.InjectServicesInComponent(this);

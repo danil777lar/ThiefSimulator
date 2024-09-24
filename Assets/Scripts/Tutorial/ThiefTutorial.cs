@@ -80,7 +80,10 @@ public class ThiefTutorial : MonoBehaviour, ILevelEventHandler
 
     private void OnDisable()
     {
-        Destroy(_markerInstance.gameObject);
+        if (_markerInstance != null)
+        {
+            Destroy(_markerInstance.gameObject);
+        }
     }
 
     private void Update()

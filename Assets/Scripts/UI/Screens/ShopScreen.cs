@@ -29,6 +29,7 @@ public class ShopScreen : UIScreen
     [SerializeField] private RawImage previewImage;
     
     [InjectService] private IItemHolderService _itemHolderService;
+    [InjectService] private UIService _uiService;
 
     private ItemTypes _currentItemTypes = ItemTypes.Hats;
     private RenderTexture _previewTexture;
@@ -102,7 +103,7 @@ public class ShopScreen : UIScreen
     
     private void OnExitButtonClicked()
     {
-        Back();
+        _uiService.Back();
     }
 
     [Serializable]
