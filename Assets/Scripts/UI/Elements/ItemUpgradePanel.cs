@@ -19,6 +19,8 @@ public class ItemUpgradePanel : MonoBehaviour
     [SerializeField] private Image progressBarDivider;
     [Space]
     [SerializeField] private Button upgradeButton;
+    [SerializeField] private Button upgradeAdButton;
+    [SerializeField] private Button maxLevelButton;
     [SerializeField] private Image upgradeLockIcon;
     [SerializeField] private TextMeshProUGUI upgradeButtonText;
 
@@ -27,6 +29,7 @@ public class ItemUpgradePanel : MonoBehaviour
     [InjectService] private UpgradesService _upgradesService;
     [InjectService] private ICurrencyService _currencyService;
     [InjectService] private IItemHolderService _itemHolderService;
+    [InjectService] private IAdsService _adsService;
     
     private UpgradeProcessor _upgrade;
     private ItemUpgradeData _data;
@@ -44,20 +47,29 @@ public class ItemUpgradePanel : MonoBehaviour
         upgradeName.text = _upgrade.DisplayName;
         upgradeDescription.text = _upgrade.GetDescription(0);
         
-        UpdateUpgradeButton();
+        UpdateUpgradeButtons();
         BuildProgressSlider();
     }
 
-    private void UpdateUpgradeButton()
+    private void UpdateUpgradeButtons()
     {
         upgradeButton.onClick.RemoveAllListeners();
         upgradeButton.onClick.AddListener(OnUpgradeButtonClicked);
+        
+        upgradeAdButton.onClick.RemoveAllListeners();
+        upgradeAdButton.onClick.AddListener(OnUpgradeButtonAdClicked);
      
         bool isMaxLevel = _data.Level >= _upgrade.MaxLevel;
         bool isUnlocked = _unlocked.Invoke();
-        upgradeButton.interactable = isUnlocked && !isMaxLevel;
+        bool isEnoughMoney = _currencyService.GetCurrency(CurrencyType.Coins, CurrencyPlacementType.Global) >= GetCurrentUpgradePrice();
+        
+        upgradeButton.interactable = isUnlocked;
         upgradeLockIcon.gameObject.SetActive(!isUnlocked);
         upgradeButtonText.gameObject.SetActive(isUnlocked);
+        
+        upgradeButton.gameObject.SetActive(!isMaxLevel && isEnoughMoney);
+        upgradeAdButton.gameObject.SetActive(!isMaxLevel && !isEnoughMoney);
+        maxLevelButton.gameObject.SetActive(isMaxLevel);
         
         upgradeButtonText.text = isMaxLevel ? "MAX LEVEL" : $"UPGRADE\n{GetCurrentUpgradePrice()}<sprite index=0>";
     }
@@ -92,17 +104,33 @@ public class ItemUpgradePanel : MonoBehaviour
         
         if (_currencyService.TrySpendCurrency(CurrencyType.Coins, CurrencyPlacementType.Global, GetCurrentUpgradePrice()))
         {
-            _data.Level++;
-            _dataService.Save();
-            progressBar.value = _data.Level;
-            
-            UpdateUpgradeButton();
+            Upgrade();
         }
         else
         {
             UIToast.Args toast = new UIToast.Args(UIToastType.Info, "Not enough coins");
             _uiService.GetProcessor<UIToastProcessor>().OpenToast(toast);
         }
+    }
+    
+    private void OnUpgradeButtonAdClicked()
+    {
+        if (_data.Level >= _upgrade.MaxLevel)
+        {
+            return;
+        }
+        
+        _adsService.ShowRewarded(() => {}, () => { }, 
+            Upgrade, () => { });
+    }
+
+    private void Upgrade()
+    {
+        _data.Level++;
+        _dataService.Save();
+        progressBar.value = _data.Level;
+            
+        UpdateUpgradeButtons();
     }
 
     private int GetCurrentUpgradePrice()

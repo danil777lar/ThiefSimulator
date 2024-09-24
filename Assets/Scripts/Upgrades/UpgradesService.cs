@@ -31,7 +31,10 @@ public class UpgradesService : Service
             ItemUpgradeData data = _dataService.Data.GetItemUpgradeData(PLAYER_UPGRADES_KEY, upgrade);
             
             int price = Mathf.RoundToInt(processor.BaseLevelPrice * Mathf.Pow(processor.LevelPriceMultiplier, data.Level));
-            if (_currencyService.CheckEnoughCurrency(CurrencyType.Coins, CurrencyPlacementType.Global, price))
+            
+            bool canUpgrade = _currencyService.CheckEnoughCurrency(CurrencyType.Coins, CurrencyPlacementType.Global, price);
+            canUpgrade &= data.Level < processor.MaxLevel;
+            if (canUpgrade)
             {
                 return true;
             }
