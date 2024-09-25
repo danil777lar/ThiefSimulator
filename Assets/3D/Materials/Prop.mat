@@ -21,7 +21,8 @@ Material:
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses:
   - MOTIONVECTORS
   m_LockedProperties: 
@@ -53,6 +54,14 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Global_Grid_Normal_Map:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Grid_Texture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -110,6 +119,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Alpha: 1
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _BaseTextureValue: 0
@@ -117,6 +127,7 @@ Material:
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
     - _COLOR_SOURCE: 1
+    - _CastShadows: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
@@ -135,13 +146,17 @@ Material:
     - _FresnelMin: 0
     - _FresnelPower: 1
     - _FresnelTreshold: 0.6
+    - _Global_Grid_Normal_Strength: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _HighlightSize: 0.03
+    - _Grid_Faloff: 50
+    - _Grid_Scale: 1
+    - _Grid_Visibility: 0.5
+    - _HighlightSize: 0
     - _Highlight_Hue_Shift: 0
     - _Highlight_Saturation_Shift: 0
-    - _Highlight_Sharpness: 0.736
+    - _Highlight_Sharpness: 0
     - _Highlight_Value_Shift: 0.4
     - _IndirectIntensity: 1
     - _IndirectIntensityOutline: 0
@@ -181,11 +196,11 @@ Material:
     - _RimMax: 1
     - _RimMin: 0.5
     - _ShadowColorLightAtten: 1
-    - _ShadowSize: 0.742
-    - _Shadow_Hue_Shift: -0.1
-    - _Shadow_Saturation_Shift: 0
-    - _Shadow_Sharpness: 0.805
-    - _Shadow_Value_Shift: -0.25
+    - _ShadowSize: 0.5
+    - _Shadow_Hue_Shift: 0
+    - _Shadow_Saturation_Shift: 0.125
+    - _Shadow_Sharpness: 0.75
+    - _Shadow_Value_Shift: -0.125
     - _SingleIndirectColor: 0
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
@@ -199,6 +214,7 @@ Material:
     - _SrcBlendAlpha: 1
     - _Surface: 0
     - _USE_FRESNEL: 0
+    - _USE_GLOBAL_GRID: 0
     - _USE_HIGHLIGHT: 1
     - _USE_SHADOW: 1
     - _UVSec: 0
@@ -218,12 +234,16 @@ Material:
     - _UseSpecular: 1
     - _VertexColorValue: 1
     - _WorkflowMode: 1
+    - _ZTest: 4
     - _ZWrite: 1
+    - _ZWriteControl: 0
     m_Colors:
     - _BaseColor: {r: 0.5999999, g: 0.3203773, b: 0.36773634, a: 1}
     - _Color: {r: 0.80377346, g: 0.80377346, b: 0.80377346, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FresnelColor: {r: 0, g: 0, b: 0, a: 0}
+    - _Grid_Color: {r: 1, g: 0, b: 0, a: 0}
+    - _Grid_Offset: {r: 0, g: 0, b: 0, a: 0}
     - _HColor: {r: 1, g: 1, b: 1, a: 1}
     - _MatCapColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
