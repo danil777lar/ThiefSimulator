@@ -14,8 +14,6 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _COLOR_SOURCE_VERTEX_COLOR
-  - _USE_FRESNEL
-  - _USE_HIGHLIGHT
   - _USE_SHADOW
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -67,6 +65,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Highlight_Hue_Shift_Gradient:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -100,6 +102,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadowBaseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Shadow_Hue_Shift_Gradient:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -143,11 +149,11 @@ Material:
     - _EmissionChannel: 4
     - _EnvironmentReflections: 1
     - _FresnelColorValue: 1
-    - _FresnelMainValue: 0
+    - _FresnelMainValue: 1
     - _FresnelMax: 1.5
     - _FresnelMin: 0
-    - _FresnelPower: 0.32
-    - _FresnelTreshold: 0.82
+    - _FresnelPower: 3.5
+    - _FresnelTreshold: 0.07
     - _Global_Grid_Normal_Strength: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -198,11 +204,11 @@ Material:
     - _RimMax: 1
     - _RimMin: 0.5
     - _ShadowColorLightAtten: 1
-    - _ShadowSize: 0.76
-    - _Shadow_Hue_Shift: -0.1
+    - _ShadowSize: 0.5
+    - _Shadow_Hue_Shift: 0
     - _Shadow_Saturation_Shift: 0.5
     - _Shadow_Sharpness: 0
-    - _Shadow_Value_Shift: 0
+    - _Shadow_Value_Shift: -0.1
     - _SingleIndirectColor: 0
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
@@ -215,9 +221,9 @@ Material:
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
-    - _USE_FRESNEL: 1
+    - _USE_FRESNEL: 0
     - _USE_GLOBAL_GRID: 0
-    - _USE_HIGHLIGHT: 1
+    - _USE_HIGHLIGHT: 0
     - _USE_SHADOW: 1
     - _UVSec: 0
     - _UseAlphaTest: 0
@@ -243,7 +249,7 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0.80377346, g: 0.80377346, b: 0.80377346, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FresnelColor: {r: 1, g: 1, b: 1, a: 0}
+    - _FresnelColor: {r: 1, g: 1, b: 1, a: 1}
     - _Grid_Color: {r: 1, g: 0, b: 0, a: 0}
     - _Grid_Offset: {r: 0, g: 0, b: 0, a: 0}
     - _HColor: {r: 1, g: 1, b: 1, a: 1}
