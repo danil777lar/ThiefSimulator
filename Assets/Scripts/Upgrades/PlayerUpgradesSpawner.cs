@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Larje.Core;
 using Larje.Core.Services;
 using MoreMountains.TopDownEngine;
 using ProjectConstants;
@@ -15,7 +16,7 @@ public class PlayerUpgradesSpawner : MonoBehaviour
     
     private void Start()
     {
-        ServiceLocator.Instance.InjectServicesInComponent(this);
+        DIContainer.InjectTo(this);
         
         _dataSet = _upgradesService.GetPlayerGlobalUpgrades();
         _root = new GameObject("Upgrades").transform; 

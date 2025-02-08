@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Larje.Core;
 using Larje.Core.Services;
 using Larje.Core.Services.UI;
 using MoreMountains.Tools;
@@ -18,7 +19,7 @@ public class UpgradesPopup : UIPopup
     
     protected override void OnBeforeOpen(UIObject.Args args)
     {
-        ServiceLocator.Instance.InjectServicesInComponent(this);
+        DIContainer.InjectTo(this);
         
         buttonClose.onClick.AddListener(Close);
 

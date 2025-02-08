@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Larje.Core;
 using Larje.Core.Services;
 using MoreMountains.TopDownEngine;
 using ProjectConstants;
@@ -55,7 +56,7 @@ public class ThiefLevel : LevelProcessor
     
     private void Start()
     {
-        ServiceLocator.Instance.InjectServicesInComponent(this);
+        DIContainer.InjectTo(this);
 
         _levelData = new LevelData(this);
         

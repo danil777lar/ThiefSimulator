@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Larje.Core;
 using Larje.Core.Services;
 using Larje.Core.Services.UI;
 using MoreMountains.Tools;
@@ -24,7 +25,7 @@ public class CharacterHealth : Health
         if (_character.CharacterType == Character.CharacterTypes.Player && currentDamageDeclines < maxDamageDeclines)
         {
             ImmuneToDamage = true;
-            UIService uiService = ServiceLocator.Instance.GetService<UIService>();
+            UIService uiService = DIContainer.GetService<UIService>();
             RevivePopup.Args popup = new RevivePopup.Args(
                 DeclineDamage, 
                 () =>
@@ -44,7 +45,7 @@ public class CharacterHealth : Health
     {
         ImmuneToDamage = false;
         
-        ServiceLocator.Instance.GetService<UpgradesService>()
+        DIContainer.GetService<UpgradesService>()
             .SpawnUpgrade(UpgradeType.Invisibility, 0, transform);
         currentDamageDeclines++;
         EventDamageDeclined?.Invoke();

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Larje.Core;
 using Larje.Core.Services;
 using Larje.Core.Services.UI;
 using ProjectConstants;
@@ -19,7 +20,7 @@ public class SettingsPopup : UIPopup
     
     protected override void OnBeforeOpen(UIObject.Args args)
     {
-        ServiceLocator.Instance.InjectServicesInComponent(this);
+        DIContainer.InjectTo(this);
 
         soundToggle.isOn = _dataService.Data.Settings.SoundGlobal;
         vibrationToggle.isOn = _dataService.Data.Settings.Vibration;

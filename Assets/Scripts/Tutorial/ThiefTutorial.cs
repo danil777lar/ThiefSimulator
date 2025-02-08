@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Larje.Core;
 using Larje.Core.Services;
 using MoreMountains.TopDownEngine;
 using TMPro;
@@ -59,7 +60,7 @@ public class ThiefTutorial : MonoBehaviour, ILevelEventHandler
     
     private void Start()
     {
-        ServiceLocator.Instance.InjectServicesInComponent(this);
+        DIContainer.InjectTo(this);
         
         _level = GetComponentInParent<ThiefLevel>();
         _tutorialText = GetComponentInChildren<TextMeshProUGUI>();

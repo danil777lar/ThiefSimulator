@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Larje.Core;
 using Larje.Core.Services;
 using Larje.Core.Services.UI;
 using ProjectConstants;
@@ -28,7 +29,7 @@ public class RevivePopup : UIPopup
     
     protected override void OnBeforeOpen(UIObject.Args args)
     {
-        ServiceLocator.Instance.InjectServicesInComponent(this);
+        DIContainer.InjectTo(this);
         
         if (args is Args reviveArgs)
         {

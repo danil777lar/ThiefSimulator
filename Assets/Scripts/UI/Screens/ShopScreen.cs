@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using Larje.Core;
 using Larje.Core.Services;
 using Larje.Core.Services.UI;
 using MoreMountains.Tools;
@@ -36,7 +37,7 @@ public class ShopScreen : UIScreen
     
     protected override void OnBeforeOpen(UIObject.Args screenOpenProperties)
     {
-        ServiceLocator.Instance.InjectServicesInComponent(this);
+        DIContainer.InjectTo(this);
         
         exitButton.onClick.AddListener(OnExitButtonClicked);
 

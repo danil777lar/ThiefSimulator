@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Larje.Core;
 using Larje.Core.Services;
 using MoreMountains.TopDownEngine;
 using ProjectConstants;
@@ -13,7 +14,7 @@ public class FailOnDeath : MonoBehaviour
 
     private void Start()
     {
-        ServiceLocator.Instance.InjectServicesInComponent(this);
+        DIContainer.InjectTo(this);
         
         _health = GetComponentInParent<Health>();
         _health.OnDeath += Fail;

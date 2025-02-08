@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Larje.Core;
 using Larje.Core.Services;
 using Larje.Core.Services.UI;
 using Larje.Core.Tools;
@@ -58,7 +59,7 @@ public class WinScreen : UIScreen, IItemQualityBackgroundUser
     
     protected override void OnBeforeOpen(UIObject.Args args)
     {
-        ServiceLocator.Instance.InjectServicesInComponent(this);
+        DIContainer.InjectTo(this);
         
         GrabBestReward();
         

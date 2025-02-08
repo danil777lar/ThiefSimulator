@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Larje.Core;
 using Larje.Core.Services;
 using Larje.Core.Services.UI;
 using ProjectConstants;
@@ -25,7 +26,7 @@ public class LoadingScreen : UIScreen
 
         private void Awake()
         {
-            ServiceLocator.Instance.InjectServicesInComponent(this);
+            DIContainer.InjectTo(this);
         }
 
         protected override void OnBeforeOpen(UIObject.Args args)

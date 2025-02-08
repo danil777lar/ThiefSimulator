@@ -37,6 +37,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Base_Hue_Shift_Gradient:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -131,6 +135,9 @@ Material:
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _BaseTextureValue: 0
+    - _Base_Hue_Shift: 0
+    - _Base_Saturation_Shift: 0
+    - _Base_Value_Shift: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1

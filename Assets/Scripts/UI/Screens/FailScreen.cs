@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Larje.Core;
 using Larje.Core.Services;
 using Larje.Core.Services.UI;
 using ProjectConstants;
@@ -16,7 +17,7 @@ public class FailScreen : UIScreen
 
     protected override void OnBeforeOpen(UIObject.Args args)
     {
-        ServiceLocator.Instance.InjectServicesInComponent(this);
+        DIContainer.InjectTo(this);
 
         retryButton.onClick.AddListener(OnRetryButtonClicked);
         

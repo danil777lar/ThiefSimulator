@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Larje.Core;
 using Larje.Core.Services;
 using Larje.Core.Services.UI;
 using ProjectConstants;
@@ -27,7 +28,7 @@ public class CurrentItemButton : MonoBehaviour, IItemQualityBackgroundUser
 
     private void Start()
     {
-        ServiceLocator.Instance.InjectServicesInComponent(this);
+        DIContainer.InjectTo(this);
 
         _button = GetComponent<Button>();
         _button.onClick.AddListener(OnButtonClicked);

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Larje.Core;
 using Larje.Core.Services;
 using ProjectConstants;
 using UnityEngine;
@@ -32,7 +33,7 @@ public class ThiefLevelAnaliticsMediator : MonoBehaviour, ILevelStartHandler, IL
 
     private void Start()
     {
-        ServiceLocator.Instance.InjectServicesInComponent(this);
+        DIContainer.InjectTo(this);
     }
     
     private void SendEvent(string eventName)

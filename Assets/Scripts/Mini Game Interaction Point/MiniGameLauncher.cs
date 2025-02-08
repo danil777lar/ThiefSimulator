@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Larje.Core;
 using Larje.Core.Services;
 using Larje.Core.Services.UI;
 using MoreMountains.Feedbacks;
@@ -55,7 +56,7 @@ public class MiniGameLauncher : MonoBehaviour, IMiniGameLauncher
     
     private void Start()
     {
-        ServiceLocator.Instance.InjectServicesInComponent(this);
+        DIContainer.InjectTo(this);
     }
 
     private float GetMultiplier()

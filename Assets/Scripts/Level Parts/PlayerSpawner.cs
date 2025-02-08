@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Dreamteck.Splines;
+using Larje.Core;
 using Larje.Core.Services;
 using MoreMountains.TopDownEngine;
 using ProjectConstants;
@@ -60,7 +61,7 @@ public class PlayerSpawner : MonoBehaviour, ILevelEventHandler, ILevelStartHandl
 
     private void Start()
     {
-        ServiceLocator.Instance.InjectServicesInComponent(this);
+        DIContainer.InjectTo(this);
         
         GrabVanMovement();
         GrabPlayer();

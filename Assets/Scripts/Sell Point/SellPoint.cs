@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using Dreamteck.Splines;
+using Larje.Core;
 using Larje.Core.Services;
 using MoreMountains.TopDownEngine;
 using ProjectConstants;
@@ -51,7 +52,7 @@ public class SellPoint : MonoBehaviour
 
     private void Start()
     {
-        ServiceLocator.Instance.InjectServicesInComponent(this);
+        DIContainer.InjectTo(this);
         
         Character player = FindObjectsOfType<Character>().ToList()
             .Find(x => x.CharacterType == Character.CharacterTypes.Player);

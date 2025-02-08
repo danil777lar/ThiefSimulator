@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Remoting.Messaging;
+using Larje.Core;
 using Larje.Core.Services;
 using Larje.Core.Services.UI;
 using ProjectConstants;
@@ -37,7 +38,7 @@ public class ItemUpgradePanel : MonoBehaviour
 
     public void Build(UpgradeType upgradeType, ItemUpgradeData data, Func<bool> unlocked)
     {
-        ServiceLocator.Instance.InjectServicesInComponent(this);
+        DIContainer.InjectTo(this);
         
         _upgrade = _upgradesService.GetUpgradePrefab(upgradeType);
         _data = data;
