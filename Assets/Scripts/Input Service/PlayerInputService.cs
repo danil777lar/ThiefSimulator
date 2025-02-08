@@ -9,9 +9,10 @@ using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using ProjectConstants;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-[BindService(typeof(PlayerInputService))]
-public class PlayerInputService : Service
+[BindService(typeof(PlayerInputService), typeof(IInputService))]
+public class PlayerInputService : Service, IInputService
 {
     [SerializeField] private UIScreenTypes screensMask; 
     
@@ -21,11 +22,15 @@ public class PlayerInputService : Service
     private InputManager _inputManager;
     private MMTouchJoystick _joystick;
     private CanvasGroup _group;
+    
+    public InputSystem_Actions.PlayerActions PlayerActions { get; }
 
     public event Action EventPointerDown; 
     
     public override void Init()
     {
+        
+        
         _inputManager = GetComponent<InputManager>();
         _joystick = GetComponentInChildren<MMTouchJoystick>(true);
         _uiService.GetProcessor<UIScreenProcessor>().EventScreenOpened += OnScreenChanged;
