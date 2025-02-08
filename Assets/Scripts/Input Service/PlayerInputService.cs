@@ -11,8 +11,8 @@ using ProjectConstants;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[BindService(typeof(PlayerInputService), typeof(IInputService))]
-public class PlayerInputService : Service, IInputService
+[BindService(typeof(PlayerInputService))]
+public class PlayerInputService : InputService
 {
     [SerializeField] private UIScreenTypes screensMask; 
     
@@ -29,7 +29,7 @@ public class PlayerInputService : Service, IInputService
     
     public override void Init()
     {
-        
+        base.Init();
         
         _inputManager = GetComponent<InputManager>();
         _joystick = GetComponentInChildren<MMTouchJoystick>(true);
