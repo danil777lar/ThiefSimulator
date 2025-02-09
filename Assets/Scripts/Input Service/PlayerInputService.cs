@@ -5,6 +5,7 @@ using System.Linq;
 using Larje.Core;
 using Larje.Core.Services;
 using Larje.Core.Services.UI;
+using Larje.Core.Tools;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using ProjectConstants;
@@ -14,7 +15,8 @@ using UnityEngine.InputSystem;
 [BindService(typeof(PlayerInputService), typeof(InputService))]
 public class PlayerInputService : InputService
 {
-    [SerializeField] private UIScreenTypes screensMask; 
+    [SerializeField] private UIScreenTypes screensMask;
+    [SerializeField] private CorePlayerJoystick joystick;
     
     [InjectService] private UIService _uiService;
 
@@ -24,53 +26,19 @@ public class PlayerInputService : InputService
 
     public event Action EventPointerDown;
 
+    public override Vector2 PlayerMovement => joystick.GetNormalizedValue();
     public override InputAction UIBack => GetActions<InputSystem_Actions.UIActions>().Back;
     public override InputAction PlayerRun => GetActions<InputSystem_Actions.PlayerActions>().Run;
+    public override InputAction PlayerPointer => GetActions<InputSystem_Actions.PlayerActions>().Pointer;
 
     public override void Init()
     {
         base.Init();
+        joystick.EventPointerDown += PointerDown;
     }
 
     public void PointerDown()
     {
         EventPointerDown?.Invoke();
     }
-
-    public void ConnectPlayer()
-    { 
-        FindObjectsByType<Character>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
-            .ToList()
-            .ForEach(x =>
-            {
-                if (x.CharacterType == Character.CharacterTypes.Player)
-                {
-                    
-                }
-            });
-    }
-
-    protected override void Update()
-    {
-        base.Update();
-        MMDebug.DebugOnScreen($"press: {_isTouching}\n cur: {_currentTouchPosition.ToString()}\n start: {_startTouchPosition.ToString()}");
-
-        InputSystem_Actions.PlayerActions playerActions = GetActions<InputSystem_Actions.PlayerActions>();
-        Vector3 pointerValue = playerActions.Pointer.ReadValue<Vector3>();
-        _currentTouchPosition = pointerValue.XY();
-        if (pointerValue.z > 0)
-        {
-            if (!_isTouching)
-            {
-                _startTouchPosition = _currentTouchPosition;
-                _isTouching = true;
-            }
-        }
-        else
-        {
-            _isTouching = false;
-        }
-    }
-    
-    
 }

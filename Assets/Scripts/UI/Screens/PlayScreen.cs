@@ -42,7 +42,6 @@ public class PlayScreen : UIScreen
         sliderWin.value = 0f;
         
         _levelData = _levelService.GetCurrentLevelData<ThiefLevel.LevelData>();
-        _inputService.ConnectPlayer();
         
         _player = FindObjectsByType<Character>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).ToList()
             .Find(x => x.CharacterType == Character.CharacterTypes.Player);
