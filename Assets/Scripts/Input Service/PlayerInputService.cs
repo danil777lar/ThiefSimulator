@@ -11,30 +11,25 @@ using ProjectConstants;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[BindService(typeof(PlayerInputService))]
+[BindService(typeof(PlayerInputService), typeof(InputService))]
 public class PlayerInputService : InputService
 {
     [SerializeField] private UIScreenTypes screensMask; 
     
     [InjectService] private UIService _uiService;
 
-    private bool _isActive = true;
-    private InputManager _inputManager;
-    private MMTouchJoystick _joystick;
-    private CanvasGroup _group;
-    
-    public InputSystem_Actions.PlayerActions PlayerActions { get; }
+    private bool _isTouching;
+    private Vector3 _startTouchPosition;
+    private Vector2 _currentTouchPosition;
 
-    public event Action EventPointerDown; 
-    
+    public event Action EventPointerDown;
+
+    public override InputAction UIBack => GetActions<InputSystem_Actions.UIActions>().Back;
+    public override InputAction PlayerRun => GetActions<InputSystem_Actions.PlayerActions>().Run;
+
     public override void Init()
     {
         base.Init();
-        
-        _inputManager = GetComponent<InputManager>();
-        _joystick = GetComponentInChildren<MMTouchJoystick>(true);
-        _uiService.GetProcessor<UIScreenProcessor>().EventScreenOpened += OnScreenChanged;
-        _group = _joystick.GetComponent<CanvasGroup>();
     }
 
     public void PointerDown()
@@ -50,29 +45,32 @@ public class PlayerInputService : InputService
             {
                 if (x.CharacterType == Character.CharacterTypes.Player)
                 {
-                    x.SetInputManager(_inputManager);
+                    
                 }
             });
     }
 
-    private void OnScreenChanged(UIScreenType newScreen)
+    protected override void Update()
     {
-        _isActive = screensMask.HasFlag((UIScreenTypes)(int)newScreen);
-        if (_isActive)
+        base.Update();
+        MMDebug.DebugOnScreen($"press: {_isTouching}\n cur: {_currentTouchPosition.ToString()}\n start: {_startTouchPosition.ToString()}");
+
+        InputSystem_Actions.PlayerActions playerActions = GetActions<InputSystem_Actions.PlayerActions>();
+        Vector3 pointerValue = playerActions.Pointer.ReadValue<Vector3>();
+        _currentTouchPosition = pointerValue.XY();
+        if (pointerValue.z > 0)
         {
-            _joystick.gameObject.SetActive(true);
+            if (!_isTouching)
+            {
+                _startTouchPosition = _currentTouchPosition;
+                _isTouching = true;
+            }
         }
         else
         {
-            _group.alpha = 0;
+            _isTouching = false;
         }
     }
     
-    private void OnJoystickPointerUp()
-    {
-        if (!_isActive)
-        {
-            _joystick.gameObject.SetActive(false);
-        }
-    }
+    
 }
