@@ -2761,7 +2761,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3292396858704070703}
   - component: {fileID: 4759526150956630642}
-  - component: {fileID: 2081497396152790809}
   - component: {fileID: 3021386663141484596}
   m_Layer: 0
   m_Name: Main Feedback
@@ -2800,89 +2799,6 @@ MonoBehaviour:
   useForceDelay: 0
   forceDelay: 0
   _eventType: 15
---- !u!114 &2081497396152790809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8678323929658598153}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a8c6e9765e02da42b4a27b8a0d14352, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Active: 1
-  Label: CanvasGroup
-  Chance: 100
-  Timing:
-    TimescaleMode: 0
-    ExcludeFromHoldingPauses: 0
-    ContributeToTotalDuration: 1
-    InitialDelay: 0
-    CooldownDuration: 0
-    InterruptsOnStop: 1
-    NumberOfRepeats: 0
-    RepeatForever: 0
-    DelayBetweenRepeats: 1
-    MMFeedbacksDirectionCondition: 0
-    PlayDirection: 0
-    ConstantIntensity: 0
-    UseIntensityInterval: 0
-    IntensityIntervalMin: 0
-    IntensityIntervalMax: 0
-    Sequence: {fileID: 0}
-    TrackID: 0
-    Quantized: 0
-    TargetBPM: 120
-  DebugActive: 0
-  Mode: 0
-  Duration: 0.25
-  StartsOff: 0
-  RelativeValues: 0
-  AllowAdditivePlays: 0
-  DisableOnStop: 0
-  TargetCanvasGroup: {fileID: 2660800980573179002}
-  AlphaCurve:
-    MMTweenDefinitionType: 0
-    MMTweenCurve: 4
-    Curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 0.3
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    Initialized: 0
-  RemapZero: 0
-  RemapOne: 1
-  InstantAlpha: 0
 --- !u!114 &3021386663141484596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2975,7 +2891,7 @@ MonoBehaviour:
   - rid: 3292610882763227138
   KeepPlayModeChanges: 0
   PerformanceMode: 0
-  StopFeedbacksOnDisable: 0
+  StopFeedbacksOnDisable: 1
   PlayCount: 0
   references:
     version: 2
