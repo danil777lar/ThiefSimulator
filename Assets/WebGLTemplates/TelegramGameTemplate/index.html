@@ -131,7 +131,6 @@
           var path = location.origin + location.pathname;
 
           MyGameInstance = unityInstance;
-          MyGameInstance.SendMessage("Data Service", "SetLink", path.toString());
           MyGameInstance.SendMessage("Data Service", "SetUserId", user_id.toString());
           MyGameInstance.SendMessage("Data Service", "SetFirstName", first_name);
           loadingBar.style.display = "none";
