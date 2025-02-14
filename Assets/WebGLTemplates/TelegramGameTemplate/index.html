@@ -27,6 +27,18 @@
         <div id="unity-build-title">VergilyDreams</div>
       </div>
     </div>
+
+    <script>
+      function resizeUnityCanvas() {
+          var canvas = document.getElementById('unity-canvas');
+          canvas.style.width = window.innerWidth + 'px';
+          canvas.style.height = window.innerHeight + 'px';
+      }
+  
+      window.addEventListener('resize', resizeUnityCanvas);
+      window.addEventListener('load', resizeUnityCanvas);
+    </script>
+
     <script>
       var container = document.querySelector("#unity-container");
       var canvas = document.querySelector("#unity-canvas");
