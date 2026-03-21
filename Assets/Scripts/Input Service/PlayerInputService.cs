@@ -28,8 +28,12 @@ public class PlayerInputService : InputService
 
     public override Vector2 PlayerMovement => joystick.GetNormalizedValue();
     public override InputAction UIBack => GetActions<InputSystem_Actions.UIActions>().Back;
+    public override InputAction UIDebug => null;
     public override InputAction PlayerRun => GetActions<InputSystem_Actions.PlayerActions>().Run;
     public override InputAction PlayerPointer => GetActions<InputSystem_Actions.PlayerActions>().Pointer;
+
+    public override Dictionary<InputActionMapType, Type> ActionMapTypes => null;
+    public override Dictionary<Type, bool> DefaultStates => null;
 
     public override void Init()
     {

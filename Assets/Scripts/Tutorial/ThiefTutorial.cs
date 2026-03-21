@@ -10,7 +10,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Timeline;
 
-public class ThiefTutorial : MonoBehaviour, ILevelEventHandler
+public class ThiefTutorial : MonoBehaviour
 {
     [SerializeField] private OffscreenMarker markerPrefab;
 
@@ -42,20 +42,20 @@ public class ThiefTutorial : MonoBehaviour, ILevelEventHandler
     private OffscreenMarker _markerInstance;
     private TextMeshProUGUI _tutorialText;
     
-    public void OnLevelEvent(LevelEvent levelEvent)
+    public void OnLevelEvent()
     {
-        if (levelEvent is LevelEventProgressComplete progressCompleteEvent)
-        {
-            if (progressCompleteEvent.Type == LevelEventProgressComplete.ProgressType.Min)
-            {
-                _minProgressAchieved = true;
-                _analyticsService.SendEvent("Tutorial_Loot_Complete");
-            }
-            else if (progressCompleteEvent.Type == LevelEventProgressComplete.ProgressType.Full)
-            {
-                _fullProgressAchieved = true;
-            }
-        }
+        // if (levelEvent is LevelEventProgressComplete progressCompleteEvent)
+        // {
+        //     if (progressCompleteEvent.Type == LevelEventProgressComplete.ProgressType.Min)
+        //     {
+        //         _minProgressAchieved = true;
+        //         _analyticsService.SendEvent("Tutorial_Loot_Complete");
+        //     }
+        //     else if (progressCompleteEvent.Type == LevelEventProgressComplete.ProgressType.Full)
+        //     {
+        //         _fullProgressAchieved = true;
+        //     }
+        // }
     }
     
     private void Start()

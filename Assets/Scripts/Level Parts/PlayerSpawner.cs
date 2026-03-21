@@ -10,7 +10,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class PlayerSpawner : MonoBehaviour, ILevelEventHandler, ILevelStartHandler, ILevelEndHandler
+public class PlayerSpawner : MonoBehaviour, ILevelStartHandler, ILevelEndHandler
 {
     [SerializeField] private float delay;
     [SerializeField] private GameObject content;
@@ -51,12 +51,12 @@ public class PlayerSpawner : MonoBehaviour, ILevelEventHandler, ILevelStartHandl
         _levelPlaying = false;
     }
     
-    public void OnLevelEvent(LevelEvent levelEvent)
+    public void OnLevelEvent()
     {
-        if (levelEvent is LevelEventProgressComplete { Type: LevelEventProgressComplete.ProgressType.Min })
-        {
-            _minProgressAchieved = true;
-        }
+        // if (levelEvent is LevelEventProgressComplete { Type: LevelEventProgressComplete.ProgressType.Min })
+        // {
+        //     _minProgressAchieved = true;
+        // }
     }
 
     private void Start()

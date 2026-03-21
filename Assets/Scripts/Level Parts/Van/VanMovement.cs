@@ -12,7 +12,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class VanMovement : MonoBehaviour, ILevelStartHandler, ILevelEndHandler, ILevelEventHandler
+public class VanMovement : MonoBehaviour, ILevelStartHandler, ILevelEndHandler
 {
     [Header("Speed")]
     [SerializeField] private float speed = 10f;
@@ -71,21 +71,21 @@ public class VanMovement : MonoBehaviour, ILevelStartHandler, ILevelEndHandler, 
         }
     }
     
-    public void OnLevelEvent(LevelEvent levelEvent)
+    public void OnLevelEvent()
     {
-        if (levelEvent is LevelEventPreStart levelEventPreStart)
-        {
-            EventStartMove?.Invoke();
-            transform.DOMove(_startPosition, levelEventPreStart.StartDelay * startAnimationDurationModifier)
-                .SetUpdate(UpdateType.Fixed)
-                .SetEase(Ease.OutBack)
-                .OnComplete(() =>
-                {
-                    _startedAnimationComplete = true;
-                    EventStartAnimationComplete?.Invoke();
-                    EventStopMove?.Invoke();
-                });    
-        }        
+        // if (levelEvent is LevelEventPreStart levelEventPreStart)
+        // {
+        //     EventStartMove?.Invoke();
+        //     transform.DOMove(_startPosition, levelEventPreStart.StartDelay * startAnimationDurationModifier)
+        //         .SetUpdate(UpdateType.Fixed)
+        //         .SetEase(Ease.OutBack)
+        //         .OnComplete(() =>
+        //         {
+        //             _startedAnimationComplete = true;
+        //             EventStartAnimationComplete?.Invoke();
+        //             EventStopMove?.Invoke();
+        //         });    
+        // }        
     }
     
     private void Start()
