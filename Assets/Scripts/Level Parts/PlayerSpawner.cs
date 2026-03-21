@@ -163,7 +163,7 @@ public class PlayerSpawner : MonoBehaviour, ILevelStartHandler, ILevelEndHandler
 
     private void Win()
     {
-        _levelService.TryStopCurrentLevel(new LevelProcessor.StopData(LevelStopType.Win));
+        _levelService.TryStopCurrentLevel(new LevelProcessor.StopData(true, LevelStopType.Win));
     }
 
     private Vector3 EvaluateTrajectory(float value)

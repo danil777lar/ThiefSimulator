@@ -22,6 +22,6 @@ public class FailOnDeath : MonoBehaviour
 
     private void Fail()
     {
-        _levelManagerService.TryStopCurrentLevel(new LevelProcessor.StopData(LevelStopType.Fail));
+        _levelManagerService.TryStopCurrentLevel(new LevelProcessor.StopData(false, LevelStopType.Fail));
     }
 }

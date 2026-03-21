@@ -22,25 +22,25 @@ public class SettingsPopup : UIPopup
     {
         DIContainer.InjectTo(this);
 
-        soundToggle.isOn = _dataService.Data.Settings.SoundGlobal;
-        vibrationToggle.isOn = _dataService.Data.Settings.Vibration;
+        // soundToggle.isOn = _dataService.Data.Settings.SoundGlobal;
+        // vibrationToggle.isOn = _dataService.Data.Settings.Vibration;
         
-        soundToggle.onValueChanged.AddListener(OnSoundToggleValueChanged);
-        vibrationToggle.onValueChanged.AddListener(OnVibrationToggleValueChanged);
+        // soundToggle.onValueChanged.AddListener(OnSoundToggleValueChanged);
+        // vibrationToggle.onValueChanged.AddListener(OnVibrationToggleValueChanged);
         privacyPolicyButton.onClick.AddListener(OnPrivacyPolicyButtonClicked);
         closeButton.onClick.AddListener(Close);
     }
 
     private void OnSoundToggleValueChanged(bool value)
     {
-        _dataService.Data.Settings.SoundGlobal = value;
-        _dataService.Save();
+        // _dataService.Data.Settings.SoundGlobal = value;
+        // _dataService.Save();
     }
     
     private void OnVibrationToggleValueChanged(bool value)
     {
-        _dataService.Data.Settings.Vibration = value;
-        _dataService.Save();
+        // _dataService.Data.Settings.Vibration = value;
+        // _dataService.Save();
     }
     
     private void OnPrivacyPolicyButtonClicked()

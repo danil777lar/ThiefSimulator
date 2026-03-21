@@ -70,9 +70,9 @@ public class ItemPopup : UIPopup
         upgradesRoot.MMDestroyAllChildren();
         foreach (UpgradeType upgrade in _args.Item.Upgrades)
         {
-            ItemUpgradeData data = _dataService.Data.GetItemUpgradeData($"{_args.Item.Name}_{_args.ItemType}", upgrade);
-            Func<bool> isUnlocked = () => _itemHolderService.IsItemUnlocked(_args.ItemType, _args.Item.Name);
-            Instantiate(upgradePanelPrefab, upgradesRoot).Build(upgrade, data, isUnlocked);
+            // ItemUpgradeData data = _dataService.Data.GetItemUpgradeData($"{_args.Item.Name}_{_args.ItemType}", upgrade);
+            // Func<bool> isUnlocked = () => _itemHolderService.IsItemUnlocked(_args.ItemType, _args.Item.Name);
+            // Instantiate(upgradePanelPrefab, upgradesRoot).Build(upgrade, data, isUnlocked);
         }
     }
 

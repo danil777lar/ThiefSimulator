@@ -127,7 +127,7 @@ public class ItemUpgradePanel : MonoBehaviour
     private void Upgrade()
     {
         _data.Level++;
-        _dataService.Save();
+        _dataService.SaveGameData();
         progressBar.value = _data.Level;
             
         UpdateUpgradeButtons();

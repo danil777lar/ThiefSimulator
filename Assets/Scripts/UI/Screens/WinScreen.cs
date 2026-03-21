@@ -185,7 +185,7 @@ public class WinScreen : UIScreen, IItemQualityBackgroundUser
             rewardCoins.gameObject.SetActive(true);
             
             _currencyService.AddCurrency(CurrencyType.Coins, CurrencyPlacementType.Global, coinsAmount);
-            _dataService.Save();
+            _dataService.SaveGameData();
         }
     }
 

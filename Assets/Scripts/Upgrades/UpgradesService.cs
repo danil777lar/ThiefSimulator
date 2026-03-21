@@ -28,7 +28,7 @@ public class UpgradesService : Service
         foreach (UpgradeType upgrade in playerGlobalUpgrades)
         {
             UpgradeProcessor processor = config.GetUpgradeProcessor(upgrade);
-            ItemUpgradeData data = _dataService.Data.GetItemUpgradeData(PLAYER_UPGRADES_KEY, upgrade);
+            ItemUpgradeData data = _dataService.GameData.GetItemUpgradeData(PLAYER_UPGRADES_KEY, upgrade);
             
             int price = Mathf.RoundToInt(processor.BaseLevelPrice * Mathf.Pow(processor.LevelPriceMultiplier, data.Level));
             
@@ -48,7 +48,7 @@ public class UpgradesService : Service
         Dictionary<UpgradeType, ItemUpgradeData> upgrades = new Dictionary<UpgradeType, ItemUpgradeData>();
         foreach (UpgradeType upgrade in playerGlobalUpgrades)
         {
-            ItemUpgradeData data = _dataService.Data.GetItemUpgradeData(PLAYER_UPGRADES_KEY, upgrade);
+            ItemUpgradeData data = _dataService.GameData.GetItemUpgradeData(PLAYER_UPGRADES_KEY, upgrade);
             upgrades.Add(upgrade, data);
         }
         

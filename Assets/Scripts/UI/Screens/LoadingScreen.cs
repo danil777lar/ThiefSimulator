@@ -31,8 +31,8 @@ public class LoadingScreen : UIScreen
 
         protected override void OnBeforeOpen(UIObject.Args args)
         {
-            bool showInter = _dataService.Data.IternalData.SessionNum != 1;
-            float loadingDuration = _dataService.Data.IternalData.SessionNum == 1
+            bool showInter = _dataService.SystemData.IternalData.SessionNum != 1;
+            float loadingDuration = _dataService.SystemData.IternalData.SessionNum == 1
                 ? firstStartLoadingDuration
                 : usualLoadingDuration;
             Action onLoadComplete = OnLoadingCompleteDefault;

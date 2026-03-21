@@ -39,7 +39,7 @@ public class ThiefLevel : LevelProcessor
     {
         if (!_isStarting && !IsLevelPlaying)
         {
-            SendEvent(new LevelEventPreStart(startDelay));
+            // SendEvent(new LevelEventPreStart(startDelay));
             StartCoroutine(StartDelayCo(data));
         }
     }
@@ -137,12 +137,12 @@ public class ThiefLevel : LevelProcessor
 
             if (oldProgressFull < 1f && ProgressFull >= 1f)
             {
-                SendEvent(new LevelEventProgressComplete(LevelEventProgressComplete.ProgressType.Full));
+                // SendEvent(new LevelEventProgressComplete(LevelEventProgressComplete.ProgressType.Full));
             }
             
             if (oldProgressMin < 1f && ProgressMin >= 1f)
             {
-                SendEvent(new LevelEventProgressComplete(LevelEventProgressComplete.ProgressType.Min));
+                // SendEvent(new LevelEventProgressComplete(LevelEventProgressComplete.ProgressType.Min));
             }
         }
     }

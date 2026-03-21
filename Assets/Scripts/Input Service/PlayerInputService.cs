@@ -41,7 +41,7 @@ public class PlayerInputService : InputService
         joystick.EventPointerDown += PointerDown;
     }
 
-    public void PointerDown()
+    public void PointerDown(Vector2 position)
     {
         EventPointerDown?.Invoke();
     }
