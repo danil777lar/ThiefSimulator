@@ -22,7 +22,7 @@ public class LoadingScreen : UIScreen
         [InjectService] private ILevelManagerService _levelService;
         [InjectService] private IAdsService _adsService;
         [InjectService] private UIService _uiService;
-        [InjectService] private DataService _dataService;
+        [InjectService] private IDataService _dataService;
 
         private void Awake()
         {

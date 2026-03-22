@@ -73,6 +73,7 @@ public class CharacterAttack : CharacterAbility
     protected override void OnInitialized()
     {
         _characterController = character.GetComponent<CharacterController>();
+
         Animator animator = character.GetComponentInChildren<Animator>();
         _defaultAnimatorController = animator.runtimeAnimatorController;
 

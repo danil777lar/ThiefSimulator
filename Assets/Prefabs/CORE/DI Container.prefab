@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b89b60ca108d684aa0c276fb83e7e7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoSave: 1
   setFirstItemAsDefault: 0
   configs:
   - {fileID: 11400000, guid: 87dadda7a6314244194122c998d3612c, type: 2}
@@ -244,78 +245,78 @@ MonoBehaviour:
     levelPrefab:
       m_AssetGUID: ff99004503ddd4244a8e1aeac12ea6fe
       m_SubObjectName: 
-      m_SubObjectGUID: 
       m_SubObjectType: 
+      m_SubObjectGUID: 
       m_EditorAssetChanged: 0
   - addToRandomList: 1
     levelPrefab:
       m_AssetGUID: ddeb77c1ef83f4c4fa736994cda29759
       m_SubObjectName: 
-      m_SubObjectGUID: 
       m_SubObjectType: 
+      m_SubObjectGUID: 
       m_EditorAssetChanged: 0
   - addToRandomList: 1
     levelPrefab:
       m_AssetGUID: 4e77182909899dd46810088697093ce6
       m_SubObjectName: 
-      m_SubObjectGUID: 
       m_SubObjectType: 
+      m_SubObjectGUID: 
       m_EditorAssetChanged: 0
   - addToRandomList: 1
     levelPrefab:
       m_AssetGUID: eab7ea63d0c182342b8146d9d9f4f652
       m_SubObjectName: 
-      m_SubObjectGUID: 
       m_SubObjectType: 
+      m_SubObjectGUID: 
       m_EditorAssetChanged: 0
   - addToRandomList: 1
     levelPrefab:
       m_AssetGUID: acedf0f5cfb08734b911b37462652c68
       m_SubObjectName: 
-      m_SubObjectGUID: 
       m_SubObjectType: 
+      m_SubObjectGUID: 
       m_EditorAssetChanged: 0
   - addToRandomList: 1
     levelPrefab:
       m_AssetGUID: 35501d83808dd974083c196b4cd144e7
       m_SubObjectName: 
-      m_SubObjectGUID: 
       m_SubObjectType: 
+      m_SubObjectGUID: 
       m_EditorAssetChanged: 0
   - addToRandomList: 1
     levelPrefab:
       m_AssetGUID: 70bcf9e60645e0c40b43b27dac40b605
       m_SubObjectName: 
-      m_SubObjectGUID: 
       m_SubObjectType: 
+      m_SubObjectGUID: 
       m_EditorAssetChanged: 0
   - addToRandomList: 1
     levelPrefab:
       m_AssetGUID: 93c988e2a6bc1dc4794fa498899c7a53
       m_SubObjectName: 
-      m_SubObjectGUID: 
       m_SubObjectType: 
+      m_SubObjectGUID: 
       m_EditorAssetChanged: 0
   - addToRandomList: 1
     levelPrefab:
       m_AssetGUID: a48bf792e836a734d83ad7f3e924bcbe
       m_SubObjectName: 
-      m_SubObjectGUID: 
       m_SubObjectType: 
+      m_SubObjectGUID: 
       m_EditorAssetChanged: 0
   - addToRandomList: 1
     levelPrefab:
       m_AssetGUID: b0183afb8cfc45248a4304b775cc4d28
       m_SubObjectName: 
-      m_SubObjectGUID: 
       m_SubObjectType: 
+      m_SubObjectGUID: 
       m_EditorAssetChanged: 0
   - addToRandomList: 1
     levelPrefab:
       m_AssetGUID: f342c2be78868634fb84735a1cd8b790
       m_SubObjectName: 
-      m_SubObjectGUID: 
       m_SubObjectType: 
+      m_SubObjectGUID: 
       m_EditorAssetChanged: 0
 --- !u!1 &4607037393585412874
 GameObject:
@@ -362,8 +363,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94f201e85549e945b894e5c89f5a183, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapDebugs: []
   screensMask: 6
   joystick: {fileID: 8311586646776455577}
+--- !u!1 &4868946363048630713
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7021510338506293845}
+  - component: {fileID: 5043016949627551845}
+  m_Layer: 0
+  m_Name: Player Provider Service
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7021510338506293845
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4868946363048630713}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3924575942675980841}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5043016949627551845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4868946363048630713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb53aabe6e5c61fa197b0bce002a6f0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Larje.Character.PlayerProviderService
 --- !u!1 &4881003203678694198
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,6 +587,7 @@ Transform:
   - {fileID: 8785069211880286285}
   - {fileID: 8249840861307512933}
   - {fileID: 1581942254539148117}
+  - {fileID: 7021510338506293845}
   - {fileID: 6611204413664158433}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -570,9 +617,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetFrameRate: 120
-  drawFrameRate: 0
   logEnabled: 1
-  logSystemInfo: 0
 --- !u!1 &7036092376627061003
 GameObject:
   m_ObjectHideFlags: 0
@@ -617,23 +662,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a8ecb04c4e03384ba7ffa8e9b206f61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _profileName: MainData
-  _defaultProfile: {fileID: 11400000, guid: d3f4f07e0e805994b9bc893fb12961d3, type: 2}
-  _data:
-    CurrencyData: []
+  loadGameDataOnInit: 1
+  systemData:
     Settings:
-      Vibration: 1
+      VibrationGlobal: 1
       SoundGlobal: 1
-      SoundValue: 1
-      MusicValue: 1
+      Graphics:
+        VolumetricLightQuality: 2
+      SoundData:
+        Channels: []
     IternalData:
       AdsDisabled: 0
       SessionNum: 0
+      DebugConsoleData:
+        overlayEnabled: 0
+  gameData:
+    CurrencyData: []
+    LevelObjectsDatabase:
+      Objects: []
     ItemsData: []
     levelManagerAddressablesData:
       CurrentLevelCount: 0
       LastLevelIndex: 0
       RandomLevels: 
+    LocationData:
+      Inited: 0
+      CurrentLocation: 0
+      CurrentLocationEntry: 0
+      CurrentArguments: 
     DailyTasksServiceData:
       LastDailyTaskReset: 
     Tasks: []

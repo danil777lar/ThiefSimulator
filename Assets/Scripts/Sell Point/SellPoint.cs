@@ -23,6 +23,7 @@ public class SellPoint : MonoBehaviour
     [SerializeField] private Image sellProgressUi;
 
     [InjectService] private ICurrencyService _currencyService;
+    [InjectService] private IPlayerProviderService _playerProviderService;
     
     private bool _triggerActive;
     private float _currentTime;
@@ -53,13 +54,6 @@ public class SellPoint : MonoBehaviour
     private void Start()
     {
         DIContainer.InjectTo(this);
-        
-        Character player = null;//FindObjectsOfType<Character>().ToList().Find(x => x.CharacterType == Character.CharacterTypes.Player);
-        _playerCarry = player.GetComponentInChildren<CharacterCarry3D>();
-        
-        _objectsToSell = new List<Sellable>();
-        
-        _marker = Instantiate(markerPrefab).Init(transform, _playerCarry.transform, IsMarkerActive);
     }
 
     private void OnDestroy()
@@ -72,6 +66,21 @@ public class SellPoint : MonoBehaviour
 
     private void Update()
     {
+        if (_playerCarry == null)
+        {
+            if (_playerProviderService.TryGetPlayer(out Character player))
+            {
+                _playerCarry = player.GetComponentInChildren<CharacterCarry3D>();
+                _objectsToSell = new List<Sellable>();
+                _marker = Instantiate(markerPrefab).Init(transform, _playerCarry.transform, IsMarkerActive);
+            }
+        }
+
+        if (_playerCarry == null)
+        {
+            return;
+        }
+
         CheckIsActive();
         
         if (_triggerActive && _objectsToSell.Count > 0)

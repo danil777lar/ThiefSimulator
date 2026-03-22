@@ -71,12 +71,17 @@ PrefabInstance:
     - target: {fileID: 4880203993021048356, guid: f9b6fc882f2cb914ebdda2f92cf7fc76,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.999998
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880203993021048356, guid: f9b6fc882f2cb914ebdda2f92cf7fc76,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4880203993021048356, guid: f9b6fc882f2cb914ebdda2f92cf7fc76,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0000009536741
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4880203993021048356, guid: f9b6fc882f2cb914ebdda2f92cf7fc76,
         type: 3}
@@ -171,12 +176,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
   Priority:
-    Enabled: 0
-    m_Value: 0
+    Enabled: 1
+    m_Value: 10
   OutputChannel: 1
   StandbyUpdate: 2
-  m_StreamingVersion: 20170927
-  m_LegacyPriority: 10
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
   Target:
     TrackingTarget: {fileID: 5028942901102860626}
     LookAtTarget: {fileID: 3253918583719560221}
@@ -407,7 +412,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6615307867351138231, guid: 6df4af2efef53044688493cd7740b964, type: 3}
+    - {fileID: 1984777243962410201, guid: 6df4af2efef53044688493cd7740b964, type: 3}
+    - {fileID: 2724311554232135388, guid: 6df4af2efef53044688493cd7740b964, type: 3}
+    - {fileID: 1230887134683089601, guid: 6df4af2efef53044688493cd7740b964, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4110898182002299340, guid: 6df4af2efef53044688493cd7740b964,

@@ -45,22 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9bc17d556d942940b32ef59a54d73b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AbilityStartSfx: {fileID: 0}
-  AbilityInProgressSfx: {fileID: 0}
-  AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
-  AbilityPermitted: 1
-  BlockingMovementStates: 
-  BlockingConditionStates: 0400000005000000
-  BlockingWeaponStates: 
+  abilityEnabled: 1
   config: {fileID: 11400000, guid: 1f542ff9f851c6444a46a1dcf04063ae, type: 2}
   targetMask:
     serializedVersion: 2
     m_Bits: 512
-  effectOnDamage: {fileID: 7376321625086484395, guid: 4327edc5874d3ec45861af547c17043a,
-    type: 3}
-  effectOnCharge: {fileID: 305017315295575054}
   useMarker: 1
   markerSpawnDistance: 5
   markerPrefab: {fileID: 5229158570126236803, guid: 12b8478bbff46ca429216105b389b260,
@@ -108,6 +97,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1474043750403692421}
+  - component: {fileID: 324647897983231847}
   - component: {fileID: 1968632953216684346}
   - component: {fileID: 8199809276004282342}
   - component: {fileID: 4359549223596638142}
@@ -135,6 +125,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4446497199647377259}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &324647897983231847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6490497388980245466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32e5850f42052e15abbd63cf3bae8635, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Larje.Character.PlayerProviderConnector
 --- !u!114 &1968632953216684346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,6 +253,16 @@ PrefabInstance:
       propertyPath: m_ComponentOwner
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7413030472834604317, guid: 34e7601882b2719409f5c141a830b331,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7413030472834604317, guid: 34e7601882b2719409f5c141a830b331,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7874171718361915858, guid: 34e7601882b2719409f5c141a830b331,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -352,12 +364,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
   Priority:
-    Enabled: 0
-    m_Value: 0
+    Enabled: 1
+    m_Value: 10
   OutputChannel: 1
   StandbyUpdate: 2
-  m_StreamingVersion: 20170927
-  m_LegacyPriority: 10
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
   Target:
     TrackingTarget: {fileID: 5196878172358318827}
     LookAtTarget: {fileID: 2377157829144790948}
@@ -553,18 +565,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95b32c3c19f2d724887b59e97f36a9fc, type: 3}
---- !u!114 &305017315295575054 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -6124042755239614492, guid: 95b32c3c19f2d724887b59e97f36a9fc,
-    type: 3}
-  m_PrefabInstance: {fileID: 3402650037298813930}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &4205085345806183518 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1541307468654589876, guid: 95b32c3c19f2d724887b59e97f36a9fc,
