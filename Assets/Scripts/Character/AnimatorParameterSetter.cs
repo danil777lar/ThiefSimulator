@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using MoreMountains.TopDownEngine;
+using Larje.Character;
 using UnityEngine;
 
 public class AnimatorParameterSetter : MonoBehaviour
@@ -10,6 +10,7 @@ public class AnimatorParameterSetter : MonoBehaviour
     private void Start()
     {
         Character character = GetComponentInParent<Character>();
-        character.CharacterAnimator.SetFloat("Stealth", stealthValue);        
+        Animator animator = character.GetComponentInParent<Animator>();
+        animator.SetFloat("Stealth", stealthValue);        
     }
 }

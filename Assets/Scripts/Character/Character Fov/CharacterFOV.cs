@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using MoreMountains.TopDownEngine;
+using Larje.Character;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UIElements;
 
 public class CharacterFOV : CharacterAbility
 {
@@ -30,11 +28,19 @@ public class CharacterFOV : CharacterAbility
         this.options = options;
     }
 
-    public override void ProcessAbility()
+    public bool IsPointInVision(Vector3 point)
     {
-        base.ProcessAbility();
+        return _fovMeshBuilder.InPositionInFov(point);
+    }
 
-        if (!AbilityAuthorized || !AbilityPermitted)
+    protected override void OnInitialized()
+    {
+        InitializeFovMeshBuilder();
+    }
+
+    private void Update()
+    {
+        if (!Permitted)
         {
             meshFilter.gameObject.SetActive(false);
             _charactersInVision.Clear();
@@ -46,31 +52,12 @@ public class CharacterFOV : CharacterAbility
         TryUpdateVision();
     }
 
-    public bool IsPointInVision(Vector3 point)
-    {
-        return _fovMeshBuilder.InPositionInFov(point);
-    }
-
-    protected override void OnDeath()
-    {
-        base.OnDeath();
-
-        meshFilter.gameObject.SetActive(false);
-    }
-
-    protected override void Initialization()
-    {
-        base.Initialization();
-
-        InitializeFovMeshBuilder();
-    }
-
-    protected override void OnEnable()
+    private void OnEnable()
     {
         meshFilter.gameObject.SetActive(true);
     }
 
-    protected override void OnDisable()
+    private void OnDisable()
     {
         _charactersInVision.Clear();
         meshFilter.gameObject.SetActive(false);
@@ -82,6 +69,11 @@ public class CharacterFOV : CharacterAbility
         {
             return;
         }
+    }
+
+    private void OnDeath()
+    {
+        meshFilter.gameObject.SetActive(false);
     }
 
     private void InitializeFovMeshBuilder()

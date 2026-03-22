@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using MoreMountains.Tools;
-using MoreMountains.TopDownEngine;
+using Larje.Character;
+using Larje.Character.AI;
 using UnityEngine;
 
 public class EnemyAttention : CharacterAbility
@@ -23,11 +23,18 @@ public class EnemyAttention : CharacterAbility
     public Vector3 LastAttentionPoint { get; private set; }
     public AttentionState CurrentState { get; private set; }
 
-    public override void ProcessAbility()
+    protected override void OnInitialized()
     {
-        base.ProcessAbility();
+        _fov = character.GetComponent<CharacterFOV>();
+        _soundReceiver = character.GetComponentInChildren<SoundReceiver>();
+        _soundReceiver.EventSoundReceived += OnSoundReceived;
         
-        if (!AbilityAuthorized || !AbilityPermitted)
+        SetState(AttentionState.Idle, true);
+    }
+
+    private void Update()
+    {
+        if (Permitted)
         {
             AttentionLevel = 0f;
             SetState(AttentionState.Idle, false);
@@ -39,21 +46,9 @@ public class EnemyAttention : CharacterAbility
         DecreaseAttention();
     }
 
-    protected override void Initialization()
-    {
-        base.Initialization();
-
-        _fov = _character.FindAbility<CharacterFOV>();
-        _soundReceiver = _character.GetComponentInChildren<SoundReceiver>();
-        _soundReceiver.EventSoundReceived += OnSoundReceived;
-        
-        SetState(AttentionState.Idle, true);
-    }
-
     private void TrySeePlayer()
     {
-        CharacterVisionTarget player = _fov.CharactersInVision.ToList()
-            .Find(x => x.Character.CharacterType == Character.CharacterTypes.Player);
+        CharacterVisionTarget player = null;//_fov.CharactersInVision.ToList().Find(x => x.Character.CharacterType == Character.CharacterTypes.Player);
         
         if (player)
         {
@@ -140,11 +135,11 @@ public class EnemyAttention : CharacterAbility
 
         if (forceSwap || state != CurrentState)
         {
-            _character.CharacterBrain = brain;
-            brain.gameObject.SetActive(true);
-            brain.enabled = true;
-            brain.Owner = _character.gameObject;
-            brain.ResetBrain();
+            // character.Brain = brain;
+            // brain.gameObject.SetActive(true);
+            // brain.enabled = true;
+            // brain.Owner = character.gameObject;
+            // brain.ResetBrain();
 
             brains.ForEach(x =>
             {

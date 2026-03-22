@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Larje.Core.Tools.TopDownEngine;
-using MoreMountains.Tools;
+using Larje.Character;
+using Larje.Character.AI;
 using UnityEngine;
 using UnityEngine.AI;
+
 using Random = UnityEngine.Random;
 
 public class AIActionAimToNearestSeekPoint : AIAction
@@ -18,20 +19,20 @@ public class AIActionAimToNearestSeekPoint : AIAction
 
     private bool _canUpdatePoint = true;
     private bool _isPointVisible;
+    private Vector3 _point;
     private Transform _target;
     private Transform _targetLook;
     private EnemySeek _seek;
-    private Vector3 _point;
     private CharacterFOV _fov;
-    private CoreCharacterOrientation3D _orientation;
+    private CharacterOrientation _orientation;
     
-    public override void Initialization()
+    protected override void OnInitialized()
     {
         base.Initialization();
 
-        _seek = _brain.Owner.GetComponentInChildren<EnemySeek>();
-        _orientation = _brain.Owner.GetComponentInChildren<CoreCharacterOrientation3D>();
-        _fov = _brain.Owner.GetComponentInChildren<CharacterFOV>();
+        _seek = Brain.Owner.GetComponentInChildren<EnemySeek>();
+        _orientation = Brain.Owner.GetComponentInChildren<CharacterOrientation>();
+        _fov = Brain.Owner.GetComponentInChildren<CharacterFOV>();
         
         _target = new GameObject().transform;
         _target.gameObject.name = "Seek Point Target";
@@ -42,19 +43,21 @@ public class AIActionAimToNearestSeekPoint : AIAction
         _targetLook.SetParent(transform);
     }
 
-    public override void OnEnterState()
+    protected override void OnEnterState()
     {
         base.OnEnterState();
         _canUpdatePoint = true;
-        _brain.Target = _target;
-        _orientation.forceLookTarget = _targetLook;
+        Brain.Target = _target;
+
+        // _orientation.forceLookTarget = _targetLook;
     }
     
-    public override void OnExitState()
+    protected override void OnExitState()
     {
         base.OnExitState();
-        _brain.Target = null;
-        _orientation.forceLookTarget = null;
+        Brain.Target = null;
+
+        // _orientation.forceLookTarget = null;
         
         StopAllCoroutines();
     }
@@ -71,15 +74,16 @@ public class AIActionAimToNearestSeekPoint : AIAction
         }
         
         _isPointVisible = _fov.IsPointInVision(_point);
-        
-        Vector3 lookPoint = _isPointVisible ? _point : transform.position + _orientation.TargetDirection * 10f;
+
+        Vector3 targetDirection = Vector3.forward; //_orientation.TargetDirection;
+        Vector3 lookPoint = _isPointVisible ? _point : transform.position + targetDirection * 10f;
         _target.position = _isPointVisible ? transform.position : _point;
         _targetLook.position = Vector3.Lerp(_targetLook.position, lookPoint, Time.deltaTime * lookSpeed);
     }
 
     private void OnDisable()
     {
-        _orientation.forceLookTarget = null;
+        // _orientation.forceLookTarget = null;
     }
 
     private void OnDrawGizmos()

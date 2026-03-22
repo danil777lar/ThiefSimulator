@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Dreamteck.Splines;
-using Larje.Core.Tools.TopDownEngine;
-using MoreMountains.Tools;
-using MoreMountains.TopDownEngine;
+using Larje.Character;
+using Larje.Character.AI;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,14 +12,19 @@ public class AIActionPatroll : AIAction
     private Transform _targetPosition;
     private Transform _targetOrientation;
 
-    private CoreCharacterOrientation3D _orientation;
+    private CharacterOrientation _orientation;
     private IEnemyPatrolProcessor _patrolProcessor;
 
-    public override void Initialization()
+    public override void PerformAction()
+    {
+        TryPatrol();
+    }
+
+    protected override void OnInitialized()
     {
         base.Initialization();
 
-        _orientation = _brain.Owner.GetComponent<CoreCharacterOrientation3D>();
+        _orientation = Brain.Owner.GetComponent<CharacterOrientation>();
         _patrolProcessor = GetComponentInParent<IEnemyPatrolProcessor>();
         
         if (_targetPosition == null)
@@ -33,15 +37,10 @@ public class AIActionPatroll : AIAction
         }
     }
 
-    public override void OnEnterState()
+    protected override void OnEnterState()
     {
         base.OnEnterState();
-        _brain.Target = _targetPosition;
-    }
-
-    public override void PerformAction()
-    {
-        TryPatrol();
+        Brain.Target = _targetPosition;
     }
 
     private void CreateTarget(out Transform target, string targetName)
@@ -58,10 +57,9 @@ public class AIActionPatroll : AIAction
             _targetPosition.position = position;
         }
 
-        _orientation.forceLookTarget =
-            _patrolProcessor.TryGetLookPosition(out Vector3 lookPosition) 
-                ? _targetOrientation : null;
+        // _patrolProcessor.TryGetLookPosition(out Vector3 lookPosition) ? _targetOrientation : null;
+        // _orientation.LookTarget.InputDirection.AddValue();
         
-        _targetOrientation.position = lookPosition;
+        // _targetOrientation.position = lookPosition;
     }
 }

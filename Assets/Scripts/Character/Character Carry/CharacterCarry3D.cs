@@ -2,9 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Larje.Core.Tools.TopDownEngine;
-using MoreMountains.Tools;
-using MoreMountains.TopDownEngine;
+using Larje.Character;
+using Larje.Character.Abilities;
 using UnityEditor;
 using UnityEngine;
 
@@ -33,7 +32,7 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
 
     private float _autoGrabTimer;
     private Carryable _nearestCarryable;
-    private CoreCharacterMovement _movement;
+    private CharacterWalk _movement;
     private List<Carryable> _currentCarryables;
 
     private List<Func<float>> _weightCapacityMultipliers = new List<Func<float>>();
@@ -45,21 +44,8 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
     public float WeightCapacity => weightCapacity * GetWeightCapacityMultiplier();
     public float CurrentWeight => _currentCarryables.Sum(x => x.Weight);
     public float WeightPercent => Mathf.Clamp01(CurrentWeight / WeightCapacity);
+
     public PlayerAction[] Actions { get; private set; }
-
-    public override void ProcessAbility()
-    {
-        base.ProcessAbility();
-
-        if (!AbilityAuthorized)
-        {
-            DropAll();
-            return;
-        }
-        
-        TryFindCarryable();
-        TryAutoGrab();
-    }
 
     public Carryable TryDrop(bool blockTaking = false)
     {
@@ -71,7 +57,7 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
 
             if (_currentCarryables.Count <= 0)
             {
-                _character.MovementState.ChangeState(CharacterStates.MovementStates.Idle);
+                // character.MovementState.ChangeState(CharacterStates.MovementStates.Idle);
             }
 
             return carryToDrop;
@@ -90,13 +76,13 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
         return carryables;
     }
 
-    public override void UpdateAnimator()
-    {
-        base.UpdateAnimator();
-        MMAnimatorExtensions.UpdateAnimatorBool(_animator, _carryAnimationParameter, 
-            _currentCarryables is { Count: > 0 },
-            _character._animatorParameters, _character.RunAnimatorSanityChecks);
-    }
+    // public override void UpdateAnimator()
+    // {
+    //     base.UpdateAnimator();
+    //     MMAnimatorExtensions.UpdateAnimatorBool(_animator, _carryAnimationParameter, 
+    //         _currentCarryables is { Count: > 0 },
+    //         _character._animatorParameters, _character.RunAnimatorSanityChecks);
+    // }
     
     public void TryAddWeightCapacityMultiplier(Func<float> multiplier)
     {
@@ -114,21 +100,32 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
         }
     }
 
-    protected override void Initialization()
+    protected override void OnInitialized()
     {
-        base.Initialization();
-        _movement = _character.FindAbility<CoreCharacterMovement>();
-        _movement.TryAddSpeedMultiplier(GetSpeedMultiplier);
+        _movement = character.GetComponent<CharacterWalk>();
+        _movement.WalkMultiplier.AddValue(GetSpeedMultiplier);
         _currentCarryables = new List<Carryable>();
         
         BuildActions();
     }
 
-    protected override void InitializeAnimatorParameters()
+    // protected override void InitializeAnimatorParameters()
+    // {
+    //     base.InitializeAnimatorParameters();
+    //     RegisterAnimatorParameter(_carryAnimationParameterName, AnimatorControllerParameterType.Bool,
+    //         out _carryAnimationParameter);
+    // }
+
+    private void Update()
     {
-        base.InitializeAnimatorParameters();
-        RegisterAnimatorParameter(_carryAnimationParameterName, AnimatorControllerParameterType.Bool,
-            out _carryAnimationParameter);
+        if (!Permitted)
+        {
+            DropAll();
+            return;
+        }
+        
+        TryFindCarryable();
+        TryAutoGrab();
     }
 
     private void FixedUpdate()
@@ -138,7 +135,7 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
             _autoGrabTimer -= Time.fixedDeltaTime;
         }
 
-        _currentCarryables?.ForEach(x => x.UpdatePosition(Time.fixedDeltaTime, _movement.ActualSpeedPercent));
+        _currentCarryables?.ForEach(x => x.UpdatePosition(Time.fixedDeltaTime, _movement.SpeedPercent));
     }
 
     private void OnDrawGizmos()
@@ -179,7 +176,7 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
     {
         _nearestCarryable = null;
         List<Carryable> carryables = PhysicsUtility.FindObjectsInRange<Carryable>
-            (transform.position, findDistance, carryableMask, _controller3D.ObstaclesLayerMask)
+            (transform.position, findDistance, carryableMask, LayerMask.GetMask("")/*_controller3D.ObstaclesLayerMask*/)
             .Keys.ToList()
             .FindAll(x => x.CanBeTaken);
 
@@ -192,7 +189,7 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
 
     private bool CanTake()
     {
-        bool result = _nearestCarryable != null && AbilityAuthorized && CurrentWeight < WeightCapacity;
+        bool result = _nearestCarryable != null && Permitted && CurrentWeight < WeightCapacity;
         if (autoGrab)
         {
             result &= _autoGrabTimer <= 0f;
@@ -209,7 +206,7 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
     {
         if (CanTake())
         {
-            _character.MovementState.ChangeState(CharacterStates.MovementStates.Carry);
+            // character.MovementState.ChangeState(CharacterStates.MovementStates.Carry);
             
             Transform attachPoint = _currentCarryables.Count > 0 ? 
                 _currentCarryables.Last().TopPoint : carryableAttachPoint;

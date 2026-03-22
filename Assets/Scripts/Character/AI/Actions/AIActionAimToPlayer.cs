@@ -2,8 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using MoreMountains.Tools;
-using MoreMountains.TopDownEngine;
+using Larje.Character;
+using Larje.Character.AI;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,22 +12,21 @@ public class AIActionAimToPlayer : AIAction
     private Transform _target;
     private Character _player;
 
-    public override void Initialization()
+    protected override void OnInitialized()
     {
         base.Initialization();
         
-        _player = FindObjectsByType<Character>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
-            .ToList().Find(x => x.CharacterType == Character.CharacterTypes.Player);
+        _player = FindPlayer();
         
         _target = new GameObject().transform;
         _target.gameObject.name = "Aim To Player Target";
         _target.SetParent(transform);
     }
 
-    public override void OnEnterState()
+    protected override void OnEnterState()
     {
         base.OnEnterState();
-        _brain.Target = _target;
+        Brain.Target = _target;
     }
 
     public override void PerformAction()
@@ -36,5 +35,11 @@ public class AIActionAimToPlayer : AIAction
         {
             _target.position = _player.transform.position;
         }
+    }
+
+    private Character FindPlayer()
+    {
+        // FindObjectsByType<Character>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).ToList().Find(x => x.CharacterType == Character.CharacterTypes.Player);
+        return null;
     }
 }

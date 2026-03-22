@@ -1,10 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using MoreMountains.Tools;
-using MoreMountains.TopDownEngine;
 using UnityEngine;
-using UnityEngine.Networking;
 
 public class AttackMarker : MonoBehaviour
 {
@@ -67,7 +64,10 @@ public class AttackMarker : MonoBehaviour
 
     private void PlayStartAnim()
     {
-        transform.localPosition = transform.localPosition.MMSetY(0.05f);
+        Vector3 pos = transform.localPosition;
+        pos.y = 0.05f;
+
+        transform.localPosition = pos;
         transform.localRotation = Quaternion.LookRotation(_direction);
         transform.localScale = Vector3.zero;
         

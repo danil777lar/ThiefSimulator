@@ -3,16 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
-using MoreMountains.Feedbacks;
-using MoreMountains.TopDownEngine;
+using Larje.Character;
 using UnityEngine;
 
 public class CharacterAttack : CharacterAbility
 {
     [SerializeField] private CharacterAttackConfig config;
     [SerializeField] private LayerMask targetMask;
-    [SerializeField] private MMF_Player effectOnDamage;
-    [SerializeField] private MMF_Player effectOnCharge;
 
     [Header("Attack Marker")] 
     [SerializeField] private bool useMarker;
@@ -33,35 +30,20 @@ public class CharacterAttack : CharacterAbility
     public bool IsAttacking { get; private set; }
     public bool HasTarget => _markers is { Count: > 0 }; 
     public float AttackProgress => 1f - _attackDelay;
-    public Transform CharacterModel => _character.CharacterModel.transform;
-    public Health CharacterHealth => _character.CharacterHealth;
+    public Transform CharacterModel => null;//character.CharacterModel.transform;
+    public Health CharacterHealth => null;//character.CharacterHealth;
     public CharacterAttack Target => _target;
-
-    public override void ProcessAbility()
-    {
-        base.ProcessAbility();
-
-        if (!AbilityAuthorized || !AbilityPermitted)
-        {
-            return;
-        }
-
-        UpdateMarkers();
-        UpdateTarget();
-        DecreaseDelay();
-        TryStartAttack();
-    }
 
     public void Froze()
     {
         _grabbed = true;
-        _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Frozen);
+        // character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Frozen);
     }
     
     public void Unfroze()
     {
         _grabbed = false;
-        _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Normal);
+        // _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Normal);
     }
 
     public void ApplyVictimAnimation(AnimatorOverrideController animations)
@@ -74,7 +56,8 @@ public class CharacterAttack : CharacterAbility
 
     public bool CanBeAttacked()
     {
-        return !CharacterHealth.ImmuneToDamage;
+        // return !CharacterHealth.ImmuneToDamage;
+        return true;
     }
     
     public void AddAttackSpeedModifier(Func<float> modifier)
@@ -87,16 +70,26 @@ public class CharacterAttack : CharacterAbility
         _attackSpeedModifiers.Remove(modifier);
     }
 
-    protected override void Initialization()
+    protected override void OnInitialized()
     {
-        base.Initialization();
+        _characterController = character.GetComponent<CharacterController>();
+        Animator animator = character.GetComponentInChildren<Animator>();
+        _defaultAnimatorController = animator.runtimeAnimatorController;
 
-        _characterController = _character.GetComponent<CharacterController>();
-        _defaultAnimatorController = _character.CharacterAnimator.runtimeAnimatorController;
-
-        AnimatorEventReceiver receiver = _character.CharacterAnimator.GetComponent<AnimatorEventReceiver>();
+        AnimatorEventReceiver receiver = animator.GetComponent<AnimatorEventReceiver>();
         receiver.EventSendDamage += SendDamage;
         receiver.EventAttackComplete += CompleteAttack;
+    }
+
+    private void Update()
+    {
+        if (Permitted)
+        {
+            UpdateMarkers();
+            UpdateTarget();
+            DecreaseDelay();
+            TryStartAttack();
+        }
     }
     
     private void UpdateTarget()
@@ -122,15 +115,15 @@ public class CharacterAttack : CharacterAbility
         {
             _attackDelay -= GetAttackSpeed();
 
-            if (effectOnCharge != null)
-            {
-                effectOnCharge.FeedbacksIntensity = AttackProgress;
-                effectOnCharge.PlayFeedbacks();
-            }
+            // if (effectOnCharge != null)
+            // {
+            //     effectOnCharge.FeedbacksIntensity = AttackProgress;
+            //     effectOnCharge.PlayFeedbacks();
+            // }
         }
         else
         {
-            effectOnCharge?.StopFeedbacks();
+            // effectOnCharge?.StopFeedbacks();
         }
     }
 
@@ -156,7 +149,7 @@ public class CharacterAttack : CharacterAbility
             _directionToTarget = (_target.transform.position - transform.position).normalized;
             _target.Froze();
             IsAttacking = true;
-            _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Frozen);
+            // character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Frozen);
 
             TryStartTransition(() =>
             {
@@ -193,10 +186,10 @@ public class CharacterAttack : CharacterAbility
         {
             Vector3 targetPosition = _target.CharacterModel.transform.TransformPoint(config.FixedPosition);
             
-            _character.transform.DOMove(targetPosition, config.TransitionToFixedPositionDuration)
+            character.transform.DOMove(targetPosition, config.TransitionToFixedPositionDuration)
                 .OnUpdate(() =>
                 {
-                    _character.CharacterModel.transform.LookAt(_target.CharacterModel.transform.position);
+                    // character.CharacterModel.transform.LookAt(_target.CharacterModel.transform.position);
                 })
                 .SetUpdate(UpdateType.Fixed)
                 .OnComplete(() => onComplete?.Invoke());
@@ -273,7 +266,7 @@ public class CharacterAttack : CharacterAbility
         Character character = collider.GetComponent<Character>();
         if (character != null)
         {
-            target = character.FindAbility<CharacterAttack>();
+            target = character.GetComponent<CharacterAttack>();
             _targetsDatabase.Add(collider, target);   
         }
             
@@ -282,7 +275,7 @@ public class CharacterAttack : CharacterAbility
 
     private bool SphereCastToTarget(CharacterAttack target, float distance, out RaycastHit hit)
     {
-        LayerMask mask = _controller3D.ObstaclesLayerMask;
+        LayerMask mask = LayerMask.GetMask("Lox");//character.ObstaclesLayerMask;
         Vector3 direction = target.transform.position - transform.position;
         Ray ray = new Ray();
         ray.origin = _characterController.transform.position + _characterController.center;
@@ -293,7 +286,7 @@ public class CharacterAttack : CharacterAbility
 
     private bool CheckLimits(CharacterAttack target)
     {
-        Vector3 attackerToVictim = target.transform.position - _character.transform.position;
+        Vector3 attackerToVictim = target.transform.position - character.transform.position;
 
         Vector3 victimDirection = target.CharacterModel.TransformDirection(config.VictimDirectionLimit.LimitDirection);
         bool victimDirectionLimit = CheckLimit(config.VictimDirectionLimit, victimDirection, attackerToVictim);
@@ -314,10 +307,11 @@ public class CharacterAttack : CharacterAbility
 
     private void ApplyAnimation(AnimatorOverrideController controller, string key)
     {
-        _character.CharacterAnimator.runtimeAnimatorController = controller ? controller : _defaultAnimatorController;
+        Animator animator = character.GetComponentInChildren<Animator>();
+        animator.runtimeAnimatorController = controller ? controller : _defaultAnimatorController;
         if (controller != null)
         {
-            _character.CharacterAnimator.SetTrigger(key);
+            animator.SetTrigger(key);
         }
     }
 
@@ -333,7 +327,7 @@ public class CharacterAttack : CharacterAbility
             
             Vector3 direction = _target.transform.position - transform.position;
             Vector3 targetPosition = transform.position + direction.normalized * distance;
-            _character.transform.DOMove(targetPosition, config.AttackRamDuration)
+            character.transform.DOMove(targetPosition, config.AttackRamDuration)
                 .SetEase(config.AttackRamEase)
                 .SetUpdate(UpdateType.Fixed);
         }
@@ -345,15 +339,21 @@ public class CharacterAttack : CharacterAbility
         {
             Vector3 damageDirection = _directionToTarget * 10f;
             damageDirection += Vector3.up * 5f;
-            _target.CharacterHealth.Damage(1, gameObject, 0f, 0f, damageDirection);
-            
-            if (effectOnDamage != null)
-            {
-                MMF_Player effect = Instantiate(effectOnDamage);
-                effect.transform.position = _target.transform.position;
-            }
 
-            if (_target.CharacterHealth.CurrentHealth > 0)
+            DamageData damageData = new DamageData()
+            {
+                damage = 1,
+                hitDirection = damageDirection,
+            };
+            _target.CharacterHealth.SendDamage(damageData);
+            
+            // if (effectOnDamage != null)
+            // {
+            //     MMF_Player effect = Instantiate(effectOnDamage);
+            //     effect.transform.position = _target.transform.position;
+            // }
+
+            if (_target.CharacterHealth.CurrenHealth > 0)
             {
                 _target.Unfroze();
             }
@@ -363,7 +363,7 @@ public class CharacterAttack : CharacterAbility
     private void CompleteAttack()
     {
         IsAttacking = false;
-        _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Normal);
+        // character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Normal);
     }
 
     private bool HasOverride(AnimatorOverrideController controller, string animName)

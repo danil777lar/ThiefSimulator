@@ -600,7 +600,17 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1867521451}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 938261375741827405, guid: ff99004503ddd4244a8e1aeac12ea6fe, type: 3}
+    - {fileID: 4254858158960319589, guid: ff99004503ddd4244a8e1aeac12ea6fe, type: 3}
+    - {fileID: 8034280770679726309, guid: ff99004503ddd4244a8e1aeac12ea6fe, type: 3}
+    - {fileID: 1732571996309482300, guid: ff99004503ddd4244a8e1aeac12ea6fe, type: 3}
+    - {fileID: 2394525525773146163, guid: ff99004503ddd4244a8e1aeac12ea6fe, type: 3}
+    - {fileID: 5909912337119736945, guid: ff99004503ddd4244a8e1aeac12ea6fe, type: 3}
+    - {fileID: 3652444121582239312, guid: ff99004503ddd4244a8e1aeac12ea6fe, type: 3}
+    - {fileID: 8261096715033509196, guid: ff99004503ddd4244a8e1aeac12ea6fe, type: 3}
+    - {fileID: 1118850206122632039, guid: ff99004503ddd4244a8e1aeac12ea6fe, type: 3}
+    - {fileID: 1649017492063465059, guid: ff99004503ddd4244a8e1aeac12ea6fe, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -2305,7 +2315,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 865850606}
-  - component: {fileID: 865850607}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -2328,18 +2337,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 330585546}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &865850607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 865850605}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1024009570
 GameObject:
   m_ObjectHideFlags: 0

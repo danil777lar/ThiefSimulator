@@ -1,12 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using DG.Tweening.Plugins.Core.PathCore;
-using MoreMountains.TopDownEngine;
+using Larje.Character;
 using UnityEngine;
 using UnityEngine.AI;
+
 using Color = UnityEngine.Color;
 
 public class EnemySeek : CharacterAbility
@@ -19,21 +18,6 @@ public class EnemySeek : CharacterAbility
     private ThiefLevel _level;
     
     private List<SeekPoint> _seekPoints;
-
-    public override void ProcessAbility()
-    {
-        base.ProcessAbility();
-
-        if (!AbilityAuthorized || !AbilityPermitted)
-        {
-            _seekPoints = null;
-            
-            return;
-        }
-        
-        TryBuildPoints();
-        ObservePoints();
-    }
 
     public bool TryFindBestPoint(out Vector3 point)
     {
@@ -76,13 +60,24 @@ public class EnemySeek : CharacterAbility
         return false;
     }
 
-    protected override void Initialization()
+    protected override void OnInitialized()
     {
-        base.Initialization();
-        
-        _fov = _character.FindAbility<CharacterFOV>();
-        _attention = _character.FindAbility<EnemyAttention>();
+        _fov = character.GetComponent<CharacterFOV>();
+        _attention = character.GetComponent<EnemyAttention>();
         _level = GetComponentInParent<ThiefLevel>();
+    }
+
+    private void Update()
+    {
+        if (Permitted)
+        {
+            _seekPoints = null;
+            
+            return;
+        }
+        
+        TryBuildPoints();
+        ObservePoints();
     }
     
     private void OnDrawGizmos()
