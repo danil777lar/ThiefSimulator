@@ -10,7 +10,7 @@ public class AnimatorParameterSetter : MonoBehaviour
     private void Start()
     {
         Character character = GetComponentInParent<Character>();
-        Animator animator = character.GetComponentInParent<Animator>();
+        Animator animator = character.GetComponentInChildren<Animator>();
         animator.SetFloat("Stealth", stealthValue);        
     }
 }

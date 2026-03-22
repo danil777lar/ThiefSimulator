@@ -62,8 +62,8 @@ public class EnemySeek : CharacterAbility
 
     protected override void OnInitialized()
     {
-        _fov = character.GetComponent<CharacterFOV>();
-        _attention = character.GetComponent<EnemyAttention>();
+        _fov = character.GetComponentInChildren<CharacterFOV>();
+        _attention = character.GetComponentInChildren<EnemyAttention>();
         _level = GetComponentInParent<ThiefLevel>();
     }
 
@@ -94,8 +94,7 @@ public class EnemySeek : CharacterAbility
     
     private void TryBuildPoints()
     {
-        if (_lastAttentionPoint != _attention.LastAttentionPoint && 
-            _attention.CurrentState == EnemyAttention.AttentionState.Suspicious)
+        if (_lastAttentionPoint != _attention.LastAttentionPoint && _attention.CurrentState == EnemyAttention.AttentionState.Suspicious)
         {
             _lastAttentionPoint = _attention.LastAttentionPoint;
             _seekPoints = new List<SeekPoint>();

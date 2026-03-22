@@ -54,6 +54,17 @@ public class SellPoint : MonoBehaviour
     private void Start()
     {
         DIContainer.InjectTo(this);
+
+        if (_playerProviderService.TryGetPlayer(out Character player))
+        {
+            _playerCarry = player.GetComponentInChildren<CharacterCarry3D>();
+            _objectsToSell = new List<Sellable>();
+            _marker = Instantiate(markerPrefab).Init(transform, _playerCarry.transform, IsMarkerActive);
+        }
+        else
+        {
+            UnityEngine.Debug.LogError("Player not found", this);
+        }
     }
 
     private void OnDestroy()
@@ -66,21 +77,6 @@ public class SellPoint : MonoBehaviour
 
     private void Update()
     {
-        if (_playerCarry == null)
-        {
-            if (_playerProviderService.TryGetPlayer(out Character player))
-            {
-                _playerCarry = player.GetComponentInChildren<CharacterCarry3D>();
-                _objectsToSell = new List<Sellable>();
-                _marker = Instantiate(markerPrefab).Init(transform, _playerCarry.transform, IsMarkerActive);
-            }
-        }
-
-        if (_playerCarry == null)
-        {
-            return;
-        }
-
         CheckIsActive();
         
         if (_triggerActive && _objectsToSell.Count > 0)

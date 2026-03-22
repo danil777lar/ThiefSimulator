@@ -13,7 +13,7 @@ public class MiniMapMarker : MonoBehaviour
     private void Start()
     {
         Character character = GetComponentInParent<Character>();
-        // _health = character.CharacterHealth as CharacterHealth;
+        _health = character.GetComponentInChildren<Health>();
     }
     
     private void Update()

@@ -15,7 +15,7 @@ public class UpgradesService : Service
     [Space]
     [SerializeField] private List<UpgradeType> playerGlobalUpgrades;
 
-    [InjectService] private DataService _dataService;
+    [InjectService] private IDataService _dataService;
     [InjectService] private ICurrencyService _currencyService;
     
     public override void Init()

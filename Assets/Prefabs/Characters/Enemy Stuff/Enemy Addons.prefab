@@ -127,15 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17eac03b6f64dd24891390672f87451a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AbilityStartSfx: {fileID: 0}
-  AbilityInProgressSfx: {fileID: 0}
-  AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
-  AbilityPermitted: 1
-  BlockingMovementStates: 
-  BlockingConditionStates: 0400000005000000
-  BlockingWeaponStates: 
+  abilityEnabled: 1
   raysPerDeg: 1
   verticalRaycastOffset: 1
   mask:
@@ -159,23 +151,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a4dc51527545b44b8edb5479adb950e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AbilityStartSfx: {fileID: 0}
-  AbilityInProgressSfx: {fileID: 0}
-  AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
-  AbilityPermitted: 1
-  BlockingMovementStates: 
-  BlockingConditionStates: 0400000005000000
-  BlockingWeaponStates: 
+  abilityEnabled: 1
   config: {fileID: 11400000, guid: eca60f40e097fad4b8696adc961c518a, type: 2}
   brains:
   - <AttentionState>k__BackingField: 0
-    <Brain>k__BackingField: {fileID: 2164541377765930326}
+    <Brain>k__BackingField: {fileID: 0}
   - <AttentionState>k__BackingField: 1
-    <Brain>k__BackingField: {fileID: 7825569805996218803}
+    <Brain>k__BackingField: {fileID: 0}
   - <AttentionState>k__BackingField: 2
-    <Brain>k__BackingField: {fileID: 1774304526725243787}
+    <Brain>k__BackingField: {fileID: 0}
 --- !u!114 &3789233062652446399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,15 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d5268fef22ffc44181ad75b9fa1d848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AbilityStartSfx: {fileID: 0}
-  AbilityInProgressSfx: {fileID: 0}
-  AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
-  AbilityPermitted: 1
-  BlockingMovementStates: 
-  BlockingConditionStates: 0400000005000000
-  BlockingWeaponStates: 
+  abilityEnabled: 1
   config: {fileID: 11400000, guid: c2c2979aae8fac148867fe9adf73141f, type: 2}
 --- !u!114 &3219773519858960019
 MonoBehaviour:
@@ -210,22 +186,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9bc17d556d942940b32ef59a54d73b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AbilityStartSfx: {fileID: 0}
-  AbilityInProgressSfx: {fileID: 0}
-  AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
-  AbilityPermitted: 1
-  BlockingMovementStates: 
-  BlockingConditionStates: 0400000005000000
-  BlockingWeaponStates: 
+  abilityEnabled: 1
   config: {fileID: 11400000, guid: 2035a731f148715479633a7e6dd33174, type: 2}
   targetMask:
     serializedVersion: 2
     m_Bits: 256
-  effectOnDamage: {fileID: 7376321625086484395, guid: 4327edc5874d3ec45861af547c17043a,
-    type: 3}
-  effectOnCharge: {fileID: 0}
   useMarker: 0
   markerSpawnDistance: 0
   markerPrefab: {fileID: 0}
@@ -297,48 +262,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfd3c2ff73b73ae439bca88453c6079d, type: 3}
---- !u!114 &1774304526725243787 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2230945983730112405, guid: cfd3c2ff73b73ae439bca88453c6079d,
-    type: 3}
-  m_PrefabInstance: {fileID: 462306283937215518}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eec89e4158bf96841b9bc830fc5385ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2164541377765930326 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1757406573121847624, guid: cfd3c2ff73b73ae439bca88453c6079d,
-    type: 3}
-  m_PrefabInstance: {fileID: 462306283937215518}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eec89e4158bf96841b9bc830fc5385ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &6801027842618700513 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6343438649490015999, guid: cfd3c2ff73b73ae439bca88453c6079d,
     type: 3}
   m_PrefabInstance: {fileID: 462306283937215518}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7825569805996218803 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7705785798266678701, guid: cfd3c2ff73b73ae439bca88453c6079d,
-    type: 3}
-  m_PrefabInstance: {fileID: 462306283937215518}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eec89e4158bf96841b9bc830fc5385ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &4336153132582501140
 PrefabInstance:
   m_ObjectHideFlags: 0

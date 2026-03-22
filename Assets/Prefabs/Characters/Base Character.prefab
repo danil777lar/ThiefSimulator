@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4110898182002299340}
-  - component: {fileID: 2992173470089128998}
   - component: {fileID: 2923204405454729092}
-  - component: {fileID: 6615307867351138231}
-  - component: {fileID: 1984777243962410201}
-  - component: {fileID: 2724311554232135388}
-  - component: {fileID: 1230887134683089601}
+  - component: {fileID: 3541496475868224114}
+  - component: {fileID: 2434130576076465669}
+  - component: {fileID: 6714284203489989621}
+  - component: {fileID: 5273449600488358249}
+  - component: {fileID: 8162812228252299203}
   - component: {fileID: 5273731019370073304}
   - component: {fileID: 8051372575558603605}
   - component: {fileID: 6234999558004962175}
@@ -51,31 +51,6 @@ Transform:
   - {fileID: 7287550345413674927}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!143 &2992173470089128998
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1356067717985629786}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!54 &2923204405454729092
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -83,10 +58,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1356067717985629786}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -103,109 +78,30 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6615307867351138231
-MonoBehaviour:
+--- !u!136 &3541496475868224114
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1356067717985629786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fe81ad80cb743b408fa90b048ad597f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CharacterDimension: 0
-  CharacterType: 0
-  PlayerID: Player1
-  CharacterAnimator: {fileID: 5196415200983646105}
-  UseDefaultMecanim: 1
-  RunAnimatorSanityChecks: 0
-  DisableAnimatorLogs: 1
-  CharacterModel: {fileID: 5445676164548388878}
-  CharacterHealth: {fileID: 2314369418861545768}
-  SendStateChangeEvents: 1
-  AdditionalAbilityNodes: []
-  CharacterBrain: {fileID: 0}
-  OptimizeForMobile: 1
---- !u!114 &1984777243962410201
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1356067717985629786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c88994d153c654449e4c5012ac55def, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Gravity: 40
-  GravityActive: 0
-  CrouchedRaycastLengthMultiplier: 1
-  PerformCardinalObstacleRaycastDetection: 0
-  Speed: {x: 0, y: 0, z: 0}
-  Velocity: {x: 0, y: 0, z: 0}
-  VelocityLastFrame: {x: 0, y: 0, z: 0}
-  Acceleration: {x: 0, y: 0, z: 0}
-  Grounded: 1
-  JustGotGrounded: 0
-  CurrentMovement: {x: 0, y: 0, z: 0}
-  CurrentDirection: {x: 0, y: 0, z: 0}
-  Friction: 0
-  AddedForce: {x: 0, y: 0, z: 0}
-  FreeMovement: 1
-  InputMoveDirection: {x: 0, y: 0, z: 0}
-  UpdateMode: 1
-  VelocityTransferMethod: 2
-  ObstaclesLayerMask:
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 400448
-  GroundedRaycastLength: 5
-  MinimumGroundedDistance: 0.2
-  GroundedComputationMode: 1
-  GroundNormalHeightThreshold: 0.2
-  ImpactFalloff: 5
-  MaximumFallSpeed: 20
-  SlopeSpeedMultiplier:
+    m_Bits: 0
+  m_ExcludeLayers:
     serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -90
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 90
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  GroundNormal: {x: 0, y: 0, z: 0}
-  SlideOnSteepSurfaces: 1
-  SlidingSpeed: 15
-  SlidingSpeedControl: 0.4
-  SlidingDirectionControl: 1
---- !u!114 &2724311554232135388
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &2434130576076465669
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -214,34 +110,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1356067717985629786}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c6e287e11f36f949bd93d0e6221692a, type: 3}
+  m_Script: {fileID: 11500000, guid: f551f1bede098167f9362b4a52a41870, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  AbilityStartSfx: {fileID: 0}
-  AbilityInProgressSfx: {fileID: 0}
-  AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
-  AbilityPermitted: 1
-  BlockingMovementStates: 10000000
-  BlockingConditionStates: 02000000
-  BlockingWeaponStates: 
-  Movement: 0
-  InputAuthorized: 1
-  AnalogInput: 1
-  ScriptDrivenInput: 0
-  WalkSpeed: 6
-  ShouldSetMovement: 1
-  IdleThreshold: 0.05
-  Acceleration: 10
-  Deceleration: 10
-  InterpolateMovementSpeed: 1
-  WalkParticles: []
-  TouchTheGroundParticles: []
-  TouchTheGroundSfx: []
-  drawLimitsGizmo: 0
-  minActualSpeedAnimator: 0.1
---- !u!114 &1230887134683089601
+  m_EditorClassIdentifier: Assembly-CSharp::Larje.Character.Character
+  _characterType: 0
+  _isActive:
+    defaultValue: 1
+    operation: 0
+    value: 0
+  _activeInGameStates: []
+--- !u!114 &6714284203489989621
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -250,26 +128,120 @@ MonoBehaviour:
   m_GameObject: {fileID: 1356067717985629786}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f30bd092b5ca764889a38a37d7b211d, type: 3}
+  m_Script: {fileID: 11500000, guid: 8208db20d56743670873142dd3ebe959, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  AbilityStartSfx: {fileID: 0}
-  AbilityInProgressSfx: {fileID: 0}
-  AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
-  AbilityPermitted: 1
-  BlockingMovementStates: 
-  BlockingConditionStates: 02000000
-  BlockingWeaponStates: 
-  forceTarget: {fileID: 0}
-  forceLookTarget: {fileID: 0}
-  directionMultiplier: {x: 1, y: 0, z: 1}
-  minRotationSpeed: 45
-  maxRotationSpeed: 720
-  lookAngle: 180
-  lookSpeed: 720
-  modelLook: {fileID: 5388484344293614955}
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterPhysics
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 0
+  raycastOffset: 0.1
+  floatingHeight: 0.25
+  floatingSpringStrength: 100
+  floatingSpringDamper: 10
+  heightChangeSpeed: 10
+  radiusChangeSpeed: 10
+  useGravity:
+    defaultValue: 1
+    operation: 0
+    value: 0
+  gravity: 40
+  useSlopeLimit: 1
+  slopeLimit: 45
+  resetOnDeath: 1
+  kinematicOnDeath: 1
+  drawGizmos: 0
+  gizmoColor: {r: 1, g: 1, b: 1, a: 0.5}
+--- !u!114 &5273449600488358249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356067717985629786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4b6eb37742b25ed5949716a92fb1024, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Larje.Character.Abilities.CharacterWalk
+  abilityEnabled: 1
+  canWalk:
+    defaultValue: 1
+    operation: 0
+    value: 0
+  directionType: 0
+  walkSpeed: 5
+  forceScale: {x: 1, y: 0, z: 1}
+  defaultAcceleration:
+    <Value>k__BackingField: 20
+    <MaxValue>k__BackingField: 15
+    <Curve>k__BackingField:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  ungroundedAcceleration:
+    <Value>k__BackingField: 20
+    <MaxValue>k__BackingField: 15
+    <Curve>k__BackingField:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  dropSpeedOnGrounded: 1
+  dropSpeedOnGroundedDot: 0
+--- !u!114 &8162812228252299203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356067717985629786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 219ff0281d09b9582a71040fa63247f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  initialHealth: 1
+  spawnOnDamage: []
+  spawnOnDeath: []
 --- !u!114 &5273731019370073304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,15 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9d0c945ef8a1f84a959647d5d49e8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AbilityStartSfx: {fileID: 0}
-  AbilityInProgressSfx: {fileID: 0}
-  AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
-  AbilityPermitted: 1
-  BlockingMovementStates: 0f00000010000000
-  BlockingConditionStates: 
-  BlockingWeaponStates: 
+  abilityEnabled: 1
   maxMass: 10
   speedMultiplier: 0.5
   findDistance: 1
@@ -316,15 +280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6095dd889e77c054181d2d331bd8558a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AbilityStartSfx: {fileID: 0}
-  AbilityInProgressSfx: {fileID: 0}
-  AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
-  AbilityPermitted: 1
-  BlockingMovementStates: 0e000000
-  BlockingConditionStates: 040000000500000002000000
-  BlockingWeaponStates: 
+  abilityEnabled: 1
   autoGrab: 0
   autoGrabDelay: 0.5
   weightCapacity: 5
@@ -350,15 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e902497d337f418448504ce80e90768e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AbilityStartSfx: {fileID: 0}
-  AbilityInProgressSfx: {fileID: 0}
-  AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
-  AbilityPermitted: 1
-  BlockingMovementStates: 
-  BlockingConditionStates: 
-  BlockingWeaponStates: 
+  abilityEnabled: 1
   findDistance: 1
   transitionMask:
     serializedVersion: 2
@@ -378,39 +326,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cca04a517ec23a418ca2cf2faecadf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Model: {fileID: 5445676164548388878}
-  CurrentHealth: 100
-  Invulnerable: 0
-  InitialHealth: 1
-  MaximumHealth: 1
-  ResetHealthOnEnable: 1
-  ImmuneToDamage: 0
-  DamageMMFeedbacks: {fileID: 0}
-  FeedbackIsProportionalToDamage: 0
-  PreventTakeSelfDamage: 0
-  ImmuneToKnockback: 0
-  ImmuneToKnockbackIfZeroDamage: 0
-  KnockbackForceMultiplier: 1
-  DestroyOnDeath: 0
-  DelayBeforeDestruction: 0
-  PointsWhenDestroyed: 0
-  RespawnAtInitialLocation: 0
-  DisableControllerOnDeath: 1
-  DisableModelOnDeath: 0
-  DisableCollisionsOnDeath: 1
-  DisableChildCollisionsOnDeath: 0
-  ChangeLayerOnDeath: 0
-  ChangeLayersRecursivelyOnDeath: 0
-  LayerOnDeath:
-    _layerIndex: 0
-  DeathMMFeedbacks: {fileID: 0}
-  ResetColorOnRevive: 1
-  ColorMaterialPropertyName: _Color
-  UseMaterialPropertyBlocks: 0
-  MasterHealth: {fileID: 0}
-  TargetDamageResistanceProcessor: {fileID: 0}
-  TargetAnimator: {fileID: 0}
-  DisableAnimatorLogs: 1
+  initialHealth: 0
+  spawnOnDamage: []
+  spawnOnDeath: []
   maxDamageDeclines: 1
 --- !u!114 &-7102296250445968076
 MonoBehaviour:
@@ -424,15 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc9653acf800c704ea6cf3e6e37f622f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AbilityStartSfx: {fileID: 0}
-  AbilityInProgressSfx: {fileID: 0}
-  AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
-  AbilityPermitted: 1
-  BlockingMovementStates: 
-  BlockingConditionStates: 
-  BlockingWeaponStates: 
+  abilityEnabled: 1
   fitAnimationDuration: 0.5
 --- !u!114 &8104505144142883194
 MonoBehaviour:
@@ -461,12 +371,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fee2281eb798e145824f61038ef5e4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Ragdoller: {fileID: 8489277164874707880}
-  ObjectsToDisableOnDeath: []
-  MonosToDisableOnDeath: []
-  ForceMultiplier: 10000
-  RagdollButton: 0
-  ResetRagdollButton: 0
 --- !u!114 &6687820759680381197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -720,6 +624,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!212 &3722502685924945535
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -738,6 +643,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -759,9 +666,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: -2413806693520163455, guid: 19b9304c31017d34f9c39a54ed652cc2,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -772,7 +681,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &8526285727514566541
 GameObject:
@@ -856,6 +764,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!212 &8940544952328530619
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -874,6 +783,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -895,9 +806,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 21300054, guid: ec0a251a9989ca146897920b837ec83a, type: 3}
   m_Color: {r: 0.20125782, g: 0.20125782, b: 0.20125782, a: 1}
   m_FlipX: 0
@@ -906,8 +819,7 @@ SpriteRenderer:
   m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
 --- !u!1 &9121854301713531681
 GameObject:
@@ -970,6 +882,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -991,9 +905,11 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1001 &300766177946544531
 PrefabInstance:
@@ -1193,30 +1109,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 061c640b6b1375a49975c03ea9ee4355, type: 3}
---- !u!95 &5196415200983646105 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5490425784065938954, guid: 061c640b6b1375a49975c03ea9ee4355,
-    type: 3}
-  m_PrefabInstance: {fileID: 300766177946544531}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6767968020622905404 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6467219851627346351, guid: 061c640b6b1375a49975c03ea9ee4355,
     type: 3}
   m_PrefabInstance: {fileID: 300766177946544531}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8489277164874707880 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8206527898287708731, guid: 061c640b6b1375a49975c03ea9ee4355,
-    type: 3}
-  m_PrefabInstance: {fileID: 300766177946544531}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9687a46a55ccbca4f92cdff319b70844, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3138581576286910923
 PrefabInstance:
   m_ObjectHideFlags: 0

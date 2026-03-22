@@ -79,8 +79,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a600f2e2a25ee7d44a5d26dcfb92ddd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitializationMode: 1
-  Label: Set Speed Attack
+  <Label>k__BackingField: 
+  <InitializationMode>k__BackingField: 1
   multiplier: 0.8
 --- !u!114 &7697209693646556258
 MonoBehaviour:
@@ -94,8 +94,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f518c38b6b1a6f48b4d24beea0a9a8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitializationMode: 1
-  Label: AimToPlayer
+  <Label>k__BackingField: 
+  <InitializationMode>k__BackingField: 1
 --- !u!1 &2712649495081409984
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,7 +106,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8629226320364734778}
   - component: {fileID: 2230945983730112405}
-  - component: {fileID: 5838086919115221767}
   m_Layer: 0
   m_Name: AI Brain Aggression
   m_TagString: Untagged
@@ -150,7 +149,7 @@ MonoBehaviour:
   - StateName: Idle
     Actions:
       array:
-      - {fileID: 200481784984381778}
+      - {fileID: 0}
     Transitions:
       array:
       - Decision: {fileID: 7650189698255271814}
@@ -159,9 +158,9 @@ MonoBehaviour:
   - StateName: Chase
     Actions:
       array:
-      - {fileID: 7880683709365281533}
-      - {fileID: 7697209693646556258}
-      - {fileID: 5838086919115221767}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     Transitions:
       array:
       - Decision: {fileID: 7650189698255271814}
@@ -186,24 +185,6 @@ MonoBehaviour:
   RandomizeFrequencies: 0
   RandomActionFrequency: {x: 0.5, y: 1}
   RandomDecisionFrequency: {x: 0.5, y: 1}
---- !u!114 &5838086919115221767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2712649495081409984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b6046095d8f6344bb8b182af1e592c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitializationMode: 0
-  Label: Move
-  pathShiftDistance: 1.5
-  maximumWalkAngle: 45
-  minimumDistance: 0.5
-  minimumDistanceToCorner: 1
 --- !u!1 &2740387061463993476
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,7 +195,6 @@ GameObject:
   m_Component:
   - component: {fileID: 889973648699898496}
   - component: {fileID: 1757406573121847624}
-  - component: {fileID: 6945207222364532119}
   m_Layer: 0
   m_Name: AI Brain Calm
   m_TagString: Untagged
@@ -257,18 +237,18 @@ MonoBehaviour:
   - StateName: Idle
     Actions:
       array:
-      - {fileID: 4100206279507549126}
+      - {fileID: 0}
     Transitions:
       array:
-      - Decision: {fileID: 6769360698455812414}
+      - Decision: {fileID: 0}
         TrueState: Patroll
         FalseState: 
   - StateName: Patroll
     Actions:
       array:
-      - {fileID: 3858149236560957239}
-      - {fileID: 6005483628133107553}
-      - {fileID: 6945207222364532119}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     Transitions:
       array: []
   TimeInThisState: 0
@@ -282,24 +262,6 @@ MonoBehaviour:
   RandomizeFrequencies: 0
   RandomActionFrequency: {x: 0.5, y: 1}
   RandomDecisionFrequency: {x: 0.5, y: 1}
---- !u!114 &6945207222364532119
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2740387061463993476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b6046095d8f6344bb8b182af1e592c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitializationMode: 0
-  Label: Move
-  pathShiftDistance: 1.5
-  maximumWalkAngle: 45
-  minimumDistance: 0.5
-  minimumDistanceToCorner: 1
 --- !u!1 &3031246083136954009
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,7 +271,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6524359298254850419}
-  - component: {fileID: 200481784984381778}
   m_Layer: 0
   m_Name: Actions Idle
   m_TagString: Untagged
@@ -332,20 +293,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8629226320364734778}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &200481784984381778
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3031246083136954009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 561ab803e1e9aa94ab096724696e5475, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitializationMode: 1
-  Label: Stay
 --- !u!1 &3274709828073337298
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,7 +303,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7005743148891711578}
   - component: {fileID: 7705785798266678701}
-  - component: {fileID: 1799522052617576739}
   m_Layer: 0
   m_Name: AI Brain Suspicion
   m_TagString: Untagged
@@ -399,18 +345,18 @@ MonoBehaviour:
   - StateName: Idle
     Actions:
       array:
-      - {fileID: 8481944701252286075}
+      - {fileID: 0}
     Transitions:
       array:
-      - Decision: {fileID: 3628743514168818428}
+      - Decision: {fileID: 0}
         TrueState: Seek
         FalseState: 
   - StateName: Seek
     Actions:
       array:
-      - {fileID: 5995360365730882812}
-      - {fileID: 2804250490275052579}
-      - {fileID: 1799522052617576739}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     Transitions:
       array: []
   TimeInThisState: 0
@@ -424,24 +370,6 @@ MonoBehaviour:
   RandomizeFrequencies: 0
   RandomActionFrequency: {x: 0.5, y: 1}
   RandomDecisionFrequency: {x: 0.5, y: 1}
---- !u!114 &1799522052617576739
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3274709828073337298}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b6046095d8f6344bb8b182af1e592c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitializationMode: 0
-  Label: Move
-  pathShiftDistance: 1.5
-  maximumWalkAngle: 45
-  minimumDistance: 0.5
-  minimumDistanceToCorner: 1
 --- !u!1 &4221771762480918514
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,8 +415,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a600f2e2a25ee7d44a5d26dcfb92ddd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitializationMode: 1
-  Label: Set Speed Attack
+  <Label>k__BackingField: 
+  <InitializationMode>k__BackingField: 1
   multiplier: 1
 --- !u!114 &3301068288283832628
 MonoBehaviour:
@@ -502,8 +430,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f518c38b6b1a6f48b4d24beea0a9a8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitializationMode: 1
-  Label: AimToPlayer
+  <Label>k__BackingField: 
+  <InitializationMode>k__BackingField: 1
 --- !u!1 &5947151024597035064
 GameObject:
   m_ObjectHideFlags: 0
@@ -517,7 +445,6 @@ GameObject:
   - component: {fileID: 6071435962649919620}
   - component: {fileID: 7650189698255271814}
   - component: {fileID: 3926240047549193589}
-  - component: {fileID: 2504648296715181657}
   m_Layer: 0
   m_Name: Decisions
   m_TagString: Untagged
@@ -593,21 +520,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Label: Is In Seek Area
   distance: 2
---- !u!114 &2504648296715181657
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5947151024597035064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a21818f4def5bf646bec3d25770336cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Label: Time In State
-  AfterTimeMin: 0.1
-  AfterTimeMax: 0.1
 --- !u!1 &6094063172358636056
 GameObject:
   m_ObjectHideFlags: 0
@@ -653,8 +565,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a600f2e2a25ee7d44a5d26dcfb92ddd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitializationMode: 1
-  Label: Set Speed Patrol
+  <Label>k__BackingField: 
+  <InitializationMode>k__BackingField: 1
   multiplier: 0.25
 --- !u!114 &6005483628133107553
 MonoBehaviour:
@@ -668,10 +580,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b02e65e72a314dc45805ab07a644902c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitializationMode: 1
-  Label: Patroll
-  directionForward: 1
-  distanceOnSpline: 2
+  <Label>k__BackingField: 
+  <InitializationMode>k__BackingField: 1
 --- !u!1 &6305840097153292056
 GameObject:
   m_ObjectHideFlags: 0
@@ -685,7 +595,6 @@ GameObject:
   - component: {fileID: 1535337367852464649}
   - component: {fileID: 529009056130505428}
   - component: {fileID: 1002644429022157701}
-  - component: {fileID: 6769360698455812414}
   m_Layer: 0
   m_Name: Decisions
   m_TagString: Untagged
@@ -761,21 +670,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Label: Is In Seek Area
   distance: 2
---- !u!114 &6769360698455812414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6305840097153292056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a21818f4def5bf646bec3d25770336cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Label: Time In State
-  AfterTimeMin: 1
-  AfterTimeMax: 1
 --- !u!1 &6373842305619297587
 GameObject:
   m_ObjectHideFlags: 0
@@ -789,7 +683,6 @@ GameObject:
   - component: {fileID: 2680725663891702101}
   - component: {fileID: 1832650736560476686}
   - component: {fileID: 6591857472367852666}
-  - component: {fileID: 3628743514168818428}
   m_Layer: 0
   m_Name: Decisions
   m_TagString: Untagged
@@ -865,21 +758,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Label: Is In Seek Area
   distance: 2
---- !u!114 &3628743514168818428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6373842305619297587}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a21818f4def5bf646bec3d25770336cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Label: Time In State
-  AfterTimeMin: 0.1
-  AfterTimeMax: 0.1
 --- !u!1 &6486381964309503644
 GameObject:
   m_ObjectHideFlags: 0
@@ -889,7 +767,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8890057145102214316}
-  - component: {fileID: 4100206279507549126}
   m_Layer: 0
   m_Name: Actions Idle
   m_TagString: Untagged
@@ -912,20 +789,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 889973648699898496}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4100206279507549126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6486381964309503644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 561ab803e1e9aa94ab096724696e5475, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitializationMode: 1
-  Label: Stay
 --- !u!1 &8348485412510810695
 GameObject:
   m_ObjectHideFlags: 0
@@ -971,8 +834,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a600f2e2a25ee7d44a5d26dcfb92ddd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitializationMode: 1
-  Label: Set Speed Seek
+  <Label>k__BackingField: 
+  <InitializationMode>k__BackingField: 1
   multiplier: 0.5
 --- !u!114 &2804250490275052579
 MonoBehaviour:
@@ -986,8 +849,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 439bb263eb8cbc449a32f39abad6cba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitializationMode: 1
-  Label: Aim To Nearest Seek Point
+  <Label>k__BackingField: 
+  <InitializationMode>k__BackingField: 1
   lookSpeed: 2
   recalculatePointDelayMin: 1
   recalculatePointDelayMax: 5
@@ -1001,7 +864,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6401519020490844934}
-  - component: {fileID: 8481944701252286075}
   m_Layer: 0
   m_Name: Actions Idle
   m_TagString: Untagged
@@ -1024,17 +886,3 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7005743148891711578}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8481944701252286075
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8471876597984492766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 561ab803e1e9aa94ab096724696e5475, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitializationMode: 1
-  Label: Stay

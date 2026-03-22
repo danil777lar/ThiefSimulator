@@ -25,6 +25,7 @@ public class ThiefTutorial : MonoBehaviour
     [SerializeField] private List<Sellable> loot;
 
     [InjectService] private IAnalyticsService _analyticsService;
+    [InjectService] private IPlayerProviderService _playerProviderService;
 
     private bool _minProgressAchieved;
     private bool _fullProgressAchieved;
@@ -65,17 +66,23 @@ public class ThiefTutorial : MonoBehaviour
         _level = GetComponentInParent<ThiefLevel>();
         _tutorialText = GetComponentInChildren<TextMeshProUGUI>();
 
-        Character player = null;//_level.GetComponentsInChildren<Character>().ToList().Find(x => x.CharacterType == Character.CharacterTypes.Player);
-        _playerAttack = player.GetComponentInChildren<CharacterAttack>();
-        _playerCarry = player.GetComponentInChildren<CharacterCarry3D>();
-        
-        _markerCenter = player.transform;
-        _markerTarget = new GameObject("Tutorial Marker Target").transform;
-        _markerTarget.SetParent(transform);
-        
-        _markerInstance = Instantiate(markerPrefab).Init(_markerTarget, _markerCenter, IsMarkerActive);
-        
-        StartLockStep();
+        if (_playerProviderService.TryGetPlayer(out Character player))
+        {
+            _playerAttack = player.GetComponentInChildren<CharacterAttack>();
+            _playerCarry = player.GetComponentInChildren<CharacterCarry3D>();
+            
+            _markerCenter = player.transform;
+            _markerTarget = new GameObject("Tutorial Marker Target").transform;
+            _markerTarget.SetParent(transform);
+            
+            _markerInstance = Instantiate(markerPrefab).Init(_markerTarget, _markerCenter, IsMarkerActive);
+            
+            StartLockStep();
+        }
+        else
+        {
+            UnityEngine.Debug.LogError("Player not found", this);
+        }
     }
 
     private void OnDisable()
