@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using MoreMountains.TopDownEngine;
+using Larje.Character;
 using UnityEngine;
 
 public class UpgradeMoreWeigth : UpgradeProcessor
@@ -11,7 +11,7 @@ public class UpgradeMoreWeigth : UpgradeProcessor
     {
         base.Init(level);
         
-        _carry = GetComponentInParent<Character>().FindAbility<CharacterCarry3D>();
+        _carry = GetComponentInParent<Character>().GetComponent<CharacterCarry3D>();
         _carry.TryAddWeightCapacityMultiplier(GetMultiplier);
     }
 

@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Larje.Character;
 using Larje.Core;
 using Larje.Core.Services;
 using Larje.Core.Services.UI;
-using MoreMountains.Tools;
-using MoreMountains.TopDownEngine;
 using ProjectConstants;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -43,13 +42,12 @@ public class PlayScreen : UIScreen
         
         _levelData = _levelService.GetCurrentLevelData<ThiefLevel.LevelData>();
         
-        _player = FindObjectsByType<Character>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).ToList()
-            .Find(x => x.CharacterType == Character.CharacterTypes.Player);
-        _playerCarry = _player.FindAbility<CharacterCarry3D>();
+        _player = null;//FindObjectsByType<Character>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).ToList().Find(x => x.CharacterType == Character.CharacterTypes.Player);
+        _playerCarry = _player.GetComponent<CharacterCarry3D>();
         
         if (_player != null)
         {
-            actionButtonsRoot.MMDestroyAllChildren();
+            actionButtonsRoot.DestroyAllChildren();
             _actionButtons = new List<PlayerActionButton>();
             IPlayerActionSource[] actionSources = _player.GetComponents<IPlayerActionSource>();
             foreach (IPlayerActionSource source in actionSources)

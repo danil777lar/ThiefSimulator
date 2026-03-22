@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Larje.Core;
 using Larje.Core.Services;
-using MoreMountains.TopDownEngine;
 using ProjectConstants;
 using UnityEngine;
 
@@ -17,10 +16,10 @@ public class FailOnDeath : MonoBehaviour
         DIContainer.InjectTo(this);
         
         _health = GetComponentInParent<Health>();
-        _health.OnDeath += Fail;
+        _health.EventDeath += Fail;
     }
 
-    private void Fail()
+    private void Fail(DamageData damage)
     {
         _levelManagerService.TryStopCurrentLevel(new LevelProcessor.StopData(false, LevelStopType.Fail));
     }

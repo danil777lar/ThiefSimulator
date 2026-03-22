@@ -1,8 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Larje.Core.Tools.TopDownEngine;
-using MoreMountains.TopDownEngine;
+using Larje.Character.Abilities;
 using UnityEngine;
 
 public class CharacterStepSound : MonoBehaviour
@@ -18,7 +17,7 @@ public class CharacterStepSound : MonoBehaviour
 
     private float _traveledDistance;
     private Vector3 _lastPosition;
-    private CoreCharacterMovement _movement;
+    private CharacterWalk _movement;
     
     private List<Func<float>> _amplitudeMultipliers = new List<Func<float>>();
     
@@ -41,7 +40,7 @@ public class CharacterStepSound : MonoBehaviour
     private void Start()
     {
         _lastPosition = transform.position;
-        _movement = GetComponentInParent<CoreCharacterMovement>();
+        _movement = GetComponentInParent<CharacterWalk>();
 
         if (!spawnByDistance)
         {
@@ -78,9 +77,9 @@ public class CharacterStepSound : MonoBehaviour
 
     private void SpawnSound()
     {
-        if (_movement.AbilityAuthorized && _movement.AbilityPermitted)
+        if (_movement.Permitted)
         {
-            float amplitude = baseAmplitude * amplitudeBySpeed.Evaluate(_movement.ActualSpeedPercent);
+            float amplitude = baseAmplitude * amplitudeBySpeed.Evaluate(_movement.SpeedPercent);
             amplitude *= GetAmplitudeMultiplier();
             
             if (amplitude < minAmplitude)

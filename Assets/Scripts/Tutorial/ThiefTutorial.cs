@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Larje.Character;
 using Larje.Core;
 using Larje.Core.Services;
-using MoreMountains.TopDownEngine;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Timeline;
@@ -65,8 +65,7 @@ public class ThiefTutorial : MonoBehaviour
         _level = GetComponentInParent<ThiefLevel>();
         _tutorialText = GetComponentInChildren<TextMeshProUGUI>();
 
-        Character player = _level.GetComponentsInChildren<Character>().ToList()
-            .Find(x => x.CharacterType == Character.CharacterTypes.Player);
+        Character player = null;//_level.GetComponentsInChildren<Character>().ToList().Find(x => x.CharacterType == Character.CharacterTypes.Player);
         _playerAttack = player.GetComponentInChildren<CharacterAttack>();
         _playerCarry = player.GetComponentInChildren<CharacterCarry3D>();
         
@@ -131,7 +130,8 @@ public class ThiefTutorial : MonoBehaviour
     private void EnemyStepUpdate()
     {
         _tutorialText.text = _playerAttack.HasTarget ? "Wait in the red area to attack" : "Slowly go to the enemy";
-        if (enemy.CharacterHealth.CurrentHealth <= 0)
+        Health enemyHealth = enemy.GetComponent<Health>();
+        if (enemyHealth.CurrentHealth <= 0)
         {
             _isEnemyStep = false;
             StartLootStep();    

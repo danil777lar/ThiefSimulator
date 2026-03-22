@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Larje.Character;
 using Larje.Core.Services;
-using MoreMountains.Tools;
-using MoreMountains.TopDownEngine;
 using UnityEngine;
 
 public class CharacterSpawn : CharacterAbility
@@ -12,42 +11,7 @@ public class CharacterSpawn : CharacterAbility
     
     private bool _isSpawning;
     private SpawningDirection _direction;
-    private TopDownController _topDownController;
-    private CharacterController _characterController;
     private LevelProcessor _level;
-
-    private TopDownController TopDownController
-    {
-        get
-        {
-            if (_topDownController == null)
-            {
-                _topDownController = _character.GetComponent<TopDownController>();
-            }
-
-            return _topDownController;
-        }
-        set
-        {
-            _topDownController = value;
-        }
-    }
-    private CharacterController CharacterController
-    {
-        get
-        {
-            if (_characterController == null)
-            {
-                _characterController = _character.GetComponent<CharacterController>();
-            }
-
-            return _characterController;
-        }
-        set
-        {
-            _characterController = value;
-        }
-    }
     
     protected const string _spawnOutAnimationParameterName = "SpawnOut";
     protected const string _spawnInAnimationParameterName = "SpawnIn";
@@ -59,57 +23,54 @@ public class CharacterSpawn : CharacterAbility
         _isSpawning = true;
         _direction = direction;
         
-        TopDownController.GravityActive = false;
-        CharacterController.enabled = false;
-        _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Frozen);
-        transform.SetParent(parent);
+        // TopDownController.GravityActive = false;
+        // CharacterController.enabled = false;
+        // _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Frozen);
+        // transform.SetParent(parent);
 
-        transform.DOLocalMove(Vector3.zero, fitAnimationDuration);
-        transform.DOLocalRotate(Vector3.up * (direction == SpawningDirection.Out ? 180f : 0f), fitAnimationDuration);
-        _character.CharacterModel.transform.DOLocalRotate(Vector3.zero, fitAnimationDuration);
+        // transform.DOLocalMove(Vector3.zero, fitAnimationDuration);
+        // transform.DOLocalRotate(Vector3.up * (direction == SpawningDirection.Out ? 180f : 0f), fitAnimationDuration);
+        // _character.CharacterModel.transform.DOLocalRotate(Vector3.zero, fitAnimationDuration);
     }
 
     public void SetNormalState()
     {
-        _isSpawning = false;
+        // _isSpawning = false;
         
-        TopDownController.GravityActive = true;
-        _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Normal);
-        _characterController.enabled = true;
-        transform.SetParent(_level.transform);
-    }
-    
-    public override void UpdateAnimator()
-    {
-        base.UpdateAnimator();
-
-        MMAnimatorExtensions.UpdateAnimatorBool(_animator, _spawnOutAnimationParameter, 
-            _isSpawning && _direction == SpawningDirection.Out,
-            _character._animatorParameters, _character.RunAnimatorSanityChecks);
-        
-        MMAnimatorExtensions.UpdateAnimatorBool(_animator, _spawnInAnimationParameter, 
-            _isSpawning && _direction == SpawningDirection.In,
-            _character._animatorParameters, _character.RunAnimatorSanityChecks);
+        // TopDownController.GravityActive = true;
+        // _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Normal);
+        // _characterController.enabled = true;
+        // transform.SetParent(_level.transform);
     }
 
-    protected override void Initialization()
+    protected override void OnInitialized()
     {
-        base.Initialization();
-        
         _level = GetComponentInParent<LevelProcessor>();
-        _characterController = _character.GetComponent<CharacterController>();
     }
     
-    protected override void InitializeAnimatorParameters()
-    {
-        base.InitializeAnimatorParameters();
+    // public override void UpdateAnimator()
+    // {
+    //     base.UpdateAnimator();
 
-        RegisterAnimatorParameter(_spawnOutAnimationParameterName, AnimatorControllerParameterType.Bool,
-            out _spawnOutAnimationParameter);
+    //     MMAnimatorExtensions.UpdateAnimatorBool(_animator, _spawnOutAnimationParameter, 
+    //         _isSpawning && _direction == SpawningDirection.Out,
+    //         _character._animatorParameters, _character.RunAnimatorSanityChecks);
         
-        RegisterAnimatorParameter(_spawnInAnimationParameterName, AnimatorControllerParameterType.Bool,
-            out _spawnInAnimationParameter);
-    }
+    //     MMAnimatorExtensions.UpdateAnimatorBool(_animator, _spawnInAnimationParameter, 
+    //         _isSpawning && _direction == SpawningDirection.In,
+    //         _character._animatorParameters, _character.RunAnimatorSanityChecks);
+    // }
+    
+    // protected override void InitializeAnimatorParameters()
+    // {
+    //     base.InitializeAnimatorParameters();
+
+    //     RegisterAnimatorParameter(_spawnOutAnimationParameterName, AnimatorControllerParameterType.Bool,
+    //         out _spawnOutAnimationParameter);
+        
+    //     RegisterAnimatorParameter(_spawnInAnimationParameterName, AnimatorControllerParameterType.Bool,
+    //         out _spawnInAnimationParameter);
+    // }
 
     public enum SpawningDirection
     {

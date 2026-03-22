@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using MoreMountains.TopDownEngine;
+using Larje.Character;
 using UnityEngine;
 
 public class UpgradeFasterAttack : UpgradeProcessor
@@ -12,7 +12,7 @@ public class UpgradeFasterAttack : UpgradeProcessor
         base.Init(level);
 
         Character character = GetComponentInParent<Character>();
-        _attack = character?.FindAbility<CharacterAttack>();
+        _attack = character?.GetComponent<CharacterAttack>();
         if (_attack != null)
         {
             _attack.AddAttackSpeedModifier(GetModifier);

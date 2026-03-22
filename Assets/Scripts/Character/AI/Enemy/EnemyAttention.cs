@@ -52,7 +52,8 @@ public class EnemyAttention : CharacterAbility
         
         if (player)
         {
-            if (_player == null && player.Character.CharacterHealth is CharacterHealth characterHealth)
+            Health playerHealth = player.Character.GetComponent<Health>();
+            if (_player == null && playerHealth is CharacterHealth characterHealth)
             {
                 characterHealth.EventDamageDeclined += OnCharacterDamageDeclined;
             }

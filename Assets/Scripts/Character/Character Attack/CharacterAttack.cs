@@ -353,7 +353,7 @@ public class CharacterAttack : CharacterAbility
             //     effect.transform.position = _target.transform.position;
             // }
 
-            if (_target.CharacterHealth.CurrenHealth > 0)
+            if (_target.CharacterHealth.CurrentHealth > 0)
             {
                 _target.Unfroze();
             }

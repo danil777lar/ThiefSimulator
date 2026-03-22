@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using MoreMountains.TopDownEngine;
+using Larje.Character;
 using UnityEngine;
 
 public class CharacterShadow : MonoBehaviour
@@ -8,18 +8,20 @@ public class CharacterShadow : MonoBehaviour
     [SerializeField] private HumanBodyBones attachToBone;
 
     private Character _character;
+    private Animator _animator;
     private Transform _bone;
 
     private void Start()
     {
         _character = GetComponentInParent<Character>();
+        _animator = _character.GetComponentInChildren<Animator>();
     }
 
     private void Update()
     {
-        if (_character.CharacterAnimator != null && _bone == null)
+        if (_animator != null && _bone == null)
         {
-            _bone = _character.CharacterAnimator.GetBoneTransform(attachToBone);
+            _bone = _animator.GetBoneTransform(attachToBone);
         }
 
         if (_bone != null)

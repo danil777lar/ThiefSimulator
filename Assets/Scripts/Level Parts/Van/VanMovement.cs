@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using Dreamteck.Splines;
+using Larje.Character;
 using Larje.Core.Services;
-using MoreMountains.Tools;
-using MoreMountains.TopDownEngine;
 using ProjectConstants;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -93,7 +92,7 @@ public class VanMovement : MonoBehaviour, ILevelStartHandler, ILevelEndHandler
         _splineComputer = GetComponentInParent<SplineComputer>();
         _rigidbody = GetComponent<Rigidbody>();
         _collider = GetComponent<BoxCollider>();
-        _player = FindObjectsOfType<Character>().ToList().Find(x => x.CharacterType == Character.CharacterTypes.Player);
+        // _player = FindObjectsOfType<Character>().ToList().Find(x => x.CharacterType == Character.CharacterTypes.Player);
 
         _startPosition = transform.position;
         transform.position -= transform.forward * startAnimationDistance;

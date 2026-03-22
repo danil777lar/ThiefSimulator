@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using MoreMountains.TopDownEngine;
+using Larje.Character;
 using UnityEngine;
 
 public class UpgradeInvisibility : UpgradeProcessor
@@ -25,8 +25,8 @@ public class UpgradeInvisibility : UpgradeProcessor
         _visionTarget = character.GetComponentInChildren<CharacterVisionTarget>();
         _visionTarget.AddVisibilityMultiplier(VisibilityMultiplier);
 
-        _health = character.CharacterHealth;
-        _health.ImmuneToDamage = true;
+        _health = character.GetComponent<Health>();
+        // _health.ImmuneToDamage = true;
     }
 
     public override void Remove()
@@ -35,7 +35,7 @@ public class UpgradeInvisibility : UpgradeProcessor
         
         _materialSetter.RemoveMaterialOverride(this);
         _visionTarget.RemoveVisibilityMultiplier(VisibilityMultiplier);
-        _health.ImmuneToDamage = false;
+        // _health.ImmuneToDamage = false;
     }
     
     private float VisibilityMultiplier()

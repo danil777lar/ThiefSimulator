@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using MoreMountains.TopDownEngine;
+using Larje.Character;
 using UnityEngine;
 
 public class MiniMapMarker : MonoBehaviour
@@ -8,12 +8,12 @@ public class MiniMapMarker : MonoBehaviour
     [SerializeField] private GameObject defaultMarker;
     [SerializeField] private GameObject deadMarker;
 
-    private CharacterHealth _health;
+    private Health _health;
     
     private void Start()
     {
         Character character = GetComponentInParent<Character>();
-        _health = character.CharacterHealth as CharacterHealth;
+        // _health = character.CharacterHealth as CharacterHealth;
     }
     
     private void Update()

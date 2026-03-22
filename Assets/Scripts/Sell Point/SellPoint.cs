@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using Dreamteck.Splines;
+using Larje.Character;
 using Larje.Core;
 using Larje.Core.Services;
-using MoreMountains.TopDownEngine;
 using ProjectConstants;
 using UnityEngine;
 using UnityEngine.UI;
@@ -54,8 +54,7 @@ public class SellPoint : MonoBehaviour
     {
         DIContainer.InjectTo(this);
         
-        Character player = FindObjectsOfType<Character>().ToList()
-            .Find(x => x.CharacterType == Character.CharacterTypes.Player);
+        Character player = null;//FindObjectsOfType<Character>().ToList().Find(x => x.CharacterType == Character.CharacterTypes.Player);
         _playerCarry = player.GetComponentInChildren<CharacterCarry3D>();
         
         _objectsToSell = new List<Sellable>();

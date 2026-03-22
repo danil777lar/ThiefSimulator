@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Larje.Core.Tools.TopDownEngine;
+using Larje.Character;
 using UnityEngine;
 
 public class LookIK : MonoBehaviour
@@ -11,19 +11,19 @@ public class LookIK : MonoBehaviour
 
     private float _weight = 0f;
     private Animator _animator;
-    private CoreCharacterOrientation3D _orientation;
+    private CharacterOrientation _orientation;
     
     private void Start()
     {
         _animator = GetComponent<Animator>();
-        _orientation = GetComponentInParent<CoreCharacterOrientation3D>();
+        _orientation = GetComponentInParent<CharacterOrientation>();
     }
     
     private void Update()
     {
         if (_orientation)
         {
-            _weight = Mathf.Lerp(_weight, _orientation.PermitLook ? 1f : 0f, Time.deltaTime * weightChangeSharpness);
+            // _weight = Mathf.Lerp(_weight, _orientation.PermitLook ? 1f : 0f, Time.deltaTime * weightChangeSharpness);
         }
     }
     
@@ -33,7 +33,7 @@ public class LookIK : MonoBehaviour
         {
             _animator.SetLookAtWeight(_weight);
             Vector3 lookPosition = transform.position;
-            lookPosition += (Vector3.up * defaultLookHeight) + (_orientation.LookDirection * 10f);
+            lookPosition += (Vector3.up * defaultLookHeight) + (Vector3.forward/*_orientation.LookDirection*/ * 10f);
             _animator.SetLookAtPosition(lookPosition);   
         }   
     }

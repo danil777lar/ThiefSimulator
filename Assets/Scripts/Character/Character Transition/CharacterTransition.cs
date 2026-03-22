@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
-using Larje.Core.Tools.TopDownEngine;
-using MoreMountains.Tools;
-using MoreMountains.TopDownEngine;
+using Larje.Character;
+using Larje.Character.Abilities;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,20 +18,19 @@ public class CharacterTransition : CharacterAbility, IPlayerActionSource
     [SerializeField] private Sprite transitIcon;
 
     private bool _inTransition;
-    private CoreCharacterMovement _movement;
+    private CharacterWalk _movement;
     private TransitionPoint _nearestTransition;
     private Transform _nearestTransitionPoint;
 
     public PlayerAction[] Actions { get; private set; }
 
-    protected override void Initialization()
+    protected override void OnInitialized()
     {
-        base.Initialization();
-        _movement = _character.FindAbility<CoreCharacterMovement>();
+        _movement = character.GetComponent<CharacterWalk>();
         BuildActions();
     }
 
-    public override void ProcessAbility()
+    private void Update()
     {
         TryFindTransition();
     }
@@ -57,7 +55,7 @@ public class CharacterTransition : CharacterAbility, IPlayerActionSource
     {
         _nearestTransition = null;
         Dictionary<TransitionPoint, Collider> transitions = PhysicsUtility.FindObjectsInRange<TransitionPoint>
-            (transform.position, findDistance, transitionMask, _controller3D.ObstaclesLayerMask);
+            (transform.position, findDistance, transitionMask, LayerMask.GetMask("")/*_controller3D.ObstaclesLayerMask*/);
 
         if (transitions.Count > 0)
         {
@@ -81,25 +79,25 @@ public class CharacterTransition : CharacterAbility, IPlayerActionSource
             
             if (transit.TryGetStartAndEndPercent(point, out float start, out float end))
             {
-                _character.MovementState.ChangeState(CharacterStates.MovementStates.Transition);
+                // character.MovementState.ChangeState(CharacterStates.MovementStates.Transition);
                 _inTransition = true;
                 this.DOKill();
-                DOTween.To(() => start,
-                        (v) =>
-                        {
-                            _character.CharacterModel.transform.position = transit.EvaluatePosition(v);
-                        }, 
-                        end, transit.Duration)
-                    .SetTarget(this)
-                    .SetUpdate(UpdateType.Fixed)
-                    .SetEase(Ease.Linear)
-                    .OnComplete(() =>
-                    {
-                        transform.position = _character.CharacterModel.transform.position;
-                        _character.CharacterModel.transform.localPosition = Vector3.zero;
-                        _inTransition = false;
-                        _character.MovementState.ChangeState(CharacterStates.MovementStates.Idle);
-                    });
+                // DOTween.To(() => start,
+                //         (v) =>
+                //         {
+                //             _character.CharacterModel.transform.position = transit.EvaluatePosition(v);
+                //         }, 
+                //         end, transit.Duration)
+                //     .SetTarget(this)
+                //     .SetUpdate(UpdateType.Fixed)
+                //     .SetEase(Ease.Linear)
+                //     .OnComplete(() =>
+                //     {
+                //         transform.position = _character.CharacterModel.transform.position;
+                //         _character.CharacterModel.transform.localPosition = Vector3.zero;
+                //         _inTransition = false;
+                //         _character.MovementState.ChangeState(CharacterStates.MovementStates.Idle);
+                //     });
             }
         }
     }

@@ -1,25 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
-using Larje.Core.Tools.TopDownEngine;
-using MoreMountains.TopDownEngine;
+using Larje.Character;
+using Larje.Character.Abilities;
 using UnityEngine;
 
 public class UpgradeFasterMovement : UpgradeProcessor
 {
-    private CoreCharacterMovement _movement;
+    private CharacterWalk _movement;
     
     public override void Init(int level)
     {
         base.Init(level);
 
-        _movement = GetComponentInParent<Character>().FindAbility<CoreCharacterMovement>();
-        _movement.TryAddSpeedMultiplier(GetMultiplier);
+        _movement = GetComponentInParent<Character>().GetComponent<CharacterWalk>();
+        _movement.WalkMultiplier.AddValue(GetMultiplier);
     }
     
     public override void Remove()
     {
         base.Remove();
-        _movement.TryRemoveSpeedMultiplier(GetMultiplier);
+        _movement.WalkMultiplier.RemoveValue(GetMultiplier);
     }
     
     private float GetMultiplier()

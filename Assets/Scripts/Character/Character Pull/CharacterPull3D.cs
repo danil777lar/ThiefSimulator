@@ -2,9 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Larje.Core.Tools.TopDownEngine;
-using MoreMountains.Tools;
-using MoreMountains.TopDownEngine;
+using Larje.Character;
+using Larje.Character.Abilities;
 using UnityEngine;
 
 public class CharacterPull3D : CharacterAbility, IPlayerActionSource
@@ -25,8 +24,8 @@ public class CharacterPull3D : CharacterAbility, IPlayerActionSource
     [SerializeField] private Sprite attachIcon;
     [SerializeField] private Sprite detachIcon;
 
-    private CoreCharacterMovement _movement;
-    private CoreCharacterOrientation3D _orientation;
+    private CharacterWalk _movement;
+    private CharacterOrientation _orientation;
     private Pullable _nearestPullable;
     private Pullable _currentPullable;
     
@@ -35,20 +34,17 @@ public class CharacterPull3D : CharacterAbility, IPlayerActionSource
     
     public PlayerAction[] Actions { get; private set; }
 
-    protected override void Initialization()
+    protected override void OnInitialized()
     {
-        base.Initialization();
-        _movement = _character.FindAbility<CoreCharacterMovement>();
-        _orientation = _character.FindAbility<CoreCharacterOrientation3D>();
+        _movement = character.GetComponent<CharacterWalk>();
+        _orientation = character.GetComponent<CharacterOrientation>();
 
         BuildActions();
     }
 
-    public override void ProcessAbility()
+    private void Update()
     {
-        base.ProcessAbility();
-        
-        if (!AbilityAuthorized)
+        if (!Permitted)
         {
             TryDetachPullable();
             return;
@@ -59,7 +55,7 @@ public class CharacterPull3D : CharacterAbility, IPlayerActionSource
 
     private void FixedUpdate()
     {
-        if (!AbilityAuthorized)
+        if (!Permitted)
         {
             return;
         }
@@ -97,7 +93,7 @@ public class CharacterPull3D : CharacterAbility, IPlayerActionSource
         }
 
         List<Pullable> pullables = PhysicsUtility.FindObjectsInRange<Pullable>
-                (transform.position, findDistance, cargosMask, _controller3D.ObstaclesLayerMask)
+                (transform.position, findDistance, cargosMask, LayerMask.GetMask("")/*_controller3D.ObstaclesLayerMask*/)
             .Keys.ToList();
         
         if (pullables.Count > 0)
@@ -124,7 +120,7 @@ public class CharacterPull3D : CharacterAbility, IPlayerActionSource
             pullPointPosition.y = transform.position.y;
             cargoPullPoint.transform.position = pullPointPosition;
             
-            _movement.SetLimit(cargoPullPoint.transform.forward, 270f);
+            // _movement.SetLimit(cargoPullPoint.transform.forward, 270f);
             if (Vector3.Distance(_currentPullable.AttachPoint.position, cargoPullPoint.position) > detachDistance)
             {
                 ForceDetachCurrentPullable();
@@ -138,7 +134,7 @@ public class CharacterPull3D : CharacterAbility, IPlayerActionSource
 
     private bool CanAttachPullable()
     {
-        return (AbilityAuthorized && _nearestPullable != null && _currentPullable == null);
+        return (Permitted && _nearestPullable != null && _currentPullable == null);
     }
     
     private bool CanDetachPullable()
@@ -150,7 +146,7 @@ public class CharacterPull3D : CharacterAbility, IPlayerActionSource
     {
         if (CanAttachPullable())
         {
-            _character.MovementState.ChangeState(CharacterStates.MovementStates.Pulling);
+            // character.MovementState.ChangeState(CharacterStates.MovementStates.Pulling);
             
             _currentPullable = _nearestPullable;
 
@@ -159,8 +155,8 @@ public class CharacterPull3D : CharacterAbility, IPlayerActionSource
 
             float totalSpeedMultiplier = speedMultiplier;
             totalSpeedMultiplier *= 1f - Mathf.Clamp01(_currentPullable.Rigidbody.mass / maxMass);
-            _movement.MovementSpeedMultiplier = totalSpeedMultiplier;
-            _orientation.forceTarget = cargoPullPoint.transform;
+            // _movement.MovementSpeedMultiplier = totalSpeedMultiplier;
+            // _orientation.forceTarget = cargoPullPoint.transform;
             
             TryProcessPullable();
 
@@ -180,36 +176,36 @@ public class CharacterPull3D : CharacterAbility, IPlayerActionSource
     {
         if (CanDetachPullable())
         {
-            _character.MovementState.ChangeState(CharacterStates.MovementStates.Idle);
+            // character.MovementState.ChangeState(CharacterStates.MovementStates.Idle);
 
             _currentPullable.EventForceDetach -= ForceDetachCurrentPullable;
 
             _currentPullable.Detach();
             _currentPullable = null;
 
-            if (_orientation.forceTarget == cargoPullPoint.transform)
-            {
-                _orientation.forceTarget = null;
-            }
+            // if (_orientation.forceTarget == cargoPullPoint.transform)
+            // {
+            //     _orientation.forceTarget = null;
+            // }
 
-            _movement.MovementSpeedMultiplier = 1f;
-            _movement.RemoveLimit();
+            // _movement.MovementSpeedMultiplier = 1f;
+            // _movement.RemoveLimit();
         }
     }
     
-    protected override void InitializeAnimatorParameters()
-    {
-        base.InitializeAnimatorParameters();
-        RegisterAnimatorParameter(_pullingAnimationParameterName, AnimatorControllerParameterType.Bool,
-            out _pullingAnimationParameter);
-    }
+    // protected override void InitializeAnimatorParameters()
+    // {
+    //     base.InitializeAnimatorParameters();
+    //     RegisterAnimatorParameter(_pullingAnimationParameterName, AnimatorControllerParameterType.Bool,
+    //         out _pullingAnimationParameter);
+    // }
 
-    public override void UpdateAnimator()
-    {
-        base.UpdateAnimator();
-        MMAnimatorExtensions.UpdateAnimatorBool(_animator, _pullingAnimationParameter, _currentPullable != null,
-            _character._animatorParameters, _character.RunAnimatorSanityChecks);
-    }
+    // public override void UpdateAnimator()
+    // {
+    //     base.UpdateAnimator();
+    //     MMAnimatorExtensions.UpdateAnimatorBool(_animator, _pullingAnimationParameter, _currentPullable != null,
+    //         _character._animatorParameters, _character.RunAnimatorSanityChecks);
+    // }
 }
 
 
