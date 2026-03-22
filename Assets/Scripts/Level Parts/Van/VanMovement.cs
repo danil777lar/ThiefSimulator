@@ -5,6 +5,7 @@ using System.Linq;
 using DG.Tweening;
 using Dreamteck.Splines;
 using Larje.Character;
+using Larje.Core;
 using Larje.Core.Services;
 using ProjectConstants;
 using Unity.VisualScripting;
@@ -33,6 +34,9 @@ public class VanMovement : MonoBehaviour, ILevelStartHandler, ILevelEndHandler
     [Header("Start Animation")] 
     [SerializeField] private float startAnimationDistance = 20f;
     [SerializeField] private float startAnimationDurationModifier = 1f;
+
+    [InjectService] private GameEventService _gameEventService;
+    [InjectService] private IPlayerProviderService _playerProviderService;
 
     private bool _move;
     private bool _startedAnimationComplete;
@@ -70,34 +74,26 @@ public class VanMovement : MonoBehaviour, ILevelStartHandler, ILevelEndHandler
         }
     }
     
-    public void OnLevelEvent()
-    {
-        // if (levelEvent is LevelEventPreStart levelEventPreStart)
-        // {
-        //     EventStartMove?.Invoke();
-        //     transform.DOMove(_startPosition, levelEventPreStart.StartDelay * startAnimationDurationModifier)
-        //         .SetUpdate(UpdateType.Fixed)
-        //         .SetEase(Ease.OutBack)
-        //         .OnComplete(() =>
-        //         {
-        //             _startedAnimationComplete = true;
-        //             EventStartAnimationComplete?.Invoke();
-        //             EventStopMove?.Invoke();
-        //         });    
-        // }        
-    }
-    
     private void Start()
     {
+        DIContainer.InjectTo(this);
+
+        _gameEventService.Subscribe<LevelEventPreStart>(OnLevelPrestarted);
+
         _splineComputer = GetComponentInParent<SplineComputer>();
         _rigidbody = GetComponent<Rigidbody>();
         _collider = GetComponent<BoxCollider>();
-        // _player = FindObjectsOfType<Character>().ToList().Find(x => x.CharacterType == Character.CharacterTypes.Player);
+        _playerProviderService.TryGetPlayer(out _player);
 
         _startPosition = transform.position;
         transform.position -= transform.forward * startAnimationDistance;
         
         EventInitialized?.Invoke();
+    }
+
+    private void OnDisable()
+    {
+        _gameEventService?.Unsubscribe<LevelEventPreStart>(OnLevelPrestarted);
     }
     
     private void FixedUpdate()
@@ -114,6 +110,20 @@ public class VanMovement : MonoBehaviour, ILevelStartHandler, ILevelEndHandler
     {
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(_targetPosition, 0.25f);
+    }
+
+    private void OnLevelPrestarted(LevelEventPreStart prestartEvent)
+    {
+        EventStartMove?.Invoke();
+        transform.DOMove(_startPosition, prestartEvent.StartDelay * startAnimationDurationModifier)
+            .SetUpdate(UpdateType.Fixed)
+            .SetEase(Ease.OutBack)
+            .OnComplete(() =>
+            {
+                _startedAnimationComplete = true;
+                EventStartAnimationComplete?.Invoke();
+                EventStopMove?.Invoke();
+            });    
     }
 
     private void FindTargetPosition()

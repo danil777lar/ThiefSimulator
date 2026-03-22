@@ -19,19 +19,20 @@ public class MenuScreen : UIScreen
     [InjectService] private UIService _uiService;
     [InjectService] private PlayerInputService _inputService;
     [InjectService] private UpgradesService _upgradesService;
+    [InjectService] private ThiefGameService _thiefGameService;
     [InjectService] private ILevelManagerService _levelManagerService;
 
 
     public override void Show()
     {
         base.Show();
-        Debug.Log("Menu Shown");
     }
 
 
     protected override void OnBeforeOpen(UIObject.Args screenOpenProperties)
     {
         DIContainer.InjectTo(this);
+
         _inputService.EventPointerDown += OnPointerDown;
 
         shopButton.onClick.AddListener(OnShopButtonClicked);
@@ -66,7 +67,7 @@ public class MenuScreen : UIScreen
     
     private void OnPointerDown()
     {
-        _levelManagerService.TryStartCurrentLevel(new LevelProcessor.StartData(LevelStartType.Start));
+        _thiefGameService.StartLevel();
     }
 
     public class Args : UIScreen.Args

@@ -22,9 +22,10 @@ public class PlayScreen : UIScreen
     [SerializeField] private Slider sliderWin; 
     [SerializeField] private Slider sliderWeight; 
     
-    [InjectService] private ILevelManagerService _levelService;
     [InjectService] private UIService _uiService;
     [InjectService] private PlayerInputService _inputService;
+    [InjectService] private ILevelManagerService _levelService;
+    [InjectService] private IPlayerProviderService _playerProviderService;
 
     private Character _player;
     private CharacterCarry3D _playerCarry;
@@ -42,7 +43,7 @@ public class PlayScreen : UIScreen
         
         _levelData = _levelService.GetCurrentLevelData<ThiefLevel.LevelData>();
         
-        _player = null;//FindObjectsByType<Character>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).ToList().Find(x => x.CharacterType == Character.CharacterTypes.Player);
+        _playerProviderService.TryGetPlayer(out _player);
         _playerCarry = _player.GetComponent<CharacterCarry3D>();
         
         if (_player != null)

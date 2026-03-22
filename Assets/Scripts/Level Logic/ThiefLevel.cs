@@ -14,15 +14,19 @@ public class ThiefLevel : LevelProcessor
 {
     [Header("Base")] 
     [SerializeField] private float startDelay;
+
     [Header("Win Conditions")]
     [SerializeField, Range(0f, 1f)] private float moneyPercentForWin = 1f;
+
     [Header("Grid")] 
     [SerializeField, Min(1f)] private float gridSize = 2f;
     [SerializeField, Min(1f)] private float maxPointDistance = 1f;
+
     [Header("Gizmos")] 
     [SerializeField] private Color gizmoColor;
     [SerializeField] private float gizmoSize;
     
+    [InjectService] private IGameStateService _gameStateService;
     [InjectService] private ICurrencyService _currencyService;
 
     private float lootTotalPrice;

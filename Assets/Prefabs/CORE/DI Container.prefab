@@ -50,6 +50,50 @@ MonoBehaviour:
   intKey: larje_key_num
   jsonKey: larje_key_json
   boolKey: larje_key_bool
+--- !u!1 &1350096065772152673
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5458644984039572603}
+  - component: {fileID: 1281508810088703628}
+  m_Layer: 0
+  m_Name: Thief Game Service
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5458644984039572603
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1350096065772152673}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3924575942675980841}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1281508810088703628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1350096065772152673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36cd83bc5ad241ddf8bffeed99aabc32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ThiefGameService
 --- !u!1 &1376016725206458951
 GameObject:
   m_ObjectHideFlags: 0
@@ -685,6 +729,7 @@ Transform:
   - {fileID: 451717863371896209}
   - {fileID: 4300093883017705904}
   - {fileID: 2829857463017444186}
+  - {fileID: 222062027070556250}
   - {fileID: 6059397643004389782}
   - {fileID: 397917653485307546}
   - {fileID: 5955355263874339563}
@@ -696,9 +741,10 @@ Transform:
   - {fileID: 5720676888848035285}
   - {fileID: 7867902287370447981}
   - {fileID: 3729435718595662952}
-  - {fileID: 8785069211880286285}
   - {fileID: 8249840861307512933}
   - {fileID: 1581942254539148117}
+  - {fileID: 8785069211880286285}
+  - {fileID: 5458644984039572603}
   - {fileID: 3130894551692533}
   - {fileID: 6611204413664158433}
   - {fileID: 7021510338506293845}
@@ -1190,6 +1236,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3924575942675980841}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9090548609123214419
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 222062027070556250}
+  - component: {fileID: 1106862829177153316}
+  m_Layer: 0
+  m_Name: Game Events Service
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &222062027070556250
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9090548609123214419}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3924575942675980841}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1106862829177153316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9090548609123214419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60976c45e7e775511bce50d608d6b412, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Larje.Core.GameEventService
 --- !u!1001 &3143277871338447702
 PrefabInstance:
   m_ObjectHideFlags: 0

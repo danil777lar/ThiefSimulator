@@ -178,20 +178,23 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -373,6 +376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a869d10e4757f104ab482b0652df20c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  changeActiveState: 1
   config: {fileID: 11400000, guid: 11e695c07f881d54c9e0e817356bf84d, type: 2}
 --- !u!1 &9180387768950277655
 GameObject:
@@ -387,7 +391,6 @@ GameObject:
   - component: {fileID: 8971183622568947656}
   - component: {fileID: 4616883308151971460}
   - component: {fileID: 574186988236673303}
-  - component: {fileID: 3835462722438392108}
   m_Layer: 5
   m_Name: Current Item Button
   m_TagString: Untagged
@@ -515,19 +518,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &3835462722438392108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9180387768950277655}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 334d823cb014a0846b70e03f636401ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  config: {fileID: 11400000, guid: 7d2c2bb44cc287e41b7d6410125733c8, type: 2}
 --- !u!1001 &8872752973536000448
 PrefabInstance:
   m_ObjectHideFlags: 0
