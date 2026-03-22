@@ -41,7 +41,7 @@ public class PlayerInputService : InputService
     
     public override Dictionary<Type, bool> DefaultStates => new Dictionary<Type, bool>
     {
-        { typeof(PlayerActions), false },
+        { typeof(PlayerActions), true },
         { typeof(UIActions), true },
     };
 

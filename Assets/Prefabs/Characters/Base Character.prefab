@@ -76,7 +76,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &3541496475868224114
 CapsuleCollider:
@@ -118,7 +118,8 @@ MonoBehaviour:
     defaultValue: 1
     operation: 0
     value: 0
-  _activeInGameStates: []
+  _activeInGameStates:
+  - {fileID: 11400000, guid: b040c3f6fa6cb9ee097dddb275860b74, type: 2}
 --- !u!114 &6714284203489989621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,9 +132,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8208db20d56743670873142dd3ebe959, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterPhysics
+  disableCollisionsWhenInactive: 1
+  kinematicWhenInactive: 1
   collisionMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   raycastOffset: 0.1
   floatingHeight: 0.25
   floatingSpringStrength: 100
