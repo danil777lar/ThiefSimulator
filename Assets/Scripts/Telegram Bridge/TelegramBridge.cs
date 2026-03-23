@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using AOT;
-using MoreMountains.Tools;
 using UnityEngine;
 
 public class TelegramBridge : MonoBehaviour
@@ -84,17 +83,9 @@ public class TelegramBridge : MonoBehaviour
         return -1;
 #endif
     }
-
-    private string _debug = "";
-    private void Update()
-    {
-        MMDebug.DebugOnScreen(_debug);
-    }
     
     public void CatchInvoiceCallback(string data)
     {
-        _debug = $"Invoice callback: {data}";
-        
         string[] splitted = data.Split("/");
         int index = int.Parse(splitted[0]);
         string callbackResult = splitted[1];

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Larje.Core;
 using Larje.Core.Services;
 using Larje.Core.Services.UI;
-using MoreMountains.Tools;
 using ProjectConstants;
 using TMPro;
 using UnityEditor;
@@ -67,7 +66,7 @@ public class ItemPopup : UIPopup
 
     private void BuildUpgrades()
     {
-        upgradesRoot.MMDestroyAllChildren();
+        upgradesRoot.DestroyAllChildren();
         foreach (UpgradeType upgrade in _args.Item.Upgrades)
         {
             // ItemUpgradeData data = _dataService.Data.GetItemUpgradeData($"{_args.Item.Name}_{_args.ItemType}", upgrade);

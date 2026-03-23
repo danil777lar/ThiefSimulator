@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using MoreMountains.Tools;
 using UnityEngine;
 
 public class VanCargo : MonoBehaviour
@@ -25,7 +24,8 @@ public class VanCargo : MonoBehaviour
         
         foreach (Doors door in doors)
         {
-            Vector3 rotation = door.Door.localRotation.eulerAngles.MMSetY(door.OpenAngle);
+            Vector3 rotation = door.Door.localRotation.eulerAngles;
+            rotation.y = door.OpenAngle;
             door.Door.DOLocalRotate(rotation, 0.5f).SetTarget(this);
         }
         cargoRoot.DOScale(1f, 0.5f).SetTarget(this);
@@ -37,7 +37,8 @@ public class VanCargo : MonoBehaviour
         
         foreach (Doors door in doors)
         {
-            Vector3 rotation = door.Door.localRotation.eulerAngles.MMSetY(0f);
+            Vector3 rotation = door.Door.localRotation.eulerAngles;
+            rotation.y = 0f;
             door.Door.DOLocalRotate(rotation, 0.5f).SetTarget(this);
         }
         cargoRoot.DOScale(0f, 0.5f).SetTarget(this);

@@ -6,7 +6,6 @@ using DG.Tweening;
 using Larje.Core;
 using Larje.Core.Services;
 using Larje.Core.Services.UI;
-using MoreMountains.Tools;
 using ProjectConstants;
 using UnityEngine;
 using UnityEngine.UI;
@@ -91,7 +90,7 @@ public class ShopScreen : UIScreen
 
     private void BuildItems()
     {
-        itemButtonsRoot.MMDestroyAllChildren();
+        itemButtonsRoot.DestroyAllChildren();
         foreach (ItemType type in Enum.GetValues(typeof(ItemType)))
         {
             if (_currentItemTypes.HasFlag((ItemTypes)(int)type))

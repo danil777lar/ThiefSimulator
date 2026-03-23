@@ -1,17 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using MoreMountains.Feedbacks;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class LootCase : MonoBehaviour
 {
     [SerializeField, Min(0f)] private float showEventDelayMultiplier = 1f;
-    [SerializeField] private MMF_Player showFeedback;
+    // [SerializeField] private MMF_Player showFeedback;
     [Space]
     [SerializeField, Min(0f)] private float openEventDelayMultiplier = 1f;
-    [SerializeField] private MMF_Player openFeedback;
+    // [SerializeField] private MMF_Player openFeedback;
     
     private Camera caseCamera;
     private RenderTexture texture;
@@ -24,7 +23,7 @@ public class LootCase : MonoBehaviour
         texture ??= new RenderTexture(width, height, 24);
         caseCamera.targetTexture = texture;
         
-        showFeedback?.PlayFeedbacks();
+        // showFeedback?.PlayFeedbacks();
         StartCoroutine(ShowEventDelay());
         
         return texture;
@@ -32,7 +31,7 @@ public class LootCase : MonoBehaviour
 
     public void Open()
     {
-        openFeedback?.PlayFeedbacks();
+        // openFeedback?.PlayFeedbacks();
         StartCoroutine(OpenEventDelay());
     }
 
@@ -51,13 +50,15 @@ public class LootCase : MonoBehaviour
 
     private IEnumerator ShowEventDelay()
     {
-        yield return new WaitForSeconds(showFeedback.TotalDuration * showEventDelayMultiplier);
+        // yield return new WaitForSeconds(showFeedback.TotalDuration * showEventDelayMultiplier);
+        yield return new WaitForSeconds(1f);
         EventShown?.Invoke();
     }
     
     private IEnumerator OpenEventDelay()
     {
-        yield return new WaitForSeconds(openFeedback.TotalDuration * openEventDelayMultiplier);
+        // yield return new WaitForSeconds(openFeedback.TotalDuration * openEventDelayMultiplier);
+        yield return new WaitForSeconds(1f);
         EventOpened?.Invoke();
     }
 }

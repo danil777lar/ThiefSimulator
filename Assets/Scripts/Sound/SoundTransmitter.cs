@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -63,7 +62,9 @@ public class SoundTransmitter : MonoBehaviour
     private void UpdateHeight()
     {
         float lifetime = 1f - (CurrentAmplitude / _initialAmplitude);
-        transform.localScale = transform.localScale.MMSetY(_defaultHeight * heightCurve.Evaluate(lifetime));
+        Vector3 scale = transform.localScale;
+        scale.y = _defaultHeight * heightCurve.Evaluate(lifetime);
+        transform.localScale = scale;
     }
 
     private void OnComplete()

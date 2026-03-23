@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Larje.Core.Services.UI;
-using MoreMountains.Tools;
 using ProjectConstants;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -67,7 +66,7 @@ public class LockMiniGamePopup : MiniGamePopup
         
         locker.transform.localRotation = Quaternion.Euler( 
             Vector3.Lerp(Vector3.up * 90f, Vector3.up * -90f, _unlockerValue) - 
-            cylinder.transform.localRotation.eulerAngles.Y());
+            cylinder.transform.localRotation.eulerAngles.y * Vector3.up);
 
         if (_controlActive)
         {

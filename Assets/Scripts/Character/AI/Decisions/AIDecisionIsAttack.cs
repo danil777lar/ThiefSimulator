@@ -1,16 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
-using MoreMountains.Tools;
+using Larje.Character.AI;
 using UnityEngine;
 
 public class AIDecisionIsAttack : AIDecision
 {
     private CharacterAttack _characterAttack;
 
-    public override void Initialization()
+    protected override void OnInitialized()
     {
-        base.Initialization();
-        _characterAttack = _brain.gameObject.GetComponent<CharacterAttack>();
+        _characterAttack = Brain.gameObject.GetComponent<CharacterAttack>();
     }
 
     public override bool Decide()

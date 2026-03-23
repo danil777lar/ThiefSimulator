@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using MoreMountains.Tools;
 using UnityEngine;
 
 public static class PhysicsUtility
@@ -15,7 +14,9 @@ public static class PhysicsUtility
             if (collider.attachedRigidbody != null 
                 && collider.attachedRigidbody.TryGetComponent(out T target))
             {
-                Vector3 from = selfPosition.MMSetY(collider.transform.position.y);
+                Vector3 from = selfPosition;
+                from.y = collider.transform.position.y;
+
                 Vector3 direction = collider.transform.position - from;
                 from += Vector3.up * 0.1f;
                 if (!Physics.Raycast(from, direction, out RaycastHit hit,

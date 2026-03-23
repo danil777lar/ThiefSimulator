@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using MoreMountains.Tools;
+using Larje.Character.AI;
 using UnityEngine;
 
 public class AIActionAimToSeekArea : AIAction
@@ -8,24 +8,25 @@ public class AIActionAimToSeekArea : AIAction
     private Transform _target;
     private EnemyAttention _attention;
     
-    public override void Initialization()
+    public override void PerformAction()
+    {
+        _target.position = _attention.LastAttentionPoint;
+    }
+
+    protected override void OnInitialized()
     {
         base.Initialization();
-        _attention = _brain.Owner.GetComponent<EnemyAttention>();
+        _attention = Brain.Owner.GetComponentInChildren<EnemyAttention>();
 
         _target = new GameObject().transform;
         _target.gameObject.name = "Run To Seek Area Target";
         _target.SetParent(transform);
     }
 
-    public override void OnEnterState()
+    protected override void OnEnterState()
     {
         base.OnEnterState();
-        _brain.Target = _target;
+        Brain.Target = _target;
     }
 
-    public override void PerformAction()
-    {
-        _target.position = _attention.LastAttentionPoint;
-    }
 }

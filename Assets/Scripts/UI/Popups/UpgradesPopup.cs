@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Larje.Core;
 using Larje.Core.Services;
 using Larje.Core.Services.UI;
-using MoreMountains.Tools;
 using ProjectConstants;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,7 +27,7 @@ public class UpgradesPopup : UIPopup
 
     private void BuildUpgrades()
     {
-        content.MMDestroyAllChildren();
+        content.DestroyAllChildren();
 
         foreach (KeyValuePair<UpgradeType, ItemUpgradeData> upgrade in _upgradesService.GetPlayerGlobalUpgrades()){
             
