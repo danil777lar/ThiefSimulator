@@ -30,7 +30,6 @@ public class ThiefLevel : LevelProcessor
     [InjectService] private ICurrencyService _currencyService;
 
     private float lootTotalPrice;
-    private bool _isStarting;
     private LevelData _levelData;
 
     public float ProgressFull { get; private set; }
@@ -41,11 +40,7 @@ public class ThiefLevel : LevelProcessor
     
     public override void TryStartLevel(StartData data)
     {
-        if (!_isStarting && !IsLevelPlaying)
-        {
-            // SendEvent(new LevelEventPreStart(startDelay));
-            StartCoroutine(StartDelayCo(data));
-        }
+        StartLevel(data);
     }
 
     public override void TryStopLevel(StopData data)
@@ -150,17 +145,7 @@ public class ThiefLevel : LevelProcessor
             }
         }
     }
-
-    private IEnumerator StartDelayCo(StartData data)
-    {
-        _isStarting = true;
-        
-        yield return new WaitForSeconds(startDelay);
-        
-        StartLevel(data);
-        _isStarting = false;
-    }
-
+    
     private IEnumerator BuildNavmeshCo()
     {
         for (int i = 0; i < 4; i++)

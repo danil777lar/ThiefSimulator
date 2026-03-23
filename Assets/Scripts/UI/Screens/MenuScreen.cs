@@ -22,12 +22,10 @@ public class MenuScreen : UIScreen
     [InjectService] private ThiefGameService _thiefGameService;
     [InjectService] private ILevelManagerService _levelManagerService;
 
-
     public override void Show()
     {
         base.Show();
     }
-
 
     protected override void OnBeforeOpen(UIObject.Args screenOpenProperties)
     {

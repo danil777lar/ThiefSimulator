@@ -316,12 +316,16 @@ MonoBehaviour:
   Shaking: 0
   ForwardDirection: 1
   TimescaleMode: 0
+  _listeningToEvents: 0
+  _shakeStartedTimestamp: -3.4028235e+38
+  _remappedTimeSinceStart: 0
+  _resetShakerValuesAfterShake: 0
+  _resetTargetValuesAfterShake: 0
+  _journey: 0
   RelativeFieldOfView: 0
   ShakeFieldOfView:
-    serializedVersion: 2
     m_Curve:
-    - serializedVersion: 3
-      time: 0
+    - time: 0
       value: 0
       inSlope: 0
       outSlope: 0
@@ -329,8 +333,7 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0
-    - serializedVersion: 3
-      time: 0.5
+    - time: 0.5
       value: 1
       inSlope: 0
       outSlope: 0
@@ -338,8 +341,7 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0
-    - serializedVersion: 3
-      time: 1
+    - time: 1
       value: 0
       inSlope: 0
       outSlope: 0
@@ -352,6 +354,17 @@ MonoBehaviour:
     m_RotationOrder: 4
   RemapFieldOfViewZero: 60
   RemapFieldOfViewOne: 120
+  _targetCamera: {fileID: 0}
+  _initialFieldOfView: 0
+  _originalShakeDuration: 0
+  _originalRelativeFieldOfView: 0
+  _originalShakeFieldOfView:
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _originalRemapFieldOfViewZero: 0
+  _originalRemapFieldOfViewOne: 0
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0

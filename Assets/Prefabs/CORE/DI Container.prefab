@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36cd83bc5ad241ddf8bffeed99aabc32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThiefGameService
+  levelStartCutsceneDuration: 2
 --- !u!1 &1376016725206458951
 GameObject:
   m_ObjectHideFlags: 0
@@ -1069,7 +1070,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Priority>k__BackingField: 0
-  spawnScreenOnStart: 1
+  spawnScreenOnStart: 0
   startScreen: 1
   screens:
   - {fileID: 3269232561248338450, guid: 44d8fc5e330781a4a9f993b4e9dfeb2f, type: 3}

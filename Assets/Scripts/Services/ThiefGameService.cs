@@ -17,10 +17,16 @@ public class ThiefGameService : Service
 
     public override void Init()
     {
+        StartGame();
     }
 
     public void StartLevel()
     {
+        if (_gameStateService.CurrentState == GameStates.Cutscene || _gameStateService.CurrentState == GameStates.Playing)
+        {
+            return;
+        }
+
         _uiService.GetProcessor<UIScreenProcessor>().OpenScreen(new PlayScreen.Args());
         _gameStateService.SetGameState(GameStates.Cutscene);
         _gameEventService.SendEvent(new LevelEventPreStart(levelStartCutsceneDuration));
@@ -30,5 +36,18 @@ public class ThiefGameService : Service
             _gameStateService.SetGameState(GameStates.Playing);
             _levelManagerService.TryStartCurrentLevel(new LevelProcessor.StartData(LevelStartType.Start));
         });
+    }
+
+    private void StartGame()
+    {
+        LoadingScreen.Args loadingScreen = new LoadingScreen.Args(true, () => 
+        {
+            MenuScreen.Args menuScreenArgs = new MenuScreen.Args();
+            _uiService.GetProcessor<UIScreenProcessor>().OpenScreen(menuScreenArgs);
+            _gameStateService.SetGameState(GameStates.Menu);
+        });
+
+        _gameStateService.SetGameState(GameStates.Loading);
+        _uiService.GetProcessor<UIScreenProcessor>().OpenScreen(loadingScreen);
     }
 }
