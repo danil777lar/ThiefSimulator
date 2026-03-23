@@ -88,6 +88,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 878681017395700625, guid: 6df4af2efef53044688493cd7740b964,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 888753096956735884, guid: 6df4af2efef53044688493cd7740b964,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1356067717985629786, guid: 6df4af2efef53044688493cd7740b964,
         type: 3}
       propertyPath: m_Name
@@ -101,6 +111,11 @@ PrefabInstance:
     - target: {fileID: 2314369418861545768, guid: 6df4af2efef53044688493cd7740b964,
         type: 3}
       propertyPath: save
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2652114066311270829, guid: 6df4af2efef53044688493cd7740b964,
+        type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2724311554232135388, guid: 6df4af2efef53044688493cd7740b964,
@@ -168,6 +183,11 @@ PrefabInstance:
       propertyPath: 'AdditionalAbilityNodes.Array.data[0]'
       value: 
       objectReference: {fileID: 1804617501079613297}
+    - target: {fileID: 6743985040987132657, guid: 6df4af2efef53044688493cd7740b964,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8051372575558603605, guid: 6df4af2efef53044688493cd7740b964,
         type: 3}
       propertyPath: autoGrab
@@ -177,6 +197,11 @@ PrefabInstance:
         type: 3}
       propertyPath: autoGrabDelay
       value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8526285727514566541, guid: 6df4af2efef53044688493cd7740b964,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8720725782410476974, guid: 6df4af2efef53044688493cd7740b964,
         type: 3}

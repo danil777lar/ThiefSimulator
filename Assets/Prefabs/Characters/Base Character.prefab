@@ -439,6 +439,7 @@ GameObject:
   - component: {fileID: 6298300967408563738}
   - component: {fileID: 4051612370979481073}
   - component: {fileID: 4380486464327511710}
+  - component: {fileID: 4286876814304610830}
   m_Layer: 0
   m_Name: Abilities
   m_TagString: Untagged
@@ -547,6 +548,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityEnabled: 1
   fitAnimationDuration: 0.5
+--- !u!114 &4286876814304610830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6051609533395490623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee34ad611c0b82ac885bd04a3acddaeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Larje.Character.CharacterRagdoller
+  abilityEnabled: 1
+  ragdollRoot: {fileID: 5445676164548388878}
 --- !u!1 &6719473544292122437
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,7 +698,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5778925320481343603}
   - component: {fileID: 9017115551401626460}
-  - component: {fileID: 5908049205826872486}
   - component: {fileID: 3478935462752104224}
   - component: {fileID: 4053814620552575633}
   m_Layer: 0
@@ -723,18 +737,6 @@ MonoBehaviour:
   distance: 5
   partsOnHide: {fileID: 7652473481740206948, guid: 60274b1edc8ea2246a9086e3131914be,
     type: 3}
---- !u!114 &5908049205826872486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7550773515595132036}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fee2281eb798e145824f61038ef5e4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3478935462752104224
 MonoBehaviour:
   m_ObjectHideFlags: 0
