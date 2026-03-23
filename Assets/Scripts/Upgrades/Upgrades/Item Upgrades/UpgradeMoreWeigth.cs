@@ -11,7 +11,7 @@ public class UpgradeMoreWeigth : UpgradeProcessor
     {
         base.Init(level);
         
-        _carry = GetComponentInParent<Character>().GetComponent<CharacterCarry3D>();
+        _carry = GetComponentInParent<Character>().GetComponentInChildren<CharacterCarry3D>();
         _carry.TryAddWeightCapacityMultiplier(GetMultiplier);
     }
 

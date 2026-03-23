@@ -44,7 +44,7 @@ public class PlayScreen : UIScreen
         _levelData = _levelService.GetCurrentLevelData<ThiefLevel.LevelData>();
         
         _playerProviderService.TryGetPlayer(out _player);
-        _playerCarry = _player.GetComponent<CharacterCarry3D>();
+        _playerCarry = _player.FindAbility<CharacterCarry3D>();
         
         if (_player != null)
         {

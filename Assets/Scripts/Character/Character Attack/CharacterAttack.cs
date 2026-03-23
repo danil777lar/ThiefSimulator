@@ -10,6 +10,7 @@ public class CharacterAttack : CharacterAbility
 {
     [SerializeField] private CharacterAttackConfig config;
     [SerializeField] private LayerMask targetMask;
+    [SerializeField] private LayerMask obstacleMask;
 
     [Header("Attack Marker")] 
     [SerializeField] private bool useMarker;
@@ -31,19 +32,17 @@ public class CharacterAttack : CharacterAbility
     public bool HasTarget => _markers is { Count: > 0 }; 
     public float AttackProgress => 1f - _attackDelay;
     public Transform CharacterModel => null;//character.CharacterModel.transform;
-    public Health CharacterHealth => null;//character.CharacterHealth;
+    public Health CharacterHealth => character.Health;
     public CharacterAttack Target => _target;
 
     public void Froze()
     {
         _grabbed = true;
-        // character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Frozen);
     }
     
     public void Unfroze()
     {
         _grabbed = false;
-        // _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Normal);
     }
 
     public void ApplyVictimAnimation(AnimatorOverrideController animations)
@@ -276,7 +275,7 @@ public class CharacterAttack : CharacterAbility
 
     private bool SphereCastToTarget(CharacterAttack target, float distance, out RaycastHit hit)
     {
-        LayerMask mask = LayerMask.GetMask("Lox");//character.ObstaclesLayerMask;
+        LayerMask mask = obstacleMask;
         Vector3 direction = target.transform.position - transform.position;
         Ray ray = new Ray();
         ray.origin = _characterController.transform.position + _characterController.center;

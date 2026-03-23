@@ -102,7 +102,7 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
 
     protected override void OnInitialized()
     {
-        _movement = character.GetComponent<CharacterWalk>();
+        _movement = character.FindAbility<CharacterWalk>();
         _movement.WalkMultiplier.AddValue(GetSpeedMultiplier);
         _currentCarryables = new List<Carryable>();
         
@@ -176,14 +176,14 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
     {
         _nearestCarryable = null;
         List<Carryable> carryables = PhysicsUtility.FindObjectsInRange<Carryable>
-            (transform.position, findDistance, carryableMask, LayerMask.GetMask("")/*_controller3D.ObstaclesLayerMask*/)
+            (character.transform.position, findDistance, carryableMask, LayerMask.GetMask("")/*_controller3D.ObstaclesLayerMask*/)
             .Keys.ToList()
             .FindAll(x => x.CanBeTaken);
 
         if (carryables.Count > 0)
         {
             _nearestCarryable = carryables.OrderBy(x => 
-                Vector3.Distance(transform.position, x.transform.position)).First();
+                Vector3.Distance(character.transform.position, x.transform.position)).First();
         }
     }
 

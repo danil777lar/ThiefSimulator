@@ -18,17 +18,17 @@ public class CharacterSpawn : CharacterAbility
         _isSpawning = true;
 
         _direction = direction;
-        transform.SetParent(parent);
+        character.transform.SetParent(parent);
 
-        transform.DOLocalMove(Vector3.zero, fitAnimationDuration);
-        transform.DOLocalRotate(Vector3.up * (direction == SpawningDirection.Out ? 180f : 0f), fitAnimationDuration);
+        character.transform.DOLocalMove(Vector3.zero, fitAnimationDuration);
+        character.transform.DOLocalRotate(Vector3.up * (direction == SpawningDirection.Out ? 180f : 0f), fitAnimationDuration);
         // _character.CharacterModel.transform.DOLocalRotate(Vector3.zero, fitAnimationDuration);
     }
 
     public void SetNormalState()
     {
         _isSpawning = false;
-        transform.SetParent(_level.transform);
+        character.transform.SetParent(_level.transform);
     }
 
     protected override void OnInitialized()

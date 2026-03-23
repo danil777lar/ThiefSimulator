@@ -55,12 +55,12 @@ public class CharacterTransition : CharacterAbility, IPlayerActionSource
     {
         _nearestTransition = null;
         Dictionary<TransitionPoint, Collider> transitions = PhysicsUtility.FindObjectsInRange<TransitionPoint>
-            (transform.position, findDistance, transitionMask, LayerMask.GetMask("")/*_controller3D.ObstaclesLayerMask*/);
+            (character.transform.position, findDistance, transitionMask, LayerMask.GetMask("")/*_controller3D.ObstaclesLayerMask*/);
 
         if (transitions.Count > 0)
         {
             _nearestTransition = transitions.Keys.OrderBy(x => 
-                Vector3.Distance(transform.position, x.transform.position)).First();
+                Vector3.Distance(character.transform.position, x.transform.position)).First();
             _nearestTransitionPoint = transitions[_nearestTransition].transform;
         }
     }

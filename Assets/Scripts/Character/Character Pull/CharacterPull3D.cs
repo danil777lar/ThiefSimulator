@@ -24,10 +24,10 @@ public class CharacterPull3D : CharacterAbility, IPlayerActionSource
     [SerializeField] private Sprite attachIcon;
     [SerializeField] private Sprite detachIcon;
 
-    private CharacterWalk _movement;
-    private CharacterOrientation _orientation;
     private Pullable _nearestPullable;
     private Pullable _currentPullable;
+
+    private CharacterWalk _walk;
     
     protected const string _pullingAnimationParameterName = "Pulling";
     protected int _pullingAnimationParameter;
@@ -36,9 +36,7 @@ public class CharacterPull3D : CharacterAbility, IPlayerActionSource
 
     protected override void OnInitialized()
     {
-        _movement = character.GetComponent<CharacterWalk>();
-        _orientation = character.GetComponent<CharacterOrientation>();
-
+        _walk = character.FindAbility<CharacterWalk>();
         BuildActions();
     }
 
@@ -120,7 +118,7 @@ public class CharacterPull3D : CharacterAbility, IPlayerActionSource
             pullPointPosition.y = transform.position.y;
             cargoPullPoint.transform.position = pullPointPosition;
             
-            // _movement.SetLimit(cargoPullPoint.transform.forward, 270f);
+            // _walk.SetLimit(cargoPullPoint.transform.forward, 270f);
             if (Vector3.Distance(_currentPullable.AttachPoint.position, cargoPullPoint.position) > detachDistance)
             {
                 ForceDetachCurrentPullable();
