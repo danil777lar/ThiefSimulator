@@ -61,7 +61,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2092014536794258412}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071067}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -1.4210855e-14, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -72,7 +72,7 @@ Transform:
   - {fileID: 6171700538194213288}
   - {fileID: 6528031268484188633}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!54 &4188570200737543501
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -165,10 +165,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MoreMountains.Feedbacks.MMF_Player, MoreMountains.Feedbacks
-        m_MethodName: PlayFeedbacks
-        m_Mode: 1
+      - m_Target: {fileID: 2362080101060057998}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -501,7 +501,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7846831358080513199}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 8865689349024843731, guid: 9a759a915e8f8134980665cfbda497b3, type: 3}
 --- !u!23 &8639443382389134714
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -614,7 +614,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8082997632824711955}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 2619086233303812490, guid: 9a759a915e8f8134980665cfbda497b3, type: 3}
 --- !u!23 &2008881212499970850
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -750,7 +750,7 @@ PrefabInstance:
     - target: {fileID: 8106120478824581529, guid: f97f4e2b928b0bd4fa0b031b028f3898,
         type: 3}
       propertyPath: duration
-      value: 0.25
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8106120478824581529, guid: f97f4e2b928b0bd4fa0b031b028f3898,
         type: 3}
@@ -867,6 +867,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79fc0b4d290b5d24fabd9ad18800aeca, type: 3}
+--- !u!1 &2362080101060057998 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6037875491647799737, guid: 79fc0b4d290b5d24fabd9ad18800aeca,
+    type: 3}
+  m_PrefabInstance: {fileID: 8290313908070144567}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6528031268484188633 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2996342123749757934, guid: 79fc0b4d290b5d24fabd9ad18800aeca,
@@ -954,7 +960,7 @@ PrefabInstance:
     - target: {fileID: 8106120478824581529, guid: f97f4e2b928b0bd4fa0b031b028f3898,
         type: 3}
       propertyPath: duration
-      value: 0.25
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8106120478824581529, guid: f97f4e2b928b0bd4fa0b031b028f3898,
         type: 3}
