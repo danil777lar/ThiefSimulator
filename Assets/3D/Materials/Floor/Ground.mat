@@ -138,13 +138,14 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EmissionChannel: 4
+    - _Emission_Power: 0
     - _EnvironmentReflections: 1
     - _FresnelMax: 1.5
     - _FresnelMin: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Grid_Noise_Amount: 5.76
+    - _Grid_Noise_Amount: 10
     - _Grid_Scale: 0.15
     - _Grid_Visibility: 1
     - _IndirectIntensity: 1
@@ -195,8 +196,8 @@ Material:
     - _SampleGI: 0
     - _Scale: 0.5
     - _ShadowColorLightAtten: 1
-    - _Shadow_Sharpness: 0
-    - _Shadow_Size: 0
+    - _Shadow_Sharpness: 0.671
+    - _Shadow_Size: 0.806
     - _Sharpness: 0.5
     - _SingleIndirectColor: 0
     - _Smoothness: 0.5
@@ -227,13 +228,14 @@ Material:
     - _UseShadowTexture: 0
     - _UseSpecular: 0
     - _WorkflowMode: 1
+    - _XRMotionVectorsPass: 1
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 0.42069772, g: 0.4344635, b: 0.6075471, a: 1}
     - _Color: {r: 0.4206977, g: 0.43446344, b: 0.60754704, a: 1}
     - _ColorMax: {r: 0.41960785, g: 0.43529412, b: 0.60784316, a: 1}
     - _ColorMin: {r: 0.3625251, g: 0.37776974, b: 0.59119487, a: 1}
-    - _ColorShadow: {r: 0.464756, g: 0.3725524, b: 0.57232696, a: 1}
+    - _ColorShadow: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Grid_Color: {r: 0.4282176, g: 0.31731337, b: 0.5283019, a: 1}
     - _HColor: {r: 1, g: 1, b: 1, a: 1}
@@ -261,4 +263,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 9
+  version: 10

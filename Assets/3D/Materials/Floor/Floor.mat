@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 9
+  version: 10
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -151,6 +151,7 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EmissionChannel: 4
+    - _Emission_Power: 0
     - _EnvironmentReflections: 1
     - _FresnelMax: 1.5
     - _FresnelMin: 0
@@ -207,8 +208,8 @@ Material:
     - _Rotation: 0
     - _SampleGI: 0
     - _ShadowColorLightAtten: 1
-    - _Shadow_Sharpness: 0
-    - _Shadow_Size: 0
+    - _Shadow_Sharpness: 0.31
+    - _Shadow_Size: 0.511
     - _SingleIndirectColor: 0
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
@@ -238,13 +239,14 @@ Material:
     - _UseShadowTexture: 0
     - _UseSpecular: 1
     - _WorkflowMode: 1
+    - _XRMotionVectorsPass: 1
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 0.741975, b: 0.6320754, a: 1}
     - _Color: {r: 1, g: 0.741975, b: 0.6320754, a: 1}
     - _ColorMax: {r: 1, g: 0.75124323, b: 0.57547164, a: 1}
     - _ColorMin: {r: 0.8679245, g: 0.51337755, b: 0.25928554, a: 1}
-    - _ColorShadow: {r: 1, g: 0.7768199, b: 0.72641504, a: 1}
+    - _ColorShadow: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Grid_Color: {r: 1, g: 0.7928795, b: 0.6509433, a: 1}
     - _HColor: {r: 1, g: 1, b: 1, a: 1}
