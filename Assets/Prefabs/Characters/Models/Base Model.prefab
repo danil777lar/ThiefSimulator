@@ -1392,6 +1392,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 16da621302bceaf498d55aaa67245ef8,
         type: 3}
       insertIndex: -1
+      addedObject: {fileID: 2354517465353109893}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 16da621302bceaf498d55aaa67245ef8,
+        type: 3}
+      insertIndex: -1
       addedObject: {fileID: 8157733921256830868}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 16da621302bceaf498d55aaa67245ef8,
         type: 3}
@@ -2130,6 +2134,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2354517465353109893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5948127679615755029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48ebb31007280c56fa0f05fc6d32bee4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ThiefCharacterAnimation
 --- !u!114 &8157733921256830868
 MonoBehaviour:
   m_ObjectHideFlags: 0
