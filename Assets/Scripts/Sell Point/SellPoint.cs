@@ -27,8 +27,9 @@ public class SellPoint : MonoBehaviour
     
     private bool _triggerActive;
     private float _currentTime;
-    private OffscreenMarker _marker;
+    private Character _player;
     private CharacterCarry3D _playerCarry;
+    private OffscreenMarker _marker;
     private List<Sellable> _objectsToSell;
 
     private List<Func<float>> _sellPriceMultipliers = new List<Func<float>>();
@@ -55,10 +56,10 @@ public class SellPoint : MonoBehaviour
     {
         DIContainer.InjectTo(this);
 
-        if (_playerProviderService.TryGetPlayer(out Character player))
+        _objectsToSell = new List<Sellable>();
+        if (_playerProviderService.TryGetPlayer(out _player))
         {
-            _playerCarry = player.GetComponentInChildren<CharacterCarry3D>();
-            _objectsToSell = new List<Sellable>();
+            _playerCarry = _player.FindAbility<CharacterCarry3D>();
             _marker = Instantiate(markerPrefab).Init(transform, _playerCarry.transform, IsMarkerActive);
         }
         else
@@ -98,22 +99,19 @@ public class SellPoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Sellable sellable = other.GetComponentInParent<Sellable>();
-        if (sellable != null && !sellable.InSaleProcess && !_objectsToSell.Contains(sellable))
+        if (other.gameObject == _player.gameObject)
         {
-            sellable.AddToSellOrder();
-            _objectsToSell.Add(sellable);            
+            List<Carryable> carryable = _playerCarry.DropAll();
+            foreach (Carryable c in carryable)
+            {
+                Sellable sellable = c.GetComponent<Sellable>();
+                if (sellable != null)
+                {
+                    c.SetInteractable(false);
+                    _objectsToSell.Add(sellable);
+                }
+            }
         }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        /*Sellable sellable = other.GetComponentInParent<Sellable>();
-        if (sellable != null && _objectsToSell.Contains(sellable))
-        {
-            sellable.StopSelling();
-            _objectsToSell.Remove(sellable);            
-        }*/
     }
 
     private void Sell(Sellable sellable)
@@ -128,8 +126,7 @@ public class SellPoint : MonoBehaviour
             _currencyService.AddCurrency(CurrencyType.Coins, CurrencyPlacementType.Level, price);
             
             DOTween.To(() => 0f, 
-                    x => sellable.transform.position =
-                        EvaluateTrajectory(startPoint, x), 
+                    x => sellable.transform.position = EvaluateTrajectory(startPoint, x), 
                     1f, sellAnimDuration)
                 .SetEase(sellEase)
                 .OnComplete(() =>

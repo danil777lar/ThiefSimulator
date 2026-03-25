@@ -1,7 +1,7 @@
 using System;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UIElements;
+
 using Random = UnityEngine.Random;
 
 public class Carryable : MonoBehaviour
@@ -65,6 +65,11 @@ public class Carryable : MonoBehaviour
     public void UpdatePosition(float deltaTime, float speedPercent)
     {
         TryUpdatePosition(deltaTime, speedPercent);
+    }
+
+    public void SetInteractable(bool value)
+    {
+        _blockTaking = !value;
     }
 
     private void Start()

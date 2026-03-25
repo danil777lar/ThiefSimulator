@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class PlayerSpawner : MonoBehaviour, ILevelStartHandler, ILevelEndHandler
+public class PlayerSpawner : MonoBehaviour
 {
     [SerializeField] private float delay;
     [SerializeField] private GameObject content;
@@ -27,9 +27,10 @@ public class PlayerSpawner : MonoBehaviour, ILevelStartHandler, ILevelEndHandler
     [SerializeField] private OffscreenMarker markerPrefab;
     [SerializeField] private Image progressUi;
         
+    [InjectService] private GameEventService _gameEventService;
+    [InjectService] private IGameStateService _gameStateService;
     [InjectService] private ILevelManagerService _levelService;
 
-    private bool _levelPlaying;
     private bool _triggerActive;
     private bool _playerTouched;
     private bool _despawning;
@@ -39,25 +40,9 @@ public class PlayerSpawner : MonoBehaviour, ILevelStartHandler, ILevelEndHandler
     private SellPoint _sellPoint;
     private CharacterSpawn _player;
     private VanMovement _vanMovement;
-    
-    public void OnLevelStarted(LevelProcessor.StartData data)
-    {
-        _levelPlaying = true;
-    }
 
-    public void OnLevelEnded(LevelProcessor.StopData data)
-    {
-        _levelPlaying = false;
-    }
+    private bool IsPlaying => _gameStateService.CurrentState == GameStates.Playing;
     
-    public void OnLevelEvent()
-    {
-        // if (levelEvent is LevelEventProgressComplete { Type: LevelEventProgressComplete.ProgressType.Min })
-        // {
-        //     _minProgressAchieved = true;
-        // }
-    }
-
     private void Start()
     {
         DIContainer.InjectTo(this);
@@ -67,13 +52,28 @@ public class PlayerSpawner : MonoBehaviour, ILevelStartHandler, ILevelEndHandler
         
         _sellPoint = transform.parent.GetComponentInChildren<SellPoint>();
         _marker = Instantiate(markerPrefab).Init(transform, _player.transform, IsMarkerActive);
+
+        _gameEventService.Subscribe<LevelEventProgressComplete>(OnProgressComplete);
+    }
+
+    private void OnDisable()
+    {
+        _gameEventService.Unsubscribe<LevelEventProgressComplete>(OnProgressComplete);
     }
     
+    private void OnProgressComplete(LevelEventProgressComplete progressEvent)
+    {
+        if (progressEvent.Type == LevelEventProgressComplete.ProgressType.Min)
+        {
+            _minProgressAchieved = true;
+        }
+    }
+
     private void Update()
     {
         CheckIsActive();
         
-        if (!_despawning && _playerTouched && _levelPlaying && _triggerActive)
+        if (!_despawning && _playerTouched && IsPlaying && _triggerActive)
         {
             _currentTime += Time.deltaTime;
             if (_currentTime >= delay)
@@ -120,7 +120,7 @@ public class PlayerSpawner : MonoBehaviour, ILevelStartHandler, ILevelEndHandler
         seq.Append(DOTween.To(() => 1f, (x) => playerRoot.position = EvaluateTrajectory(x), 0f, spawnAnimDuration)
             .SetEase(spawnAnimEase)
             .SetTarget(this)
-            .OnComplete(() =>_player.SetNormalState()));
+            .OnComplete(() => _player.SetNormalState()));
     }
 
     private void Despawn()
@@ -139,7 +139,7 @@ public class PlayerSpawner : MonoBehaviour, ILevelStartHandler, ILevelEndHandler
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!_playerTouched && other.gameObject == _player.gameObject)
+        if (!_playerTouched && other.gameObject == _player.Root.gameObject)
         {
             _playerTouched = true;
         }
@@ -147,7 +147,7 @@ public class PlayerSpawner : MonoBehaviour, ILevelStartHandler, ILevelEndHandler
 
     private void OnTriggerExit(Collider other)
     {
-        if (_playerTouched && other.gameObject == _player.gameObject)
+        if (_playerTouched && other.gameObject == _player.Root.gameObject)
         {
             _playerTouched = false;
         }
@@ -172,6 +172,6 @@ public class PlayerSpawner : MonoBehaviour, ILevelStartHandler, ILevelEndHandler
 
     private bool IsMarkerActive()
     {
-        return _minProgressAchieved && !_sellPoint.TriggerActive && _levelPlaying;
+        return _minProgressAchieved && !_sellPoint.TriggerActive && IsPlaying;
     }
 }

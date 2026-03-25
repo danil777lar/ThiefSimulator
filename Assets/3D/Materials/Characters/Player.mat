@@ -37,6 +37,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Base_Hue_Shift_Gradient:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -62,6 +66,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Grid_Texture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Highlight_Hue_Shift_Gradient:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -101,6 +109,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Shadow_Hue_Shift_Gradient:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -123,6 +135,9 @@ Material:
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _BaseTextureValue: 0
+    - _Base_Hue_Shift: 0
+    - _Base_Saturation_Shift: 0
+    - _Base_Value_Shift: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
@@ -153,7 +168,7 @@ Material:
     - _Grid_Faloff: 50
     - _Grid_Scale: 1
     - _Grid_Visibility: 0.5
-    - _HighlightSize: 0.2
+    - _HighlightSize: 0.535
     - _Highlight_Hue_Shift: 0
     - _Highlight_Saturation_Shift: 0
     - _Highlight_Sharpness: 1
@@ -198,7 +213,7 @@ Material:
     - _RimMax: 1
     - _RimMin: 0.5
     - _ShadowColorLightAtten: 1
-    - _ShadowSize: 0.57
+    - _ShadowSize: 0.174
     - _ShadowValue: 0
     - _Shadow_Hue_Shift: -0.02
     - _Shadow_Saturation_Shift: 0.2
@@ -237,6 +252,7 @@ Material:
     - _UseSpecular: 1
     - _VertexColorValue: 0
     - _WorkflowMode: 1
+    - _XRMotionVectorsPass: 1
     - _ZTest: 4
     - _ZWrite: 1
     - _ZWriteControl: 0
@@ -271,4 +287,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 9
+  version: 10

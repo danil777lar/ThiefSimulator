@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7839060457780289773}
   - component: {fileID: 5257919896557506375}
+  - component: {fileID: 7489971306745004722}
   m_Layer: 0
   m_Name: Abilities
   m_TagString: Untagged
@@ -56,6 +57,35 @@ MonoBehaviour:
   markerSpawnDistance: 5
   markerPrefab: {fileID: 5229158570126236803, guid: 12b8478bbff46ca429216105b389b260,
     type: 3}
+--- !u!114 &7489971306745004722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503687476481289416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6095dd889e77c054181d2d331bd8558a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityEnabled: 1
+  autoGrab: 1
+  autoGrabDelay: 0.5
+  weightCapacity: 5
+  maxWeightSpeedMultiplier: 0.5
+  findDistance: 2.5
+  carryableMask:
+    serializedVersion: 2
+    m_Bits: 8192
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 0
+  carryableAttachPoint: {fileID: 0}
+  drawGizmos: 0
+  gizmosColor: {r: 1, g: 0.41726166, b: 0.058823526, a: 0.5019608}
+  takeIcon: {fileID: 21300000, guid: 784af5bb575a044b0896d79c615a32a5, type: 3}
+  dropIcon: {fileID: 21300000, guid: 8af7f7da9209c45598c2034865aea01c, type: 3}
 --- !u!1 &5263396957636663709
 GameObject:
   m_ObjectHideFlags: 0

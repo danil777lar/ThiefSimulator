@@ -63,6 +63,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Addons
       objectReference: {fileID: 0}
+    - target: {fileID: 7489971306745004722, guid: f9b6fc882f2cb914ebdda2f92cf7fc76,
+        type: 3}
+      propertyPath: carryableAttachPoint
+      value: 
+      objectReference: {fileID: 1614602385367403060}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -188,6 +193,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7535486869168409147, guid: 6df4af2efef53044688493cd7740b964,
+        type: 3}
+      propertyPath: m_Name
+      value: Carry Point
+      objectReference: {fileID: 0}
     - target: {fileID: 8051372575558603605, guid: 6df4af2efef53044688493cd7740b964,
         type: 3}
       propertyPath: autoGrab
@@ -208,12 +218,23 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9162709330136404148, guid: 6df4af2efef53044688493cd7740b964,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.006
+      objectReference: {fileID: 0}
+    - target: {fileID: 9162709330136404148, guid: 6df4af2efef53044688493cd7740b964,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.567
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6615307867351138231, guid: 6df4af2efef53044688493cd7740b964, type: 3}
     - {fileID: 1984777243962410201, guid: 6df4af2efef53044688493cd7740b964, type: 3}
     - {fileID: 2724311554232135388, guid: 6df4af2efef53044688493cd7740b964, type: 3}
     - {fileID: 1230887134683089601, guid: 6df4af2efef53044688493cd7740b964, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6743985040987132657, guid: 6df4af2efef53044688493cd7740b964, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3028311500861373615, guid: 6df4af2efef53044688493cd7740b964,
         type: 3}
@@ -221,6 +242,12 @@ PrefabInstance:
       addedObject: {fileID: 3485856899831891154}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6df4af2efef53044688493cd7740b964, type: 3}
+--- !u!4 &1614602385367403060 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6619566819241437286, guid: 6df4af2efef53044688493cd7740b964,
+    type: 3}
+  m_PrefabInstance: {fileID: 5599474773354324562}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7472577755022483197 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3028311500861373615, guid: 6df4af2efef53044688493cd7740b964,

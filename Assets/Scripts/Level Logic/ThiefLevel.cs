@@ -26,6 +26,7 @@ public class ThiefLevel : LevelProcessor
     [SerializeField] private Color gizmoColor;
     [SerializeField] private float gizmoSize;
     
+    [InjectService] private GameEventService _gameEventService;
     [InjectService] private IGameStateService _gameStateService;
     [InjectService] private ICurrencyService _currencyService;
 
@@ -136,12 +137,12 @@ public class ThiefLevel : LevelProcessor
 
             if (oldProgressFull < 1f && ProgressFull >= 1f)
             {
-                // SendEvent(new LevelEventProgressComplete(LevelEventProgressComplete.ProgressType.Full));
+                _gameEventService.SendEvent(new LevelEventProgressComplete(LevelEventProgressComplete.ProgressType.Full));
             }
             
             if (oldProgressMin < 1f && ProgressMin >= 1f)
             {
-                // SendEvent(new LevelEventProgressComplete(LevelEventProgressComplete.ProgressType.Min));
+                _gameEventService.SendEvent(new LevelEventProgressComplete(LevelEventProgressComplete.ProgressType.Min));
             }
         }
     }

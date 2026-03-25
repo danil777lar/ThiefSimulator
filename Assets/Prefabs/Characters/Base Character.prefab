@@ -103,7 +103,6 @@ Transform:
   m_Children:
   - {fileID: 3028311500861373615}
   - {fileID: 5602274774830813792}
-  - {fileID: 1453071905254236835}
   - {fileID: 1931078906579788121}
   - {fileID: 7287550345413674927}
   m_Father: {fileID: 0}
@@ -435,8 +434,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3985084993791861783}
-  - component: {fileID: 8052346750238423993}
-  - component: {fileID: 6298300967408563738}
   - component: {fileID: 4051612370979481073}
   - component: {fileID: 4380486464327511710}
   - component: {fileID: 4286876814304610830}
@@ -462,58 +459,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6725763387280978726}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8052346750238423993
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6051609533395490623}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9d0c945ef8a1f84a959647d5d49e8dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityEnabled: 1
-  maxMass: 10
-  speedMultiplier: 0.5
-  findDistance: 1
-  attachDistance: 0.75
-  detachDistance: 0.35
-  cargosMask:
-    serializedVersion: 2
-    m_Bits: 4096
-  cargoPullPoint: {fileID: 9162709330136404148}
-  drawGizmos: 0
-  gizmosColor: {r: 1, g: 0.12645656, b: 0, a: 0.5019608}
-  attachIcon: {fileID: 21300000, guid: ab4fbc9e1c7134bc4bc921a5b3b681e2, type: 3}
-  detachIcon: {fileID: 21300000, guid: 8af7f7da9209c45598c2034865aea01c, type: 3}
---- !u!114 &6298300967408563738
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6051609533395490623}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6095dd889e77c054181d2d331bd8558a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityEnabled: 1
-  autoGrab: 0
-  autoGrabDelay: 0.5
-  weightCapacity: 5
-  maxWeightSpeedMultiplier: 0.5
-  findDistance: 2.5
-  carryableMask:
-    serializedVersion: 2
-    m_Bits: 8192
-  carryableAttachPoint: {fileID: 6619566819241437286}
-  drawGizmos: 0
-  gizmosColor: {r: 1, g: 0.41726166, b: 0.058823526, a: 0.5019608}
-  takeIcon: {fileID: 21300000, guid: 784af5bb575a044b0896d79c615a32a5, type: 3}
-  dropIcon: {fileID: 21300000, guid: 8af7f7da9209c45598c2034865aea01c, type: 3}
 --- !u!114 &4051612370979481073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -593,38 +538,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6282012969164897799}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &6743985040987132657
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1453071905254236835}
-  m_Layer: 7
-  m_Name: Utility
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1453071905254236835
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6743985040987132657}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 9162709330136404148}
-  m_Father: {fileID: 4110898182002299340}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7387746230088041327
 GameObject:
   m_ObjectHideFlags: 0
@@ -656,37 +569,6 @@ Transform:
   m_Children:
   - {fileID: 6433895011771078295}
   m_Father: {fileID: 5602274774830813792}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7535486869168409147
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 9162709330136404148}
-  m_Layer: 7
-  m_Name: Cargo Pull Point
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &9162709330136404148
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7535486869168409147}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1453071905254236835}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7550773515595132036
 GameObject:

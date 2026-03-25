@@ -8,21 +8,22 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: King Hoodie
-  m_Shader: {fileID: -6465566751694194690, guid: bd8bc840d72dc3d4cb5bd1c96e8070ce,
+  m_Shader: {fileID: -6465566751694194690, guid: 940bbe88f57318e43b90dacbeb47c1f9,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - _COLOR_SOURCE_BASE_COLOR
   - _USE_FRESNEL
   - _USE_HIGHLIGHT
   - _USE_SHADOW
-  m_InvalidKeywords:
-  - _COLOR_SOURCE_BASE_COLOR
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses:
   - MOTIONVECTORS
   m_LockedProperties: 
@@ -34,6 +35,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Base_Hue_Shift_Gradient:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -57,6 +62,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Highlight_Hue_Shift_Gradient:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -70,6 +79,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Shadow_Hue_Shift_Gradient:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -91,13 +104,18 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Alpha: 1
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _BaseTextureValue: 0
+    - _Base_Hue_Shift: 0
+    - _Base_Saturation_Shift: 0
+    - _Base_Value_Shift: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
     - _COLOR_SOURCE: 0
+    - _CastShadows: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
@@ -115,11 +133,11 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _HighlightSize: 0.072
+    - _HighlightSize: 0.061
     - _Highlight_Hue_Shift: 0
-    - _Highlight_Saturation_Shift: 0.22
+    - _Highlight_Saturation_Shift: 0.05
     - _Highlight_Sharpness: 1
-    - _Highlight_Value_Shift: 0.12
+    - _Highlight_Value_Shift: 1
     - _Metallic: 0
     - _NoiseScale: 100
     - _NoiseSize: 0.1
@@ -133,11 +151,11 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Scale: 1
-    - _ShadowSize: 0.548
-    - _Shadow_Hue_Shift: 0
-    - _Shadow_Saturation_Shift: 0.18
+    - _ShadowSize: 0.916
+    - _Shadow_Hue_Shift: -0.05
+    - _Shadow_Saturation_Shift: 0.01
     - _Shadow_Sharpness: 1
-    - _Shadow_Value_Shift: -0.27
+    - _Shadow_Value_Shift: -0.02
     - _Sharpness: 0.5
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
@@ -153,9 +171,12 @@ Material:
     - _Voronoi_Scale_Max: 0.14
     - _Voronoi_Scale_Min: 0.27
     - _WorkflowMode: 1
+    - _XRMotionVectorsPass: 1
+    - _ZTest: 4
     - _ZWrite: 1
+    - _ZWriteControl: 0
     m_Colors:
-    - _BaseColor: {r: 0.7417865, g: 0.2722201, b: 0.9308176, a: 1}
+    - _BaseColor: {r: 0.92941177, g: 0.45631257, b: 0.2705883, a: 1}
     - _Base_Color_Max: {r: 1, g: 0.45434284, b: 0, a: 1}
     - _Base_Color_Mid: {r: 0.81960785, g: 0, b: 1, a: 0}
     - _Base_Color_Min: {r: 0.6415094, g: 0, b: 0.6283877, a: 0}
@@ -181,4 +202,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 9
+  version: 10

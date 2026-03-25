@@ -18,6 +18,7 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
     [Header("Find")]
     [SerializeField] private float findDistance;
     [SerializeField] private LayerMask carryableMask;
+    [SerializeField] private LayerMask obstacleMask;
     
     [Header("Carry")]
     [SerializeField] private Transform carryableAttachPoint;
@@ -73,17 +74,10 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
         {
             carryables.Add(TryDrop());
         }
+        _currentCarryables.Clear();
         return carryables;
     }
 
-    // public override void UpdateAnimator()
-    // {
-    //     base.UpdateAnimator();
-    //     MMAnimatorExtensions.UpdateAnimatorBool(_animator, _carryAnimationParameter, 
-    //         _currentCarryables is { Count: > 0 },
-    //         _character._animatorParameters, _character.RunAnimatorSanityChecks);
-    // }
-    
     public void TryAddWeightCapacityMultiplier(Func<float> multiplier)
     {
         if (!_weightCapacityMultipliers.Contains(multiplier))
@@ -108,13 +102,6 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
         
         BuildActions();
     }
-
-    // protected override void InitializeAnimatorParameters()
-    // {
-    //     base.InitializeAnimatorParameters();
-    //     RegisterAnimatorParameter(_carryAnimationParameterName, AnimatorControllerParameterType.Bool,
-    //         out _carryAnimationParameter);
-    // }
 
     private void Update()
     {
@@ -175,15 +162,14 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
     private void TryFindCarryable()
     {
         _nearestCarryable = null;
-        List<Carryable> carryables = PhysicsUtility.FindObjectsInRange<Carryable>
-            (character.transform.position, findDistance, carryableMask, LayerMask.GetMask("")/*_controller3D.ObstaclesLayerMask*/)
-            .Keys.ToList()
-            .FindAll(x => x.CanBeTaken);
+
+        Vector3 origin = character.transform.position;
+        List<Carryable> carryables = PhysicsUtility.FindObjectsInRange<Carryable>(origin, findDistance, carryableMask, obstacleMask)
+            .Keys.ToList().FindAll(x => x.CanBeTaken);
 
         if (carryables.Count > 0)
         {
-            _nearestCarryable = carryables.OrderBy(x => 
-                Vector3.Distance(character.transform.position, x.transform.position)).First();
+            _nearestCarryable = carryables.OrderBy(x => Vector3.Distance(character.transform.position, x.transform.position)).First();
         }
     }
 
@@ -206,10 +192,7 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
     {
         if (CanTake())
         {
-            // character.MovementState.ChangeState(CharacterStates.MovementStates.Carry);
-            
-            Transform attachPoint = _currentCarryables.Count > 0 ? 
-                _currentCarryables.Last().TopPoint : carryableAttachPoint;
+            Transform attachPoint = _currentCarryables.Count > 0 ? _currentCarryables.Last().TopPoint : carryableAttachPoint;
             _nearestCarryable.Take(attachPoint);
             _currentCarryables.Add(_nearestCarryable);
         }
