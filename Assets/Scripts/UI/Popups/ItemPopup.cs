@@ -19,10 +19,6 @@ public class ItemPopup : UIPopup
     [SerializeField] private TextMeshProUGUI unlockInGameTitle;
     [SerializeField] private List<QualityOptions> qualityOptions;
 
-    [Header("Upgrades")] 
-    [SerializeField] private ItemUpgradePanel upgradePanelPrefab;
-    [SerializeField] private RectTransform upgradesRoot;
-    
     [Header("Buttons")]
     [SerializeField] private Button closeButton;
     [SerializeField] private Button equipButton;
@@ -56,23 +52,11 @@ public class ItemPopup : UIPopup
         
         _itemHolderService.EventCurrentItemChanged += UpdateUI;
         UpdateUI();
-        BuildUpgrades();
     }
 
     private void OnDestroy()
     {
         _itemHolderService.EventCurrentItemChanged -= UpdateUI;
-    }
-
-    private void BuildUpgrades()
-    {
-        upgradesRoot.DestroyAllChildren();
-        foreach (UpgradeType upgrade in _args.Item.Upgrades)
-        {
-            // ItemUpgradeData data = _dataService.Data.GetItemUpgradeData($"{_args.Item.Name}_{_args.ItemType}", upgrade);
-            // Func<bool> isUnlocked = () => _itemHolderService.IsItemUnlocked(_args.ItemType, _args.Item.Name);
-            // Instantiate(upgradePanelPrefab, upgradesRoot).Build(upgrade, data, isUnlocked);
-        }
     }
 
     private void UpdateUI()
