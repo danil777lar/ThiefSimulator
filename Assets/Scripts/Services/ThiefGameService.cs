@@ -40,6 +40,16 @@ public class ThiefGameService : Service
         });
     }
 
+    public void RestartLevel()
+    {
+        StartGame();
+    }
+
+    public void ReturnToMenu()
+    {
+        StartGame();
+    }
+
     private void OnOnGameStateChanged(GameState oldState, GameState newState)
     {
         if (newState == GameStates.Win)
@@ -57,6 +67,7 @@ public class ThiefGameService : Service
             _gameStateService.SetGameState(GameStates.Menu);
         });
 
+        _levelManagerService.SpawnCurrentLevel();
         _gameStateService.SetGameState(GameStates.Loading);
         _uiService.GetProcessor<UIScreenProcessor>().OpenScreen(loadingScreen);
     }

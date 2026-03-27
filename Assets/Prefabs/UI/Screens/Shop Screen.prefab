@@ -430,6 +430,7 @@ GameObject:
   - component: {fileID: 1225857351914613239}
   - component: {fileID: 2660800980573179002}
   - component: {fileID: 8805802057769185177}
+  - component: {fileID: 6665905857503973664}
   m_Layer: 5
   m_Name: Screen Base
   m_TagString: Untagged
@@ -479,7 +480,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.76415086, g: 0.91472816, b: 1, a: 1}
+  m_Color: {r: 0.76415086, g: 0.91472816, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -520,6 +521,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 150fd211c1a2b4a448721b0721acc7cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6665905857503973664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6686363868495103198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4c46fb97830393068d64e51a0faf348, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIAnimationCanvasGroup
+  eventTypes: 6500000066000000
+  duration: 0.25
+  valueFrom: 0
+  valueTo: 1
+  setToFromOnAwake: 1
 --- !u!1 &7593041475439056272
 GameObject:
   m_ObjectHideFlags: 0
@@ -532,6 +550,7 @@ GameObject:
   - component: {fileID: 7593041475439056275}
   - component: {fileID: 7593041475439056274}
   - component: {fileID: 7593041475439056276}
+  - component: {fileID: 2918004660207106668}
   m_Layer: 5
   m_Name: Button_Back
   m_TagString: Untagged
@@ -641,6 +660,26 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2918004660207106668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7593041475439056272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeaac39ce1be1408e9b9cb9365ebd8d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIAnimationTransformPosition
+  eventTypes: 6500000066000000
+  offsetFrom: {x: -100, y: 0, z: -0}
+  offsetTo: {x: 0, y: 0, z: 0}
+  durationForward: 0.5
+  easeForward: 6
+  durationBackwards: 0.25
+  easeBackwards: 5
+  setToFromOnAwake: 1
 --- !u!1 &7593041475486874135
 GameObject:
   m_ObjectHideFlags: 0
@@ -1020,8 +1059,9 @@ GameObject:
   - component: {fileID: 7593041476607746530}
   - component: {fileID: 7593041476607746532}
   - component: {fileID: 7593041476607746531}
+  - component: {fileID: 7105650992563275402}
   m_Layer: 5
-  m_Name: Text_PanelName
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1147,6 +1187,26 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7105650992563275402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7593041476607746529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeaac39ce1be1408e9b9cb9365ebd8d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIAnimationTransformPosition
+  eventTypes: 6500000066000000
+  offsetFrom: {x: -0, y: 200, z: -0}
+  offsetTo: {x: 0, y: 0, z: 0}
+  durationForward: 0.5
+  easeForward: 27
+  durationBackwards: 0.25
+  easeBackwards: 5
+  setToFromOnAwake: 1
 --- !u!1 &7593041476719249159
 GameObject:
   m_ObjectHideFlags: 0
@@ -1357,6 +1417,7 @@ GameObject:
   - component: {fileID: 7593041476867735188}
   - component: {fileID: 7593041476867735190}
   - component: {fileID: 7593041476867735189}
+  - component: {fileID: 940594632855548800}
   m_Layer: 5
   m_Name: Character
   m_TagString: Untagged
@@ -1422,6 +1483,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &940594632855548800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7593041476867735187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ee9bcd672b328c78c6ab9a6e262869, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIAnimationTransformScale
+  eventTypes: 6500000066000000
+  valueFrom: {x: 0.5, y: 0.5, z: 0.5}
+  valueTo: {x: 1, y: 1, z: 1}
+  durationForward: 0.5
+  easeForward: 27
+  durationBackwards: 0.25
+  easeBackwards: 5
+  setToFromOnAwake: 1
 --- !u!1 &7593041476912770962
 GameObject:
   m_ObjectHideFlags: 0
@@ -1469,6 +1550,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7593041476940030978}
+  - component: {fileID: 9048191654158607566}
   m_Layer: 5
   m_Name: Group_Bottom
   m_TagString: Untagged
@@ -1497,6 +1579,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &9048191654158607566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7593041476940030977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeaac39ce1be1408e9b9cb9365ebd8d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIAnimationTransformPosition
+  eventTypes: 6500000066000000
+  offsetFrom: {x: -0, y: -900, z: -0}
+  offsetTo: {x: 0, y: 0, z: 0}
+  durationForward: 0.5
+  easeForward: 27
+  durationBackwards: 0.25
+  easeBackwards: 5
+  setToFromOnAwake: 1
 --- !u!1 &7593041477091833588
 GameObject:
   m_ObjectHideFlags: 0
@@ -1610,6 +1712,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7593041477411448068}
   - component: {fileID: 7593041477411448070}
+  - component: {fileID: 8772987553356264958}
   m_Layer: 5
   m_Name: Equip_Left
   m_TagString: Untagged
@@ -1665,6 +1768,26 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &8772987553356264958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7593041477411448067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeaac39ce1be1408e9b9cb9365ebd8d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIAnimationTransformPosition
+  eventTypes: 6500000066000000
+  offsetFrom: {x: -200, y: 0, z: -0}
+  offsetTo: {x: 0, y: 0, z: 0}
+  durationForward: 0.5
+  easeForward: 27
+  durationBackwards: 0.25
+  easeBackwards: 5
+  setToFromOnAwake: 1
 --- !u!1001 &55541396658635350
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6245,7 +6368,7 @@ PrefabInstance:
     - target: {fileID: 2701572413599194726, guid: 4e267455f75fa9249a144adc3aece5b4,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 122.78
+      value: 110.48
       objectReference: {fileID: 0}
     - target: {fileID: 2701572413599194726, guid: 4e267455f75fa9249a144adc3aece5b4,
         type: 3}
@@ -6255,7 +6378,7 @@ PrefabInstance:
     - target: {fileID: 2701572413599194726, guid: 4e267455f75fa9249a144adc3aece5b4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 137.78
+      value: 135.48001
       objectReference: {fileID: 0}
     - target: {fileID: 2701572413599194726, guid: 4e267455f75fa9249a144adc3aece5b4,
         type: 3}

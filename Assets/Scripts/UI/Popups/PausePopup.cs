@@ -15,8 +15,8 @@ public class PausePopup : UIPopup
     [SerializeField] private Button mainMenuButton;
 
     [InjectService] private UIService _uiService;
-    [InjectService] private ILevelManagerService _levelManagerService;
     [InjectService] private TimeScaleService _timeScaleService;
+    [InjectService] private ThiefGameService _thiefGameService;
 
     private bool _interactable = false;
     private bool _closable = false;
@@ -60,29 +60,14 @@ public class PausePopup : UIPopup
 
     private void OnRestartButtonClicked()
     {
-        if (!_interactable) return;
-        _interactable = false;
-        
+        _thiefGameService.RestartLevel();
         Close();
-        
-        _levelManagerService.SpawnCurrentLevel();
-        _uiService.GetProcessor<UIScreenProcessor>().OpenScreen(new LoadingScreen.Args(true,
-            () =>
-            {
-                //_uiService.GetProcessor<UIScreenProcessor>().OpenScreen(new LoadingScreen.Args();
-                _levelManagerService.TryStartCurrentLevel(new LevelProcessor.StartData(LevelStartType.Start));
-            }));
     }
 
     private void OnMainMenuButtonClicked()
     {
-        if (!_interactable) return;
-        _interactable = false;
-        
+        _thiefGameService.ReturnToMenu();
         Close();
-        
-        _levelManagerService.SpawnCurrentLevel();
-        _uiService.GetProcessor<UIScreenProcessor>().OpenScreen(new LoadingScreen.Args(true, null));
     }
 
     public new class Args : UIPopup.Args

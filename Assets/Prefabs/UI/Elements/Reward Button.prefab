@@ -127,6 +127,8 @@ GameObject:
   - component: {fileID: 97590637689558621}
   - component: {fileID: 5500042588632946027}
   - component: {fileID: 5836221552432903303}
+  - component: {fileID: 4011904310818885785}
+  - component: {fileID: 2785911855185268872}
   m_Layer: 5
   m_Name: Reward Button
   m_TagString: Untagged
@@ -141,7 +143,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5500042588632946025}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -265,6 +267,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   adNotAvailableLocker: {fileID: 2258703515323471520}
+--- !u!114 &4011904310818885785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5500042588632946025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 428921122e2e45c50aed8fd2e4627e20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIEventsRoot
+--- !u!114 &2785911855185268872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5500042588632946025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ee9bcd672b328c78c6ab9a6e262869, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIAnimationTransformScale
+  eventTypes: f5010000
+  valueFrom: {x: 0.5, y: 0.5, z: 0.5}
+  valueTo: {x: 1, y: 1, z: 1}
+  durationForward: 0.5
+  easeForward: 27
+  durationBackwards: 0.25
+  easeBackwards: 26
+  setToFromOnAwake: 1
 --- !u!1 &5500042589570560954
 GameObject:
   m_ObjectHideFlags: 0

@@ -36,7 +36,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 135.48001, y: -10.000002}
+  m_AnchoredPosition: {x: 135.48001, y: -10}
   m_SizeDelta: {x: 110.48, y: 0}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1177779285594646061
@@ -179,6 +179,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2911308833403826811}
+  - component: {fileID: 3594930251790489578}
   m_Layer: 5
   m_Name: Coins Counter
   m_TagString: Untagged
@@ -206,6 +207,26 @@ RectTransform:
   m_AnchoredPosition: {x: -25, y: -25}
   m_SizeDelta: {x: 160.1, y: 50}
   m_Pivot: {x: 1, y: 1}
+--- !u!114 &3594930251790489578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4591088515789113491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ee9bcd672b328c78c6ab9a6e262869, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIAnimationTransformScale
+  eventTypes: 6500000066000000
+  valueFrom: {x: 0.5, y: 0.5, z: 0.5}
+  valueTo: {x: 1, y: 1, z: 1}
+  durationForward: 0.5
+  easeForward: 27
+  durationBackwards: 0.25
+  easeBackwards: 26
+  setToFromOnAwake: 1
 --- !u!1 &6311868825806644976
 GameObject:
   m_ObjectHideFlags: 0

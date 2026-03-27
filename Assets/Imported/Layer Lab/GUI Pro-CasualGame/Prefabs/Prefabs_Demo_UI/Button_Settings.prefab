@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1518944720451438276}
   - component: {fileID: 1518944720451438277}
   - component: {fileID: 1518944720451438279}
+  - component: {fileID: 5110933506748762847}
   m_Layer: 5
   m_Name: Button_Settings
   m_TagString: Untagged
@@ -121,6 +122,26 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5110933506748762847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1518944720451438275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ee9bcd672b328c78c6ab9a6e262869, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIAnimationTransformScale
+  eventTypes: 6500000066000000
+  valueFrom: {x: 0.5, y: 0.5, z: 0.5}
+  valueTo: {x: 1, y: 1, z: 1}
+  durationForward: 0.5
+  easeForward: 27
+  durationBackwards: 0.25
+  easeBackwards: 26
+  setToFromOnAwake: 1
 --- !u!1 &1518944720650183753
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,7 +176,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.2, y: 0.2}
   m_AnchorMax: {x: 0.8, y: 0.8}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 3.5}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1518944720650183754
@@ -179,14 +200,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.61960787, g: 0.54509807, b: 0.67058825, a: 1}
+  m_Color: {r: 0.6188232, g: 0.5465913, b: 0.6698113, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5a350ac1f8e0a416499529612b3f7dab, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bb686ea4c141046129a10074d93b72fd, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
