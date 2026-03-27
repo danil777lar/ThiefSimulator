@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8568019283414109033}
   - component: {fileID: -2747302863801660463}
+  - component: {fileID: 8278328753678259608}
   m_Layer: 15
   m_Name: Simple Case
   m_TagString: Untagged
@@ -46,8 +47,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bd98710f0a727b48ab646ecd3578830, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showEventDelayMultiplier: 0.75
-  openEventDelayMultiplier: 0.5
+--- !u!114 &8278328753678259608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2822183372692521620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8951e079e617c0d53a1ebc6b8d862b44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LootCaseAnimationSimple
+  root: {fileID: 1906443536438840273}
+  lockParts:
+  - {fileID: 2070698186832980152}
+  - {fileID: 2155736456691316740}
+  topPart: {fileID: 7197332281988433247}
 --- !u!1 &5566644215182995709
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,7 +107,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.71383643, g: 0.83764094, b: 1, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -366,9 +382,27 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b46688dbb46a3b649ad29adf826d61a5, type: 3}
+--- !u!4 &2070698186832980152 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3390010275458484387, guid: b46688dbb46a3b649ad29adf826d61a5,
+    type: 3}
+  m_PrefabInstance: {fileID: 3726488335793332251}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2155736456691316740 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3340988706758121503, guid: b46688dbb46a3b649ad29adf826d61a5,
+    type: 3}
+  m_PrefabInstance: {fileID: 3726488335793332251}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3764336493467027440 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b46688dbb46a3b649ad29adf826d61a5,
+    type: 3}
+  m_PrefabInstance: {fileID: 3726488335793332251}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7197332281988433247 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5788580132185072964, guid: b46688dbb46a3b649ad29adf826d61a5,
     type: 3}
   m_PrefabInstance: {fileID: 3726488335793332251}
   m_PrefabAsset: {fileID: 0}

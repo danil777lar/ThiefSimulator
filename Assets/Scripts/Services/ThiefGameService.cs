@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using Larje.Core;
 using Larje.Core.Services;
@@ -42,7 +43,11 @@ public class ThiefGameService : Service
 
     public void RestartLevel()
     {
-        StartGame();
+        _levelManagerService.SpawnCurrentLevel();
+        Load(() => 
+        {
+            StartLevel();
+        });
     }
 
     public void ReturnToMenu()
@@ -60,14 +65,19 @@ public class ThiefGameService : Service
 
     private void StartGame()
     {
-        LoadingScreen.Args loadingScreen = new LoadingScreen.Args(true, () => 
+        _levelManagerService.SpawnCurrentLevel();
+        Load(() => 
         {
             MenuScreen.Args menuScreenArgs = new MenuScreen.Args();
             _uiService.GetProcessor<UIScreenProcessor>().OpenScreen(menuScreenArgs);
             _gameStateService.SetGameState(GameStates.Menu);
         });
+    }
 
-        _levelManagerService.SpawnCurrentLevel();
+    private void Load(Action onComplete)
+    {
+        LoadingScreen.Args loadingScreen = new LoadingScreen.Args(true, () => onComplete?.Invoke());
+
         _gameStateService.SetGameState(GameStates.Loading);
         _uiService.GetProcessor<UIScreenProcessor>().OpenScreen(loadingScreen);
     }
