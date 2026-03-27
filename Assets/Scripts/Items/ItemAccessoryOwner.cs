@@ -14,7 +14,7 @@ public class ItemAccessoryOwner : MonoBehaviour
     
     [InjectService] private IItemHolderService _itemsService;
     [InjectService] private UpgradesService _upgradesService;
-    [InjectService] private DataService _dataService;
+    [InjectService] private IDataService _dataService;
 
     private GameObject _root;
     private List<UpgradeProcessor> _upgrades = new List<UpgradeProcessor>();

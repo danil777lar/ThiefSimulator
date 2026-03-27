@@ -25,7 +25,7 @@ public class ItemPopup : UIPopup
     [SerializeField] private Button removeButton;
 
     [InjectService] private IItemHolderService _itemHolderService;
-    [InjectService] private DataService _dataService;
+    [InjectService] private IDataService _dataService;
 
     private Args _args;
     

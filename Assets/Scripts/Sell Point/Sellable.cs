@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,8 @@ public class Sellable : MonoBehaviour
     public bool InSaleOrder => _inSaleOrder; 
     public bool InSaleProcess => _inSaleProcess;
     public int Cost => cost;
+
+    public event Action EventSold;
 
     public void AddToSellOrder()
     {
@@ -33,6 +36,11 @@ public class Sellable : MonoBehaviour
         _inSaleProcess = false;
         _rb.isKinematic = false;
         _collider.isTrigger = false;
+    }
+
+    public void Sell()
+    {
+        EventSold?.Invoke();
     }
 
     private void Start()

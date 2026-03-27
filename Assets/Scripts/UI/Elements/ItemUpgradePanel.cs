@@ -24,9 +24,9 @@ public class ItemUpgradePanel : MonoBehaviour
     [SerializeField] private Image upgradeLockIcon;
     [SerializeField] private TextMeshProUGUI upgradeButtonText;
 
-    [InjectService] private DataService _dataService;
     [InjectService] private UIService _uiService;
     [InjectService] private UpgradesService _upgradesService;
+    [InjectService] private IDataService _dataService;
     [InjectService] private ICurrencyService _currencyService;
     [InjectService] private IItemHolderService _itemHolderService;
     [InjectService] private IAdsService _adsService;

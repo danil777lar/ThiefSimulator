@@ -131,6 +131,7 @@ public class SellPoint : MonoBehaviour
                 .SetEase(sellEase)
                 .OnComplete(() =>
                 {
+                    sellable.Sell();
                     Destroy(sellable.gameObject);
                 });
         }

@@ -15,9 +15,6 @@ public class ThiefLevel : LevelProcessor
     [Header("Base")] 
     [SerializeField] private float startDelay;
 
-    [Header("Win Conditions")]
-    [SerializeField, Range(0f, 1f)] private float moneyPercentForWin = 1f;
-
     [Header("Grid")] 
     [SerializeField, Min(1f)] private float gridSize = 2f;
     [SerializeField, Min(1f)] private float maxPointDistance = 1f;
@@ -30,11 +27,11 @@ public class ThiefLevel : LevelProcessor
     [InjectService] private IGameStateService _gameStateService;
     [InjectService] private ICurrencyService _currencyService;
 
-    private float lootTotalPrice;
+    private int _lootInitialCount;
+    private int _lootSoldCount;
     private LevelData _levelData;
 
-    public float ProgressFull { get; private set; }
-    public float ProgressMin { get; private set; }
+    public float Progress { get; private set; }
     public bool IsPlaying => IsLevelPlaying;
     public IReadOnlyList<Vector3> Points { get; private set; }
     public IReadOnlyList<Character> Characters { get; private set; }
@@ -63,12 +60,11 @@ public class ThiefLevel : LevelProcessor
         GrabCurrencyService();
         BuildNavmesh();
         GrabCharacters();
-        GrabLootTotalPrice();
+        GrabLoot();
     }
 
     private void OnDisable()
     {
-        _currencyService.EventCurrencyChanged -= OnCurrencyChanged;
     }
 
     private void OnDrawGizmos()
@@ -86,13 +82,30 @@ public class ThiefLevel : LevelProcessor
     private void GrabCurrencyService()
     {
         _currencyService.SetCurrency(CurrencyType.Coins, CurrencyPlacementType.Level, 0);
-        _currencyService.EventCurrencyChanged += OnCurrencyChanged;
-        OnCurrencyChanged();        
     }
 
-    private void GrabLootTotalPrice()
+    private void GrabLoot()
     {
-        GetComponentsInChildren<Sellable>().ToList().ForEach(x => lootTotalPrice += x.Cost);
+        List<Sellable> sellables = GetComponentsInChildren<Sellable>().ToList();
+
+        _lootInitialCount = sellables.Count;
+        foreach (Sellable s in sellables)
+        {
+            s.EventSold += () => 
+            {
+                _lootSoldCount++;
+                UpdateLootProgress();
+            };
+        }
+    }
+
+    private void UpdateLootProgress()
+    {
+        Progress = (float)_lootSoldCount / (float)_lootInitialCount;
+        if (_lootSoldCount >= _lootInitialCount)
+        {
+            _gameEventService.SendEvent(new LevelEventProgressComplete());
+        }
     }
 
     [ContextMenu("Build Navmesh")]
@@ -124,28 +137,6 @@ public class ThiefLevel : LevelProcessor
         Characters = GetComponentsInChildren<Character>();
     }
     
-    private void OnCurrencyChanged()
-    {
-        if (lootTotalPrice > 0)
-        {
-            float oldProgressFull = ProgressFull;
-            float oldProgressMin = ProgressMin;
-            float currentMoney = (float)_currencyService.GetCurrency(CurrencyType.Coins, CurrencyPlacementType.Level);
-
-            ProgressFull = currentMoney / (float)lootTotalPrice;
-            ProgressMin = Mathf.Clamp01(ProgressFull / moneyPercentForWin);
-
-            if (oldProgressFull < 1f && ProgressFull >= 1f)
-            {
-                _gameEventService.SendEvent(new LevelEventProgressComplete(LevelEventProgressComplete.ProgressType.Full));
-            }
-            
-            if (oldProgressMin < 1f && ProgressMin >= 1f)
-            {
-                _gameEventService.SendEvent(new LevelEventProgressComplete(LevelEventProgressComplete.ProgressType.Min));
-            }
-        }
-    }
     
     private IEnumerator BuildNavmeshCo()
     {
@@ -163,8 +154,7 @@ public class ThiefLevel : LevelProcessor
     {
         private readonly ThiefLevel _level;
 
-        public float ProgressForWin => _level.ProgressMin;
-        public float ProgressTotal => _level.ProgressFull;
+        public float Progress => _level.Progress;
         
         public LevelData (ThiefLevel level)
         {

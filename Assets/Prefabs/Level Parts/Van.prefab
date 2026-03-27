@@ -188,7 +188,7 @@ Transform:
   m_LocalScale: {x: 99.99996, y: 99.999985, z: 99.99998}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 9178113733940146369}
+  - {fileID: 8023029992447782223}
   m_Father: {fileID: 4943371125665136980}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1739999514536903734
@@ -1095,7 +1095,7 @@ MonoBehaviour:
     <OpenAngle>k__BackingField: 150
   - <Door>k__BackingField: {fileID: 8834514293069758894}
     <OpenAngle>k__BackingField: -150
---- !u!1001 &2693032225046333384
+--- !u!1001 &3843576125961034310
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1106,7 +1106,7 @@ PrefabInstance:
     - target: {fileID: 2604788093133267962, guid: 0f2239a6e98a5ed48abd79ec5d4ffa74,
         type: 3}
       propertyPath: m_Name
-      value: Van Trail
+      value: Van Trail (1)
       objectReference: {fileID: 0}
     - target: {fileID: 6485367470100313865, guid: 0f2239a6e98a5ed48abd79ec5d4ffa74,
         type: 3}
@@ -1126,12 +1126,12 @@ PrefabInstance:
     - target: {fileID: 6485367470100313865, guid: 0f2239a6e98a5ed48abd79ec5d4ffa74,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.00315
+      value: -0.0033
       objectReference: {fileID: 0}
     - target: {fileID: 6485367470100313865, guid: 0f2239a6e98a5ed48abd79ec5d4ffa74,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6485367470100313865, guid: 0f2239a6e98a5ed48abd79ec5d4ffa74,
         type: 3}
@@ -1173,21 +1173,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7049050708496251593, guid: 0f2239a6e98a5ed48abd79ec5d4ffa74,
+    - target: {fileID: 6485367470100313865, guid: 0f2239a6e98a5ed48abd79ec5d4ffa74,
         type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: b134a8ef65512b4888d933a32a49a108, type: 2}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f2239a6e98a5ed48abd79ec5d4ffa74, type: 3}
---- !u!4 &9178113733940146369 stripped
+--- !u!4 &8023029992447782223 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6485367470100313865, guid: 0f2239a6e98a5ed48abd79ec5d4ffa74,
     type: 3}
-  m_PrefabInstance: {fileID: 2693032225046333384}
+  m_PrefabInstance: {fileID: 3843576125961034310}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4253650148174460375
 PrefabInstance:

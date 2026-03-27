@@ -63,10 +63,7 @@ public class PlayerSpawner : MonoBehaviour
     
     private void OnProgressComplete(LevelEventProgressComplete progressEvent)
     {
-        if (progressEvent.Type == LevelEventProgressComplete.ProgressType.Min)
-        {
-            _minProgressAchieved = true;
-        }
+        _minProgressAchieved = true;
     }
 
     private void Update()

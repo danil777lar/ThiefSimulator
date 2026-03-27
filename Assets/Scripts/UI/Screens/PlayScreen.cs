@@ -14,12 +14,9 @@ public class PlayScreen : UIScreen
 {
     [Header("Buttons")]
     [SerializeField] private Button pauseButton;
-    [Header("Action Buttons")]
-    [SerializeField] private PlayerActionButton actionButtonPrefab; 
-    [SerializeField] private RectTransform actionButtonsRoot;
+
     [Header("Progress")] 
     [SerializeField] private Slider sliderTotal; 
-    [SerializeField] private Slider sliderWin; 
     [SerializeField] private Slider sliderWeight; 
     
     [InjectService] private UIService _uiService;
@@ -30,35 +27,17 @@ public class PlayScreen : UIScreen
     private Character _player;
     private CharacterCarry3D _playerCarry;
     private ThiefLevel.LevelData _levelData;
-    private List<PlayerActionButton> _actionButtons;
 
     protected override void OnBeforeOpen(UIObject.Args args)
     {
         DIContainer.InjectTo(this);
         
         pauseButton.onClick.AddListener(OnPauseButtonClicked);
-        
         sliderTotal.value = 0f;
-        sliderWin.value = 0f;
-        
+
         _levelData = _levelService.GetCurrentLevelData<ThiefLevel.LevelData>();
-        
         _playerProviderService.TryGetPlayer(out _player);
         _playerCarry = _player.FindAbility<CharacterCarry3D>();
-        
-        if (_player != null)
-        {
-            actionButtonsRoot.DestroyAllChildren();
-            _actionButtons = new List<PlayerActionButton>();
-            IPlayerActionSource[] actionSources = _player.GetComponents<IPlayerActionSource>();
-            foreach (IPlayerActionSource source in actionSources)
-            {
-                foreach (PlayerAction playerAction in source.Actions)
-                {
-                    _actionButtons.Add(Instantiate(actionButtonPrefab, actionButtonsRoot).Build(playerAction));
-                }   
-            }
-        }
     }
 
     protected override bool OnBack(bool onlyOverride)
@@ -69,22 +48,13 @@ public class PlayScreen : UIScreen
 
     private void Update()
     {
-        UpdateActionButtons();
         UpdateProgress();
         UpdateCarryWeight();
     }
 
-    private void UpdateActionButtons()
-    {
-        bool blockUpdate = false;
-        _actionButtons.ForEach(x => blockUpdate |= x.PointerDown);
-        _actionButtons.ForEach(x => x.blockUpdateUI = blockUpdate);
-    }
-
     private void UpdateProgress()
     {
-        sliderTotal.value = Mathf.Lerp(sliderTotal.value, _levelData.ProgressTotal, Time.deltaTime * 5f);
-        sliderWin.value = Mathf.Lerp(sliderWin.value, _levelData.ProgressForWin, Time.deltaTime * 5f);
+        sliderTotal.value = Mathf.Lerp(sliderTotal.value, _levelData.Progress, Time.deltaTime * 5f);
     }
 
     private void UpdateCarryWeight()
