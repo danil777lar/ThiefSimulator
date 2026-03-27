@@ -17,6 +17,8 @@ public class ThiefGameService : Service
 
     public override void Init()
     {
+        _gameStateService.EventGameStateChanged += OnOnGameStateChanged;
+
         StartGame();
     }
 
@@ -36,6 +38,14 @@ public class ThiefGameService : Service
             _gameStateService.SetGameState(GameStates.Playing);
             _levelManagerService.TryStartCurrentLevel(new LevelProcessor.StartData(LevelStartType.Start));
         });
+    }
+
+    private void OnOnGameStateChanged(GameState oldState, GameState newState)
+    {
+        if (newState == GameStates.Win)
+        {
+            _uiService.GetProcessor<UIScreenProcessor>().OpenScreen(new WinScreen.Args());
+        }
     }
 
     private void StartGame()

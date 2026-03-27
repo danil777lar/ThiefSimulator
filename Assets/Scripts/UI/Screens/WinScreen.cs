@@ -39,12 +39,12 @@ public class WinScreen : UIScreen, IItemQualityBackgroundUser
     [SerializeField] private float nextStepDelay;
     [SerializeField] private List<LootStep> lootSteps;
 
+    [InjectService] private UIService _uiService;
     [InjectService] private ILevelManagerService _levelService;
     [InjectService] private ICurrencyService _currencyService;
     [InjectService] private IAdsService _adsService;
     [InjectService] private ItemHolderService _itemsService;
-    [InjectService] private DataService _dataService;
-    [InjectService] private UIService _uiService;
+    [InjectService] private IDataService _dataService;
 
     private bool _bestRewardGiven;
     private bool _rewardedShown;

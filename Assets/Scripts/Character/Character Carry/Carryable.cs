@@ -75,7 +75,7 @@ public class Carryable : MonoBehaviour
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _collider = GetComponent<Collider>();
+        _collider = GetComponentInChildren<Collider>();
     }
 
     private void OnDisable()
