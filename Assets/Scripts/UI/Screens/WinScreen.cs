@@ -181,7 +181,7 @@ public class WinScreen : UIScreen, IItemQualityBackgroundUser
         else
         {
             int coinsAmount = Random.Range(lootSteps[_currentStepIndex].CoinsMin, lootSteps[_currentStepIndex].CoinsMax);
-            rewardCoins.text = $"{coinsAmount}<sprite index=0>";
+            rewardCoins.text = $"${coinsAmount}";
             rewardCoins.gameObject.SetActive(true);
             
             _currencyService.AddCurrency(CurrencyType.Coins, CurrencyPlacementType.Global, coinsAmount);

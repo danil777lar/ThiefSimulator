@@ -1258,7 +1258,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 303.06, y: 134.88}
+  m_SizeDelta: {x: 261.38, y: 134.88}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8683751069810993325
 CanvasRenderer:
@@ -1288,7 +1288,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100<sprite index=0>
+  m_text: $100
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e21d9fa883341484f8393b51730ca170, type: 2}
   m_sharedMaterial: {fileID: -4918373443893110478, guid: e21d9fa883341484f8393b51730ca170,
@@ -1298,8 +1298,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4290314178
+  m_fontColor: {r: 0.76213235, g: 1, b: 0.7216981, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1339,7 +1339,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1

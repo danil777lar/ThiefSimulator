@@ -286,7 +286,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.584
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -431,8 +431,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 67969f734195d4619aab1f08027f0b58, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: f6291ac32d4e54875a041965865c030b, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -642,7 +642,7 @@ PrefabInstance:
     - target: {fileID: 2701572413599194726, guid: 4e267455f75fa9249a144adc3aece5b4,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 125.44
+      value: 110.48
       objectReference: {fileID: 0}
     - target: {fileID: 2701572413599194726, guid: 4e267455f75fa9249a144adc3aece5b4,
         type: 3}
@@ -652,7 +652,7 @@ PrefabInstance:
     - target: {fileID: 2701572413599194726, guid: 4e267455f75fa9249a144adc3aece5b4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 150.44
+      value: 135.48001
       objectReference: {fileID: 0}
     - target: {fileID: 2701572413599194726, guid: 4e267455f75fa9249a144adc3aece5b4,
         type: 3}
@@ -973,6 +973,31 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6733544810457642187, guid: 475b1363c9fb8459ba6e207f40c1c6dd,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6733544810457642187, guid: 475b1363c9fb8459ba6e207f40c1c6dd,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6733544810457642187, guid: 475b1363c9fb8459ba6e207f40c1c6dd,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.47787556
+      objectReference: {fileID: 0}
+    - target: {fileID: 6733544810457642187, guid: 475b1363c9fb8459ba6e207f40c1c6dd,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6733544810457642187, guid: 475b1363c9fb8459ba6e207f40c1c6dd,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.4669811
+      objectReference: {fileID: 0}
     - target: {fileID: 6733544810457642228, guid: 475b1363c9fb8459ba6e207f40c1c6dd,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -1107,6 +1132,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Level Progress
+      objectReference: {fileID: 0}
+    - target: {fileID: 6733544811270446875, guid: 475b1363c9fb8459ba6e207f40c1c6dd,
+        type: 3}
+      propertyPath: m_Colors.m_ColorMultiplier
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

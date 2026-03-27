@@ -71,7 +71,7 @@ public class ItemUpgradePanel : MonoBehaviour
         upgradeAdButton.gameObject.SetActive(!isMaxLevel && !isEnoughMoney);
         maxLevelButton.gameObject.SetActive(isMaxLevel);
         
-        upgradeButtonText.text = isMaxLevel ? "MAX LEVEL" : $"UPGRADE\n{GetCurrentUpgradePrice()}<sprite index=0>";
+        upgradeButtonText.text = isMaxLevel ? "MAX LEVEL" : $"UPGRADE\n${GetCurrentUpgradePrice()}";
     }
 
     private void BuildProgressSlider()
