@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a53fa1e0f61350a79fc7a33b6c9fee9, type: 3}
+  m_Name: Level_0
+  m_EditorClassIdentifier: Assembly-CSharp::LightmapPackConfig
+  lightmaps:
+  - color: Level_0_Lightmap-0_comp_light
+    direction: 
+    shadow: 
+  probePath: Level_0_lightProbes
+  rendererEntries:
+  - path: Level Holder/Level 0 Tutorial/Building/Props/Prop_Flower (1)/Flower/Plant1
+    lightmapIndex: 0
+    scaleOffset: {x: 0.052083883, y: 0.052083883, z: 0.24029583, w: 0.43267864}
+  - path: Level Holder/Level 0 Tutorial/Building/Props/Prop_Flower (1)/Flower
+    lightmapIndex: 0
+    scaleOffset: {x: 0.051550146, y: 0.051550146, z: 0.24048525, w: 0.3068915}
+  - path: Level Holder/Level 0 Tutorial/Building/Props/Prop_Flower/Flower/Plant1
+    lightmapIndex: 0
+    scaleOffset: {x: 0.052083883, y: 0.052083883, z: 0.24029583, w: 0.39263958}
+  - path: Level Holder/Level 0 Tutorial/Building/Props/Prop_Flower/Flower
+    lightmapIndex: 0
+    scaleOffset: {x: 0.051550146, y: 0.051550146, z: 0.24048525, w: 0.34986025}
+  - path: Level Holder/Level 0 Tutorial/Building/Props/Prop_MetalTable (1)/Metal
+      Table
+    lightmapIndex: 0
+    scaleOffset: {x: 0.09893108, y: 0.09893108, z: 0.17270891, w: 0.5535683}
+  - path: Level Holder/Level 0 Tutorial/Building/Props/Prop_MetalTable/Metal Table
+    lightmapIndex: 0
+    scaleOffset: {x: 0.09893108, y: 0.09893108, z: -0.005025463, w: 0.7117714}
+  - path: Level Holder/Level 0 Tutorial/Building/Bake Plaveholders/Door
+    lightmapIndex: 0
+    scaleOffset: {x: 0.0009838406, y: 0.0009838406, z: 0.29101163, w: 0.312496}
+  - path: Level Holder/Level 0 Tutorial/Building/Building_A/Wall
+    lightmapIndex: 0
+    scaleOffset: {x: 0.31126815, y: 0.31126815, z: 0, w: 0}
+  - path: Level Holder/Level 0 Tutorial/Building/Building_A/Floor
+    lightmapIndex: 0
+    scaleOffset: {x: 0.17715454, y: 0.17715454, z: -0.0006920099, w: 0.55790174}
+  - path: Level Holder/Level 0 Tutorial/Environment/Ground Top
+    lightmapIndex: 0
+    scaleOffset: {x: 0.24414062, y: 0.24414062, z: 0, w: 0.3125}

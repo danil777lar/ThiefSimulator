@@ -19,6 +19,9 @@ public class ThiefLevel : LevelProcessor
     [SerializeField, Min(1f)] private float gridSize = 2f;
     [SerializeField, Min(1f)] private float maxPointDistance = 1f;
 
+    [Header("Light")]
+    [SerializeField] private LightmapPackConfig lightmapConfig;
+
     [Header("Gizmos")] 
     [SerializeField] private Color gizmoColor;
     [SerializeField] private float gizmoSize;
@@ -55,7 +58,10 @@ public class ThiefLevel : LevelProcessor
     {
         DIContainer.InjectTo(this);
 
+        gameObject.name = gameObject.name.Replace("(Clone)", "").Trim();
         _levelData = new LevelData(this);
+
+        lightmapConfig?.Apply();
         
         GrabCurrencyService();
         BuildNavmesh();

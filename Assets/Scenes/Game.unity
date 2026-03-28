@@ -333,7 +333,7 @@ Light:
   serializedVersion: 12
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.2
+  m_Intensity: 0.5
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -671,7 +671,7 @@ LightingSettings:
   m_IndirectOutputScale: 1
   m_UsingShadowmask: 1
   m_BakeBackend: 2
-  m_LightmapMaxSize: 2048
+  m_LightmapMaxSize: 1024
   m_LightmapSizeFixed: 0
   m_UseMipmapLimits: 1
   m_BakeResolution: 20
@@ -689,7 +689,7 @@ LightingSettings:
   m_CompAOExponentDirect: 0.5
   m_ExtractAO: 0
   m_MixedBakeMode: 2
-  m_LightmapsBakeMode: 1
+  m_LightmapsBakeMode: 0
   m_FilterMode: 1
   m_LightmapParameters: {fileID: 15204, guid: 0000000000000000f000000000000000, type: 0}
   m_ExportTrainingData: 0
@@ -734,6 +734,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Level 0 Tutorial
+      objectReference: {fileID: 0}
+    - target: {fileID: 4034372897900647413, guid: ff99004503ddd4244a8e1aeac12ea6fe,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5948302063111576897, guid: ff99004503ddd4244a8e1aeac12ea6fe,
         type: 3}
