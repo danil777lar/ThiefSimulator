@@ -645,6 +645,11 @@ PrefabInstance:
       propertyPath: levelHolder
       value: 
       objectReference: {fileID: 1233038809}
+    - target: {fileID: 8887865979600733265, guid: d679ec3ce6833974ba803ad3e9a026fd,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -50
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -665,7 +670,7 @@ LightingSettings:
   m_AlbedoBoost: 1
   m_IndirectOutputScale: 1
   m_UsingShadowmask: 1
-  m_BakeBackend: 1
+  m_BakeBackend: 2
   m_LightmapMaxSize: 2048
   m_LightmapSizeFixed: 0
   m_UseMipmapLimits: 1

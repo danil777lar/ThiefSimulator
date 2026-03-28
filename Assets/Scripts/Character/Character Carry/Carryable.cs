@@ -78,6 +78,7 @@ public class Carryable : MonoBehaviour
         _collider = GetComponentInChildren<Collider>();
     }
 
+
     private void OnDisable()
     {
         EventDisabled?.Invoke(this);

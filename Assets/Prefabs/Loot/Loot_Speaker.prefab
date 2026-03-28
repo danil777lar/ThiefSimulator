@@ -109,6 +109,7 @@ GameObject:
   - component: {fileID: 8389290444598189539}
   - component: {fileID: 1026422449824308722}
   - component: {fileID: -7920127927080960797}
+  - component: {fileID: 5542252437379345569}
   m_Layer: 13
   m_Name: Loot_Speaker
   m_TagString: Untagged
@@ -200,7 +201,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90c6ca2f335d0b62fb61d16daa6b5042, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OutlineDrawer
-  material: {fileID: 2100000, guid: 53f682e24eb2e8fb09cd1fc303a10f65, type: 2}
+  defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  defaultWidth: 0.025
+  defaultValue: 1
+  defaultPower: 1
+--- !u!114 &5542252437379345569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5352582306813782019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f052b7f710565f8db649d4011933339, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OutlineDrawerGlowAnim
+  glowSpeed: 2
+  outlineWidthMultiplier: 1
+  outlineColorPower: 10
 --- !u!1001 &488976604581957923
 PrefabInstance:
   m_ObjectHideFlags: 0
