@@ -129,6 +129,8 @@ public class SellPoint : MonoBehaviour
                 Currency = CurrencyType.Coins,
                 Placement = CurrencyPlacementType.Level,
                 Amount = price,
+                UsePosition = true,
+                WorldPosition = sellable.transform.position
             });
             
             DOTween.To(() => 0f, 
