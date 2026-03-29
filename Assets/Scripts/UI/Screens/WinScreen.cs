@@ -184,7 +184,12 @@ public class WinScreen : UIScreen, IItemQualityBackgroundUser
             rewardCoins.text = $"${coinsAmount}";
             rewardCoins.gameObject.SetActive(true);
             
-            _currencyService.AddCurrency(CurrencyType.Coins, CurrencyPlacementType.Global, coinsAmount);
+            _currencyService.AddCurrency(new CurrencyOperationData
+            {
+                Currency = CurrencyType.Coins,
+                Placement = CurrencyPlacementType.Global,
+                Amount = coinsAmount
+            });
             _dataService.SaveGameData();
         }
     }

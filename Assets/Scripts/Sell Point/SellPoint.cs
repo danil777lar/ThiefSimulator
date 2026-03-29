@@ -123,7 +123,13 @@ public class SellPoint : MonoBehaviour
             sellable.PrepareToSell();
 
             int price = Mathf.RoundToInt(sellable.Cost * GetSellPriceMultiplier());
-            _currencyService.AddCurrency(CurrencyType.Coins, CurrencyPlacementType.Level, price);
+
+            _currencyService.AddCurrency(new CurrencyOperationData
+            {
+                Currency = CurrencyType.Coins,
+                Placement = CurrencyPlacementType.Level,
+                Amount = price,
+            });
             
             DOTween.To(() => 0f, 
                     x => sellable.transform.position = EvaluateTrajectory(startPoint, x), 

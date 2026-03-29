@@ -102,7 +102,13 @@ public class ItemUpgradePanel : MonoBehaviour
             return;
         }
         
-        if (_currencyService.TrySpendCurrency(CurrencyType.Coins, CurrencyPlacementType.Global, GetCurrentUpgradePrice()))
+        CurrencyOperationData spend = new CurrencyOperationData
+        {
+            Currency = CurrencyType.Coins,
+            Placement = CurrencyPlacementType.Global,
+            Amount = GetCurrentUpgradePrice(),
+        };
+        if (_currencyService.TrySpendCurrency(spend))
         {
             Upgrade();
         }
