@@ -19,6 +19,8 @@ public class SellPoint : MonoBehaviour
     [SerializeField] private SplineComputer trajectory;
     [SerializeField] private GameObject content;
     [Space] 
+    [SerializeField] private Transform currencySpawnPoint;
+    [Space]
     [SerializeField] private OffscreenMarker markerPrefab;
     [SerializeField] private Image sellProgressUi;
 
@@ -121,17 +123,6 @@ public class SellPoint : MonoBehaviour
             Vector3 startPoint = sellable.transform.position;
             _objectsToSell.Remove(sellable);
             sellable.PrepareToSell();
-
-            int price = Mathf.RoundToInt(sellable.Cost * GetSellPriceMultiplier());
-
-            _currencyService.AddCurrency(new CurrencyOperationData
-            {
-                Currency = CurrencyType.Coins,
-                Placement = CurrencyPlacementType.Level,
-                Amount = price,
-                UsePosition = true,
-                WorldPosition = sellable.transform.position
-            });
             
             DOTween.To(() => 0f, 
                     x => sellable.transform.position = EvaluateTrajectory(startPoint, x), 
@@ -139,6 +130,16 @@ public class SellPoint : MonoBehaviour
                 .SetEase(sellEase)
                 .OnComplete(() =>
                 {
+                    int price = Mathf.RoundToInt(sellable.Cost * GetSellPriceMultiplier());
+                    _currencyService.AddCurrency(new CurrencyOperationData
+                    {
+                        Currency = CurrencyType.Coins,
+                        Placement = CurrencyPlacementType.Level,
+                        Amount = price,
+                        UsePosition = true,
+                        WorldPosition = currencySpawnPoint.position
+                    });
+
                     sellable.Sell();
                     Destroy(sellable.gameObject);
                 });
