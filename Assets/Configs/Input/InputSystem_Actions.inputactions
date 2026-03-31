@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "InputSystem_Actions",
     "maps": [
         {
@@ -483,7 +484,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "3D Vector",
+                    "name": "Mouse",
                     "id": "a7a5f3ee-74c2-4c55-b851-ad521bb1c12a",
                     "path": "3DVector",
                     "interactions": "",
@@ -519,6 +520,50 @@
                     "name": "Forward",
                     "id": "1a200b21-75d7-47d4-b44d-638eb95b9b3f",
                     "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pointer",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Touch",
+                    "id": "a02aba5c-f553-440b-8813-7c014361eb04",
+                    "path": "3DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pointer",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Right",
+                    "id": "70246b2f-9670-4af0-9526-40d5075cffa9",
+                    "path": "<Touchscreen>/position/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pointer",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Up",
+                    "id": "64162b8f-05ca-4883-af1a-dd7e6f9335b0",
+                    "path": "<Touchscreen>/position/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pointer",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Forward",
+                    "id": "4d2cdb5f-8d74-4ef3-815a-fed336215e72",
+                    "path": "<Touchscreen>/Press",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
