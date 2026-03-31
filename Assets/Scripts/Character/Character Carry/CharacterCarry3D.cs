@@ -46,6 +46,8 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
     public float CurrentWeight => _currentCarryables.Sum(x => x.Weight);
     public float WeightPercent => Mathf.Clamp01(CurrentWeight / WeightCapacity);
 
+    public IReadOnlyCollection<Carryable> CurrentCarryables => _currentCarryables.AsReadOnly();
+
     public PlayerAction[] Actions { get; private set; }
 
     public Carryable TryDrop(bool blockTaking = false)

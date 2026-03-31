@@ -14,61 +14,45 @@ public class ThiefTutorial : MonoBehaviour
 {
     [SerializeField] private OffscreenMarker markerPrefab;
 
-    [Header("Lock Step")] 
-    [SerializeField] private Transform lockMarker;
-    [SerializeField] private MiniGameLauncher lockMiniGame;
+    [Header("Move Step")] 
+    [SerializeField] private float moveStepDistance = 5f;
+    [SerializeField] private Transform moveTargetPoint;
     
-    [Header("Enemy Step")] 
-    [SerializeField] private Character enemy;
-
     [Header("Loot Step")] 
+    [SerializeField] private GameObject doorTrigger;
+    [SerializeField] private GameObject doorBlocker;
     [SerializeField] private List<Sellable> loot;
 
+    [InjectService] private GameEventService _gameEventService;
     [InjectService] private IAnalyticsService _analyticsService;
     [InjectService] private IPlayerProviderService _playerProviderService;
+    [InjectService] private IGameStateService _gameStateService;
 
-    private bool _minProgressAchieved;
-    private bool _fullProgressAchieved;
+    private bool _moveStep;
+    private bool _lootStep;
+
     private bool _showMarker;
-    private bool _levelPlaying;
     
-    private bool _isEnemyStep;
-    private bool _isLootStep;
-    
-    private CharacterAttack _playerAttack;
-    private CharacterCarry3D _playerCarry;
-    private ThiefLevel _level;
     private Transform _markerTarget;
     private Transform _markerCenter;
+
+    private Character _player;
+    private CharacterCarry3D _playerCarry;
+
     private OffscreenMarker _markerInstance;
     private TextMeshProUGUI _tutorialText;
-    
-    public void OnLevelEvent()
-    {
-        // if (levelEvent is LevelEventProgressComplete progressCompleteEvent)
-        // {
-        //     if (progressCompleteEvent.Type == LevelEventProgressComplete.ProgressType.Min)
-        //     {
-        //         _minProgressAchieved = true;
-        //         _analyticsService.SendEvent("Tutorial_Loot_Complete");
-        //     }
-        //     else if (progressCompleteEvent.Type == LevelEventProgressComplete.ProgressType.Full)
-        //     {
-        //         _fullProgressAchieved = true;
-        //     }
-        // }
-    }
     
     private void Start()
     {
         DIContainer.InjectTo(this);
+
+        _gameEventService.Subscribe<LevelEventProgressComplete>(OnLevelProgressComplete);
         
-        _level = GetComponentInParent<ThiefLevel>();
         _tutorialText = GetComponentInChildren<TextMeshProUGUI>();
 
         if (_playerProviderService.TryGetPlayer(out Character player))
         {
-            _playerAttack = player.GetComponentInChildren<CharacterAttack>();
+            _player = player;
             _playerCarry = player.GetComponentInChildren<CharacterCarry3D>();
             
             _markerCenter = player.transform;
@@ -77,7 +61,7 @@ public class ThiefTutorial : MonoBehaviour
             
             _markerInstance = Instantiate(markerPrefab).Init(_markerTarget, _markerCenter, IsMarkerActive);
             
-            StartLockStep();
+            StartMoveStep();
         }
         else
         {
@@ -95,88 +79,97 @@ public class ThiefTutorial : MonoBehaviour
 
     private void Update()
     {
-        Color targetColor = _level.IsPlaying ? Color.white : Color.clear;
+        Color targetColor = _gameStateService.CurrentState == GameStates.Playing ? Color.white : Color.clear;
         _tutorialText.color = Color.Lerp(_tutorialText.color, targetColor, Time.deltaTime * 5f);
-        
-        if (_isEnemyStep)
-        {
-            EnemyStepUpdate();
-        }
 
-        if (_isLootStep)
+        UpdateMoveStep();
+        UpdateGrabLootStep();
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
+
+        if (moveTargetPoint != null)
         {
-            LootStepUpdate();   
+            Gizmos.DrawWireSphere(moveTargetPoint.position, moveStepDistance);
         }
+    }
+
+    private void OnLevelProgressComplete(LevelEventProgressComplete evnt)
+    {
+        StartGoAwayStep();
     }
 
     private bool IsMarkerActive()
     {
-        return _showMarker && _level.IsPlaying;
+        return _showMarker && _gameStateService.CurrentState == GameStates.Playing;
     }
 
-    private void StartLockStep()
+    private void StartMoveStep()
     {
+        _moveStep = true;
+
         _showMarker = true;
-        _tutorialText.text = "Go to the lock to start unlocking";
-        
-        _markerTarget.position = lockMarker.position;
-        lockMiniGame.eventOnComplete.AddListener(() => 
-        {
-            StartEnemyStep();
-            _analyticsService.SendEvent("Tutorial_Lock_Complete");
-        });
+        _tutorialText.text = "Move your finger to move";
+        _markerTarget.position = moveTargetPoint.position;
     }
-    
-    private void StartEnemyStep()
+
+    private void UpdateMoveStep()
     {
+        if (!_moveStep) return;
+
+        if (Vector3.Distance(_player.transform.position, moveTargetPoint.position) < moveStepDistance)
+        {
+            _moveStep = false;
+            _analyticsService.SendEvent("Tutorial_Move_Complete");
+            StartGrabLootStep();
+        }
+    }
+
+    private void StartGrabLootStep()
+    {
+        _lootStep = true;
+
         _showMarker = true;
-        _isEnemyStep = true;
-        _markerTarget.position = enemy.transform.position;
+        _tutorialText.text = "Approach the loot to pick it up";
+
+        doorTrigger.SetActive(false);
+        doorBlocker.SetActive(true);
     }
 
-    private void EnemyStepUpdate()
+    private void UpdateGrabLootStep()
     {
-        _tutorialText.text = _playerAttack.HasTarget ? "Wait in the red area to attack" : "Slowly go to the enemy";
-        Health enemyHealth = enemy.GetComponent<Health>();
-        if (enemyHealth.CurrentHealth <= 0)
+        if (!_lootStep) return;
+
+        List<Sellable> lootToPickup = loot.FindAll(s => !_playerCarry.CurrentCarryables.ToList().Find(c => c.gameObject == s.gameObject));
+
+        if (lootToPickup.Count == 0)
         {
-            _isEnemyStep = false;
-            StartLootStep();    
-            _analyticsService.SendEvent("Tutorial_Enemy_Complete");
+            doorTrigger.SetActive(true);
+            doorBlocker.SetActive(false);
+
+            _lootStep = false;
+            _analyticsService.SendEvent("Tutorial_Grab_Complete");
+            StartSellLootStep();
+        }
+        else
+        {
+            _markerTarget.position = lootToPickup[0].transform.position;
         }
     }
 
-    private void StartLootStep()
+    private void StartSellLootStep()
     {
-        _showMarker = true;
-        _isLootStep = true;
-        _tutorialText.text = "Grab the loot";
+        _showMarker = false;
+        _tutorialText.text = "Go to the exit to sell your loot";
     }
 
-    private void LootStepUpdate()
+    private void StartGoAwayStep()
     {
-        Sellable markedLoot = loot.Find(x => !x.InSaleProcess && !x.InSaleOrder);
-        if (markedLoot)
-        {
-            _markerTarget.position = markedLoot.transform.position;
-        }
-        
-        if (!_minProgressAchieved && !_fullProgressAchieved)
-        {
-            _tutorialText.text = _playerCarry.HasCarryable ? "Take loot to the car" : "Pick up the loot";
-            _showMarker = !_playerCarry.HasCarryable;
-        }
-        
-        if (_minProgressAchieved)
-        {
-            _tutorialText.text = "Pick up the remaining loot or get into the car";
-            _showMarker = !_playerCarry.HasCarryable;
-        }
-        
-        if (_fullProgressAchieved)
-        {
-            _showMarker = false;
-            _tutorialText.text = "Get into the car";
-        }
+        _analyticsService.SendEvent("Tutorial_Sell_Complete");
+
+        _showMarker = false;
+        _tutorialText.text = "Wait in the zone to leave the area";
     }
 }
