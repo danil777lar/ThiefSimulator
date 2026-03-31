@@ -1,14 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
+using DG.Tweening;
 using Larje.Character;
 using Larje.Core;
 using Larje.Core.Services;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Timeline;
 
 public class ThiefTutorial : MonoBehaviour
 {
@@ -111,7 +110,7 @@ public class ThiefTutorial : MonoBehaviour
         _moveStep = true;
 
         _showMarker = true;
-        _tutorialText.text = "Move your finger to move";
+        SetNewTitle("Move your finger to move");
         _markerTarget.position = moveTargetPoint.position;
     }
 
@@ -132,7 +131,7 @@ public class ThiefTutorial : MonoBehaviour
         _lootStep = true;
 
         _showMarker = true;
-        _tutorialText.text = "Approach the loot to pick it up";
+        SetNewTitle("Approach the loot to pick it up");
 
         doorTrigger.SetActive(false);
         doorBlocker.SetActive(true);
@@ -162,7 +161,7 @@ public class ThiefTutorial : MonoBehaviour
     private void StartSellLootStep()
     {
         _showMarker = false;
-        _tutorialText.text = "Go to the exit to sell your loot";
+        SetNewTitle("Go to the exit to sell your loot");
     }
 
     private void StartGoAwayStep()
@@ -170,6 +169,16 @@ public class ThiefTutorial : MonoBehaviour
         _analyticsService.SendEvent("Tutorial_Sell_Complete");
 
         _showMarker = false;
-        _tutorialText.text = "Wait in the zone to leave the area";
+        SetNewTitle("Wait in the zone to leave the area");
+    }
+
+    private void SetNewTitle(string text)
+    {
+        _tutorialText.DOKill();
+
+        Sequence seq = DOTween.Sequence().SetTarget(_tutorialText);
+        seq.Append(_tutorialText.transform.DOScale(0f, 0.1f).SetTarget(_tutorialText));
+        seq.AppendCallback(() => _tutorialText.text = text);
+        seq.Append(_tutorialText.transform.DOScale(1f, 0.25f).SetEase(Ease.OutBack).SetTarget(_tutorialText));
     }
 }
