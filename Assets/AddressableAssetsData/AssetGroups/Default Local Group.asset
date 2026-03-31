@@ -13,67 +13,10 @@ MonoBehaviour:
   m_Name: Default Local Group
   m_EditorClassIdentifier: 
   m_GroupName: Default Local Group
-  m_Data:
-    m_SerializedData: []
   m_GUID: b8256b4b3e85624428cc4e41e1f899e9
   m_SerializeEntries:
-  - m_GUID: ff99004503ddd4244a8e1aeac12ea6fe
-    m_Address: Assets/Prefabs/Levels/Level 0 Tutorial.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4e77182909899dd46810088697093ce6
-    m_Address: Assets/Prefabs/Levels/Level 1.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ddeb77c1ef83f4c4fa736994cda29759
-    m_Address: Assets/Prefabs/Levels/Level 2.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: eab7ea63d0c182342b8146d9d9f4f652
-    m_Address: Assets/Prefabs/Levels/Level 3.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: acedf0f5cfb08734b911b37462652c68
-    m_Address: Assets/Prefabs/Levels/Level 4.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 35501d83808dd974083c196b4cd144e7
-    m_Address: Assets/Prefabs/Levels/Level 5.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 70bcf9e60645e0c40b43b27dac40b605
-    m_Address: Assets/Prefabs/Levels/Level 6.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 93c988e2a6bc1dc4794fa498899c7a53
-    m_Address: Assets/Prefabs/Levels/Level 7.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a48bf792e836a734d83ad7f3e924bcbe
-    m_Address: Assets/Prefabs/Levels/Level 8.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b0183afb8cfc45248a4304b775cc4d28
-    m_Address: Assets/Prefabs/Levels/Level 9.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f342c2be78868634fb84735a1cd8b790
-    m_Address: Assets/Prefabs/Levels/Level 10.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6277ef290c7809342bdad639f1e7db17
-    m_Address: Assets/Prefabs/Levels/Level 11.prefab
+  - m_GUID: 0a034e8516a2ad348b0c0a3200e8d4df
+    m_Address: Assets/Prefabs/UI/Elements/Offscreen Markers/Exit Point Marker.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -82,8 +25,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0a034e8516a2ad348b0c0a3200e8d4df
-    m_Address: Assets/Prefabs/UI/Elements/Offscreen Markers/Exit Point Marker.prefab
+  - m_GUID: ff99004503ddd4244a8e1aeac12ea6fe
+    m_Address: Assets/Prefabs/Levels/Level 0 Tutorial.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -91,5 +34,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 7a444b37a9a00764a969b9242fd097a4, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 1d083abc160e64e41b791312a7b18a18, type: 2}
     - {fileID: 11400000, guid: f8482c5b87e106f428b77eb5a27fa431, type: 2}
+    - {fileID: 11400000, guid: 1d083abc160e64e41b791312a7b18a18, type: 2}

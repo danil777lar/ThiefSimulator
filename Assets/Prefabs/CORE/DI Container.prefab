@@ -1118,9 +1118,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 397917653485307546}
-  - component: {fileID: 4268854304144042659}
+  - component: {fileID: 8539951841029306514}
   m_Layer: 0
-  m_Name: Unity Ads Service
+  m_Name: Ads Service
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1141,7 +1141,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3924575942675980841}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4268854304144042659
+--- !u!114 &8539951841029306514
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1150,25 +1150,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8531395553019488156}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8a29dec78d01ae4a8eb6bede444698b, type: 3}
+  m_Script: {fileID: 11500000, guid: 4d632ab5e3e1bb80e9d75bf802c95416, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  delayBetweenAds: 20
-  testMode: 0
-  logsEnabled: 1
-  enableAds: 1
-  androidKeys:
-    <GameId>k__BackingField: 5621809
-    InterstitialId: Interstitial_Android
-    RewardedId: Rewarded_Android
-    BannerId: Banner_Android
-  iosKeys:
-    <GameId>k__BackingField: 5621808
-    InterstitialId: Interstitial_iOS
-    RewardedId: Rewarded_iOS
-    BannerId: Banner_iOS
-  useBanner: 1
-  bannerPosition: 4
+  m_EditorClassIdentifier: Assembly-CSharp::Larje.Core.Services.PlaceholderAdsService
 --- !u!1 &9017194507356276706
 GameObject:
   m_ObjectHideFlags: 0
