@@ -98,8 +98,8 @@ public class VanMovement : MonoBehaviour, ILevelStartHandler, ILevelEndHandler
         _startPosition = transform.position;
         transform.position -= transform.forward * startAnimationDistance;
         
-        soundIdle.Play(s => s.SetTarget(this).SetLoop(true).SetPosition(t => transform.position).SetSpatialBlend(t => 1f).SetVolume(t => _soundIdleVolume));
-        soundMove.Play(s => s.SetTarget(this).SetLoop(true).SetPosition(t => transform.position).SetSpatialBlend(t => 1f).SetVolume(t => _soundMoveVolume));
+        soundIdle.Play(s => s.SetTarget(this).SetLoop(true).SetPosition(GetPosition).SetSpatialBlend(t => 1f).SetVolume(t => _soundIdleVolume));
+        soundMove.Play(s => s.SetTarget(this).SetLoop(true).SetPosition(GetPosition).SetSpatialBlend(t => 1f).SetVolume(t => _soundMoveVolume));
 
         EventInitialized?.Invoke();
     }
@@ -107,6 +107,7 @@ public class VanMovement : MonoBehaviour, ILevelStartHandler, ILevelEndHandler
     private void OnDisable()
     {
         this.SoundServiceStop();
+
         _gameEventService?.Unsubscribe<LevelEventPreStart>(OnLevelPrestarted);
     }
     
@@ -253,5 +254,10 @@ public class VanMovement : MonoBehaviour, ILevelStartHandler, ILevelEndHandler
         Vector3 from = transform.position + _collider.center - transform.forward;
         return Physics.BoxCast(from, _collider.size / 2f, transform.forward, 
                 transform.rotation, boxcastDistance, boxcastMask);
+    }
+
+    private Vector3 GetPosition(float t)
+    {
+        return transform != null ? transform.position : Vector3.zero;
     }
 }
