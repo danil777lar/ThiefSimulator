@@ -551,6 +551,7 @@ GameObject:
   - component: {fileID: 7593041475439056274}
   - component: {fileID: 7593041475439056276}
   - component: {fileID: 2918004660207106668}
+  - component: {fileID: 8747633777360956931}
   m_Layer: 5
   m_Name: Button_Back
   m_TagString: Untagged
@@ -570,6 +571,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 950695280551211259}
   - {fileID: 7593041475836636911}
   m_Father: {fileID: 7593041476912770963}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -680,6 +682,18 @@ MonoBehaviour:
   durationBackwards: 0.25
   easeBackwards: 5
   setToFromOnAwake: 1
+--- !u!114 &8747633777360956931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7593041475439056272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 428921122e2e45c50aed8fd2e4627e20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIEventsRoot
 --- !u!1 &7593041475486874135
 GameObject:
   m_ObjectHideFlags: 0
@@ -5809,6 +5823,80 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6927449792871117772, guid: 0d189e4a2d09293438351bf1d4e2d4de,
     type: 3}
   m_PrefabInstance: {fileID: 1938811586029637493}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3086578691238402609
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7593041475439056273}
+    m_Modifications:
+    - target: {fileID: 2874482545681705674, guid: 6dd564ae28bf5ef55a53549eb1a3500d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 113.54407
+      objectReference: {fileID: 0}
+    - target: {fileID: 2874482545681705674, guid: 6dd564ae28bf5ef55a53549eb1a3500d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -329.00006
+      objectReference: {fileID: 0}
+    - target: {fileID: 2874482545681705674, guid: 6dd564ae28bf5ef55a53549eb1a3500d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 941.70123
+      objectReference: {fileID: 0}
+    - target: {fileID: 2874482545681705674, guid: 6dd564ae28bf5ef55a53549eb1a3500d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2874482545681705674, guid: 6dd564ae28bf5ef55a53549eb1a3500d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2874482545681705674, guid: 6dd564ae28bf5ef55a53549eb1a3500d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2874482545681705674, guid: 6dd564ae28bf5ef55a53549eb1a3500d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2874482545681705674, guid: 6dd564ae28bf5ef55a53549eb1a3500d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2874482545681705674, guid: 6dd564ae28bf5ef55a53549eb1a3500d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2874482545681705674, guid: 6dd564ae28bf5ef55a53549eb1a3500d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4116458223807255836, guid: 6dd564ae28bf5ef55a53549eb1a3500d,
+        type: 3}
+      propertyPath: m_Name
+      value: Button_Haptic
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6dd564ae28bf5ef55a53549eb1a3500d, type: 3}
+--- !u!4 &950695280551211259 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2874482545681705674, guid: 6dd564ae28bf5ef55a53549eb1a3500d,
+    type: 3}
+  m_PrefabInstance: {fileID: 3086578691238402609}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3590167645554583452
 PrefabInstance:

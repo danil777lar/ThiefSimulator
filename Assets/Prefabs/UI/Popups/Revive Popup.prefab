@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5431968390012736749}
   - component: {fileID: 5431968390012736738}
   - component: {fileID: 5431968390012736739}
+  - component: {fileID: 7543805395857331241}
   m_Layer: 5
   m_Name: Button Skip
   m_TagString: Untagged
@@ -32,6 +33,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5431968391566983043}
+  - {fileID: 7848962673540943869}
   m_Father: {fileID: 2306778409241326672}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
@@ -121,6 +123,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7543805395857331241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5431968390012736737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 428921122e2e45c50aed8fd2e4627e20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIEventsRoot
 --- !u!1 &5431968391566983040
 GameObject:
   m_ObjectHideFlags: 0
@@ -1485,3 +1499,77 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &5406900458887210295
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5431968390012736736}
+    m_Modifications:
+    - target: {fileID: 2874482545681705674, guid: 6dd564ae28bf5ef55a53549eb1a3500d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 113.54407
+      objectReference: {fileID: 0}
+    - target: {fileID: 2874482545681705674, guid: 6dd564ae28bf5ef55a53549eb1a3500d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -329.00006
+      objectReference: {fileID: 0}
+    - target: {fileID: 2874482545681705674, guid: 6dd564ae28bf5ef55a53549eb1a3500d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 941.70123
+      objectReference: {fileID: 0}
+    - target: {fileID: 2874482545681705674, guid: 6dd564ae28bf5ef55a53549eb1a3500d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2874482545681705674, guid: 6dd564ae28bf5ef55a53549eb1a3500d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2874482545681705674, guid: 6dd564ae28bf5ef55a53549eb1a3500d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2874482545681705674, guid: 6dd564ae28bf5ef55a53549eb1a3500d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2874482545681705674, guid: 6dd564ae28bf5ef55a53549eb1a3500d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2874482545681705674, guid: 6dd564ae28bf5ef55a53549eb1a3500d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2874482545681705674, guid: 6dd564ae28bf5ef55a53549eb1a3500d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4116458223807255836, guid: 6dd564ae28bf5ef55a53549eb1a3500d,
+        type: 3}
+      propertyPath: m_Name
+      value: Button_Haptic
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6dd564ae28bf5ef55a53549eb1a3500d, type: 3}
+--- !u!4 &7848962673540943869 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2874482545681705674, guid: 6dd564ae28bf5ef55a53549eb1a3500d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5406900458887210295}
+  m_PrefabAsset: {fileID: 0}
