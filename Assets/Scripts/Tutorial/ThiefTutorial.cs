@@ -70,6 +70,11 @@ public class ThiefTutorial : MonoBehaviour
 
     private void OnDisable()
     {
+        if (_gameStateService != null)
+        {
+            _gameEventService.Unsubscribe<LevelEventProgressComplete>(OnLevelProgressComplete);
+        }
+
         if (_markerInstance != null)
         {
             Destroy(_markerInstance.gameObject);
