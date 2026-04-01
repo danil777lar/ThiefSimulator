@@ -35,13 +35,23 @@ public class VanMovement : MonoBehaviour, ILevelStartHandler, ILevelEndHandler
     [SerializeField] private float startAnimationDistance = 20f;
     [SerializeField] private float startAnimationDurationModifier = 1f;
 
+    [Header("Sounds")]
+    [SerializeField] private SoundSettings soundIdle;
+    [SerializeField] private SoundSettings soundMove;
+
     [InjectService] private GameEventService _gameEventService;
+    [InjectService] private IGameStateService _stateService;
     [InjectService] private IPlayerProviderService _playerProviderService;
 
     private bool _move;
     private bool _startedAnimationComplete;
     private bool _winAnimationPlaying;
+
     private float _currentRotationSpeed;
+
+    private float _soundIdleVolume;
+    private float _soundMoveVolume;
+
     private Vector3 _startPosition;
     private Vector3 _currentVelocity;
     private Vector3 _currentDirection;
@@ -88,11 +98,15 @@ public class VanMovement : MonoBehaviour, ILevelStartHandler, ILevelEndHandler
         _startPosition = transform.position;
         transform.position -= transform.forward * startAnimationDistance;
         
+        soundIdle.Play(s => s.SetTarget(this).SetLoop(true).SetPosition(t => transform.position).SetSpatialBlend(t => 1f).SetVolume(t => _soundIdleVolume));
+        soundMove.Play(s => s.SetTarget(this).SetLoop(true).SetPosition(t => transform.position).SetSpatialBlend(t => 1f).SetVolume(t => _soundMoveVolume));
+
         EventInitialized?.Invoke();
     }
 
     private void OnDisable()
     {
+        this.SoundServiceStop();
         _gameEventService?.Unsubscribe<LevelEventPreStart>(OnLevelPrestarted);
     }
     
@@ -104,6 +118,13 @@ public class VanMovement : MonoBehaviour, ILevelStartHandler, ILevelEndHandler
             Rotate();
             Move();
         }
+    }
+
+    private void Update()
+    {
+        bool useSound = _stateService.CurrentState == GameStates.Playing || _stateService.CurrentState == GameStates.Cutscene;
+        _soundIdleVolume = Mathf.Lerp(_soundIdleVolume, !_move && useSound ? 1f : 0f, Time.deltaTime * 5f);
+        _soundMoveVolume = Mathf.Lerp(_soundMoveVolume, _move && useSound ? 1f : 0f, Time.deltaTime * 5f);
     }
 
     private void OnDrawGizmos()

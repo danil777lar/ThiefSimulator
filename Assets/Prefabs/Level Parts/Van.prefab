@@ -1059,6 +1059,12 @@ MonoBehaviour:
     m_Bits: 1281
   startAnimationDistance: 30
   startAnimationDurationModifier: 1
+  soundIdle:
+    Use: 1
+    SoundType: 3
+  soundMove:
+    Use: 1
+    SoundType: 4
 --- !u!114 &1578217906715086254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1095,6 +1101,9 @@ MonoBehaviour:
     <OpenAngle>k__BackingField: 150
   - <Door>k__BackingField: {fileID: 8834514293069758894}
     <OpenAngle>k__BackingField: -150
+  doorSound:
+    Use: 1
+    SoundType: 2
 --- !u!1001 &3843576125961034310
 PrefabInstance:
   m_ObjectHideFlags: 0

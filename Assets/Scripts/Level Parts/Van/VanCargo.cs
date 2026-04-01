@@ -8,7 +8,10 @@ public class VanCargo : MonoBehaviour
 {
     [SerializeField] private Transform cargoRoot;
     [SerializeField] private List<Doors> doors;
+    [Space]
+    [SerializeField] private SoundSettings doorSound;
     
+    private bool _playSound = false;
     private VanMovement _vanMovement;
     
     private void Start()
@@ -22,6 +25,7 @@ public class VanCargo : MonoBehaviour
     {
         this.DOKill();
         
+        doorSound.Play(s => s.SetTarget(this).SetPosition(t => transform.position).SetSpatialBlend(t => 1f));
         foreach (Doors door in doors)
         {
             Vector3 rotation = door.Door.localRotation.eulerAngles;
@@ -34,12 +38,17 @@ public class VanCargo : MonoBehaviour
     private void CloseDoors()
     {
         this.DOKill();
-        
+
+        if (_playSound) doorSound.Play(s => s.SetTarget(this).SetPosition(t => transform.position).SetSpatialBlend(t => 1f));
+        _playSound = true;
+
         foreach (Doors door in doors)
         {
             Vector3 rotation = door.Door.localRotation.eulerAngles;
             rotation.y = 0f;
-            door.Door.DOLocalRotate(rotation, 0.5f).SetTarget(this);
+            door.Door.DOLocalRotate(rotation, 0.5f).SetTarget(this).OnComplete(() =>
+            {
+            });
         }
         cargoRoot.DOScale(0f, 0.5f).SetTarget(this);
     }
