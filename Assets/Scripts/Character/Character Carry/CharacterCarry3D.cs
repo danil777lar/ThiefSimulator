@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using Larje.Character;
 using Larje.Character.Abilities;
 using UnityEditor;
@@ -22,6 +23,10 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
     
     [Header("Carry")]
     [SerializeField] private Transform carryableAttachPoint;
+
+    [Header("Sounds")]
+    [SerializeField] private SoundSettings takeSound;
+    [SerializeField] private SoundSettings dropSound;
     
     [Header("Gizmos")]
     [SerializeField] private bool drawGizmos;
@@ -58,10 +63,7 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
             carryToDrop.Drop(blockTaking);
             _currentCarryables.Remove(carryToDrop);
 
-            if (_currentCarryables.Count <= 0)
-            {
-                // character.MovementState.ChangeState(CharacterStates.MovementStates.Idle);
-            }
+            DOVirtual.DelayedCall(UnityEngine.Random.Range(0f, 0.25f), () => dropSound.Play(), ignoreTimeScale: true);
 
             return carryToDrop;
         }
@@ -197,6 +199,8 @@ public class CharacterCarry3D : CharacterAbility, IPlayerActionSource
             Transform attachPoint = _currentCarryables.Count > 0 ? _currentCarryables.Last().TopPoint : carryableAttachPoint;
             _nearestCarryable.Take(attachPoint);
             _currentCarryables.Add(_nearestCarryable);
+
+            takeSound.Play();
         }
     }
 

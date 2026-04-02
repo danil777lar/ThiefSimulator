@@ -14,7 +14,6 @@ public class EnemyAttention : CharacterAbility
     private Vector3 _lastPlayerPoint;
     
     private CharacterFOV _fov;
-    private SoundReceiver _soundReceiver;
     private CharacterVisionTarget _player;
     
     public float AttentionLevel { get; private set; }
@@ -26,9 +25,6 @@ public class EnemyAttention : CharacterAbility
     protected override void OnInitialized()
     {
         _fov = character.GetComponent<CharacterFOV>();
-        _soundReceiver = character.GetComponentInChildren<SoundReceiver>();
-        _soundReceiver.EventSoundReceived += OnSoundReceived;
-        
         SetState(AttentionState.Idle, true);
     }
 

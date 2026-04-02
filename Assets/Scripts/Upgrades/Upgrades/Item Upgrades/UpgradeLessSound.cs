@@ -5,20 +5,20 @@ using UnityEngine;
 
 public class UpgradeLessSound : UpgradeProcessor
 {
-    private CharacterStepSound _stepSound;
+    // private CharacterStepSound _stepSound;
     
     public override void Init(int level)
     {
         base.Init(level);
         
-        _stepSound = GetComponentInParent<Character>().GetComponentInChildren<CharacterStepSound>();
-        _stepSound.TryAddAmplitudeMultiplier(GetMultiplier);
+        // _stepSound = GetComponentInParent<Character>().GetComponentInChildren<CharacterStepSound>();
+        // _stepSound.TryAddAmplitudeMultiplier(GetMultiplier);
     }
 
     public override void Remove()
     {
         base.Remove();
-        _stepSound.TryRemoveAmplitudeMultiplier(GetMultiplier);
+        // _stepSound.TryRemoveAmplitudeMultiplier(GetMultiplier);
     }
 
     private float GetMultiplier()

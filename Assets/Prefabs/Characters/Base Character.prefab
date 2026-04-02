@@ -581,7 +581,7 @@ GameObject:
   - component: {fileID: 5778925320481343603}
   - component: {fileID: 9017115551401626460}
   - component: {fileID: 3478935462752104224}
-  - component: {fileID: 4053814620552575633}
+  - component: {fileID: 6724981297423677807}
   m_Layer: 0
   m_Name: Other Monos
   m_TagString: Untagged
@@ -631,7 +631,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0ddf55feec66104eb1335046ed85fe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4053814620552575633
+--- !u!114 &6724981297423677807
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -640,12 +640,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7550773515595132036}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 127825837c1f7cb47ba19db5732783b3, type: 3}
+  m_Script: {fileID: 11500000, guid: 47dc3b9df89624a6ca8b13f4172e393c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  soundMask:
-    serializedVersion: 2
-    m_Bits: 65536
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterStepSound
+  spawnDistance: 1.25
+  stepSoundSettings:
+    Use: 1
+    SoundType: 5
 --- !u!1 &8286662164972723422
 GameObject:
   m_ObjectHideFlags: 0
