@@ -388,13 +388,83 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7e9414877ba6be42b2e14a32091ed86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  editorMode: 0
+  editorMode: 1
   spawnLevelOnInit: 0
   levelHolder: {fileID: 0}
   levels:
-  - addToRandomList: 1
+  - addToRandomList: 0
     levelPrefab:
       m_AssetGUID: ff99004503ddd4244a8e1aeac12ea6fe
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - addToRandomList: 1
+    levelPrefab:
+      m_AssetGUID: 7a2e3f2099dd650519fb224abde2105f
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - addToRandomList: 1
+    levelPrefab:
+      m_AssetGUID: 7afe4c1f5674b5b5da1d491a9fe26bd0
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - addToRandomList: 1
+    levelPrefab:
+      m_AssetGUID: 7a0872f1f9df6079e8d3f743ea7aad2b
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - addToRandomList: 1
+    levelPrefab:
+      m_AssetGUID: f6c526d60cc69e6748a42a1e52db1656
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - addToRandomList: 1
+    levelPrefab:
+      m_AssetGUID: b8dbe9f035d768a30834833ccf4222ff
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - addToRandomList: 1
+    levelPrefab:
+      m_AssetGUID: 26336f8f818c3c47ab0b127e6c730776
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - addToRandomList: 1
+    levelPrefab:
+      m_AssetGUID: c35cfa4622875154fa781eff8b8d501a
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - addToRandomList: 1
+    levelPrefab:
+      m_AssetGUID: a88dc72ac5e9fb9c59ac112f0a86bb17
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - addToRandomList: 1
+    levelPrefab:
+      m_AssetGUID: 4a777ed3ec8a68d80be1e3c06a063d64
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - addToRandomList: 1
+    levelPrefab:
+      m_AssetGUID: d5a27eac821a595b594c234316f485f4
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
@@ -1153,6 +1223,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed846e15b734529709c79fd1d623757b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AdmobAdsService
+  delayBetweenAds: 20
+  androidKeys:
+    AdaptiveBanner: ca-app-pub-3940256099942544/9214589741
+    FixedSizeBanner: ca-app-pub-3940256099942544/6300978111
+    Interstitial: ca-app-pub-3940256099942544/1033173712
+    RewardedAds: ca-app-pub-3940256099942544/5224354917
+    AppOpen: ca-app-pub-3940256099942544/9257395921
+    RewardedInterstitial: ca-app-pub-3940256099942544/5354046379
+    Native: ca-app-pub-3940256099942544/2247696110
+    NativeVideo: ca-app-pub-3940256099942544/1044960115
+  iosKeys:
+    AdaptiveBanner: ca-app-pub-3940256099942544/9214589741
+    FixedSizeBanner: ca-app-pub-3940256099942544/6300978111
+    Interstitial: ca-app-pub-3940256099942544/1033173712
+    RewardedAds: ca-app-pub-3940256099942544/5224354917
+    AppOpen: ca-app-pub-3940256099942544/9257395921
+    RewardedInterstitial: ca-app-pub-3940256099942544/5354046379
+    Native: ca-app-pub-3940256099942544/2247696110
+    NativeVideo: ca-app-pub-3940256099942544/1044960115
 --- !u!1 &9017194507356276706
 GameObject:
   m_ObjectHideFlags: 0
