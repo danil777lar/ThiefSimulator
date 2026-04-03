@@ -670,7 +670,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1257,6 +1257,7 @@ MonoBehaviour:
   - {fileID: 8117605028720975565}
   - {fileID: 8688018690288592071}
   - {fileID: 7692304056363521516}
+  damage: 10
   commands:
   - rid: 2407943728077472005
   - rid: 2407943728077472006

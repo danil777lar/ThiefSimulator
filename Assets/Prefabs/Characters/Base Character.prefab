@@ -323,7 +323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 219ff0281d09b9582a71040fa63247f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  initialHealth: 1
+  initialHealth: 100
   spawnOnDamage: []
   spawnOnDeath: []
 --- !u!1 &2652114066311270829
@@ -437,6 +437,7 @@ GameObject:
   - component: {fileID: 4051612370979481073}
   - component: {fileID: 4380486464327511710}
   - component: {fileID: 4286876814304610830}
+  - component: {fileID: 7583677354374449409}
   m_Layer: 0
   m_Name: Abilities
   m_TagString: Untagged
@@ -507,6 +508,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Larje.Character.CharacterRagdoller
   abilityEnabled: 1
   ragdollRoot: {fileID: 5445676164548388878}
+--- !u!114 &7583677354374449409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6051609533395490623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa8566dc30ee96e23b537a3980260bd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterKnockback
+  abilityEnabled: 1
+  normalizeHitDirection: 0
+  knockbackForce: 10
+  knockbackDuration: 0
 --- !u!1 &6719473544292122437
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,6 +12,10 @@ public class ThiefTrapLaser : MonoBehaviour
     [SerializeField] private GameObject colliders;
     [SerializeField] private LineRenderer[] lasers;
 
+    [Header("Damage")]
+    [SerializeField] private int damage = 10;
+    [SerializeField] private float damageInterval = 0.5f;
+
     [Header("Commands")]
     [SerializeField, SerializeReference] private List<Command> commands = new List<Command>();
 
@@ -19,6 +23,9 @@ public class ThiefTrapLaser : MonoBehaviour
     private bool _isActive = true;
     private bool _inAPoint = true;
     private int _currentCommandIndex;
+    private float _damageCooldown;
+
+    private Dictionary<Collider, IDamageTarget> _damageTargets = new Dictionary<Collider, IDamageTarget>();
 
     private void Start()
     {
@@ -31,6 +38,11 @@ public class ThiefTrapLaser : MonoBehaviour
 
     private void Update()
     {
+        if (_damageCooldown > 0f)
+        {
+            _damageCooldown -= Time.deltaTime;
+        }
+
         if (commands.Count == 0 || _processing)
         {
             return;
@@ -39,6 +51,38 @@ public class ThiefTrapLaser : MonoBehaviour
         _processing = true;
         ProcessCommand(commands[_currentCommandIndex]); 
         _currentCommandIndex = (_currentCommandIndex + 1) % commands.Count;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (!_isActive || _damageCooldown > 0f)
+        {
+            return;
+        }
+
+        IDamageTarget target = null;
+        if (_damageTargets.TryGetValue(other, out IDamageTarget damageTarget))
+        {
+            target = damageTarget;
+        }
+        else if (other.TryGetComponent(out damageTarget))
+        {
+            _damageTargets[other] = damageTarget;
+            target = damageTarget;
+        }
+
+        if (target != null)
+        {
+            Vector3 targetLocalPos = transform.InverseTransformPoint(target.gameObject.transform.position);
+            Vector3 dir = Vector3.forward * (targetLocalPos.z > 0 ? 1 : -1);
+
+            _damageCooldown = damageInterval;
+            target.SendDamage(new DamageData
+            {
+                damage = this.damage,
+                hitDirection = dir,
+            });
+        }
     }
 
     private void OnDrawGizmos()
