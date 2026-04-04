@@ -122,10 +122,117 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1474043750403692421}
+  - {fileID: 1891532429876467205}
   - {fileID: 7839060457780289773}
   - {fileID: 5196878172358318827}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5461447836944460906
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1891532429876467205}
+  - component: {fileID: 4545112421773956382}
+  - component: {fileID: 4486235024217222159}
+  m_Layer: 0
+  m_Name: Damage Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1891532429876467205
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5461447836944460906}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4446497199647377259}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4545112421773956382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5461447836944460906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b8d90986a02f504283a559f8019e004, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterDamageEffect
+  changeMaterial: 1
+  materialChangeDuration: 0.2
+  damageMaterial: {fileID: 2100000, guid: 01d5d17434cc3c3bb8972a88983b26ba, type: 2}
+  useCameraShake: 1
+  shakeIntensity: 0.5
+  damageSound:
+    Use: 0
+    SoundType: 0
+--- !u!114 &4486235024217222159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5461447836944460906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineImpulseSource
+  ImpulseDefinition:
+    ImpulseChannel: 1
+    ImpulseShape: 3
+    CustomImpulseShape:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    ImpulseDuration: 0.2
+    ImpulseType: 0
+    DissipationRate: 0.25
+    RawSignal: {fileID: 0}
+    AmplitudeGain: 1
+    FrequencyGain: 1
+    RepeatMode: 0
+    Randomize: 1
+    TimeEnvelope:
+      AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      AttackTime: 0
+      SustainTime: 0.2
+      DecayTime: 0.7
+      ScaleWithImpact: 1
+      HoldForever: 0
+    ImpactRadius: 100
+    DirectionMode: 0
+    DissipationMode: 2
+    DissipationDistance: 100
+    PropagationSpeed: 343
+  DefaultVelocity: {x: 0, y: 0, z: 0}
 --- !u!1 &6490497388980245466
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,7 +248,6 @@ GameObject:
   - component: {fileID: 4359549223596638142}
   - component: {fileID: 4493806809450734817}
   - component: {fileID: 4575163364547499179}
-  - component: {fileID: 1908105227047415937}
   m_Layer: 0
   m_Name: Other Monos
   m_TagString: Untagged
@@ -239,25 +345,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e0461cb84fd70c40ba2f65131a10b1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1908105227047415937
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6490497388980245466}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b8d90986a02f504283a559f8019e004, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CharacterDamageEffect
-  changeMaterial: 1
-  materialChangeDuration: 0.2
-  damageMaterial: {fileID: 2100000, guid: 01d5d17434cc3c3bb8972a88983b26ba, type: 2}
-  useCameraShake: 0
-  damageSound:
-    Use: 0
-    SoundType: 0
 --- !u!1001 &2691367368390982457
 PrefabInstance:
   m_ObjectHideFlags: 0
