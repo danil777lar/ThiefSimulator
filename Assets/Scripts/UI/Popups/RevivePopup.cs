@@ -22,7 +22,6 @@ public class RevivePopup : UIPopup
     [SerializeField] private TextMeshProUGUI heartTimer;
     
     [InjectService] private IAdsService _adsService;
-    [InjectService] private TimeScaleService _timeScaleService;
 
     private bool _interactable = true;
     private Args _args;
@@ -39,14 +38,11 @@ public class RevivePopup : UIPopup
         reviveButton.onClick.AddListener(OnReviveButtonClicked);
         skipButton.onClick.AddListener(OnSkipButtonClicked);
         
-        _timeScaleService.PlayTimeScaleAnim(TimeScaleAnimationType.Stop);
-        
         StartCoroutine(HeartAnimationCoroutine());
     }
     
     protected override void OnBeforeClose()
     {
-        _timeScaleService.PlayTimeScaleAnim(TimeScaleAnimationType.Start);
     }
 
     protected override bool OnBack(bool onlyOverride)

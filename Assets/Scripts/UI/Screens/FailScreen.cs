@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Larje.Core;
@@ -13,34 +14,33 @@ public class FailScreen : UIScreen
 
     [InjectService] private ILevelManagerService _levelService;
     [InjectService] private UIService _uiService;
-    [InjectService] private TimeScaleService _timeScaleService;
+
+    private Args _args;
 
     protected override void OnBeforeOpen(UIObject.Args args)
     {
         DIContainer.InjectTo(this);
 
-        retryButton.onClick.AddListener(OnRetryButtonClicked);
-        
-        _timeScaleService.PlayTimeScaleAnim(TimeScaleAnimationType.StopSmooth);
-    }
+        if (args is Args failArgs)
+        {
+            _args = failArgs;
+        }
 
-    protected override void OnBeforeClose()
-    {
-        _timeScaleService.PlayTimeScaleAnim(TimeScaleAnimationType.Start);
+        retryButton.onClick.AddListener(OnRetryButtonClicked);
     }
 
     private void OnRetryButtonClicked()
     {
-        _levelService.SpawnCurrentLevel();
-        _uiService.GetProcessor<UIScreenProcessor>()
-            .OpenScreen(new LoadingScreen.Args(false, null));
+        _args.OnNext?.Invoke();
     }
     
     public class Args : UIScreen.Args
     {
-        public Args() : base(UIScreenType.Fail)
+        public readonly Action OnNext;
+
+        public Args(Action onNext) : base(UIScreenType.Fail)
         {
-            
+            OnNext = onNext;
         }
     }
 }

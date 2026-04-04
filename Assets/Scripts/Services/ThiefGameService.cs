@@ -61,6 +61,11 @@ public class ThiefGameService : Service
         {
             _uiService.GetProcessor<UIScreenProcessor>().OpenScreen(new WinScreen.Args());
         }
+
+        if (newState == GameStates.Fail)
+        {
+            _uiService.GetProcessor<UIPopupProcessor>().OpenPopup(new RevivePopup.Args(OnPlayerRevive, OnPlayerFail));
+        }
     }
 
     private void StartGame()
@@ -80,5 +85,15 @@ public class ThiefGameService : Service
 
         _gameStateService.SetGameState(GameStates.Loading);
         _uiService.GetProcessor<UIScreenProcessor>().OpenScreen(loadingScreen);
+    }
+
+    private void OnPlayerRevive()
+    {
+        _levelManagerService.TryStartCurrentLevel(new LevelProcessor.StartData(LevelStartType.Revive));
+    }
+
+    private void OnPlayerFail()
+    {
+        _uiService.GetProcessor<UIScreenProcessor>().OpenScreen(new FailScreen.Args(StartGame));
     }
 }

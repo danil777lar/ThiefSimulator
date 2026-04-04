@@ -24,7 +24,7 @@ namespace ProjectConstants
 	public enum LevelStartType
 	{
 		Start = 1 << 0,
-		Restart = 1 << 1,
+		Revive = 1 << 1,
 	}
 
 	public enum LevelStopType

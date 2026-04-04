@@ -248,6 +248,7 @@ GameObject:
   - component: {fileID: 4359549223596638142}
   - component: {fileID: 4493806809450734817}
   - component: {fileID: 4575163364547499179}
+  - component: {fileID: 5338011123260239008}
   m_Layer: 0
   m_Name: Other Monos
   m_TagString: Untagged
@@ -345,6 +346,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e0461cb84fd70c40ba2f65131a10b1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5338011123260239008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6490497388980245466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1f3d377dfb693ea4b3f2ba1090bec07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerRevive
 --- !u!1001 &2691367368390982457
 PrefabInstance:
   m_ObjectHideFlags: 0
