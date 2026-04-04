@@ -141,6 +141,7 @@ GameObject:
   - component: {fileID: 4359549223596638142}
   - component: {fileID: 4493806809450734817}
   - component: {fileID: 4575163364547499179}
+  - component: {fileID: 1908105227047415937}
   m_Layer: 0
   m_Name: Other Monos
   m_TagString: Untagged
@@ -238,6 +239,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e0461cb84fd70c40ba2f65131a10b1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1908105227047415937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6490497388980245466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b8d90986a02f504283a559f8019e004, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterDamageEffect
+  changeMaterial: 1
+  materialChangeDuration: 0.2
+  damageMaterial: {fileID: 2100000, guid: 01d5d17434cc3c3bb8972a88983b26ba, type: 2}
+  useCameraShake: 0
+  damageSound:
+    Use: 0
+    SoundType: 0
 --- !u!1001 &2691367368390982457
 PrefabInstance:
   m_ObjectHideFlags: 0

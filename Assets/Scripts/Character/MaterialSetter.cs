@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Larje.Character;
 using UnityEngine;
 
 public class MaterialSetter : MonoBehaviour
@@ -16,9 +17,11 @@ public class MaterialSetter : MonoBehaviour
 
     private void GrabRenderers()
     {
+        Character character = GetComponentInParent<Character>();
+
         List<Renderer> renderers = new List<Renderer>();
-        renderers.AddRange(GetComponentsInChildren<MeshRenderer>(true));
-        renderers.AddRange(GetComponentsInChildren<SkinnedMeshRenderer>(true));
+        renderers.AddRange(character.GetComponentsInChildren<MeshRenderer>(true));
+        renderers.AddRange(character.GetComponentsInChildren<SkinnedMeshRenderer>(true));
         
         _renderers = new Dictionary<Renderer, List<Material>>();
         foreach (Renderer renderer in renderers)
