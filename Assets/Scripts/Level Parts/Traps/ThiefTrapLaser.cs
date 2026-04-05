@@ -11,10 +11,12 @@ public class ThiefTrapLaser : MonoBehaviour
     [SerializeField] private Transform pointB;
     [SerializeField] private GameObject colliders;
     [SerializeField] private LineRenderer[] lasers;
+    [SerializeField] private GameObject[] muzzles;
 
     [Header("Damage")]
     [SerializeField] private int damage = 10;
     [SerializeField] private float damageInterval = 0.5f;
+    [SerializeField] private GameObject damageEffectPrefab;
 
     [Header("Commands")]
     [SerializeField, SerializeReference] private List<Command> commands = new List<Command>();
@@ -82,6 +84,12 @@ public class ThiefTrapLaser : MonoBehaviour
                 damage = this.damage,
                 hitDirection = dir,
             });
+
+            if (damageEffectPrefab != null)
+            {
+                GameObject effect = Instantiate(damageEffectPrefab);
+                effect.transform.position = target.gameObject.transform.position + Vector3.up * 1f;
+            }
         }
     }
 
@@ -132,6 +140,10 @@ public class ThiefTrapLaser : MonoBehaviour
         foreach (LineRenderer laser in lasers)
         {
             laser.enabled = active;
+        }
+        foreach (GameObject muzzle in muzzles)
+        {
+            muzzle.SetActive(active);
         }
     }
 
