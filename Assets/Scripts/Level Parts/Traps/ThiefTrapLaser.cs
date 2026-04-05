@@ -74,7 +74,7 @@ public class ThiefTrapLaser : MonoBehaviour
         if (target != null)
         {
             Vector3 targetLocalPos = transform.InverseTransformPoint(target.gameObject.transform.position);
-            Vector3 dir = Vector3.forward * (targetLocalPos.z > 0 ? 1 : -1);
+            Vector3 dir = transform.forward * (targetLocalPos.z > 0 ? 1 : -1);
 
             _damageCooldown = damageInterval;
             target.SendDamage(new DamageData
