@@ -17,13 +17,13 @@ public class ThiefGameService : Service
     [Space]
     [SerializeField] private float levelStartCutsceneDuration = 2f;
 
-
     [InjectService] private UIService _uiService;
     [InjectService] private GameEventService _gameEventService;
     [InjectService] private IDataService _dataService;
     [InjectService] private IGameStateService _gameStateService;
     [InjectService] private ILevelManagerService _levelManagerService;
     [InjectService] private IAdsService _adsService;
+    [InjectService] private IAnalyticsService _analyticsService;
 
     public override void Init()
     {
@@ -43,6 +43,8 @@ public class ThiefGameService : Service
         _uiService.GetProcessor<UIScreenProcessor>().OpenScreen(new PlayScreen.Args());
         _gameStateService.SetGameState(GameStates.Cutscene);
         _gameEventService.SendEvent(new LevelEventPreStart(levelStartCutsceneDuration));
+
+        SendLevelEvent("Start");
 
         DOVirtual.DelayedCall(levelStartCutsceneDuration, () =>
         {
@@ -66,6 +68,7 @@ public class ThiefGameService : Service
     {
         if (newState == GameStates.Win)
         {
+            SendLevelEvent("Win");
             _uiService.GetProcessor<UIScreenProcessor>().OpenScreen(new WinScreen.Args((rewardedShown) => 
             {
                 _levelManagerService.IncrementLevelId();
@@ -75,6 +78,7 @@ public class ThiefGameService : Service
 
         if (newState == GameStates.Fail)
         {
+            SendLevelEvent("Die");
             _uiService.GetProcessor<UIPopupProcessor>().OpenPopup(new RevivePopup.Args(OnPlayerRevive, OnPlayerFail));
         }
     }
@@ -116,11 +120,21 @@ public class ThiefGameService : Service
 
     private void OnPlayerRevive()
     {
+        SendLevelEvent("Revive");
         _levelManagerService.TryStartCurrentLevel(new LevelProcessor.StartData(LevelStartType.Revive));
     }
 
     private void OnPlayerFail()
     {
+        SendLevelEvent("Restart");
         _uiService.GetProcessor<UIScreenProcessor>().OpenScreen(new FailScreen.Args(() => LoadCurrentLevel(levelLoadingDuration, true)));
+    }
+
+    private void SendLevelEvent(string eventName)
+    {
+        int levelIndex = _levelManagerService.GetCurrentLevelIndex();
+        string fullEvent = $"Level_{levelIndex}_{eventName}";
+
+        _analyticsService.SendEvent(fullEvent);
     }
 }

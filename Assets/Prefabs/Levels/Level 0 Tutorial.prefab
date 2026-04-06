@@ -554,7 +554,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5948302063111576897}
   - component: {fileID: 293546923792788184}
-  - component: {fileID: 1038525440589556213}
   - component: {fileID: 4389101875139061999}
   - component: {fileID: 8639339724898478286}
   m_Layer: 0
@@ -603,18 +602,6 @@ MonoBehaviour:
   lightmapConfig: {fileID: 11400000, guid: f9d9aba071a4387e282bb70ef84f7db8, type: 2}
   gizmoColor: {r: 1, g: 1, b: 1, a: 1}
   gizmoSize: 0.25
---- !u!114 &1038525440589556213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2933760323910776934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 091c1696f0771384fa7d3f0105840b57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4389101875139061999
 MonoBehaviour:
   m_ObjectHideFlags: 0

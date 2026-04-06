@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a53fa1e0f61350a79fc7a33b6c9fee9, type: 3}
+  m_Name: Level_4
+  m_EditorClassIdentifier: Assembly-CSharp::LightmapPackConfig
+  lightmaps:
+  - color: Level_4_Lightmap-0_comp_light
+    direction: 
+    shadow: 
+  probePath: Level_4_lightProbes
+  rendererEntries:
+  - path: Level Holder/Level 4/Building/Bake Plaveholders/Door (1)
+    lightmapIndex: 0
+    scaleOffset: {x: 0.0009838406, y: 0.0009838406, z: 0.44140226, w: 0.43651944}
+  - path: Level Holder/Level 4/Building/Props/Prop_Table (2)/Table
+    lightmapIndex: 0
+    scaleOffset: {x: 0.07121539, y: 0.07121539, z: 0.5278593, w: 0.296414}
+  - path: Level Holder/Level 4/Building/Props/Prop_Table (1)/Table
+    lightmapIndex: 0
+    scaleOffset: {x: 0.07121539, y: 0.07121539, z: 0.5893827, w: 0.296414}
+  - path: Level Holder/Level 4/Building/Props/Prop_Box (5)/Box
+    lightmapIndex: 0
+    scaleOffset: {x: 0.062034797, y: 0.062034797, z: 0.90765923, w: -0.0054267296}
+  - path: Level Holder/Level 4/Building/Props/Prop_Box (4)/Box
+    lightmapIndex: 0
+    scaleOffset: {x: 0.062034797, y: 0.062034797, z: 0.5805108, w: 0.35980764}
+  - path: Level Holder/Level 4/Building/Props/Prop_Flower (1)/Flower/Plant1
+    lightmapIndex: 0
+    scaleOffset: {x: 0.052083883, y: 0.052083883, z: 0.4805302, w: 0.38775676}
+  - path: Level Holder/Level 4/Building/Props/Prop_Flower (1)/Flower
+    lightmapIndex: 0
+    scaleOffset: {x: 0.051550146, y: 0.051550146, z: 0.43579775, w: 0.3879462}
+  - path: Level Holder/Level 4/Building/Props/Prop_Box (3)/Box
+    lightmapIndex: 0
+    scaleOffset: {x: 0.062034797, y: 0.062034797, z: 0.90765923, w: 0.10394827}
+  - path: Level Holder/Level 4/Building/Props/Prop_Box (2)/Box
+    lightmapIndex: 0
+    scaleOffset: {x: 0.062034797, y: 0.062034797, z: 0.90765923, w: 0.04926077}
+  - path: Level Holder/Level 4/Building/Props/Prop_Box (1)/Box
+    lightmapIndex: 0
+    scaleOffset: {x: 0.062034797, y: 0.062034797, z: 0.5277764, w: 0.35980764}
+  - path: Level Holder/Level 4/Building/Props/Prop_MetalTable (1)/Metal Table
+    lightmapIndex: 0
+    scaleOffset: {x: 0.09893108, y: 0.09893108, z: 0.43638077, w: 0.29673234}
+  - path: Level Holder/Level 4/Building/Bake Plaveholders/Door
+    lightmapIndex: 0
+    scaleOffset: {x: 0.0009838406, y: 0.0009838406, z: 0.44433194, w: 0.43651944}
+  - path: Level Holder/Level 4/Building/Building_A/Wall
+    lightmapIndex: 0
+    scaleOffset: {x: 0.4413897, y: 0.4413897, z: 0, w: 0}
+  - path: Level Holder/Level 4/Building/Building_A/Floor
+    lightmapIndex: 0
+    scaleOffset: {x: 0.3054416, y: 0.3054416, z: 0.4402131, w: -0.0011931312}
+  - path: Level Holder/Level 4/Environment/Ground Top
+    lightmapIndex: 0
+    scaleOffset: {x: 0.24414062, y: 0.24414062, z: 0.6669922, w: 0}

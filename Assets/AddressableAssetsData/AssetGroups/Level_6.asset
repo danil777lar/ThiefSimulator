@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Level_6
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Level_6
+  m_GUID: 2d9b43c673662ee3fb454c782f8abf1f
+  m_SerializeEntries:
+  - m_GUID: 118c469c7304b6b8d898266530140536
+    m_Address: Level_6_lightProbes
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7878ad5a5244fa5198e334c2c98f8478
+    m_Address: Level_6_Lightmap-0_comp_light 1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bfa180e7a2ee88459acb8f653d3cec46
+    m_Address: Level_6_Lightmap-0_comp_light
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dccaee6d987c04b85bbf60206fcb4303
+    m_Address: Level_6_lightProbes 1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 7a444b37a9a00764a969b9242fd097a4, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 62be516c909c744eb9be7639d90b130f, type: 2}
+    - {fileID: 11400000, guid: ce8616a18c7a5d6ccb3db1652ac97c89, type: 2}

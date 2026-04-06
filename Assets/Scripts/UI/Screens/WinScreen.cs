@@ -40,11 +40,12 @@ public class WinScreen : UIScreen, IItemQualityBackgroundUser
     [SerializeField] private List<LootStep> lootSteps;
 
     [InjectService] private UIService _uiService;
+    [InjectService] private ItemHolderService _itemsService;
     [InjectService] private ILevelManagerService _levelService;
     [InjectService] private ICurrencyService _currencyService;
     [InjectService] private IAdsService _adsService;
-    [InjectService] private ItemHolderService _itemsService;
     [InjectService] private IDataService _dataService;
+    [InjectService] private IAnalyticsService _analyticsService;
 
     private bool _bestRewardGiven;
     private bool _rewardedShown;
@@ -147,8 +148,13 @@ public class WinScreen : UIScreen, IItemQualityBackgroundUser
     {
         if (lootSteps[_currentStepIndex].WithAd)
         {
+            int stepIndex = _currentStepIndex;
             _rewardedShown = true;
-            _adsService.ShowRewarded(null, null, OpenCase, null);
+            _adsService.ShowRewarded(null, null, () => 
+            {
+                OpenCase();
+                _analyticsService.SendEvent($"Open_Ad_Case_{stepIndex}");
+            }, null);
         }
         else
         {

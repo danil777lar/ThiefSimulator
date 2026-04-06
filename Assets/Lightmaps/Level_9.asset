@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a53fa1e0f61350a79fc7a33b6c9fee9, type: 3}
+  m_Name: Level_9
+  m_EditorClassIdentifier: Assembly-CSharp::LightmapPackConfig
+  lightmaps:
+  - color: Level_9_Lightmap-0_comp_light
+    direction: 
+    shadow: 
+  probePath: Level_9_lightProbes
+  rendererEntries:
+  - path: Level Holder/Level 9/Building/Bake Plaveholders/Door (1)
+    lightmapIndex: 0
+    scaleOffset: {x: 0.0009838406, y: 0.0009838406, z: -0.0000039902275, w: 0.9794882}
+  - path: Level Holder/Level 9/Building/Props/Prop_Box (6)/Box
+    lightmapIndex: 0
+    scaleOffset: {x: 0.062034797, y: 0.062034797, z: 0.28461233, w: 0.5209405}
+  - path: Level Holder/Level 9/Building/Props/Prop_Box (5)/Box
+    lightmapIndex: 0
+    scaleOffset: {x: 0.062034797, y: 0.062034797, z: 0.3373467, w: 0.5209405}
+  - path: Level Holder/Level 9/Building/Props/Prop_Box (4)/Box
+    lightmapIndex: 0
+    scaleOffset: {x: 0.062034797, y: 0.062034797, z: 0.3373467, w: 0.575628}
+  - path: Level Holder/Level 9/Building/Props/Prop_Box (3)/Box
+    lightmapIndex: 0
+    scaleOffset: {x: 0.062034797, y: 0.062034797, z: 0.44281545, w: 0.5209405}
+  - path: Level Holder/Level 9/Building/Props/Prop_Box (2)/Box
+    lightmapIndex: 0
+    scaleOffset: {x: 0.062034797, y: 0.062034797, z: 0.28461233, w: 0.575628}
+  - path: Level Holder/Level 9/Building/Props/Prop_Box (1)/Box
+    lightmapIndex: 0
+    scaleOffset: {x: 0.062034797, y: 0.062034797, z: 0.39008108, w: 0.5209405}
+  - path: Level Holder/Level 9/Building/Props/Prop_Flower (3)/Flower/Plant1
+    lightmapIndex: 0
+    scaleOffset: {x: 0.052083883, y: 0.052083883, z: 0.41900676, w: 0.62994426}
+  - path: Level Holder/Level 9/Building/Props/Prop_Flower (3)/Flower
+    lightmapIndex: 0
+    scaleOffset: {x: 0.051550146, y: 0.051550146, z: 0.4348212, w: 0.5754462}
+  - path: Level Holder/Level 9/Building/Props/Prop_Flower (2)/Flower/Plant1
+    lightmapIndex: 0
+    scaleOffset: {x: 0.052083883, y: 0.052083883, z: 0.329163, w: 0.62994426}
+  - path: Level Holder/Level 9/Building/Props/Prop_Flower (2)/Flower
+    lightmapIndex: 0
+    scaleOffset: {x: 0.051550146, y: 0.051550146, z: 0.3898993, w: 0.5754462}
+  - path: Level Holder/Level 9/Building/Props/Prop_Flower (1)/Flower/Plant1
+    lightmapIndex: 0
+    scaleOffset: {x: 0.052083883, y: 0.052083883, z: 0.3740849, w: 0.62994426}
+  - path: Level Holder/Level 9/Building/Props/Prop_Flower (1)/Flower
+    lightmapIndex: 0
+    scaleOffset: {x: 0.051550146, y: 0.051550146, z: 0.28443056, w: 0.6301337}
+  - path: Level Holder/Level 9/Building/Props/Prop_MetalTable (3)/Metal Table
+    lightmapIndex: 0
+    scaleOffset: {x: 0.09893108, y: 0.09893108, z: 0.17856829, w: 0.88266987}
+  - path: Level Holder/Level 9/Building/Props/Prop_MetalTable (2)/Metal Table
+    lightmapIndex: 0
+    scaleOffset: {x: 0.09893108, y: 0.09893108, z: 0.08677141, w: 0.88266987}
+  - path: Level Holder/Level 9/Building/Props/Prop_MetalTable (1)/Metal Table
+    lightmapIndex: 0
+    scaleOffset: {x: 0.09893108, y: 0.09893108, z: -0.005025463, w: 0.88266987}
+  - path: Level Holder/Level 9/Building/Bake Plaveholders/Door
+    lightmapIndex: 0
+    scaleOffset: {x: 0.0009838406, y: 0.0009838406, z: -0.0000039902275, w: 0.9824179}
+  - path: Level Holder/Level 9/Building/Building_A/Wall
+    lightmapIndex: 0
+    scaleOffset: {x: 0.5258669, y: 0.5258669, z: 0, w: 0}
+  - path: Level Holder/Level 9/Building/Building_A/Floor
+    lightmapIndex: 0
+    scaleOffset: {x: 0.36572468, y: 0.36572468, z: -0.001428612, w: 0.5249386}
+  - path: Level Holder/Level 9/Environment/Ground Top
+    lightmapIndex: 0
+    scaleOffset: {x: 0.24414062, y: 0.24414062, z: 0.5253906, w: 0}

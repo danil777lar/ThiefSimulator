@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a53fa1e0f61350a79fc7a33b6c9fee9, type: 3}
+  m_Name: Level_3
+  m_EditorClassIdentifier: Assembly-CSharp::LightmapPackConfig
+  lightmaps:
+  - color: Level_3_Lightmap-0_comp_light
+    direction: 
+    shadow: 
+  probePath: Level_3_lightProbes
+  rendererEntries:
+  - path: Level Holder/Level 3/Building/Bake Plaveholders/Door (1)
+    lightmapIndex: 0
+    scaleOffset: {x: 0.0009838406, y: 0.0009838406, z: 0.4296835, w: 0.44237882}
+  - path: Level Holder/Level 3/Building/Props/Prop_AmmoBox (2)/Ammo Box/Ammo Box
+      Top
+    lightmapIndex: 0
+    scaleOffset: {x: 0.07728957, y: 0.07728957, z: 0.041675948, w: 0.9069103}
+  - path: Level Holder/Level 3/Building/Props/Prop_AmmoBox (2)/Ammo Box
+    lightmapIndex: 0
+    scaleOffset: {x: 0.075217284, y: 0.075217284, z: 0.24090739, w: 0.5963761}
+  - path: Level Holder/Level 3/Building/Props/Prop_AmmoBox (1)/Ammo Box/Ammo Box
+      Top
+    lightmapIndex: 0
+    scaleOffset: {x: 0.07728957, y: 0.07728957, z: -0.013988113, w: 0.9069103}
+  - path: Level Holder/Level 3/Building/Props/Prop_AmmoBox (1)/Ammo Box
+    lightmapIndex: 0
+    scaleOffset: {x: 0.075217284, y: 0.075217284, z: 0.24090739, w: 0.5289933}
+  - path: Level Holder/Level 3/Building/Props/Prop_Box (4)/Box
+    lightmapIndex: 0
+    scaleOffset: {x: 0.062034797, y: 0.062034797, z: 0.36273733, w: 0.5834405}
+  - path: Level Holder/Level 3/Building/Props/Prop_Box (3)/Box
+    lightmapIndex: 0
+    scaleOffset: {x: 0.062034797, y: 0.062034797, z: 0.31000295, w: 0.5834405}
+  - path: Level Holder/Level 3/Building/Props/Prop_Box (2)/Box
+    lightmapIndex: 0
+    scaleOffset: {x: 0.062034797, y: 0.062034797, z: 0.31000295, w: 0.528753}
+  - path: Level Holder/Level 3/Building/Props/Prop_Box (1)/Box
+    lightmapIndex: 0
+    scaleOffset: {x: 0.062034797, y: 0.062034797, z: 0.36273733, w: 0.528753}
+  - path: Level Holder/Level 3/Building/Props/Prop_MetalTable (2)/Metal Table
+    lightmapIndex: 0
+    scaleOffset: {x: 0.09893108, y: 0.09893108, z: 0.33286515, w: 0.43735734}
+  - path: Level Holder/Level 3/Building/Props/Prop_MetalTable (1)/Metal Table
+    lightmapIndex: 0
+    scaleOffset: {x: 0.09893108, y: 0.09893108, z: 0.24106829, w: 0.43735734}
+  - path: Level Holder/Level 3/Building/Bake Plaveholders/Door
+    lightmapIndex: 0
+    scaleOffset: {x: 0.0009838406, y: 0.0009838406, z: 0.4326132, w: 0.44237882}
+  - path: Level Holder/Level 3/Building/Building_A/Wall
+    lightmapIndex: 0
+    scaleOffset: {x: 0.44286755, y: 0.44286755, z: 0, w: 0}
+  - path: Level Holder/Level 3/Building/Building_A/Floor
+    lightmapIndex: 0
+    scaleOffset: {x: 0.2492763, y: 0.2492763, z: -0.0009737355, w: 0.6875028}
+  - path: Level Holder/Level 3/Environment/Ground Top
+    lightmapIndex: 0
+    scaleOffset: {x: 0.24414062, y: 0.24414062, z: 0, w: 0.4423828}

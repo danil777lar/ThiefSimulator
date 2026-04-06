@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a53fa1e0f61350a79fc7a33b6c9fee9, type: 3}
+  m_Name: Level_7
+  m_EditorClassIdentifier: Assembly-CSharp::LightmapPackConfig
+  lightmaps:
+  - color: Level_7_Lightmap-0_comp_light 1
+    direction: 
+    shadow: 
+  probePath: Level_7_lightProbes 1
+  rendererEntries:
+  - path: Level Holder/Level 7/Building/Bake Plaveholders/Door (1)
+    lightmapIndex: 0
+    scaleOffset: {x: 0.0009838406, y: 0.0009838406, z: 0.66601163, w: 0.31444913}
+  - path: Level Holder/Level 7/Building/Props/Prop_Box (4)/Box
+    lightmapIndex: 0
+    scaleOffset: {x: 0.062034797, y: 0.062034797, z: 0.9115655, w: 0.116643585}
+  - path: Level Holder/Level 7/Building/Props/Prop_Box (5)/Box
+    lightmapIndex: 0
+    scaleOffset: {x: 0.062034797, y: 0.062034797, z: 0.60492486, w: 0.3090264}
+  - path: Level Holder/Level 7/Building/Props/Prop_AmmoBox (2)/Ammo Box/Ammo Box
+      Top
+    lightmapIndex: 0
+    scaleOffset: {x: 0.07728957, y: 0.07728957, z: 0.90300405, w: 0.1627697}
+  - path: Level Holder/Level 7/Building/Props/Prop_AmmoBox (2)/Ammo Box
+    lightmapIndex: 0
+    scaleOffset: {x: 0.075217284, y: 0.075217284, z: 0.9118058, w: -0.0051863603}
+  - path: Level Holder/Level 7/Building/Props/Prop_AmmoBox (1)/Ammo Box/Ammo Box
+      Top
+    lightmapIndex: 0
+    scaleOffset: {x: 0.07728957, y: 0.07728957, z: 0.6569103, w: 0.23210564}
+  - path: Level Holder/Level 7/Building/Props/Prop_AmmoBox (1)/Ammo Box
+    lightmapIndex: 0
+    scaleOffset: {x: 0.075217284, y: 0.075217284, z: 0.53582925, w: 0.30926678}
+  - path: Level Holder/Level 7/Building/Props/Prop_Box (3)/Box
+    lightmapIndex: 0
+    scaleOffset: {x: 0.062034797, y: 0.062034797, z: 0.5355889, w: 0.3764092}
+  - path: Level Holder/Level 7/Building/Props/Prop_Box (2)/Box
+    lightmapIndex: 0
+    scaleOffset: {x: 0.062034797, y: 0.062034797, z: 0.5883233, w: 0.3764092}
+  - path: Level Holder/Level 7/Building/Props/Prop_Box (1)/Box
+    lightmapIndex: 0
+    scaleOffset: {x: 0.062034797, y: 0.062034797, z: 0.9115655, w: 0.06195608}
+  - path: Level Holder/Level 7/Building/Props/Prop_Flower (2)/Flower/Plant1
+    lightmapIndex: 0
+    scaleOffset: {x: 0.052083883, y: 0.052083883, z: 0.4883427, w: 0.40045208}
+  - path: Level Holder/Level 7/Building/Props/Prop_Flower (2)/Flower
+    lightmapIndex: 0
+    scaleOffset: {x: 0.051550146, y: 0.051550146, z: 0.66528994, w: 0.28931338}
+  - path: Level Holder/Level 7/Building/Props/Prop_Flower (3)/Flower/Plant1
+    lightmapIndex: 0
+    scaleOffset: {x: 0.052083883, y: 0.052083883, z: 0.44342083, w: 0.40045208}
+  - path: Level Holder/Level 7/Building/Props/Prop_Flower (3)/Flower
+    lightmapIndex: 0
+    scaleOffset: {x: 0.051550146, y: 0.051550146, z: 0.66528994, w: 0.33228213}
+  - path: Level Holder/Level 7/Building/Props/Prop_Flower (1)/Flower/Plant1
+    lightmapIndex: 0
+    scaleOffset: {x: 0.052083883, y: 0.052083883, z: 0.7207646, w: 0.24029583}
+  - path: Level Holder/Level 7/Building/Props/Prop_Flower (1)/Flower
+    lightmapIndex: 0
+    scaleOffset: {x: 0.051550146, y: 0.051550146, z: 0.66528994, w: 0.37525088}
+  - path: Level Holder/Level 7/Building/Props/Prop_MetalTable (1)/Metal Table
+    lightmapIndex: 0
+    scaleOffset: {x: 0.09893108, y: 0.09893108, z: 0.44419327, w: 0.30942765}
+  - path: Level Holder/Level 7/Building/Bake Plaveholders/Door
+    lightmapIndex: 0
+    scaleOffset: {x: 0.0009838406, y: 0.0009838406, z: 0.66308194, w: 0.31444913}
+  - path: Level Holder/Level 7/Building/Building_A/Wall
+    lightmapIndex: 0
+    scaleOffset: {x: 0.4485713, y: 0.4485713, z: 0, w: 0}
+  - path: Level Holder/Level 7/Building/Building_A/Floor
+    lightmapIndex: 0
+    scaleOffset: {x: 0.31959748, y: 0.31959748, z: 0.44797033, w: -0.0012484277}
+  - path: Level Holder/Level 7/Environment/Ground Top
+    lightmapIndex: 0
+    scaleOffset: {x: 0.24414062, y: 0.24414062, z: 0.67089844, w: 0}
