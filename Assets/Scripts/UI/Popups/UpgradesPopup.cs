@@ -15,6 +15,7 @@ public class UpgradesPopup : UIPopup
     [SerializeField] private Transform content;
     
     [InjectService] private UpgradesService _upgradesService;
+    [InjectService] private IAdsService _adsService;
     
     protected override void OnBeforeOpen(UIObject.Args args)
     {
@@ -23,6 +24,11 @@ public class UpgradesPopup : UIPopup
         buttonClose.onClick.AddListener(Close);
 
         BuildUpgrades();
+    }
+
+    protected override void OnAfterOpen(UIObject.Args args)
+    {
+        _adsService.ShowInterstitial();
     }
 
     private void BuildUpgrades()

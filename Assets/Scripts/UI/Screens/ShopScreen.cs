@@ -28,8 +28,9 @@ public class ShopScreen : UIScreen
     [SerializeField] private Camera previewCamera;
     [SerializeField] private RawImage previewImage;
     
-    [InjectService] private IItemHolderService _itemHolderService;
     [InjectService] private UIService _uiService;
+    [InjectService] private IAdsService _adsService;
+    [InjectService] private IItemHolderService _itemHolderService;
 
     private ItemTypes _currentItemTypes = ItemTypes.Hats;
     private RenderTexture _previewTexture;
@@ -42,6 +43,11 @@ public class ShopScreen : UIScreen
 
         SetPreview();
         SubscribeTabs();
+    }
+
+    protected override void OnAfterOpen(UIObject.Args args)
+    {
+        _adsService.ShowInterstitial();
     }
 
     private void SubscribeTabs()
