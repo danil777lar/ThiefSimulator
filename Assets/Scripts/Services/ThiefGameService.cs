@@ -9,18 +9,28 @@ using UnityEngine;
 [BindService(typeof(ThiefGameService))]
 public class ThiefGameService : Service
 {
+    [Header("Loading")]
+    [SerializeField] private float firstStartLoadingDuration;
+    [SerializeField] private float usualLoadingDuration;
+    [SerializeField] private float levelLoadingDuration;
+
+    [Space]
     [SerializeField] private float levelStartCutsceneDuration = 2f;
+
 
     [InjectService] private UIService _uiService;
     [InjectService] private GameEventService _gameEventService;
+    [InjectService] private IDataService _dataService;
     [InjectService] private IGameStateService _gameStateService;
     [InjectService] private ILevelManagerService _levelManagerService;
+    [InjectService] private IAdsService _adsService;
 
     public override void Init()
     {
         _gameStateService.EventGameStateChanged += OnOnGameStateChanged;
 
-        StartGame();
+        bool firstStart = _dataService.SystemData.IternalData.SessionNum <= 1;
+        LoadCurrentLevel(firstStart ? firstStartLoadingDuration : usualLoadingDuration, !firstStart);
     }
 
     public void StartLevel()
@@ -44,22 +54,23 @@ public class ThiefGameService : Service
     public void RestartLevel()
     {
         _levelManagerService.SpawnCurrentLevel();
-        Load(() => 
-        {
-            StartLevel();
-        });
+        Load(levelLoadingDuration, true, StartLevel);
     }
 
     public void ReturnToMenu()
     {
-        StartGame();
+        LoadCurrentLevel(levelLoadingDuration, true);
     }
 
     private void OnOnGameStateChanged(GameState oldState, GameState newState)
     {
         if (newState == GameStates.Win)
         {
-            _uiService.GetProcessor<UIScreenProcessor>().OpenScreen(new WinScreen.Args());
+            _uiService.GetProcessor<UIScreenProcessor>().OpenScreen(new WinScreen.Args((rewardedShown) => 
+            {
+                _levelManagerService.IncrementLevelId();
+                LoadCurrentLevel(levelLoadingDuration, !rewardedShown);
+            }));
         }
 
         if (newState == GameStates.Fail)
@@ -68,10 +79,11 @@ public class ThiefGameService : Service
         }
     }
 
-    private void StartGame()
+    private void LoadCurrentLevel(float duration, bool showInter)
     {
         _levelManagerService.SpawnCurrentLevel();
-        Load(() => 
+
+        Load(duration, showInter, () => 
         {
             MenuScreen.Args menuScreenArgs = new MenuScreen.Args();
             _uiService.GetProcessor<UIScreenProcessor>().OpenScreen(menuScreenArgs);
@@ -79,11 +91,26 @@ public class ThiefGameService : Service
         });
     }
 
-    private void Load(Action onComplete)
+    private void Load(float duration, bool showInter, Action onComplete)
     {
-        LoadingScreen.Args loadingScreen = new LoadingScreen.Args(true, () => onComplete?.Invoke());
-
+        if (_gameStateService.CurrentState == GameStates.Loading)
+        {
+            return;
+        }
         _gameStateService.SetGameState(GameStates.Loading);
+
+        float loadingProgress = 0f;
+        DOVirtual.Float(0f, 1f, duration, value => loadingProgress = value)
+            .OnComplete(() => 
+            {
+                onComplete?.Invoke();
+                if (showInter)
+                {
+                    _adsService.ShowInterstitial(0);
+                }
+            });
+
+        LoadingScreen.Args loadingScreen = new LoadingScreen.Args(() => loadingProgress);
         _uiService.GetProcessor<UIScreenProcessor>().OpenScreen(loadingScreen);
     }
 
@@ -94,6 +121,6 @@ public class ThiefGameService : Service
 
     private void OnPlayerFail()
     {
-        _uiService.GetProcessor<UIScreenProcessor>().OpenScreen(new FailScreen.Args(StartGame));
+        _uiService.GetProcessor<UIScreenProcessor>().OpenScreen(new FailScreen.Args(() => LoadCurrentLevel(levelLoadingDuration, true)));
     }
 }

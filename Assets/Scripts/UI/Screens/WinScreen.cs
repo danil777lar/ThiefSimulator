@@ -53,13 +53,20 @@ public class WinScreen : UIScreen, IItemQualityBackgroundUser
     private ItemType _bestRewardType;
     private RewardedAdButton _rewardAdButton;
     private IEnumerator _showSkipButtonCoroutine;
+
+    private Args _args;
     
     public ThiefItem Item => _bestReward as ThiefItem;
     public event Action EventItemChanged;
     
-    protected override void OnBeforeOpen(UIObject.Args args)
+    protected override void OnBeforeOpen(UIObject.Args rawArgs)
     {
         DIContainer.InjectTo(this);
+
+        if (rawArgs is Args args)
+        {
+            _args = args;
+        }
         
         GrabBestReward();
         
@@ -221,10 +228,7 @@ public class WinScreen : UIScreen, IItemQualityBackgroundUser
 
     private void CloseScreen()
     {
-        _levelService.IncrementLevelId();
-        _levelService.SpawnCurrentLevel();
-        _uiService.GetProcessor<UIScreenProcessor>()
-            .OpenScreen(new LoadingScreen.Args(!_rewardedShown,null));
+        _args.OnNext?.Invoke(_rewardedShown);
     }
 
     private IEnumerator NextStepDelayCoroutine()
@@ -241,9 +245,11 @@ public class WinScreen : UIScreen, IItemQualityBackgroundUser
 
     public class Args : UIScreen.Args
     {
-        public Args() : base(UIScreenType.Win)
+        public readonly Action<bool> OnNext;
+
+        public Args(Action<bool> onNext) : base(UIScreenType.Win)
         {
-            
+            OnNext = onNext;
         }
     }
 

@@ -2,6 +2,7 @@
 using DG.Tweening;
 using Larje.Character;
 using Larje.Core;
+using Larje.Core.Services;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,7 @@ public class PlayerHealthBar : MonoBehaviour
     [Space]
     [SerializeField] private float lifetime = 1f;
 
+    [InjectService] private IGameStateService _gameStateService;
     [InjectService] private IPlayerProviderService _playerProvider;
 
     private float _currentLifetime;
@@ -39,6 +41,11 @@ public class PlayerHealthBar : MonoBehaviour
 
     private void Update()
     {
+        if (_gameStateService.CurrentState != GameStates.Playing)
+        {
+            return;
+        }
+
         if (_currentLifetime > 0)
         {
             secondarySlider.value = Mathf.Lerp(secondarySlider.value, _playerHealth.HealthPercent, Time.deltaTime * 2f);
@@ -53,6 +60,11 @@ public class PlayerHealthBar : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_gameStateService.CurrentState != GameStates.Playing)
+        {
+            return;
+        }
+
         Vector3 targetPositon = _mainCamera.WorldToScreenPoint(_playerHealth.transform.position + Vector3.up * -1f);
         barRoot.transform.position = Vector3.Lerp(barRoot.transform.position, targetPositon, Time.deltaTime * 10f);
     }

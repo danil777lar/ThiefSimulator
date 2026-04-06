@@ -15,7 +15,6 @@ public class PausePopup : UIPopup
     [SerializeField] private Button mainMenuButton;
 
     [InjectService] private UIService _uiService;
-    [InjectService] private TimeScaleService _timeScaleService;
     [InjectService] private ThiefGameService _thiefGameService;
 
     private bool _interactable = false;
@@ -36,18 +35,11 @@ public class PausePopup : UIPopup
         restartButton.onClick.AddListener(OnRestartButtonClicked);
         mainMenuButton.onClick.AddListener(OnMainMenuButtonClicked);
         
-        _timeScaleService.PlayTimeScaleAnim(TimeScaleAnimationType.Stop);
-        
         DOVirtual.DelayedCall(0.25f, () =>
         {
             _interactable = true;
             _closable = true;
         });
-    }
-
-    protected override void OnBeforeClose()
-    {
-        _timeScaleService.PlayTimeScaleAnim(TimeScaleAnimationType.Start);
     }
 
     private void OnResumeButtonClicked()

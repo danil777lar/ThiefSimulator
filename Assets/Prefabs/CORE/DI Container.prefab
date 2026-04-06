@@ -94,6 +94,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36cd83bc5ad241ddf8bffeed99aabc32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThiefGameService
+  firstStartLoadingDuration: 2
+  usualLoadingDuration: 5
+  levelLoadingDuration: 1
   levelStartCutsceneDuration: 2
 --- !u!1 &1376016725206458951
 GameObject:
@@ -300,50 +303,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab36f27017ad57de2883b967cbf8fa50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Larje.Core.Services.GameStateService
---- !u!1 &4096247983128994453
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5372280185341536898}
-  - component: {fileID: 167577803697539353}
-  m_Layer: 0
-  m_Name: Time Scale Service
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5372280185341536898
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4096247983128994453}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3924575942675980841}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &167577803697539353
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4096247983128994453}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b03592a268ff5244db77e6ae29ccb9f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4602419923549300149
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,7 +347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7e9414877ba6be42b2e14a32091ed86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  editorMode: 1
+  editorMode: 0
   spawnLevelOnInit: 0
   levelHolder: {fileID: 0}
   levels:
@@ -766,7 +725,6 @@ Transform:
   - {fileID: 397917653485307546}
   - {fileID: 5955355263874339563}
   - {fileID: 461859336289030876}
-  - {fileID: 5372280185341536898}
   - {fileID: 5063558049708967949}
   - {fileID: 6444530551971039719}
   - {fileID: 1805270456999173416}
@@ -866,7 +824,7 @@ MonoBehaviour:
         Channels: []
     IternalData:
       AdsDisabled: 0
-      SessionNum: 1
+      SessionNum: 0
       DebugConsoleData:
         overlayEnabled: 0
   gameData:
@@ -1225,23 +1183,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AdmobAdsService
   delayBetweenAds: 20
   androidKeys:
-    AdaptiveBanner: ca-app-pub-3940256099942544/9214589741
-    FixedSizeBanner: ca-app-pub-3940256099942544/6300978111
-    Interstitial: ca-app-pub-3940256099942544/1033173712
-    RewardedAds: ca-app-pub-3940256099942544/5224354917
-    AppOpen: ca-app-pub-3940256099942544/9257395921
-    RewardedInterstitial: ca-app-pub-3940256099942544/5354046379
-    Native: ca-app-pub-3940256099942544/2247696110
-    NativeVideo: ca-app-pub-3940256099942544/1044960115
+    AdaptiveBanner: ca-app-pub-1600481351701160/3165728770
+    FixedSizeBanner: ca-app-pub-1600481351701160/3165728770
+    Interstitial: ca-app-pub-1600481351701160/8261413836
+    RewardedAds: ca-app-pub-1600481351701160/6948332160
+    AppOpen: ca-app-pub-1600481351701160/9946759542
+    RewardedInterstitial: 
+    Native: 
+    NativeVideo: 
   iosKeys:
-    AdaptiveBanner: ca-app-pub-3940256099942544/9214589741
-    FixedSizeBanner: ca-app-pub-3940256099942544/6300978111
-    Interstitial: ca-app-pub-3940256099942544/1033173712
-    RewardedAds: ca-app-pub-3940256099942544/5224354917
-    AppOpen: ca-app-pub-3940256099942544/9257395921
-    RewardedInterstitial: ca-app-pub-3940256099942544/5354046379
-    Native: ca-app-pub-3940256099942544/2247696110
-    NativeVideo: ca-app-pub-3940256099942544/1044960115
+    AdaptiveBanner: 
+    FixedSizeBanner: 
+    Interstitial: 
+    RewardedAds: 
+    AppOpen: 
+    RewardedInterstitial: 
+    Native: 
+    NativeVideo: 
 --- !u!1 &9017194507356276706
 GameObject:
   m_ObjectHideFlags: 0

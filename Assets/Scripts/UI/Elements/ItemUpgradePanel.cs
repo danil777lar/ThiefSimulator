@@ -46,9 +46,19 @@ public class ItemUpgradePanel : MonoBehaviour
         icon.sprite = _upgrade.Icon;
         upgradeName.text = _upgrade.DisplayName;
         upgradeDescription.text = _upgrade.GetDescription(0);
+
+        _currencyService.EventCurrencyChanged += OnCurrencyChanged;
         
         UpdateUpgradeButtons();
         BuildProgressSlider();
+    }
+
+    private void OnDisable()
+    {
+        if (_currencyService != null)
+        {
+            _currencyService.EventCurrencyChanged -= OnCurrencyChanged;
+        }
     }
 
     private void UpdateUpgradeButtons()
@@ -72,6 +82,11 @@ public class ItemUpgradePanel : MonoBehaviour
         maxLevelButton.gameObject.SetActive(isMaxLevel);
         
         upgradeButtonText.text = isMaxLevel ? "MAX LEVEL" : $"UPGRADE\n${GetCurrentUpgradePrice()}";
+    }
+
+    private void OnCurrencyChanged()
+    {
+        UpdateUpgradeButtons();
     }
 
     private void BuildProgressSlider()
