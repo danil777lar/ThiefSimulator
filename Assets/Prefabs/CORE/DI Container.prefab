@@ -768,7 +768,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetFrameRate: 120
-  logEnabled: 1
+  logEnabled: 0
 --- !u!1 &7036092376627061003
 GameObject:
   m_ObjectHideFlags: 0
@@ -1286,7 +1286,7 @@ PrefabInstance:
     - target: {fileID: 2580145735200357071, guid: 6e4a4e20e8bf4ef8fb2132db661c0a12,
         type: 3}
       propertyPath: enableConsole
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2580145735200357071, guid: 6e4a4e20e8bf4ef8fb2132db661c0a12,
         type: 3}
