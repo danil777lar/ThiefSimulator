@@ -1200,7 +1200,9 @@ MonoBehaviour:
     RewardedInterstitial: 
     Native: 
     NativeVideo: 
-  disableAdsInEditor: 1
+  showAppOpenOnStart: 0
+  showAppOpenOnResume: 0
+  disableAdsInEditor: 0
 --- !u!1 &9017194507356276706
 GameObject:
   m_ObjectHideFlags: 0
