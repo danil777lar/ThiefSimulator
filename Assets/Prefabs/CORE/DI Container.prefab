@@ -827,6 +827,7 @@ MonoBehaviour:
       SessionNum: 0
       DebugConsoleData:
         overlayEnabled: 0
+        overlayTextTransparency: 1
   gameData:
     CurrencyData: []
     LevelObjectsDatabase:
@@ -1182,6 +1183,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AdmobAdsService
   delayBetweenAds: 20
+  showAppOpenOnStart: 0
+  showAppOpenOnResume: 0
   androidKeys:
     AdaptiveBanner: ca-app-pub-1600481351701160/3165728770
     FixedSizeBanner: ca-app-pub-1600481351701160/3165728770
@@ -1200,8 +1203,6 @@ MonoBehaviour:
     RewardedInterstitial: 
     Native: 
     NativeVideo: 
-  showAppOpenOnStart: 0
-  showAppOpenOnResume: 0
   disableAdsInEditor: 0
 --- !u!1 &9017194507356276706
 GameObject:
@@ -1289,7 +1290,7 @@ PrefabInstance:
     - target: {fileID: 2580145735200357071, guid: 6e4a4e20e8bf4ef8fb2132db661c0a12,
         type: 3}
       propertyPath: enableConsole
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2580145735200357071, guid: 6e4a4e20e8bf4ef8fb2132db661c0a12,
         type: 3}
