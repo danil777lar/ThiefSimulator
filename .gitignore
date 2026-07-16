@@ -70,3 +70,8 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Firebase config files contain API keys/project IDs - keep local only, use the .example templates
+/Assets/google-services.json
+/Assets/StreamingAssets/google-services-desktop.json
+/Assets/Plugins/Android/FirebaseApp.androidlib/res/values/google-services.xml
